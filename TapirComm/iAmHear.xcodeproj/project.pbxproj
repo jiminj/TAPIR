@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		241470EE13CF55DA007AAD33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241470ED13CF55DA007AAD33 /* UIKit.framework */; };
+		241470F013CF55DA007AAD33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241470EF13CF55DA007AAD33 /* Foundation.framework */; };
+		241470F213CF55DA007AAD33 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241470F113CF55DA007AAD33 /* CoreGraphics.framework */; };
+		241470F813CF55DA007AAD33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 241470F613CF55DA007AAD33 /* InfoPlist.strings */; };
+		241470FB13CF55DA007AAD33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 241470FA13CF55DA007AAD33 /* main.m */; };
+		241470FE13CF55DA007AAD33 /* iAmHearAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 241470FD13CF55DA007AAD33 /* iAmHearAppDelegate.m */; };
+		2414710113CF55DA007AAD33 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 241470FF13CF55DA007AAD33 /* MainWindow.xib */; };
+		2414710413CF55DA007AAD33 /* iAmHearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2414710313CF55DA007AAD33 /* iAmHearViewController.m */; };
+		2414710713CF55DA007AAD33 /* iAmHearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2414710513CF55DA007AAD33 /* iAmHearViewController.xib */; };
+		2414710E13CF55DB007AAD33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241470ED13CF55DA007AAD33 /* UIKit.framework */; };
+		2414710F13CF55DB007AAD33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241470EF13CF55DA007AAD33 /* Foundation.framework */; };
+		2414711013CF55DB007AAD33 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241470F113CF55DA007AAD33 /* CoreGraphics.framework */; };
+		2414711813CF55DB007AAD33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2414711613CF55DB007AAD33 /* InfoPlist.strings */; };
+		2414711B13CF55DB007AAD33 /* iAmHearTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 2414711A13CF55DB007AAD33 /* iAmHearTests.h */; };
+		2414711D13CF55DB007AAD33 /* iAmHearTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2414711C13CF55DB007AAD33 /* iAmHearTests.m */; };
+		2414712813CF5602007AAD33 /* Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2414712713CF5602007AAD33 /* Recorder.m */; };
+		4756823515F3A8B2000A276E /* iAmHearGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4756823415F3A8B2000A276E /* iAmHearGraph.m */; };
+		4756823B15F6208B000A276E /* strDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4756823A15F6208B000A276E /* strDecoder.m */; };
+		4796A48C13D47BAE000A4E3C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4796A48B13D47BAE000A4E3C /* CoreAudio.framework */; };
+		4796A48F13D47BB2000A4E3C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4796A48E13D47BB2000A4E3C /* AudioToolbox.framework */; };
+		47A827A3165BC62D00ADBA6A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A827A2165BC62D00ADBA6A /* Default.png */; };
+		47A827A4165BC83700ADBA6A /* TAPIR_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A827A0165BC60A00ADBA6A /* TAPIR_icon.png */; };
+		47A827A6165BC96700ADBA6A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A827A5165BC96700ADBA6A /* Icon.png */; };
+		47ABFDA213F689240010FE30 /* iAmHearServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47ABFDA113F689240010FE30 /* iAmHearServer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2414711113CF55DB007AAD33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 241470E013CF55DA007AAD33 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 241470E813CF55DA007AAD33;
+			remoteInfo = iAmHear;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		241470E913CF55DA007AAD33 /* TAPIR Communicator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TAPIR Communicator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		241470ED13CF55DA007AAD33 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		241470EF13CF55DA007AAD33 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		241470F113CF55DA007AAD33 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		241470F513CF55DA007AAD33 /* iAmHear-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iAmHear-Info.plist"; sourceTree = "<group>"; };
+		241470F713CF55DA007AAD33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		241470F913CF55DA007AAD33 /* iAmHear-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iAmHear-Prefix.pch"; sourceTree = "<group>"; };
+		241470FA13CF55DA007AAD33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		241470FC13CF55DA007AAD33 /* iAmHearAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iAmHearAppDelegate.h; sourceTree = "<group>"; };
+		241470FD13CF55DA007AAD33 /* iAmHearAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iAmHearAppDelegate.m; sourceTree = "<group>"; };
+		2414710013CF55DA007AAD33 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		2414710213CF55DA007AAD33 /* iAmHearViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iAmHearViewController.h; sourceTree = "<group>"; };
+		2414710313CF55DA007AAD33 /* iAmHearViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iAmHearViewController.m; sourceTree = "<group>"; };
+		2414710613CF55DA007AAD33 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/iAmHearViewController.xib; sourceTree = "<group>"; };
+		2414711513CF55DB007AAD33 /* iAmHearTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iAmHearTests-Info.plist"; sourceTree = "<group>"; };
+		2414711713CF55DB007AAD33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2414711913CF55DB007AAD33 /* iAmHearTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iAmHearTests-Prefix.pch"; sourceTree = "<group>"; };
+		2414711A13CF55DB007AAD33 /* iAmHearTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iAmHearTests.h; sourceTree = "<group>"; };
+		2414711C13CF55DB007AAD33 /* iAmHearTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iAmHearTests.m; sourceTree = "<group>"; };
+		2414712613CF5602007AAD33 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recorder.h; sourceTree = "<group>"; };
+		2414712713CF5602007AAD33 /* Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recorder.m; sourceTree = "<group>"; };
+		4756822515F24F6A000A276E /* iAmHearTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iAmHearTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4756823315F3A8B2000A276E /* iAmHearGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iAmHearGraph.h; sourceTree = "<group>"; };
+		4756823415F3A8B2000A276E /* iAmHearGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iAmHearGraph.m; sourceTree = "<group>"; };
+		4756823915F6208B000A276E /* strDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strDecoder.h; sourceTree = "<group>"; };
+		4756823A15F6208B000A276E /* strDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = strDecoder.m; sourceTree = "<group>"; };
+		4796A48B13D47BAE000A4E3C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		4796A48E13D47BB2000A4E3C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		47A827A0165BC60A00ADBA6A /* TAPIR_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TAPIR_icon.png; sourceTree = "<group>"; };
+		47A827A2165BC62D00ADBA6A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		47A827A5165BC96700ADBA6A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		47ABFDA013F689240010FE30 /* iAmHearServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iAmHearServer.h; sourceTree = "<group>"; };
+		47ABFDA113F689240010FE30 /* iAmHearServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iAmHearServer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		241470E613CF55DA007AAD33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4796A48F13D47BB2000A4E3C /* AudioToolbox.framework in Frameworks */,
+				4796A48C13D47BAE000A4E3C /* CoreAudio.framework in Frameworks */,
+				241470EE13CF55DA007AAD33 /* UIKit.framework in Frameworks */,
+				241470F013CF55DA007AAD33 /* Foundation.framework in Frameworks */,
+				241470F213CF55DA007AAD33 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2414710913CF55DB007AAD33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2414710E13CF55DB007AAD33 /* UIKit.framework in Frameworks */,
+				2414710F13CF55DB007AAD33 /* Foundation.framework in Frameworks */,
+				2414711013CF55DB007AAD33 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		241470DE13CF55DA007AAD33 = {
+			isa = PBXGroup;
+			children = (
+				47A827A5165BC96700ADBA6A /* Icon.png */,
+				47A827A2165BC62D00ADBA6A /* Default.png */,
+				47A827A0165BC60A00ADBA6A /* TAPIR_icon.png */,
+				241470F313CF55DA007AAD33 /* iAmHear */,
+				2414711313CF55DB007AAD33 /* iAmHearTests */,
+				241470EC13CF55DA007AAD33 /* Frameworks */,
+				241470EA13CF55DA007AAD33 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		241470EA13CF55DA007AAD33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				241470E913CF55DA007AAD33 /* TAPIR Communicator.app */,
+				4756822515F24F6A000A276E /* iAmHearTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		241470EC13CF55DA007AAD33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4796A48E13D47BB2000A4E3C /* AudioToolbox.framework */,
+				4796A48B13D47BAE000A4E3C /* CoreAudio.framework */,
+				241470ED13CF55DA007AAD33 /* UIKit.framework */,
+				241470EF13CF55DA007AAD33 /* Foundation.framework */,
+				241470F113CF55DA007AAD33 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		241470F313CF55DA007AAD33 /* iAmHear */ = {
+			isa = PBXGroup;
+			children = (
+				4756823915F6208B000A276E /* strDecoder.h */,
+				4756823A15F6208B000A276E /* strDecoder.m */,
+				241470FC13CF55DA007AAD33 /* iAmHearAppDelegate.h */,
+				241470FD13CF55DA007AAD33 /* iAmHearAppDelegate.m */,
+				4756823315F3A8B2000A276E /* iAmHearGraph.h */,
+				4756823415F3A8B2000A276E /* iAmHearGraph.m */,
+				2414712613CF5602007AAD33 /* Recorder.h */,
+				2414712713CF5602007AAD33 /* Recorder.m */,
+				241470FF13CF55DA007AAD33 /* MainWindow.xib */,
+				2414710213CF55DA007AAD33 /* iAmHearViewController.h */,
+				2414710313CF55DA007AAD33 /* iAmHearViewController.m */,
+				2414710513CF55DA007AAD33 /* iAmHearViewController.xib */,
+				47ABFDA013F689240010FE30 /* iAmHearServer.h */,
+				47ABFDA113F689240010FE30 /* iAmHearServer.m */,
+				241470F413CF55DA007AAD33 /* Supporting Files */,
+			);
+			path = iAmHear;
+			sourceTree = "<group>";
+		};
+		241470F413CF55DA007AAD33 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				241470F513CF55DA007AAD33 /* iAmHear-Info.plist */,
+				241470F613CF55DA007AAD33 /* InfoPlist.strings */,
+				241470F913CF55DA007AAD33 /* iAmHear-Prefix.pch */,
+				241470FA13CF55DA007AAD33 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2414711313CF55DB007AAD33 /* iAmHearTests */ = {
+			isa = PBXGroup;
+			children = (
+				2414711A13CF55DB007AAD33 /* iAmHearTests.h */,
+				2414711C13CF55DB007AAD33 /* iAmHearTests.m */,
+				2414711413CF55DB007AAD33 /* Supporting Files */,
+			);
+			path = iAmHearTests;
+			sourceTree = "<group>";
+		};
+		2414711413CF55DB007AAD33 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2414711513CF55DB007AAD33 /* iAmHearTests-Info.plist */,
+				2414711613CF55DB007AAD33 /* InfoPlist.strings */,
+				2414711913CF55DB007AAD33 /* iAmHearTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		241470E813CF55DA007AAD33 /* iAmHear */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2414712013CF55DB007AAD33 /* Build configuration list for PBXNativeTarget "iAmHear" */;
+			buildPhases = (
+				241470E513CF55DA007AAD33 /* Sources */,
+				241470E613CF55DA007AAD33 /* Frameworks */,
+				241470E713CF55DA007AAD33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iAmHear;
+			productName = iAmHear;
+			productReference = 241470E913CF55DA007AAD33 /* TAPIR Communicator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2414710C13CF55DB007AAD33 /* iAmHearTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2414712313CF55DB007AAD33 /* Build configuration list for PBXNativeTarget "iAmHearTests" */;
+			buildPhases = (
+				2414710813CF55DB007AAD33 /* Sources */,
+				2414710913CF55DB007AAD33 /* Frameworks */,
+				2414710A13CF55DB007AAD33 /* Resources */,
+				2414710B13CF55DB007AAD33 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2414711213CF55DB007AAD33 /* PBXTargetDependency */,
+			);
+			name = iAmHearTests;
+			productName = iAmHearTests;
+			productReference = 4756822515F24F6A000A276E /* iAmHearTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		241470E013CF55DA007AAD33 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = KAIST;
+			};
+			buildConfigurationList = 241470E313CF55DA007AAD33 /* Build configuration list for PBXProject "iAmHear" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 241470DE13CF55DA007AAD33;
+			productRefGroup = 241470EA13CF55DA007AAD33 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				241470E813CF55DA007AAD33 /* iAmHear */,
+				2414710C13CF55DB007AAD33 /* iAmHearTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		241470E713CF55DA007AAD33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				241470F813CF55DA007AAD33 /* InfoPlist.strings in Resources */,
+				2414710113CF55DA007AAD33 /* MainWindow.xib in Resources */,
+				2414710713CF55DA007AAD33 /* iAmHearViewController.xib in Resources */,
+				47A827A3165BC62D00ADBA6A /* Default.png in Resources */,
+				47A827A4165BC83700ADBA6A /* TAPIR_icon.png in Resources */,
+				47A827A6165BC96700ADBA6A /* Icon.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2414710A13CF55DB007AAD33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2414711813CF55DB007AAD33 /* InfoPlist.strings in Resources */,
+				2414711B13CF55DB007AAD33 /* iAmHearTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2414710B13CF55DB007AAD33 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		241470E513CF55DA007AAD33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				241470FB13CF55DA007AAD33 /* main.m in Sources */,
+				241470FE13CF55DA007AAD33 /* iAmHearAppDelegate.m in Sources */,
+				2414710413CF55DA007AAD33 /* iAmHearViewController.m in Sources */,
+				2414712813CF5602007AAD33 /* Recorder.m in Sources */,
+				47ABFDA213F689240010FE30 /* iAmHearServer.m in Sources */,
+				4756823515F3A8B2000A276E /* iAmHearGraph.m in Sources */,
+				4756823B15F6208B000A276E /* strDecoder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2414710813CF55DB007AAD33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2414711D13CF55DB007AAD33 /* iAmHearTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2414711213CF55DB007AAD33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 241470E813CF55DA007AAD33 /* iAmHear */;
+			targetProxy = 2414711113CF55DB007AAD33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		241470F613CF55DA007AAD33 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				241470F713CF55DA007AAD33 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		241470FF13CF55DA007AAD33 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2414710013CF55DA007AAD33 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		2414710513CF55DA007AAD33 /* iAmHearViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2414710613CF55DA007AAD33 /* en */,
+			);
+			name = iAmHearViewController.xib;
+			sourceTree = "<group>";
+		};
+		2414711613CF55DB007AAD33 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2414711713CF55DB007AAD33 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2414711E13CF55DB007AAD33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kim Kim (B2FWFV8LU5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "86FFADE6-FB5A-4CED-AA2B-00C372132383";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2414711F13CF55DB007AAD33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kim Kim (B2FWFV8LU5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "86FFADE6-FB5A-4CED-AA2B-00C372132383";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		2414712113CF55DB007AAD33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kim Kim (B2FWFV8LU5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iAmHear/iAmHear-Prefix.pch";
+				INFOPLIST_FILE = "iAmHear/iAmHear-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "TAPIR Communicator";
+				PROVISIONING_PROFILE = "BEE22C66-CEF7-4205-978B-2698A90CA234";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2414712213CF55DB007AAD33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kim Kim (B2FWFV8LU5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iAmHear/iAmHear-Prefix.pch";
+				INFOPLIST_FILE = "iAmHear/iAmHear-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "TAPIR Communicator";
+				PROVISIONING_PROFILE = "BEE22C66-CEF7-4205-978B-2698A90CA234";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2414712413CF55DB007AAD33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iAmHear.app/iAmHear";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iAmHearTests/iAmHearTests-Prefix.pch";
+				INFOPLIST_FILE = "iAmHearTests/iAmHearTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		2414712513CF55DB007AAD33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iAmHear.app/iAmHear";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iAmHearTests/iAmHearTests-Prefix.pch";
+				INFOPLIST_FILE = "iAmHearTests/iAmHearTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		241470E313CF55DA007AAD33 /* Build configuration list for PBXProject "iAmHear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2414711E13CF55DB007AAD33 /* Debug */,
+				2414711F13CF55DB007AAD33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2414712013CF55DB007AAD33 /* Build configuration list for PBXNativeTarget "iAmHear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2414712113CF55DB007AAD33 /* Debug */,
+				2414712213CF55DB007AAD33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2414712313CF55DB007AAD33 /* Build configuration list for PBXNativeTarget "iAmHearTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2414712413CF55DB007AAD33 /* Debug */,
+				2414712513CF55DB007AAD33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 241470E013CF55DA007AAD33 /* Project object */;
+}
