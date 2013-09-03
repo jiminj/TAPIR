@@ -7,6 +7,8 @@ function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
             rxBpf = rxBpf10k;
         case 18000
             rxBpf = rxBpf18k;
+        case 20000
+            rxBpf = rxBpf20k;
     end
     
 %     minBlkSize = 1280;

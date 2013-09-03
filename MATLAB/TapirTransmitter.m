@@ -61,7 +61,10 @@ handles.output = hObject;
 guidata(hObject, handles);
 
 global Fs;
+global Fc;
+
 Fs = 44100;
+Fc = 20000;
 
 % UIWAIT makes TapirTransmitter wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -125,14 +128,16 @@ function btnPlay_Callback(hObject, eventdata, handles)
     switch Fc
         case 18000
             txBpf = txBpf18k;
+        case 20000
+            txBpf = txBpf20k;
         case 10000
             txBpf = txBpf10k;
     end
     
     txBpfDelay = ceil(txBpf.order / 2);
     audioData = [audioData; zeros(txBpfDelay,1)];
-    audioData = filter(txBpf, audioData);
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
+    audioData = filter(txBpf, audioData);
     
     if(saveFlag == 1)
         filename = get(handles.tbFilename, 'String');
@@ -189,6 +194,8 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
             Fc = 10000;
         case handles.radioFc18k
             Fc = 18000;
+        case handles.radioFc20k
+            Fc = 20000;
     end
         
     
