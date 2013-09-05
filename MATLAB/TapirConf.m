@@ -7,26 +7,26 @@ encodingRate = 1/2; % Channel Encoding Rate
 modulationRate = 1; % DPSK Modulation Rate
 noDataCarrier = noDataFrame / modulationRate / encodingRate;
 
-%%% Pilot 
-
-pilot = [1,1,1,1];
-noPilotCarrier = length(pilot);
-noDcCarrier = 1; 
-
-lenBitsBetweenPilot = noDataCarrier / noPilotCarrier;
-pilotPos = zeros(1, length(pilot));
-for idx=1:length(pilot)
-    if(idx <= length(pilot)/2)
-        position = idx + (idx-1) * lenBitsBetweenPilot;
-    else
-        position = idx + idx * lenBitsBetweenPilot + noDcCarrier;
-    end
-    pilotPos(idx) = position;
-end
-% pilotPos = [1,6,16,21]; %temp
-
-
-noTotCarrier = noDataCarrier + noDcCarrier + noPilotCarrier;
+% %%% Pilot 
+% 
+% pilot = [1,1,1,1];
+% noPilotCarrier = length(pilot);
+% noDcCarrier = 1; 
+% 
+% lenBitsBetweenPilot = noDataCarrier / noPilotCarrier;
+% pilotPos = zeros(1, length(pilot));
+% for idx=1:length(pilot)
+%     if(idx <= length(pilot)/2)
+%         position = idx + (idx-1) * lenBitsBetweenPilot;
+%     else
+%         position = idx + idx * lenBitsBetweenPilot + noDcCarrier;
+%     end
+%     pilotPos(idx) = position;
+% end
+% % pilotPos = [1,6,16,21]; %temp
+% 
+% 
+% noTotCarrier = noDataCarrier + noDcCarrier + noPilotCarrier;
 
 % Trellis Code for Convolutional Encoding
 trel = poly2trellis(7, [133 171]);
@@ -37,15 +37,15 @@ intCols = (noDataCarrier)/intRows;
 
 % symLength = 1024;
 % lenPrefix = 256;
-symLength = 1024;
-lenPrefix = 256;
-guardInterval = 512;
+symLength = 2048;
+% lenPrefix = 1024;
+guardInterval = 1024;
 
 
 % Symbol & GI Length (without preamble)
-txBlockLength = symLength + lenPrefix;
-txBitRate = Fs / (txBlockLength) * noDataFrame;
-totalDataRate = Fs / (txBlockLength + guardInterval) * noDataFrame;
+% txBlockLength = symLength + lenPrefix;
+% txBitRate = Fs / (txBlockLength) * noDataFrame;
+% totalDataRate = Fs / (txBlockLength + guardInterval) * noDataFrame;
 
 
 % IEEE 802.11a preamble

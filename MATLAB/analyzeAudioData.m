@@ -2,16 +2,15 @@ function [ resultMat ] = analyzeAudioData( signal )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
     TapirConf;
-
-    lenEachSym = symLength+lenPrefix;
+% 
+    lenEachSym = symLength;
     thSymLength = 0.8 * lenEachSym;
     redunLen = mod(length(signal),lenEachSym);
     if(mod(redunLen,lenEachSym) > thSymLength)
         fittedSig = [signal(1:end); zeros(lenEachSym - redunLen,1)];
     else
         fittedSig = signal(1:end-redunLen);
-    end
-    
+    end    
 
     
     blockedSig = reshape(fittedSig,lenEachSym,[]);
@@ -21,43 +20,47 @@ function [ resultMat ] = analyzeAudioData( signal )
 
     for idx=1:noIt
         
-        wholeBlock = blockedSig(:,idx);
-        block = wholeBlock(lenPrefix+1:end);
+        block = blockedSig(:,idx);
+        rcvBlock = block;
+%         block = wholeBlock(lenPrefix+1:end);
+        
 
-        % %%%%%%% FFT %%%%%%%%%%
-        block = ifftshift(fft(block));
-        fftBlk = block;
+        % %%%%%%% DCT %%%%%%%%%%
+        block = dct(block);
+        dctBlk = block;
 
         %%%%% Sort Result %%%%%
         %FFT
         % dataBlk = [block(symLength/2 - noCarrier/2 + 1:symLength/2); block(symLength/2 + 2 : symLength/2 + 2 + noCarrier/2 - 1)];
-        noTotalBlk = noDataCarrier + noPilotCarrier;
-        dataBlk = block(symLength/2 - noTotalBlk/2 + 1: symLength/2 + noTotalBlk/2 + 1);
+%         noTotalBlk = noDataCarrier + noPilotCarrier;
+%         dataBlk = block(symLength/2 - noTotalBlk/2 + 1: symLength/2 + noTotalBlk/2 + 1);
         
-        figure(5);
-%         plot(real(carrier),'r'); hold on;
-        subplot(noIt,4,idx*4 - 3); 
-        plot(real(wholeBlock)); hold on; 
-        plot([zeros(lenPrefix,1); real(wholeBlock(lenPrefix+1:end))], 'r');
-        plot(imag(wholeBlock),'g'); hold off;
+        dataBlk = block(1:noDataCarrier);
+
+        figure();
+        subplot(noIt,4,idx*4 - 3);
+        plot(signal);
+        subplot(noIt,4,idx*4 - 2); 
+        plot(rcvBlock);
+        subplot(noIt,4,idx*4 - 1); stem(dctBlk);
+        subplot(noIt,4,idx*4); stem(dataBlk);
         
-        subplot(noIt,4,idx*4 - 2); stem(fftBlk);
-        subplot(noIt,4,idx*4 - 1); stem(dataBlk);
         
-        
-        pilotResult = dataBlk(pilotPos);
-        dataBlk(pilotPos) = [];
-        dcResult = dataBlk( noDataCarrier/2 + 1);
-        dataBlk(noDataCarrier/2 + 1 ) = [];
+%         pilotResult = dataBlk(pilotPos);
+%         dataBlk(pilotPos) = [];
+%         dcResult = dataBlk( noDataCarrier/2 + 1);
+%         dataBlk(noDataCarrier/2 + 1 ) = [];
 
         
         % Phase Recovery
-        anglePilot = angle(pilot * pilotResult);
-        dataBlk = dataBlk * exp(1i*anglePilot)';
-        dataBlk = real(dataBlk);
-
-        subplot(noIt,4,idx*4); stem(dataBlk);
         
+        dataBlk = dataBlk * sign(dataBlk(1));
+%         anglePilot = angle(pilot * pilotResult);
+%         dataBlk = dataBlk * exp(1i*anglePilot)';
+%         
+% 
+%         subplot(noIt,4,idx*4); stem(real(dataBlk) ); hold on; stem(imag(dataBlk),'g'); hold off;
+%         dataBlk = real(dataBlk);
         
         %%%%% DeInterleaver %%%%%%
         deIntBlk = matdeintrlv(dataBlk,intRows,intCols);

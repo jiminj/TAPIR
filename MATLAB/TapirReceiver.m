@@ -103,7 +103,12 @@ function btnReceive_Callback(hObject, eventdata, handles)
     pageSize = 2048;
     pageBufCnt = 5;
     minRecogLength = 1000;
+    
+    textResetCnt = 5;
     dataBlk = [];
+    remainedBlk = [];
+    noDataCnt = 0;
+    resultString = [];
 
     if( get(hObject, 'Value') )
         disp('Start Recording');
@@ -129,30 +134,44 @@ function btnReceive_Callback(hObject, eventdata, handles)
             playrec('block', pageNumList(1));
             
             lastRecording = playrec('getRec', pageNumList(1));
-            if(pageNumList(1) ~= -1)
-                [rcvDataBlk, isCont] = detectDataRegion(lastRecording, Fc);
-                if(isCont)
-                    dataBlk = [dataBlk; rcvDataBlk];
-                else
-                    dataBlk = [dataBlk; rcvDataBlk];
-                    if(length(dataBlk) > minRecogLength)
-                        length(dataBlk)
-                        roiData = freqDownConversion(dataBlk, Fs, Fc);
-                        analyzedData = analyzeAudioData(roiData);
-                        result = encodeChar(analyzedData)
-                        set(handles.tbResult, 'String', result);
-                        
-%                         figure(2);
-%                         plot(dataBlk);
 
+
+            
+            if(pageNumList(1) ~= -1)
+                [rcvDataBlk, remainedBlk] = detectDataRegion([remainedBlk; lastRecording], Fc);
+
+                if( ~isempty(rcvDataBlk)) % Found
+                    if( isempty(remainedBlk)) %continue
+                        dataBlk = [dataBlk; rcvDataBlk];  
+                    else %not Continue
+                        dataBlk = [dataBlk; rcvDataBlk];
+
+                        % No consideration for the case of the data block ends
+                        % exactly the buffer page
+
+                        if(length(dataBlk) > minRecogLength)
+                            length(dataBlk)
+                            roiData = freqDownConversion(dataBlk, Fs, Fc);
+                            analyzedData = analyzeAudioData(roiData);
+                            resultChar = encodeChar(analyzedData)
+                            resultString = [resultString, resultChar]
+                            set(handles.tbResult, 'String', resultString);
+            %                 skipped = playrec('getSkippedSampleCount')
+
+                %                         figure(2);
+                %                         plot(dataBlk);
+                        end
                         dataBlk = [];
                     end
-                    
+                elseif( ~isempty(resultString) )
+                    noDataCnt = noDataCnt+1;
+                    if(noDataCnt > textResetCnt)
+                        resultString = [];
+                        noDataCnt = 0;
+                    end
                 end
             end
-%             if ishandle(timeFigure)
-%                 set(timeLine, 'YData', lastRecording);
-%             end
+
             
             playrec('delPage', pageNumList(1));
             pageNumList = [pageNumList(2:end), newPage];
@@ -249,7 +268,11 @@ function btnLoad_Callback(hObject, eventdata, handles)
     
     filename = get(handles.tbFilename, 'String');
     rxAudioData = wavread(filename);
-
+    rxAudioData = rxAudioData(1:end);
+    
+    figure(1);
+    plot(rxAudioData);
+    
 %     %%%%%%%%%%%%       
 %     roiData = detectDataRegion(rxAudioData, Fc);
 %     roiData = freqDownConversion(roiData, Fs, Fc);
@@ -259,26 +282,46 @@ function btnLoad_Callback(hObject, eventdata, handles)
 %     set(handles.tbResult, 'String', result);
 %     %%%%%%%%%%%%
 
+
     reshapedRx = [rxAudioData; zeros(pageSize - mod(length(rxAudioData), pageSize), 1)];
     reshapedRx = reshape(reshapedRx,pageSize,[]);
+    textResetCnt = 5;
     dataBlk = [];
+    remainedBlk = [];
+    noDataCnt = 0;
+    resultString = [];
+    
     for idx=1:size(reshapedRx,2)
-        [rcvDataBlk, isCont] = detectDataRegion(reshapedRx(:,idx), Fc);
-        if(isCont)
-            dataBlk = [dataBlk; rcvDataBlk];
-        else
-            dataBlk = [dataBlk; rcvDataBlk];
-            if(length(dataBlk) > minRecogLength)
-                length(dataBlk)
-                roiData = freqDownConversion(dataBlk, Fs, Fc);
-                analyzedData = analyzeAudioData(roiData);
-                result = encodeChar(analyzedData)
-                set(handles.tbResult, 'String', result);
-                skipped = playrec('getSkippedSampleCount')
+        [rcvDataBlk, remainedBlk] = detectDataRegion([remainedBlk; reshapedRx(:,idx)], Fc);
+        
+        if( ~isempty(rcvDataBlk)) % Found
+            if( isempty(remainedBlk)) %continue
+                dataBlk = [dataBlk; rcvDataBlk];  
+            else %not Continue
+                dataBlk = [dataBlk; rcvDataBlk];
+                
+                % No consideration for the case of the data block ends
+                % exactly the buffer page
+                
+                if(length(dataBlk) > minRecogLength)
+                    length(dataBlk)
+                    roiData = freqDownConversion(dataBlk, Fs, Fc);
+                    analyzedData = analyzeAudioData(roiData);
+                    resultChar = encodeChar(analyzedData);
+                    resultString = [resultString, resultChar]
+                    set(handles.tbResult, 'String', resultString);
+    %                 skipped = playrec('getSkippedSampleCount')
 
-    %                         figure(2);
-    %                         plot(dataBlk);
-               dataBlk = [];
+        %                         figure(2);
+        %                         plot(dataBlk);
+                end
+                dataBlk = [];
+            end
+        elseif( ~isempty(resultString) )
+            noDataCnt = noDataCnt+1;
+            if(noDataCnt > textResetCnt)
+                resultString = [];
+                noDataCnt = 0;
             end
         end
     end
