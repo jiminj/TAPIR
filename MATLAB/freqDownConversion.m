@@ -10,10 +10,12 @@ function result = freqDownConversion( signal, Fs, Fc )
     carrier = sqrt(2) * exp(1i * (2 * pi * Fc * tC + phaseOffset) )';
 
     % basebandSig = real(dataSig .* carrier);
-    realRx = signal .* real(carrier);
-    imagRx = signal .* imag(carrier);    
-    basebandSig = realRx + imagRx * 1i;
+    
+%     realRx = signal .* real(carrier);
+%     imagRx = signal .* imag(carrier);    
+%     basebandSig = realRx;
 
+    basebandSig = signal .* real(carrier);
     
     % %%%%% LPF %%%%%%%%%%% 
     lpf = rxLpf;

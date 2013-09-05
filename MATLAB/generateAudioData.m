@@ -9,7 +9,7 @@ blockedMsg = reshape(binData, noDataFrame,[]);
 numBlocks = size(blockedMsg, 2);
 
 % txSignal = zeros((symLength+lenPrefix) * numBlocks + guardInterval,1);
-result = zeros((symLength+lenPrefix) * numBlocks,1);
+result = zeros((symLength), numBlocks);
 
 figure(1);
 
@@ -38,46 +38,44 @@ for idx = 1:numBlocks
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     %%%%% Add Pilot & DC %%%%%
-%     block = [ block(1:blockSize/2); zeros(addCarrier,1); block(blockSize/2+1:end)];
-
-    
-    reshapedBlock = reshape(block, lenBitsBetweenPilot, []);
-    firstHalfBlk = reshape( [pilot(1:length(pilot)/2); reshapedBlock(:,1:size(reshapedBlock,1)/2)], [], 1);
-    secondHalfBlk = reshape( [reshapedBlock(:,size(reshapedBlock,1)/2 + 1 :end); pilot(length(pilot)/2+1 : end)], [], 1);
-    block = [firstHalfBlk ; zeros(noDcCarrier,1) ;secondHalfBlk];
-    
-%     pilotBlk = block;
-
-%     block = [1; block(1:4); 1; block(5:8); zeros(noDcCarrier,1) ; block(9:12); 1; block(13:16);1];
+% %     block = [ block(1:blockSize/2); zeros(addCarrier,1); block(blockSize/2+1:end)];
+% 
+%     
+%     reshapedBlock = reshape(block, lenBitsBetweenPilot, []);
+%     firstHalfBlk = reshape( [pilot(1:length(pilot)/2); reshapedBlock(:,1:size(reshapedBlock,1)/2)], [], 1);
+%     secondHalfBlk = reshape( [reshapedBlock(:,size(reshapedBlock,1)/2 + 1 :end); pilot(length(pilot)/2+1 : end)], [], 1);
+%     block = [firstHalfBlk ; zeros(noDcCarrier,1) ;secondHalfBlk];
+%     
+% %     pilotBlk = block;
+% 
+% %     block = [1; block(1:4); 1; block(5:8); zeros(noDcCarrier,1) ; block(9:12); 1; block(13:16);1];
    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-    %%%% IFFT %%%%% 
-    
-    if(mod(noDcCarrier + noPilotCarrier,2) == 0)
-        appendZeroLength = (symLength - length(block)) / 2;
-        prependZeroLength = appendZeroLength;
-    else
-        appendZeroLength = (symLength - length(block) - 1) / 2;
-        prependZeroLength = appendZeroLength + 1;
-    end
+    %%%% IDCT %%%%% 
     
     subplot(numBlocks,2, idx*2-1 );
     stem(interleavedBlk);
-    subplot(numBlocks,2, idx*2);
-    stem(block);
+
+    block = idct(block, symLength);
+%     block = symLength / sqrt(noTotCarrier) * block;
+    origBlock = block;
+%     subplot(numBlocks,3, idx*3-1);
+%     plot(block);
     
-    block = ifft(fftshift([ zeros(prependZeroLength,1) ;block; zeros(appendZeroLength,1)]), symLength);
-    
-    block = symLength / sqrt(noTotCarrier) * block;
-%     ifftBlock = block;
-    
+%     subplot(numBlocks,3, idx*3);
+%     pwelch(block, hamming(1024),[],[],Fs,'centered')  
+%     
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	%%%%% Add Cyclic Prefix %%%%%%%
     
-    block = [block(end - lenPrefix +1 : end); block];
-%     extendedBlk = block;
+%     block = [block; zeros(lenPrefix,1)];
+    subplot(numBlocks,2, idx*2);
+    plot(block);
+
+    %     extendedBlk = block;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -86,8 +84,8 @@ for idx = 1:numBlocks
 %     block = [ repmat(shortPreamble, noPreambleRepeat, 1); block];
 %     preambledBlock = block;
 
-    startIdx = (idx-1) * (txBlockLength) + 1;
-    result(startIdx : (startIdx+ txBlockLength - 1)) = block; 
+%     startIdx = (idx-1) * (txBlockLength) + 1;
+    result(:, idx) = block; 
 end
 
 

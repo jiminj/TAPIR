@@ -1,4 +1,4 @@
-function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
+function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -22,6 +22,8 @@ function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
 %     bandSig = signal;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+    
+    
     %%%%% Detect Block (Double Sliding Window / Autocorrelation) %%%%
     
     % Packet Detector (Double Sliding Window)
@@ -43,8 +45,6 @@ function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
 %     searchingSetEndPoint = 1;
 
 
-
-    
     startBlockIndex = 1;
    
     thOverPoint = find(dswResult > powerRatioThresholdOn,1);
@@ -53,7 +53,7 @@ function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
     endBlockIndex = 0;
     
     dataSignal = [];
-    flagCont = 0;
+    remainedBlk = [];
    
 %     for idx=2:length(overThPoints)
 %         if( overThPoints(idx) - overThPoints(idx-1) == 1 && (idx ~= length(overThPoints)) ) 
@@ -81,22 +81,22 @@ function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
 %         end
 %     end
 
-
+   
     % The end of signal
     endBlockIndex = find(winPower(startBlockIndex+1:end) < minPower, 1) + startBlockIndex - 1;
-    if(length(endBlockIndex) == 0) %What if there's no sample under the minPower
+    if( length(endBlockIndex) == 0 ) % is Continue
         endBlockIndex = length(bandSig);
-        flagCont = 1;
-    else
-        flagCont = 0;
-    end
-
-    % continuing
-    if(startBlockIndex < 10)
-        startBlockIndex = 1;
     end
     
     dataSignal = bandSig(startBlockIndex:endBlockIndex);
+    remainedBlk = bandSig(endBlockIndex+1:end);
+
+%     % continuing
+%     if(startBlockIndex < 10)
+%         startBlockIndex = 1;
+%     end
+    
+
             
     
     
@@ -109,7 +109,8 @@ function [ dataSignal, flagCont] = detectDataRegion( signal, Fc)
     end
    
 %     % autoCorrResult = packetDetect_autocorr(block, symLength, lenPrefix);
-%   
+% 
+% 
 %     if( (startBlockIndex ~= 0) && (endBlockIndex - startBlockIndex > 500))
 %         %     % Plot
 %         figure;

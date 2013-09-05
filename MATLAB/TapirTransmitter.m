@@ -112,18 +112,14 @@ function btnPlay_Callback(hObject, eventdata, handles)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
     
+    
+    
 	global Fs;
     global Fc;
     global audioData;
     
     saveFlag = get(handles.chkSave, 'Value');
-    
-    msg = get(handles.tbMsg,'String');
-    binData = dec2bin(msg, 8)' - 48;
-    audioData = generateAudioData( binData);
-    audioData = freqUpConversion(audioData, Fs, Fc);
-	
-    % Filtering
+    TapirConf;
     
     switch Fc
         case 18000
@@ -135,16 +131,41 @@ function btnPlay_Callback(hObject, eventdata, handles)
     end
     
     txBpfDelay = ceil(txBpf.order / 2);
-    audioData = [audioData; zeros(txBpfDelay,1)];
+    
+    
+    msg = get(handles.tbMsg,'String');
+    binData = dec2bin(msg, 8)' - 48
+    genAudioData = generateAudioData(binData);
+    audioData = zeros( size(genAudioData,1) + txBpfDelay + guardInterval, size(genAudioData,2));
+    for idx=1:size(genAudioData, 2)
+        
+        audioData(1:length(genAudioData),idx) = freqUpConversion(genAudioData(:,idx), Fs, Fc);
+%         audioData(:,idx) = [audioData(:,idx); zeros(txBpfDelay,1)];
+        audioData(:,idx) = filter(txBpf, audioData(:,idx));
+%         audioData(:,idx) = [audioData(:,idx); zeros(guardInterval,1)];
+    end
+    
+    audioData = reshape(audioData, [], 1);
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
-    audioData = filter(txBpf, audioData);
+
+
+    figure();
+
+    subplot(3,1,1); stem(reshape(binData,[],1));
+    subplot(3,1,2); plot(audioData);
+    subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
+
+    % Filtering
+    
+    figure();
+    plot(audioData);
     
     if(saveFlag == 1)
         filename = get(handles.tbFilename, 'String');
         wavwrite(audioData, Fs, 16, filename);
     end
     sound(audioData, Fs);
-
+    
 
 
 % --- Executes on button press in btnSave.
