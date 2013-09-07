@@ -38,7 +38,9 @@ intCols = (noDataCarrier)/intRows;
 % symLength = 1024;
 % lenPrefix = 256;
 symLength = 2048;
-% lenPrefix = 1024;
+% lenPrefix = symLength / 4;
+lenPrefix = 0;
+
 guardInterval = 1024;
 
 

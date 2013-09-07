@@ -1,4 +1,4 @@
-function result = freqUpConversion( signal, Fs, Fc)
+function result = freqUpConversion( signal, Fc, Fs)
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
     TapirConf;

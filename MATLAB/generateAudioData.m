@@ -9,7 +9,7 @@ blockedMsg = reshape(binData, noDataFrame,[]);
 numBlocks = size(blockedMsg, 2);
 
 % txSignal = zeros((symLength+lenPrefix) * numBlocks + guardInterval,1);
-result = zeros((symLength), numBlocks);
+result = zeros((symLength + lenPrefix), numBlocks);
 
 figure(1);
 
@@ -17,27 +17,27 @@ figure(1);
 for idx = 1:numBlocks
 
     block = blockedMsg(:,idx);
-    
-	%%%%% DBPSK modulation %%%%%
-    block = real(dpskmod(block,2));
-%     modBlk = block;
-    block(block == -1) = 0; % For Convolutional Encoding
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
     
     %%%%% Convolutional encoding %%%%%
     block = convenc(block, trel);
 %     blockSize = length(block);
-    block(block == 0) = -1; % To reduce the dynamic range of output signal.
+%     block(block == 0) = -1; % To reduce the dynamic range of output signal.
     convEncBlk = block;
-    
     
     %%%%% Interleaver %%%%% 
     block = matintrlv(convEncBlk, intRows, intCols);
     interleavedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+	%%%%% DBPSK modulation %%%%%
+%     block(block == -1) = 0; % For Convolutional Encoding
+    block = real(dpskmod(block,2));
+%     modBlk = block;
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%%%% Add Pilot & DC %%%%%
+    %%%%% Add Pilot & DC %%%%%    
 % %     block = [ block(1:blockSize/2); zeros(addCarrier,1); block(blockSize/2+1:end)];
 % 
 %     
@@ -52,17 +52,25 @@ for idx = 1:numBlocks
    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-    %%%% IDCT %%%%% 
+    %%%%% Add Zero Subcarriers %%%%%
+%     block = [block, zeros(length(block),1)];
+%     block = reshape(block',[],1);
     
     subplot(numBlocks,2, idx*2-1 );
-    stem(interleavedBlk);
-
-    block = idct(block, symLength);
+    stem(block);
+    
+    %%% IDFT %%%%% 
+    extBlock = [block(1:length(block)/2); zeros(symLength - length(block),1) ;block(length(block)/2 + 1 : end)];
+    block = ifft(extBlock);
+    
+    %%%% IDCT %%%%% 
+%     block = idct(block, symLength);
+    
 %     block = symLength / sqrt(noTotCarrier) * block;
-    origBlock = block;
+%     origBlock = block;
 %     subplot(numBlocks,3, idx*3-1);
 %     plot(block);
-    
+%     
 %     subplot(numBlocks,3, idx*3);
 %     pwelch(block, hamming(1024),[],[],Fs,'centered')  
 %     
@@ -71,9 +79,9 @@ for idx = 1:numBlocks
 
 	%%%%% Add Cyclic Prefix %%%%%%%
     
-%     block = [block; zeros(lenPrefix,1)];
+    block = [block(end-lenPrefix+1:end); block];
     subplot(numBlocks,2, idx*2);
-    plot(block);
+    plot(real(block)); hold on; plot(imag(block),'g'); hold off;
 
     %     extendedBlk = block;
     
