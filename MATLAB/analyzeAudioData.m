@@ -24,37 +24,39 @@ function [ resultMat ] = analyzeAudioData( signal )
         rcvBlock = block;
 %         block = wholeBlock(lenPrefix+1:end);
         
-
-        % %%%%%%% DCT %%%%%%%%%%
-        block = dct(block);
-        dctBlk = block;
-
-        %%%%% Sort Result %%%%%
-        %FFT
-        % dataBlk = [block(symLength/2 - noCarrier/2 + 1:symLength/2); block(symLength/2 + 2 : symLength/2 + 2 + noCarrier/2 - 1)];
-%         noTotalBlk = noDataCarrier + noPilotCarrier;
-%         dataBlk = block(symLength/2 - noTotalBlk/2 + 1: symLength/2 + noTotalBlk/2 + 1);
-        
-        dataBlk = block(1:noDataCarrier);
-
-        figure();
-        subplot(noIt,4,idx*4 - 3);
-        plot(signal);
-        subplot(noIt,4,idx*4 - 2); 
-        plot(rcvBlock);
-        subplot(noIt,4,idx*4 - 1); stem(dctBlk);
-        subplot(noIt,4,idx*4); stem(dataBlk);
-        
+        block = intdump(rcvBlock(1:symLength), Fs * Ts);
+        dumpedBlk = block;
+        %%%%%%% FFT %%%%%%%%%%
+        block = fft(block);
+        dataBlk = [block((1:noDataCarrier/2)); block(end - noDataCarrier/2 +1 : end)];
+        rcvDataBlk = dataBlk;
+        remainedBlk = block(noDataCarrier/2+1: end - noDataCarrier/2);
+%         %%%%%%%%% DCT %%%%%%%%%%
+%         block = dct(block);
+%         dataBlk = block(1:noDataCarrier);
+%         
+        transformedBlk = block;
         
 %         pilotResult = dataBlk(pilotPos);
 %         dataBlk(pilotPos) = [];
 %         dcResult = dataBlk( noDataCarrier/2 + 1);
 %         dataBlk(noDataCarrier/2 + 1 ) = [];
 
+
+        %%%%% DBPSK demodulation %%%%%
+        dataBlk(dataBlk == 0) = -1;
+        dataBlk = real(dpskdemod(dataBlk,2));
+
+%         demodBlk = block;
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
         
         % Phase Recovery
+        h = fft(remainedBlk,64);
         
-        dataBlk = dataBlk * sign(dataBlk(1));
+        
+%         dataBlk = dataBlk * sign(dataBlk(1));
 %         anglePilot = angle(pilot * pilotResult);
 %         dataBlk = dataBlk * exp(1i*anglePilot)';
 %         
@@ -79,13 +81,21 @@ function [ resultMat ] = analyzeAudioData( signal )
 %         decodedBlk = block;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        %%%%% DBPSK demodulation %%%%%
-        block(block == 0) = -1;
-        block = real(dpskdemod(block,2));
-
-%         demodBlk = block;
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+        figure();
+        subplot(3,3,1);
+        plot(real(signal)); hold on; plot(imag(signal),'g');hold off;
+        subplot(3,3,2); 
+        plot(real(rcvBlock)); hold on; plot(imag(rcvBlock),'g'); hold off;
+        subplot(3,3,3); 
+        plot(real(dumpedBlk)); hold on; plot(imag(dumpedBlk),'g'); hold off;
+        subplot(3,3,4); stem(real(transformedBlk)); hold on; stem(imag(transformedBlk),'g'); hold off;
+        subplot(3,3,5); stem(real(remainedBlk)); hold on; stem(imag(remainedBlk),'g'); hold off;
+        subplot(3,3,6); stem(real(rcvDataBlk)); hold on; stem(imag(rcvDataBlk),'g'); hold off;
+        subplot(3,3,7); stem(real(h)); hold on; stem(imag(h),'g'); hold off;
+        subplot(3,3,8); scatter(real(transformedBlk),imag(transformedBlk)); grid on; hold on; scatter(real(rcvDataBlk),imag(rcvDataBlk),'r');
+        subplot(3,3,9); pwelch(rcvBlock,[],[],[],Fs, 'centered');
+%         subplot(noIt,5,idx*5); stem(transformedBlk(end - noDataCarrier/2 - 20 + 1:end - noDataCarrier/2));
+        
         resultMat(:,idx) = block;
 
     end

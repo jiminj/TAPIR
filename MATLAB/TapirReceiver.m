@@ -151,8 +151,16 @@ function btnReceive_Callback(hObject, eventdata, handles)
 
                         if(length(dataBlk) > minRecogLength)
                             length(dataBlk)
-                            roiData = freqDownConversion(dataBlk, Fs, Fc);
-                            analyzedData = analyzeAudioData(roiData);
+                            roiData = freqDownConversion(dataBlk, Fc, Fs);
+                            
+                            %%%%% LPF %%%%%%%
+                            lpf = txrxLpf;
+                            lpfDelay = ceil(lpf.order / 2);
+                            extRoiData = [roiData; zeros(lpfDelay,1)];
+                            filtRoiData = filter(lpf, extRoiData);
+                            filtRoiData = filtRoiData(lpfDelay+1 :end);
+                            
+                            analyzedData = analyzeAudioData(filtRoiData);
                             resultChar = encodeChar(analyzedData)
                             resultString = [resultString, resultChar]
                             set(handles.tbResult, 'String', resultString);
@@ -270,7 +278,7 @@ function btnLoad_Callback(hObject, eventdata, handles)
     rxAudioData = wavread(filename);
     rxAudioData = rxAudioData(1:end);
     
-    figure(1);
+    figure();
     plot(rxAudioData);
     
 %     %%%%%%%%%%%%       
@@ -305,8 +313,16 @@ function btnLoad_Callback(hObject, eventdata, handles)
                 
                 if(length(dataBlk) > minRecogLength)
                     length(dataBlk)
-                    roiData = freqDownConversion(dataBlk, Fs, Fc);
-                    analyzedData = analyzeAudioData(roiData);
+                    roiData = freqDownConversion(dataBlk, Fc, Fs);
+                    
+                    % %%%%% LPF %%%%%%%%%%% 
+                    lpf = txrxLpf;
+                    lpfDelay = ceil(lpf.order / 2);
+                    extRoiData = [roiData; zeros(lpfDelay,1)];
+                    filtRoiData = filter(lpf, extRoiData);
+                    filtRoiData = filtRoiData(lpfDelay+1 :end);
+                    
+                    analyzedData = analyzeAudioData(filtRoiData);
                     resultChar = encodeChar(analyzedData);
                     resultString = [resultString, resultChar]
                     set(handles.tbResult, 'String', resultString);

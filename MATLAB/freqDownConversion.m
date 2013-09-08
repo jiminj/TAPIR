@@ -1,4 +1,4 @@
-function result = freqDownConversion( signal, Fs, Fc )
+function result = freqDownConversion( signal, Fc, Fs )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
     % %%%% Downconversion %%%%%%
@@ -11,19 +11,21 @@ function result = freqDownConversion( signal, Fs, Fc )
 
     % basebandSig = real(dataSig .* carrier);
     
-%     realRx = signal .* real(carrier);
-%     imagRx = signal .* imag(carrier);    
-%     basebandSig = realRx;
+    realRx = signal .* real(carrier);
+    imagRx = signal .* imag(carrier);    
+    basebandSig = realRx + 1i*imagRx;
 
-    basebandSig = signal .* real(carrier);
-    
+
+
     % %%%%% LPF %%%%%%%%%%% 
-    lpf = rxLpf;
-    lpfDelay = ceil(lpf.order / 2);
-    basebandSig = [basebandSig; zeros(lpfDelay,1)];
-    filteredSig = filter(lpf, basebandSig);
-    
-    result = filteredSig(lpfDelay+1 :end);
+%     lpf = txrxLpf;
+%     lpfDelay = ceil(lpf.order / 2);
+%     basebandSig = [basebandSig; zeros(lpfDelay,1)];
+%     filteredSig = filter(lpf, basebandSig);
+%     
+%     result = filteredSig(lpfDelay+1 :end);
 
+    result = basebandSig;
+    
 end
 
