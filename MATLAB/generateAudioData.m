@@ -33,25 +33,27 @@ for idx = 1:numBlocks
 	%%%%% DBPSK modulation %%%%%
 %     block(block == -1) = 0; % For Convolutional Encoding
     block = real(dpskmod(block,2));
-%     modBlk = block;
+    modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     %%%%% Add Pilot & DC %%%%%    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
     %%%%% Add Zero Subcarriers %%%%%
-    subplot(numBlocks,3, idx*3-2 );
-    stem(block);
     
-    block =[block(1:length(block)/2); zeros(noTotCarrier - noDataCarrier, 1); block(end - length(block)/2 + 1:end)];
     
     %%%%% IDFT %%%%% 
+    block =[block(1:length(block)/2); zeros(noTotCarrier - noDataCarrier, 1); block(end - length(block)/2 + 1:end)];
     block = noDataCarrier .* ifft(block);
+    transformedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    subplot(numBlocks,3, idx*3-1);
-    plot(real(block)); hold on; plot(imag(block),'g'); hold off;
-    
+    %%%%% IDCT %%%%%
+%     block = [block; zeros(noTotCarrier - noDataCarrier,1)];
+%     block = noDataCarrier .* idct(block);
+%     transformedBlk = block;
+
+
     %%%%% Extend block by pulse shaping and applying LPF %%%%%
     extBlock = rectpulse(block, Fs * Ts);
     lpf = txrxLpf;
@@ -59,13 +61,18 @@ for idx = 1:numBlocks
     lpfExtBlock = [extBlock; zeros(lpfDelay, 1)];
     lpfExtBlock = filter(lpf, lpfExtBlock);
     block = lpfExtBlock(lpfDelay+1 : end);
-    length(block)
     
 	%%%%% Add Cyclic Prefix %%%%%%%
     
     block = [block(end-lenPrefix+1:end); block];
+    cpAddedBlk = block;
+    
+    subplot(numBlocks,3, idx*3-2 );
+    stem(modBlk);
+    subplot(numBlocks,3, idx*3-1);
+    plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
     subplot(numBlocks,3, idx*3);
-    plot(real(block)); hold on; plot(imag(block),'g'); hold off;
+    plot(real(cpAddedBlk)); hold on; plot(imag(cpAddedBlk),'g'); hold off;
 
     %     extendedBlk = block;
     
@@ -77,6 +84,7 @@ for idx = 1:numBlocks
 %     preambledBlock = block;
 
 %     startIdx = (idx-1) * (txBlockLength) + 1;
+
     result(:, idx) = block; 
 end
 

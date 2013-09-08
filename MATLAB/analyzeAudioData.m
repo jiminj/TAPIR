@@ -31,9 +31,13 @@ function [ resultMat ] = analyzeAudioData( signal )
         dataBlk = [block((1:noDataCarrier/2)); block(end - noDataCarrier/2 +1 : end)];
         rcvDataBlk = dataBlk;
         remainedBlk = block(noDataCarrier/2+1: end - noDataCarrier/2);
-%         %%%%%%%%% DCT %%%%%%%%%%
+
+        %%%%%%%%% DCT %%%%%%%%%%
+%         block = real(block);
 %         block = dct(block);
 %         dataBlk = block(1:noDataCarrier);
+%         rcvDataBlk = dataBlk;
+%         remainedBlk = block(noDataCarrier+1 : end);
 %         
         transformedBlk = block;
         

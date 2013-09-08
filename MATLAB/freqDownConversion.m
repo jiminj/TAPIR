@@ -9,7 +9,7 @@ function result = freqDownConversion( signal, Fc, Fs )
     % phaseOffset = pi/4;
     carrier = sqrt(2) * exp(1i * (2 * pi * Fc * tC + phaseOffset) )';
 
-    % basebandSig = real(dataSig .* carrier);
+%     basebandSig = real(signal .* carrier);
     
     realRx = signal .* real(carrier);
     imagRx = signal .* imag(carrier);    
