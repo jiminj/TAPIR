@@ -143,12 +143,11 @@ function btnPlay_Callback(hObject, eventdata, handles)
     end
     
     audioData = reshape(audioData, [], 1);
-%     audioData = filter(txBpf, audioData);  % Filtering
+    audioData = filter(txBpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
 
 
     figure();
-
     subplot(3,1,1); stem(reshape(binData,[],1));
     subplot(3,1,2); plot(real(audioData));
     subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');

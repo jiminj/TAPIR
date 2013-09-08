@@ -7,6 +7,19 @@ encodingRate = 1/2; % Channel Encoding Rate
 modulationRate = 1; % DPSK Modulation Rate
 noDataCarrier = noDataFrame / modulationRate / encodingRate;
 
+% Ts = 1/882; % symbol time (1/BW)
+Ts = 1/1764; % symbol time (1/BW)
+noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier
+
+% symLength = 1024;
+% lenPrefix = 256;
+symLength = noTotCarrier * Fs * Ts;
+% lenPrefix = symLength / 4;
+lenPrefix = 0;
+
+guardInterval = 1024;
+
+
 % %%% Pilot 
 % 
 % pilot = [1,1,1,1];
@@ -35,13 +48,6 @@ tbLen = 16; %Traceback Length for Viterbi decoder
 intRows = 4;
 intCols = (noDataCarrier)/intRows;
 
-% symLength = 1024;
-% lenPrefix = 256;
-symLength = 2048;
-% lenPrefix = symLength / 4;
-lenPrefix = 0;
-
-guardInterval = 1024;
 
 
 % Symbol & GI Length (without preamble)

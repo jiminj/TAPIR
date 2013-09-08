@@ -278,7 +278,7 @@ function btnLoad_Callback(hObject, eventdata, handles)
     rxAudioData = wavread(filename);
     rxAudioData = rxAudioData(1:end);
     
-    figure(1);
+    figure();
     plot(rxAudioData);
     
 %     %%%%%%%%%%%%       
@@ -320,7 +320,6 @@ function btnLoad_Callback(hObject, eventdata, handles)
                     lpfDelay = ceil(lpf.order / 2);
                     extRoiData = [roiData; zeros(lpfDelay,1)];
                     filtRoiData = filter(lpf, extRoiData);
-
                     filtRoiData = filtRoiData(lpfDelay+1 :end);
                     
                     analyzedData = analyzeAudioData(filtRoiData);
