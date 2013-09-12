@@ -9,7 +9,6 @@ function result = packetDetect_autocorr(vec, lagLength, corLength)
         corrResult(1,idx) = sum(abs(xcorr(windowedBlk(:,idx), delayedWindowedBlk(:,idx))));
     end
     
-    
     dWinPower = sum(abs(delayedWindowedBlk).^2);
     result = corrResult ./ dWinPower;
 

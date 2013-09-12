@@ -11,14 +11,11 @@ noDataCarrier = noDataFrame / modulationRate / encodingRate;
 Ts = 1/1764; % symbol time (1/BW)
 noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier
 
-% symLength = 1024;
-% lenPrefix = 256;
 symLength = noTotCarrier * Fs * Ts;
-% lenPrefix = symLength / 4;
-lenPrefix = 0;
+cpLength = symLength / 4;
+guardInterval = symLength;
 
-guardInterval = 1024;
-
+pilotSig = [1;1;1;1];
 
 % %%% Pilot 
 % 

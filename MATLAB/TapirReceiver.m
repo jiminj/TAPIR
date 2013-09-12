@@ -134,7 +134,7 @@ function btnReceive_Callback(hObject, eventdata, handles)
             playrec('block', pageNumList(1));
             
             lastRecording = playrec('getRec', pageNumList(1));
-
+            
 
             
             if(pageNumList(1) ~= -1)
@@ -299,20 +299,22 @@ function btnLoad_Callback(hObject, eventdata, handles)
     noDataCnt = 0;
     resultString = [];
     
+%     detectDataRegion(rxAudioData,Fc);
+    
     for idx=1:size(reshapedRx,2)
+
         [rcvDataBlk, remainedBlk] = detectDataRegion([remainedBlk; reshapedRx(:,idx)], Fc);
-        
+
         if( ~isempty(rcvDataBlk)) % Found
             if( isempty(remainedBlk)) %continue
                 dataBlk = [dataBlk; rcvDataBlk];  
             else %not Continue
                 dataBlk = [dataBlk; rcvDataBlk];
-                
+                length(dataBlk)
                 % No consideration for the case of the data block ends
                 % exactly the buffer page
                 
                 if(length(dataBlk) > minRecogLength)
-                    length(dataBlk)
                     roiData = freqDownConversion(dataBlk, Fc, Fs);
                     
                     % %%%%% LPF %%%%%%%%%%% 
@@ -326,10 +328,7 @@ function btnLoad_Callback(hObject, eventdata, handles)
                     resultChar = encodeChar(analyzedData);
                     resultString = [resultString, resultChar]
                     set(handles.tbResult, 'String', resultString);
-    %                 skipped = playrec('getSkippedSampleCount')
 
-        %                         figure(2);
-        %                         plot(dataBlk);
                 end
                 dataBlk = [];
             end
@@ -341,7 +340,7 @@ function btnLoad_Callback(hObject, eventdata, handles)
             end
         end
     end
-%     %%%%%%%%%%%%
+    %%%%%%%%%%%%
     
     
     

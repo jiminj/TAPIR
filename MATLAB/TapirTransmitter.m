@@ -132,7 +132,6 @@ function btnPlay_Callback(hObject, eventdata, handles)
     
     txBpfDelay = ceil(txBpf.order / 2);
     
-    
     msg = get(handles.tbMsg,'String');
     binData = dec2bin(msg, 8)' - 48
     genAudioData = generateAudioData(binData);
@@ -151,11 +150,6 @@ function btnPlay_Callback(hObject, eventdata, handles)
     subplot(3,1,1); stem(reshape(binData,[],1));
     subplot(3,1,2); plot(real(audioData));
     subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
-
-
-    
-    figure();
-    plot(audioData);
     
     if(saveFlag == 1)
         filename = get(handles.tbFilename, 'String');

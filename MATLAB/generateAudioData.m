@@ -9,7 +9,7 @@ blockedMsg = reshape(binData, noDataFrame,[]);
 numBlocks = size(blockedMsg, 2);
 
 % txSignal = zeros((symLength+lenPrefix) * numBlocks + guardInterval,1);
-result = zeros((Fs*Ts*noTotCarrier + lenPrefix), numBlocks);
+result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
 
 figure(1);
 
@@ -36,14 +36,19 @@ for idx = 1:numBlocks
     modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%%%% Add Pilot & DC %%%%%    
+    %%%%% Add Pilot %%%%%    
+    blockLen = length(block);
+
+    block = [ pilotSig(1); block(1:blockLen/4); pilotSig(2); block(blockLen/4+1 : 2*blockLen/4); block(2*blockLen/4 + 1 : 3 * blockLen/4); pilotSig(3); block(3*blockLen/4 + 1 : end); pilotSig(4);];
+    blkWithPilot = block;
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
     %%%%% Add Zero Subcarriers %%%%%
     
     
     %%%%% IDFT %%%%% 
-    block =[block(1:length(block)/2); zeros(noTotCarrier - noDataCarrier, 1); block(end - length(block)/2 + 1:end)];
+    block =[block(1:length(block)/2); zeros(noTotCarrier - length(block), 1); block(end - length(block)/2 + 1:end)];
     block = noDataCarrier .* ifft(block);
     transformedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,25 +60,33 @@ for idx = 1:numBlocks
 
 
     %%%%% Extend block by pulse shaping and applying LPF %%%%%
-    extBlock = rectpulse(block, Fs * Ts);
-    lpf = txrxLpf;
-    lpfDelay = ceil(lpf.order / 2);
-    lpfExtBlock = [extBlock; zeros(lpfDelay, 1)];
-    lpfExtBlock = filter(lpf, lpfExtBlock);
-    block = lpfExtBlock(lpfDelay+1 : end);
+    block = rectpulse(block, Fs * Ts);
+    extBlock = block;
     
 	%%%%% Add Cyclic Prefix %%%%%%%
     
-    block = [block(end-lenPrefix+1:end); block];
+    block = [block(end-cpLength+1:end); block];
     cpAddedBlk = block;
     
-    subplot(numBlocks,3, idx*3-2 );
-    stem(modBlk);
-    subplot(numBlocks,3, idx*3-1);
-    plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
-    subplot(numBlocks,3, idx*3);
-    plot(real(cpAddedBlk)); hold on; plot(imag(cpAddedBlk),'g'); hold off;
+    lpf = txrxLpf;
+    lpfDelay = lpf.order / 2
+    lpfExtBlock = [block; zeros(lpfDelay, 1)];
+    lpfExtBlock = filter(lpf, lpfExtBlock);
+    block = lpfExtBlock(lpfDelay+1 : end);
 
+    
+    subplot(numBlocks,5, idx*5-4 );
+    stem(modBlk);
+    subplot(numBlocks,5, idx*5-3 );
+    stem(blkWithPilot );
+    subplot(numBlocks,5, idx*5-2);
+    plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
+    subplot(numBlocks,5, idx*5-1);
+    plot(real(cpAddedBlk)); hold on; plot(imag(cpAddedBlk),'g'); hold off;
+    subplot(numBlocks,5, idx*5);
+    plot(real(block)); hold on; plot(imag(block),'g'); hold off;
+
+    lengthBlock = length(block)
     %     extendedBlk = block;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
