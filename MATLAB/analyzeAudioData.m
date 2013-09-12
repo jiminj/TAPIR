@@ -62,22 +62,22 @@ function [ resultMat ] = analyzeAudioData( signal )
     phRecBlock = block;
 %     lenBlock = length(phRecBlock)
 
-    figure();
-    subplot(length(pilotIndex)+1,1,1);
-    stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
+%     figure();
+%     subplot(length(pilotIndex)+1,1,1);
+%     stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
     for idx=1:length(pilotIndex)/2;
         ang = angle(phRecBlock(pilotIndex(idx)));
         phRecBlock(pilotIndex(idx):length(phRecBlock)/2) = phRecBlock(pilotIndex(idx):length(phRecBlock)/2) * exp(-1i*ang);
-        subplot(length(pilotIndex)+1,1, idx+1);
-        stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
+%         subplot(length(pilotIndex)+1,1, idx+1);
+%         stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
     end
     for idx=length(pilotIndex):-1:length(pilotIndex)/2+1
         ang = angle(phRecBlock(pilotIndex(idx)));
         
         phRecBlock(length(phRecBlock)/2 + 1 : pilotIndex(idx)) = phRecBlock(length(phRecBlock)/2 + 1 : pilotIndex(idx)) * exp(-1i*ang);
         
-        subplot(length(pilotIndex)+1,1, idx+1);
-        stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
+%         subplot(length(pilotIndex)+1,1, idx+1);
+%         stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
     end
     
     block = phRecBlock;
@@ -112,31 +112,31 @@ function [ resultMat ] = analyzeAudioData( signal )
 
 %         decodedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     rcvDataLen = length(rcvDataBlk)
-%     pilotLen = length(pilotIndex)
-    figure();
-    subplot(4,3,1);
-    plot(real(signal)); hold on; plot(imag(signal),'g');hold off;
-    subplot(4,3,2); 
-    plot(real(rcvBlock)); hold on; plot(imag(rcvBlock),'g'); hold off;
-    subplot(4,3,3); 
-%     plot(real(dumpedBlk)); hold on; plot(imag(dumpedBlk),'g'); hold off;
-    subplot(4,3,4); stem(real(transformedBlk)); hold on; stem(imag(transformedBlk),'g'); hold off;
-    subplot(4,3,5); stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
-    %     subplot(4,3,5); stem(real(remainedBlk)); hold on; stem(imag(remainedBlk),'g'); hold off;
-    subplot(4,3,6); stem(real(rcvDataBlk)); hold on; stem(imag(rcvDataBlk),'g'); hold off;
-    subplot(4,3,7); 
-    scatter(real(transformedBlk),imag(transformedBlk)); grid on; hold on; 
-    scatter(real(transformedBlk(1:(length(rcvDataBlk)+length(pilotIndex))/2)), imag(transformedBlk(1:(length(rcvDataBlk)+length(pilotIndex))/2)),'r');
-    scatter(real(transformedBlk((length(rcvDataBlk)+length(pilotIndex))/2+1 : end )), imag(transformedBlk((length(rcvDataBlk)+length(pilotIndex))/2+1 : end )),'g');  hold off;
-    noDisp = num2str((1:length(transformedBlk))', '%d');
-    text(real(transformedBlk),imag(transformedBlk), noDisp, 'horizontal','left', 'vertical','bottom');
-    hold off;
-    subplot(4,3,8); 
-    scatter(real(phRecBlock),imag(phRecBlock)); grid on; 
-
-    
-    subplot(4,3,9); pwelch(rcvBlock,[],[],[],Fs, 'centered');
+% %     rcvDataLen = length(rcvDataBlk)
+% %     pilotLen = length(pilotIndex)
+%     figure();
+%     subplot(4,3,1);
+%     plot(real(signal)); hold on; plot(imag(signal),'g');hold off;
+%     subplot(4,3,2); 
+%     plot(real(rcvBlock)); hold on; plot(imag(rcvBlock),'g'); hold off;
+%     subplot(4,3,3); 
+% %     plot(real(dumpedBlk)); hold on; plot(imag(dumpedBlk),'g'); hold off;
+%     subplot(4,3,4); stem(real(transformedBlk)); hold on; stem(imag(transformedBlk),'g'); hold off;
+%     subplot(4,3,5); stem(real(phRecBlock)); hold on; stem(imag(phRecBlock),'g'); hold off;
+%     %     subplot(4,3,5); stem(real(remainedBlk)); hold on; stem(imag(remainedBlk),'g'); hold off;
+%     subplot(4,3,6); stem(real(rcvDataBlk)); hold on; stem(imag(rcvDataBlk),'g'); hold off;
+%     subplot(4,3,7); 
+%     scatter(real(transformedBlk),imag(transformedBlk)); grid on; hold on; 
+%     scatter(real(transformedBlk(1:(length(rcvDataBlk)+length(pilotIndex))/2)), imag(transformedBlk(1:(length(rcvDataBlk)+length(pilotIndex))/2)),'r');
+%     scatter(real(transformedBlk((length(rcvDataBlk)+length(pilotIndex))/2+1 : end )), imag(transformedBlk((length(rcvDataBlk)+length(pilotIndex))/2+1 : end )),'g');  hold off;
+%     noDisp = num2str((1:length(transformedBlk))', '%d');
+%     text(real(transformedBlk),imag(transformedBlk), noDisp, 'horizontal','left', 'vertical','bottom');
+%     hold off;
+%     subplot(4,3,8); 
+%     scatter(real(phRecBlock),imag(phRecBlock)); grid on; 
+% 
+%     
+%     subplot(4,3,9); pwelch(rcvBlock,[],[],[],Fs, 'centered');
 %         subplot(4,3,10); 
 
 %         stem(real(h)); hold on; stem(imag(h),'g'); hold off;

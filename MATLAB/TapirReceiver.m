@@ -278,9 +278,9 @@ function btnLoad_Callback(hObject, eventdata, handles)
     rxAudioData = wavread(filename);
     rxAudioData = rxAudioData(1:end);
     
-    figure();
-    plot(rxAudioData);
-    
+%     figure();
+%     plot(rxAudioData);
+%     
 %     %%%%%%%%%%%%       
 %     roiData = detectDataRegion(rxAudioData, Fc);
 %     roiData = freqDownConversion(roiData, Fs, Fc);

@@ -11,7 +11,7 @@ numBlocks = size(blockedMsg, 2);
 % result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
 result = zeros((symLength+cpLength), numBlocks);
 
-figure(1);
+% figure(1);
 
 %for each block
 for idx = 1:numBlocks
@@ -73,17 +73,17 @@ for idx = 1:numBlocks
 %     block = lpfExtBlock(lpfDelay+1 : end);
     lpfExtBlock = block;
 
-    
-    subplot(numBlocks,5, idx*5-4 );
-    stem(modBlk);
-    subplot(numBlocks,5, idx*5-3 );
-    stem(blkWithPilot );
-    subplot(numBlocks,5, idx*5-2);
-    plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
-    subplot(numBlocks,5, idx*5-1);
-    plot(real(cpAddedBlk)); hold on; plot(imag(cpAddedBlk),'g'); hold off;
-    subplot(numBlocks,5, idx*5);
-    plot(real(block)); hold on; plot(imag(block),'g'); hold off;
+%     
+%     subplot(numBlocks,5, idx*5-4 );
+%     stem(modBlk);
+%     subplot(numBlocks,5, idx*5-3 );
+%     stem(blkWithPilot );
+%     subplot(numBlocks,5, idx*5-2);
+%     plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
+%     subplot(numBlocks,5, idx*5-1);
+%     plot(real(cpAddedBlk)); hold on; plot(imag(cpAddedBlk),'g'); hold off;
+%     subplot(numBlocks,5, idx*5);
+%     plot(real(block)); hold on; plot(imag(block),'g'); hold off;
 
     lengthBlock = length(block)
     %     extendedBlk = block;
