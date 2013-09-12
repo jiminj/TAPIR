@@ -7,11 +7,14 @@ function [ resultMat ] = analyzeAudioData( signal )
     %%% ZP-OFDM %%%
     
     block = [];
+    resultMat = [];
     
     if(length(signal) > symLength + cpLength)
-        block = signal(cpLength+1:end);
+        block = signal(cpLength+1:cpLength+symLength);
     elseif( length(signal) > symLength)
         block = signal(length(signal) - symLength + 1 : end);
+    else
+        return;
     end
     
 %     lenEachSym = symLength + cpLength;
