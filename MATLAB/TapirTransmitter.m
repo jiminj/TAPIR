@@ -145,7 +145,6 @@ function btnPlay_Callback(hObject, eventdata, handles)
     audioData = filter(txBpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
 
-
     figure();
     subplot(3,1,1); stem(reshape(binData,[],1));
     subplot(3,1,2); plot(real(audioData));

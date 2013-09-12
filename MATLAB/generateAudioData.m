@@ -8,8 +8,8 @@ TapirConf;
 blockedMsg = reshape(binData, noDataFrame,[]);
 numBlocks = size(blockedMsg, 2);
 
-% txSignal = zeros((symLength+lenPrefix) * numBlocks + guardInterval,1);
-result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
+% result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
+result = zeros((symLength+cpLength), numBlocks);
 
 figure(1);
 
@@ -17,7 +17,6 @@ figure(1);
 for idx = 1:numBlocks
 
     block = blockedMsg(:,idx);
-
     
     %%%%% Convolutional encoding %%%%%
     block = convenc(block, trel);
@@ -48,7 +47,7 @@ for idx = 1:numBlocks
     
     
     %%%%% IDFT %%%%% 
-    block =[block(1:length(block)/2); zeros(noTotCarrier - length(block), 1); block(end - length(block)/2 + 1:end)];
+    block =[block(1:length(block)/2); zeros(symLength - length(block), 1); block(end - length(block)/2 + 1:end)];
     block = noDataCarrier .* ifft(block);
     transformedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,21 +57,21 @@ for idx = 1:numBlocks
 %     block = noDataCarrier .* idct(block);
 %     transformedBlk = block;
 
-
-    %%%%% Extend block by pulse shaping and applying LPF %%%%%
-    block = rectpulse(block, Fs * Ts);
-    extBlock = block;
+%     %%%%% Extend block by pulse shaping and applying LPF %%%%%
+%     block = rectpulse(block, Fs * Ts);
+%     extBlock = block;
     
 	%%%%% Add Cyclic Prefix %%%%%%%
     
     block = [block(end-cpLength+1:end); block];
     cpAddedBlk = block;
     
-    lpf = txrxLpf;
-    lpfDelay = lpf.order / 2
-    lpfExtBlock = [block; zeros(lpfDelay, 1)];
-    lpfExtBlock = filter(lpf, lpfExtBlock);
-    block = lpfExtBlock(lpfDelay+1 : end);
+%     lpf = txrxLpf;
+%     lpfDelay = lpf.order / 2
+%     lpfExtBlock = [block; zeros(lpfDelay, 1)];
+%     lpfExtBlock = filter(lpf, lpfExtBlock);
+%     block = lpfExtBlock(lpfDelay+1 : end);
+    lpfExtBlock = block;
 
     
     subplot(numBlocks,5, idx*5-4 );

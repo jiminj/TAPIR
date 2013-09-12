@@ -290,7 +290,7 @@ function btnLoad_Callback(hObject, eventdata, handles)
 %     set(handles.tbResult, 'String', result);
 %     %%%%%%%%%%%%
 
-
+    rxAudioData = [zeros(1,1); rxAudioData];
     reshapedRx = [rxAudioData; zeros(pageSize - mod(length(rxAudioData), pageSize), 1)];
     reshapedRx = reshape(reshapedRx,pageSize,[]);
     textResetCnt = 5;
@@ -301,10 +301,15 @@ function btnLoad_Callback(hObject, eventdata, handles)
     
 %     detectDataRegion(rxAudioData,Fc);
     
+    size(reshapedRx,2)
+
+    
     for idx=1:size(reshapedRx,2)
 
         [rcvDataBlk, remainedBlk] = detectDataRegion([remainedBlk; reshapedRx(:,idx)], Fc);
 
+        
+        
         if( ~isempty(rcvDataBlk)) % Found
             if( isempty(remainedBlk)) %continue
                 dataBlk = [dataBlk; rcvDataBlk];  
@@ -366,7 +371,6 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
     end
     
     
-
 % 
 % % --- Executes on button press in btnStart.
 % function btnStart_Callback(hObject, eventdata, handles)
