@@ -7,12 +7,14 @@ encodingRate = 1/2; % Channel Encoding Rate
 modulationRate = 1; % DPSK Modulation Rate
 noDataCarrier = noDataFrame / modulationRate / encodingRate;
 
-% Ts = 1/882; % symbol time (1/BW)
-Ts = 1/1764; % symbol time (1/BW)
-noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier
+% Ts = 1/1764; % symbol time (1/BW)
+% noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier
 
-symLength = noTotCarrier * Fs * Ts;
+% symLength = noTotCarrier * Fs * Ts;
+
+symLength = 2048;
 cpLength = symLength / 4;
+% cpLength = 0;
 guardInterval = symLength;
 
 pilotSig = [1;1;1;1];
