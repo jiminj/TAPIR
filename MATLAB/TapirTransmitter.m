@@ -112,8 +112,6 @@ function btnPlay_Callback(hObject, eventdata, handles)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
     
-    
-    
 	global Fs;
     global Fc;
     global audioData;
@@ -130,18 +128,36 @@ function btnPlay_Callback(hObject, eventdata, handles)
             txBpf = txBpf10k;
     end
     
+    txLpf = txrxLpfRC;
+    txLpfDelay = txLpf.order / 2;
+    
     txBpfDelay = ceil(txBpf.order / 2);
     
     msg = get(handles.tbMsg,'String');
-    binData = dec2bin(msg, 8)' - 48
+    binData = dec2bin(msg, 8)' - 48;
     genAudioData = generateAudioData(binData);
-    audioData = zeros( size(genAudioData,1) + txBpfDelay + guardInterval, size(genAudioData,2));
-    for idx=1:size(genAudioData, 2)
-        audioData(1:length(genAudioData),idx) = freqUpConversion(genAudioData(:,idx), Fc, Fs);
-%         audioData(:,idx) = filter(txBpf, audioData(:,idx));  % Filtering
+    extendedAudioData = zeros(size(genAudioData,1) + cPreLength + cPostLength, size(genAudioData,2));
+  
+    for idx=1:size(extendedAudioData, 2)
+        lpfAudioData = [genAudioData(:,idx); zeros(txLpfDelay,1)];
+        lpfAudioData = filter(txLpf, lpfAudioData);
+        lpfAudioData = lpfAudioData(txLpfDelay+1:end);
+        upconvAudioData = freqUpConversion(genAudioData(:,idx), Fc, Fs);    
+        % Add Cyclic prefix&postfix
+        extendedAudioData(1:length(extendedAudioData),idx) = [upconvAudioData(end - cPreLength + 1 : end); upconvAudioData; upconvAudioData(1:cPostLength)];
     end
+    extendedAudioData = [extendedAudioData; zeros(guardInterval, size(extendedAudioData,2))];
+    audioData = reshape(extendedAudioData, [], 1);
+    %Prepend Preamble
     
-    audioData = reshape(audioData, [], 1);
+    preambleData = generateSinPreamble(preambleBitLength, preambleBandwidth, Fs);
+    preambleData = [preambleData; preambleData; zeros(txLpfDelay,1)];
+    preambleData = filter(txLpf, preambleData);
+    preambleData = preambleData(txLpfDelay+1:end);
+    
+    upconvPreamble = freqUpConversion(preambleData, Fc, Fs);
+    audioData = [upconvPreamble; zeros(preambleInterval,1); audioData];
+    audioData = [audioData; zeros(txBpfDelay,1)];
     audioData = filter(txBpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
 
@@ -152,7 +168,12 @@ function btnPlay_Callback(hObject, eventdata, handles)
     
     if(saveFlag == 1)
         filename = get(handles.tbFilename, 'String');
-        wavwrite(audioData, Fs, 16, filename);
+        if strcmp(filename(end-3:end),'.wav') == 0
+            filename = [filename, '.wav'];
+        end
+        filename = [pwd, '/', filename]
+        
+        audiowrite(filename, audioData, Fs, 'BitsPerSample', 16)
     end
     sound(audioData, Fs);
     

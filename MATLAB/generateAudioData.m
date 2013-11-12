@@ -9,9 +9,9 @@ blockedMsg = reshape(binData, noDataFrame,[]);
 numBlocks = size(blockedMsg, 2);
 
 % result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
-result = zeros((symLength+cpLength), numBlocks);
+result = zeros((symLength), numBlocks);
 
-% figure(1);
+figure(1);
 
 %for each block
 for idx = 1:numBlocks
@@ -35,67 +35,64 @@ for idx = 1:numBlocks
     modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%%%% Add Pilot %%%%%    
-    blockLen = length(block);
-
-    block = [ pilotSig(1); block(1:blockLen/4); pilotSig(2); block(blockLen/4+1 : 2*blockLen/4); block(2*blockLen/4 + 1 : 3 * blockLen/4); pilotSig(3); block(3*blockLen/4 + 1 : end); pilotSig(4);];
-    blkWithPilot = block;
+    %%%%%  Add Pilot & Zero Subcarriers %%%%%     
     
+    noPilot = length(pilotSig);
+    blockLen = length(block);
+    pilotInterval = floor(blockLen / (noPilot +1 ) );
+   
+    
+    blkStIdx = 1;
+    blkWithPilot = [];
+    for pIdx = 1:noPilot
+        blkEdIdx = blkStIdx + pilotInterval - 1;
+        blkWithPilot = [blkWithPilot; block(blkStIdx : blkEdIdx);pilotSig(pIdx)];
+        blkStIdx = blkEdIdx + 1;
+    end
+    if length(block) > blkStIdx
+        blkWithPilot = [blkWithPilot; block(blkStIdx:end)];
+    end
+    block = blkWithPilot;
+    
+%     block = [ pilotSig(1); block(1:blockLen/4); pilotSig(2); block(blockLen/4+1 : 2*blockLen/4); 0; 0; block(2*blockLen/4 + 1 : 3 * blockLen/4); pilotSig(3); block(3*blockLen/4 + 1 : end); pilotSig(4);];
+%     blkWithPilot = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
     %%%%% Add Zero Subcarriers %%%%%
     
-    
     %%%%% IDFT %%%%% 
-    block =[block(1:length(block)/2); zeros(symLength - length(block), 1); block(end - length(block)/2 + 1:end)];
+    block =[block(end - length(block)/2 + 1:end); zeros(symLength - length(block), 1); block(1:length(block)/2)];
+    extendedBlk = block;
     block = noDataCarrier .* ifft(block);
     transformedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%%%% IDCT %%%%%
-%     block = [block; zeros(noTotCarrier - noDataCarrier,1)];
-%     block = noDataCarrier .* idct(block);
-%     transformedBlk = block;
-
-%     %%%%% Extend block by pulse shaping and applying LPF %%%%%
-%     block = rectpulse(block, Fs * Ts);
-%     extBlock = block;
-    
 	%%%%% Add Cyclic Prefix %%%%%%%
     
-    block = [block(end-cpLength+1:end); block];
-    cpAddedBlk = block;
+%     block = [block(end-cpLength+1:end); block];
+%     cpAddedBlk = block;
     
 %     lpf = txrxLpf;
 %     lpfDelay = lpf.order / 2
 %     lpfExtBlock = [block; zeros(lpfDelay, 1)];
 %     lpfExtBlock = filter(lpf, lpfExtBlock);
 %     block = lpfExtBlock(lpfDelay+1 : end);
-    lpfExtBlock = block;
+%     lpfExtBlock = block;
 
-%     
-%     subplot(numBlocks,5, idx*5-4 );
-%     stem(modBlk);
-%     subplot(numBlocks,5, idx*5-3 );
-%     stem(blkWithPilot );
-%     subplot(numBlocks,5, idx*5-2);
-%     plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
-%     subplot(numBlocks,5, idx*5-1);
-%     plot(real(cpAddedBlk)); hold on; plot(imag(cpAddedBlk),'g'); hold off;
-%     subplot(numBlocks,5, idx*5);
-%     plot(real(block)); hold on; plot(imag(block),'g'); hold off;
+    
+    subplot(numBlocks,4, idx*4-3 );
+    stem(modBlk);
+    subplot(numBlocks,4, idx*4-2 );
+    stem(blkWithPilot );
+    subplot(numBlocks,4, idx*4-1);
+    stem(real(extendedBlk)); hold on; stem(imag(extendedBlk),'g'); 
+    subplot(numBlocks,4, idx*4);
+    plot(real(transformedBlk)); hold on; plot(imag(transformedBlk),'g'); hold off;
 
-    lengthBlock = length(block)
+%     lengthBlock = length(block)
     %     extendedBlk = block;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    %%%%% Add Preamble %%%%%
-    
-%     block = [ repmat(shortPreamble, noPreambleRepeat, 1); block];
-%     preambledBlock = block;
-
-%     startIdx = (idx-1) * (txBlockLength) + 1;
 
     result(:, idx) = block; 
 end

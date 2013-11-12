@@ -94,7 +94,7 @@ function btnReceive_Callback(hObject, eventdata, handles)
 
 %     set(handles.btnReceive,'Enable','off');
 %     set(handles.btnStop,'Enable','on');
-%     set(handles.btnLoad,'Enable','off');
+    set(handles.btnLoad,'Enable','off');
 %     set(handles.tbFilename, 'Enable', 'off');
     
     global Fs;
@@ -110,6 +110,13 @@ function btnReceive_Callback(hObject, eventdata, handles)
     noDataCnt = 0;
     resultString = [];
 
+    
+    recFlag = 0;
+    recorder = dsp.AudioRecorder(44100,4096);
+    Speaker = dsp.AudioPlayer;
+    SpecAnalyzer = dsp.SpectrumAnalyzer;
+        
+        
     if( get(hObject, 'Value') )
         disp('Start Recording');
         if(playrec('isInitialised'))
@@ -162,7 +169,7 @@ function btnReceive_Callback(hObject, eventdata, handles)
                             
                             analyzedData = analyzeAudioData(filtRoiData);
                             resultChar = encodeChar(analyzedData)
-                            resultString = [resultString, resultChar]
+                            resultString = [resultString, resultChar];
                             set(handles.tbResult, 'String', resultString);
             %                 skipped = playrec('getSkippedSampleCount')
 
@@ -187,13 +194,12 @@ function btnReceive_Callback(hObject, eventdata, handles)
             pause(0.000000001);
             
         end            
-
     else
         disp('Stop Recording');
         if(playrec('isInitialised'))
             playrec('delPage');
             playrec('reset');
-        end
+        end        
     end
     
     
@@ -275,12 +281,24 @@ function btnLoad_Callback(hObject, eventdata, handles)
     minRecogLength = 1000;
     
     filename = get(handles.tbFilename, 'String');
-    rxAudioData = wavread(filename);
-    rxAudioData = rxAudioData(1:end);
+    if strcmp(filename(end-3:end),'.wav') == 0
+        filename = [filename, '.wav'];
+    end
+    filename = [pwd, '/', filename];
+%     rxAudioData = wavread(filename);
+    rxAudioData = audioread(filename);
+    
+    roiData = detectDataRegion(rxAudioData, Fc);
+    data = analyzeAudioData(roiData, Fc);
+    k = 1:size(data,2);
+    resultString = char(size(data,2));
+    resultString(k) = encodeChar(data(:,k));
+    set(handles.tbResult, 'String', resultString);
+    
     
 %     figure();
 %     plot(rxAudioData);
-%     
+    
 %     %%%%%%%%%%%%       
 %     roiData = detectDataRegion(rxAudioData, Fc);
 %     roiData = freqDownConversion(roiData, Fs, Fc);
@@ -290,61 +308,64 @@ function btnLoad_Callback(hObject, eventdata, handles)
 %     set(handles.tbResult, 'String', result);
 %     %%%%%%%%%%%%
 
-    rxAudioData = [zeros(1,1); rxAudioData];
-    reshapedRx = [rxAudioData; zeros(pageSize - mod(length(rxAudioData), pageSize), 1)];
-    reshapedRx = reshape(reshapedRx,pageSize,[]);
-    textResetCnt = 5;
-    dataBlk = [];
-    remainedBlk = [];
-    noDataCnt = 0;
-    resultString = [];
     
-%     detectDataRegion(rxAudioData,Fc);
-    
-    size(reshapedRx,2)
 
-    
-    for idx=1:size(reshapedRx,2)
 
-        [rcvDataBlk, remainedBlk] = detectDataRegion([remainedBlk; reshapedRx(:,idx)], Fc);
 
-        
-        
-        if( ~isempty(rcvDataBlk)) % Found
-            if( isempty(remainedBlk)) %continue
-                dataBlk = [dataBlk; rcvDataBlk];  
-            else %not Continue
-                dataBlk = [dataBlk; rcvDataBlk];
-                length(dataBlk)
-                % No consideration for the case of the data block ends
-                % exactly the buffer page
-                
-                if(length(dataBlk) > minRecogLength)
-                    roiData = freqDownConversion(dataBlk, Fc, Fs);
-                    
-                    % %%%%% LPF %%%%%%%%%%% 
-                    lpf = txrxLpf;
-                    lpfDelay = ceil(lpf.order / 2);
-                    extRoiData = [roiData; zeros(lpfDelay,1)];
-                    filtRoiData = filter(lpf, extRoiData);
-                    filtRoiData = filtRoiData(lpfDelay+1 :end);
-                    
-                    analyzedData = analyzeAudioData(filtRoiData);
-                    resultChar = encodeChar(analyzedData);
-                    resultString = [resultString, resultChar]
-                    set(handles.tbResult, 'String', resultString);
+% 
+%     rxAudioData = [zeros(1,1); rxAudioData];
+%     reshapedRx = [rxAudioData; zeros(pageSize - mod(length(rxAudioData), pageSize), 1)];
+%     reshapedRx = reshape(reshapedRx,pageSize,[]);
+%     textResetCnt = 5;
+%     dataBlk = [];
+%     remainedBlk = [];
+%     noDataCnt = 0;
+%     resultString = [];
+%     
+% %     detectDataRegion(rxAudioData,Fc);
+%     
+%     size(reshapedRx,2);
 
-                end
-                dataBlk = [];
-            end
-        elseif( ~isempty(resultString) )
-            noDataCnt = noDataCnt+1;
-            if(noDataCnt > textResetCnt)
-                resultString = [];
-                noDataCnt = 0;
-            end
-        end
-    end
+%     
+%     for idx=1:size(reshapedRx,2)
+% 
+%         [rcvDataBlk, remainedBlk] = detectDataRegion([remainedBlk; reshapedRx(:,idx)], Fc);
+%         
+%         if( ~isempty(rcvDataBlk)) % Found
+%             if( isempty(remainedBlk)) %continue
+%                 dataBlk = [dataBlk; rcvDataBlk];  
+%             else %not Continue
+%                 dataBlk = [dataBlk; rcvDataBlk];
+%                 length(dataBlk);
+%                 % No consideration for the case of the data block ends
+%                 % exactly the buffer page
+%                 
+%                 if(length(dataBlk) > minRecogLength)
+%                     roiData = freqDownConversion(dataBlk, Fc, Fs);
+%                     
+%                     % %%%%% LPF %%%%%%%%%%% 
+%                     lpf = txrxLpf;
+%                     lpfDelay = ceil(lpf.order / 2);
+%                     extRoiData = [roiData; zeros(lpfDelay,1)];
+%                     filtRoiData = filter(lpf, extRoiData);
+%                     filtRoiData = filtRoiData(lpfDelay+1 :end);
+%                     
+%                     analyzedData = analyzeAudioData(filtRoiData);
+%                     resultChar = encodeChar(analyzedData);
+%                     resultString = [resultString, resultChar];
+%                     set(handles.tbResult, 'String', resultString);
+% 
+%                 end
+%                 dataBlk = [];
+%             end
+%         elseif( ~isempty(resultString) )
+%             noDataCnt = noDataCnt+1;
+%             if(noDataCnt > textResetCnt)
+%                 resultString = [];
+%                 noDataCnt = 0;
+%             end
+%         end
+%     end
     %%%%%%%%%%%%
     
     
