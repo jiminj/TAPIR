@@ -6,18 +6,26 @@ noDataFrame = 8; % FrameSize
 encodingRate = 1/2; % Channel Encoding Rate
 modulationRate = 1; % DPSK Modulation Rate
 noDataCarrier = noDataFrame / modulationRate / encodingRate;
+pilotSig = [1;1;1;-1];
 
 % Ts = 1/1764; % symbol time (1/BW)
 % noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier
-
 % symLength = noTotCarrier * Fs * Ts;
 
-symLength = 2048;
-cpLength = symLength / 4;
-% cpLength = 0;
-guardInterval = symLength;
+noBlksPerSig = 8;
 
-pilotSig = [1;1;1;1];
+symLength = 2048;
+cPreLength = symLength / 2 ;
+cPostLength = symLength / 4;
+
+preambleBitLength = 4;
+preambleBandwidth = 441;
+preambleInterval = symLength / 2;
+% guardInterval = symLength / 2;
+guardInterval = 0;
+
+
+% pilotSig = [0;1;0;0;-1;0];
 
 % %%% Pilot 
 % 
