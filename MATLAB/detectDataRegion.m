@@ -48,8 +48,11 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 
     
     [~, peakPoint] = max(abs(corrResult(searchMaxStPoint : searchMaxStPoint+preambleLen)));
-    peakPoint = peakPoint + searchMaxStPoint - 1
+    peakPoint = peakPoint + searchMaxStPoint - 1;
     
+    
+    length(bandSig)
+    peakPoint + blockLen * noBlksPerSig + preambleInterval
     dataSignal = bandSig(peakPoint+1:peakPoint + blockLen * noBlksPerSig + preambleInterval);
     
     figure();
