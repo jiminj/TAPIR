@@ -16,6 +16,7 @@
 @synthesize correlationSampleSize = _correlationSampleSize;
 @synthesize aqData;
 @synthesize delegate;
+@synthesize correlationManager;
 
 static void HandleInputBuffer (
                                void                                *audioInput,
@@ -35,6 +36,7 @@ static void HandleInputBuffer (
     short* buffer = inBuffer->mAudioData;
     short sampleValue;
     
+    /*
     if(SELF_CORRELATION){
         for(int i = 0; i<inNumPackets; i++){
             sampleValue = buffer[i];
@@ -50,6 +52,10 @@ static void HandleInputBuffer (
             float correlation = [aia calculateCorrelationWithReferenceWithANewSampleValue:sampleValue];
             [aia.delegate newCorrelationValue:correlation];
         }
+    }*/
+    
+    for(int i = 0; i<inNumPackets; i++){
+        [aia.correlationManager newSample:buffer[i]];
     }
     
     AudioQueueEnqueueBuffer (inAQ,inBuffer,0,NULL);
@@ -148,7 +154,7 @@ static void HandleInputBuffer (
     squareSumB = 0;
     sumAB = 0;
     sampleBSumCalculated = NO;
-    
+    correlationManager = [[LKCorrelationManager alloc] initWithCorrelationWindowSize:100 andBacktrackSize:100];
 }
 -(void)startAudioInput{
     AudioQueueStart(aqData.mQueue, NULL);
