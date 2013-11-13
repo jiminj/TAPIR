@@ -5,7 +5,7 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
 %   
     sigLength = length(signal);
     pilotLen = length(pilotSig);
-    roiBitLength = noDataCarrier + pilotLen;
+    roiBitLength = noDataFrame * modulationRate + pilotLen;
     pilotInterval = floor(noDataCarrier / (pilotLen+1));
     
     pilotLocation = [];
