@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "LKCorrelationManager.h"
 
 @protocol correlationDelegate <NSObject>
 -(void)newCorrelationValue:(float)value;
@@ -38,11 +39,13 @@ struct AQRecorderState {
     float sumAB;
     BOOL sampleBSumCalculated;
     id<correlationDelegate> delegate;
+    LKCorrelationManager* correlationManager;
 }
 @property int correlationSampleSize;
 @property int correlationOffset;
 @property struct AQRecorderState aqData;
 @property id<correlationDelegate> delegate;
+@property LKCorrelationManager* correlationManager;
 
 -(void)prepareAudioInput;
 -(void)startAudioInput;
