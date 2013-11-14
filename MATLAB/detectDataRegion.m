@@ -54,11 +54,12 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
     
     figure();
     subplot(4,1,1);
-    plot(signal);
+    plot(signal); 
     
     subplot(4,1,2);
-    plot(bandSig);
-    
+    plot(bandSig(1:peakPoint)); hold on;
+    plot( peakPoint+1:peakPoint + length(dataSignal), dataSignal,'r');
+    plot( peakPoint+length(dataSignal)+1:length(bandSig), bandSig(peakPoint+length(dataSignal)+1:end ));
     subplot(4,1,3);
     plot(abs(corrResult));
 
