@@ -23,6 +23,9 @@
 		2480288F17F2D44A001CCF2D /* AudioBufferCorrelationTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480288E17F2D44A001CCF2D /* AudioBufferCorrelationTestTests.m */; };
 		2480289917F2D73A001CCF2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480289817F2D73A001CCF2D /* AudioToolbox.framework */; };
 		24AD3D9A17FACCD400F211FC /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AD3D9917FACCD400F211FC /* LKAudioInputAccessor.m */; };
+		24FC24C5183258C6009DCD22 /* LKRealSampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC24C4183258C6009DCD22 /* LKRealSampleBuffer.m */; };
+		24FC24C818325AD9009DCD22 /* LKVirtualSampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC24C718325AD9009DCD22 /* LKVirtualSampleBuffer.m */; };
+		24FC24CB18325DB8009DCD22 /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC24CA18325DB8009DCD22 /* LKCorrelationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,12 @@
 		2480289817F2D73A001CCF2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		24AD3D9817FACCD400F211FC /* LKAudioInputAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKAudioInputAccessor.h; sourceTree = "<group>"; };
 		24AD3D9917FACCD400F211FC /* LKAudioInputAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKAudioInputAccessor.m; sourceTree = "<group>"; };
+		24FC24C3183258C6009DCD22 /* LKRealSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKRealSampleBuffer.h; sourceTree = "<group>"; };
+		24FC24C4183258C6009DCD22 /* LKRealSampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKRealSampleBuffer.m; sourceTree = "<group>"; };
+		24FC24C618325AD9009DCD22 /* LKVirtualSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKVirtualSampleBuffer.h; sourceTree = "<group>"; };
+		24FC24C718325AD9009DCD22 /* LKVirtualSampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKVirtualSampleBuffer.m; sourceTree = "<group>"; };
+		24FC24C918325DB8009DCD22 /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
+		24FC24CA18325DB8009DCD22 /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +135,12 @@
 				2480287917F2D449001CCF2D /* ViewController.m */,
 				24AD3D9817FACCD400F211FC /* LKAudioInputAccessor.h */,
 				24AD3D9917FACCD400F211FC /* LKAudioInputAccessor.m */,
+				24FC24C918325DB8009DCD22 /* LKCorrelationManager.h */,
+				24FC24CA18325DB8009DCD22 /* LKCorrelationManager.m */,
+				24FC24C3183258C6009DCD22 /* LKRealSampleBuffer.h */,
+				24FC24C4183258C6009DCD22 /* LKRealSampleBuffer.m */,
+				24FC24C618325AD9009DCD22 /* LKVirtualSampleBuffer.h */,
+				24FC24C718325AD9009DCD22 /* LKVirtualSampleBuffer.m */,
 				2480287B17F2D449001CCF2D /* Images.xcassets */,
 				2480286A17F2D449001CCF2D /* Supporting Files */,
 			);
@@ -258,9 +273,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24FC24C818325AD9009DCD22 /* LKVirtualSampleBuffer.m in Sources */,
+				24FC24C5183258C6009DCD22 /* LKRealSampleBuffer.m in Sources */,
 				2480287A17F2D449001CCF2D /* ViewController.m in Sources */,
 				24AD3D9A17FACCD400F211FC /* LKAudioInputAccessor.m in Sources */,
 				2480287417F2D449001CCF2D /* AppDelegate.m in Sources */,
+				24FC24CB18325DB8009DCD22 /* LKCorrelationManager.m in Sources */,
 				2480287017F2D449001CCF2D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
