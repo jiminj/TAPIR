@@ -5,10 +5,10 @@ Fs = 44100; % Sampling Frequency
 noDataFrame = 8; % FrameSize
 encodingRate = 2; % Channel Encoding Rate
 
-modulationRate = 2; % PSK Modulation Rate
+modulationRate = 1; % PSK Modulation Rate
 % noDataCarrier = noDataFrame / modulationRate / encodingRate;
 noDataCarrier = noDataFrame * encodingRate;
-pilotSig = [-1;1;1;1;1;-1];
+pilotSig = [1;1;1;-1];
 
 % Ts = 1/1764; % symbol time (1/BW)
 % noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier

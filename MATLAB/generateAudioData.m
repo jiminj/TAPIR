@@ -7,7 +7,7 @@ TapirConf;
 % seperates msg to frames by framesize
 addCols = mod(size(binData,2), modulationRate);
 blockedMsg = [binData, zeros(size(binData,1),addCols)];
-blockedMsg = reshape(blockedMsg, noDataCarrier,[]);
+blockedMsg = reshape(blockedMsg, noDataFrame * modulationRate,[]);
 numBlocks = size(blockedMsg, 2);
 
 % result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
@@ -40,7 +40,8 @@ for idx = 1:numBlocks
         bunchedBlk(k) = bunchedBlk(k) + block(k*modulationRate-m)*(2^m);
     end
     
-    block = qammod(bunchedBlk,4);
+%     block = qammod(bunchedBlk,4);
+    block = pskmod(block,2);
     modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -60,7 +61,7 @@ for idx = 1:numBlocks
     if length(block) > blkStIdx
         blkWithPilot = [blkWithPilot; block(blkStIdx:end)];
     end
-    block = blkWithPilot
+    block = blkWithPilot;
     
 %     block = [ pilotSig(1); block(1:blockLen/4); pilotSig(2); block(blockLen/4+1 : 2*blockLen/4); 0; 0; block(2*blockLen/4 + 1 : 3 * blockLen/4); pilotSig(3); block(3*blockLen/4 + 1 : end); pilotSig(4);];
 %     blkWithPilot = block;
