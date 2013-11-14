@@ -5,7 +5,7 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
 %   
     sigLength = length(signal);
     pilotLen = length(pilotSig);
-    roiBitLength = noDataCarrier + pilotLen;
+    roiBitLength = noDataFrame * modulationRate + pilotLen;
     pilotInterval = floor(noDataCarrier / (pilotLen+1));
     
     pilotLocation = [];
@@ -13,7 +13,7 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         pilotLocation = [pilotLocation; (idx * pilotInterval + idx)];
     end
     
-    analyzedMat = zeros(noDataFrame, noBlksPerSig);
+    analyzedMat = zeros(noDataFrame * modulationRate, noBlksPerSig);
     blkIdx = 1;
     pos = preambleInterval + cPreLength;
     
@@ -47,26 +47,22 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         
         chanEstData = roiData .* H';
 
-        
+        chanEstData(pilotLocation) = [];
         dataBlk = chanEstData;
-        dataBlk(pilotLocation) = [];
         
-        %%%%% DBPSK demodulation %%%%%
-        dataBlk = real(dpskdemod(dataBlk,2));
-            
+        %%%%% QAM demodulation %%%%%
+        demodBlk = qamdemod(dataBlk,4);
+        demodBlk = de2bi(demodBlk);
+        demodBlk = demodBlk(:,end:-1:1);
+        binDemodBlk = reshape(demodBlk',[],1);
+  
         %%%%% DeInterleaver %%%%%%
-        deIntBlk = matdeintrlv(dataBlk,intRows,intCols);
-        deIntBlk(deIntBlk>0) = 1;
-        deIntBlk(deIntBlk<0) = 0;
-        deIntBlk = [deIntBlk; zeros(length(deIntBlk),1)];
+        deIntBlk = matdeintrlv(binDemodBlk,intRows,intCols);
 
         %%%%% Viterbi Decoding %%%%%
         decodedBlk = vitdec(deIntBlk, trel, tbLen, 'trunc', 'hard');
-        decodedBlk = decodedBlk(1:length(decodedBlk)/2);
-        
         analyzedMat(:,blkIdx) = decodedBlk;
 
-        
         %%%%%%%%%%%%% PLOT %%%%%%%%%%%%%                
         subplot(noBlksPerSig,6,blkIdx*6-5);
         plot(signal(pos + 1: endPos));
@@ -88,8 +84,7 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         scatter(real(roiData),imag(roiData),'*'); hold on;
         scatter(real(chanEstData),imag(chanEstData),'*','r');        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-               
-        
+
         blkIdx = blkIdx + 1;
         pos = endPos + guardInterval + cPreLength + cPostLength;
         

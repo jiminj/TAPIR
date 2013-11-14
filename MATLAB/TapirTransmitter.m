@@ -161,10 +161,12 @@ function btnPlay_Callback(hObject, eventdata, handles)
     audioData = filter(txBpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
 
-%     figure();
-%     subplot(3,1,1); stem(reshape(binData,[],1));
-%     subplot(3,1,2); plot(real(audioData));
-%     subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
+    figure();
+    subplot(3,1,1); stem(reshape(binData,[],1));
+    subplot(3,1,2); plot(real(audioData));
+    subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
+    
+    
     
     if(saveFlag == 1)
         filename = get(handles.tbFilename, 'String');
@@ -172,7 +174,9 @@ function btnPlay_Callback(hObject, eventdata, handles)
             filename = [filename, '.wav'];
         end
         filename = [pwd, '/', filename]
-        
+
+        audioData = [audioData; zeros((symLength + guardInterval + cPreLength + cPostLength) * noBlksPerSig + preambleInterval,1)];
+        length(audioData)
         audiowrite(filename, audioData, Fs, 'BitsPerSample', 16)
     end
     sound(audioData, Fs);

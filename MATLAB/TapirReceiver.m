@@ -290,8 +290,10 @@ function btnLoad_Callback(hObject, eventdata, handles)
     
     roiData = detectDataRegion(rxAudioData, Fc);
     data = analyzeAudioData(roiData, Fc);
+    data = reshape(data,8,[])
+    
     k = 1:size(data,2);
-    resultString = char(size(data,2));
+    resultString = char(size(data,2))
     resultString(k) = encodeChar(data(:,k));
     set(handles.tbResult, 'String', resultString);
     

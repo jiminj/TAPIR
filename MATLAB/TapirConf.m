@@ -3,9 +3,11 @@ Fs = 44100; % Sampling Frequency
 % Fc = 18000; % Carrier Frequency
 
 noDataFrame = 8; % FrameSize
-encodingRate = 1/2; % Channel Encoding Rate
-modulationRate = 1; % DPSK Modulation Rate
-noDataCarrier = noDataFrame / modulationRate / encodingRate;
+encodingRate = 2; % Channel Encoding Rate
+
+modulationRate = 1; % PSK Modulation Rate
+% noDataCarrier = noDataFrame / modulationRate / encodingRate;
+noDataCarrier = noDataFrame * encodingRate;
 pilotSig = [1;1;1;-1];
 
 % Ts = 1/1764; % symbol time (1/BW)
@@ -24,8 +26,6 @@ preambleInterval = symLength / 2;
 % guardInterval = symLength / 2;
 guardInterval = 0;
 
-
-% pilotSig = [0;1;0;0;-1;0];
 
 % %%% Pilot 
 % 
@@ -53,7 +53,7 @@ trel = poly2trellis(7, [133 171]);
 tbLen = 16; %Traceback Length for Viterbi decoder
 
 intRows = 4;
-intCols = (noDataCarrier)/intRows;
+intCols = (noDataCarrier * modulationRate)/intRows;
 
 
 
