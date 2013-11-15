@@ -5,7 +5,7 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
 %   
     sigLength = length(signal);
     pilotLen = length(pilotSig);
-    roiBitLength = noDataFrame * modulationRate + pilotLen;
+    roiBitLength = noDataCarrier + pilotLen;
     pilotInterval = floor(noDataCarrier / (pilotLen+1));
     
     pilotLocation = [];
@@ -32,17 +32,15 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         lpfCurDataBlk = filter(rxLpf, lpfCurDataBlk);
         lpfCurDataBlk = lpfCurDataBlk(rxLpfDelay+1:end);
         
-        
         fftData = fft(lpfCurDataBlk);
         roiData = [fftData(end - roiBitLength/2+1:end); fftData(1:roiBitLength/2)];
         
         % Channel Estimation
         LsEst = zeros(pilotLen,1);
-        
+        length(roiData);
         k = 1:pilotLen;
-        LsEst(k) = roiData(pilotLocation(k)) ./ pilotSig(k); 
+        LsEst(k) = roiData(pilotLocation(k)) ./ pilotSig(k);
         
-%         LsEst(pilotLocation) = roiData(pilotLocation) ./ pilotSig;
         H = interpolate(LsEst, pilotLocation, length(roiData), 'linear');
         
         chanEstData = roiData .* H';
@@ -51,14 +49,16 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         dataBlk = chanEstData;
         
         %%%%% QAM demodulation %%%%%
-        demodBlk = qamdemod(dataBlk,4);
-        demodBlk = de2bi(demodBlk);
-        demodBlk = demodBlk(:,end:-1:1);
+%         demodBlk = qamdemod(dataBlk,4);
+%         demodBlk = de2bi(demodBlk);
+%         demodBlk = demodBlk(:,end:-1:1);
+
+        demodBlk = dpskdemod(dataBlk,2);
         binDemodBlk = reshape(demodBlk',[],1);
   
         %%%%% DeInterleaver %%%%%%
         deIntBlk = matdeintrlv(binDemodBlk,intRows,intCols);
-
+        
         %%%%% Viterbi Decoding %%%%%
         decodedBlk = vitdec(deIntBlk, trel, tbLen, 'trunc', 'hard');
         analyzedMat(:,blkIdx) = decodedBlk;

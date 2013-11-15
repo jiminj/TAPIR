@@ -41,7 +41,7 @@ for idx = 1:numBlocks
     end
     
 %     block = qammod(bunchedBlk,4);
-    block = pskmod(block,2);
+    block = real(dpskmod(block,2));
     modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
