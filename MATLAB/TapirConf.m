@@ -20,6 +20,7 @@ symLength = 2048;
 cPreLength = symLength / 2 ;
 cPostLength = symLength / 4;
 
+
 preambleBitLength = 4;
 preambleBandwidth = 441;
 preambleInterval = symLength / 2;
