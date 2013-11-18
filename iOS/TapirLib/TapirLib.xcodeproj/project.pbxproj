@@ -19,7 +19,7 @@
 		EC0EEF9F183A4A64001BC8DE /* TapirTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = EC0EEF9B183A4A64001BC8DE /* TapirTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC0EEFA0183A4A64001BC8DE /* TapirTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0EEF9C183A4A64001BC8DE /* TapirTransform.m */; };
 		EC0EEFA3183A4A6E001BC8DE /* t.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEFA1183A4A6E001BC8DE /* t.wav */; };
-		EC0EEFA4183A4A6E001BC8DE /* TapirTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0EEFA2183A4A6E001BC8DE /* TapirTests.m */; };
+		EC0EEFE5183A5FA3001BC8DE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,9 @@
 		EC0EEF9B183A4A64001BC8DE /* TapirTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirTransform.h; sourceTree = "<group>"; };
 		EC0EEF9C183A4A64001BC8DE /* TapirTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirTransform.m; sourceTree = "<group>"; };
 		EC0EEFA1183A4A6E001BC8DE /* t.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t.wav; sourceTree = "<group>"; };
-		EC0EEFA2183A4A6E001BC8DE /* TapirTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirTests.m; sourceTree = "<group>"; };
+		EC0EEFE0183A5F85001BC8DE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		EC0EEFE2183A5F98001BC8DE /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC0EEFE5183A5FA3001BC8DE /* AudioToolbox.framework in Frameworks */,
 				EC0EEF81183A4A51001BC8DE /* XCTest.framework in Frameworks */,
 				EC0EEF85183A4A51001BC8DE /* UIKit.framework in Frameworks */,
 				EC0EEF83183A4A51001BC8DE /* Foundation.framework in Frameworks */,
@@ -117,6 +120,9 @@
 		EC0EEF7F183A4A51001BC8DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */,
+				EC0EEFE2183A5F98001BC8DE /* AudioUnit.framework */,
+				EC0EEFE0183A5F85001BC8DE /* CoreAudio.framework */,
 				EC0EEF80183A4A51001BC8DE /* XCTest.framework */,
 				EC0EEF82183A4A51001BC8DE /* Foundation.framework */,
 				EC0EEF84183A4A51001BC8DE /* UIKit.framework */,
@@ -128,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				EC0EEFA1183A4A6E001BC8DE /* t.wav */,
-				EC0EEFA2183A4A6E001BC8DE /* TapirTests.m */,
 				EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */,
 				EC0EEF8A183A4A51001BC8DE /* Supporting Files */,
 			);
@@ -279,7 +284,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC0EEFA4183A4A6E001BC8DE /* TapirTests.m in Sources */,
 				EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +383,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -387,10 +392,7 @@
 		EC0EEF94183A4A51001BC8DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CONTENTS_FOLDER_PATH = "$(WRAPPER_NAME)/Versions/$(FRAMEWORK_VERSION)";
 				DEAD_CODE_STRIPPING = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -413,10 +415,7 @@
 		EC0EEF95183A4A51001BC8DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CONTENTS_FOLDER_PATH = "$(WRAPPER_NAME)/Versions/$(FRAMEWORK_VERSION)";
 				DEAD_CODE_STRIPPING = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -511,6 +510,7 @@
 				EC0EEF95183A4A51001BC8DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EC0EEF96183A4A51001BC8DE /* Build configuration list for PBXNativeTarget "TapirLibTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +519,7 @@
 				EC0EEF98183A4A51001BC8DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

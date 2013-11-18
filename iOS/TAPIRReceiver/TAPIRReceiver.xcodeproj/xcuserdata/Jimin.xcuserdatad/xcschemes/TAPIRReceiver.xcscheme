@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EC0EEF6D183A4A51001BC8DE"
+               BuildableName = "TapirLib.framework"
+               BlueprintName = "TapirLib"
+               ReferencedContainer = "container:../TapirLib/TapirLib.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "245AC68218364DBE00AF31AE"
                BuildableName = "TAPIRReceiver.app"
                BlueprintName = "TAPIRReceiver"

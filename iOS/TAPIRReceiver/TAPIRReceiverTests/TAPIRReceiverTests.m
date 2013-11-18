@@ -7,6 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <TapirLib/TapirTransform.h>
+#import <TapirLib/TapirIqModulator.h>
 
 @interface TAPIRReceiverTests : XCTestCase
 
@@ -26,9 +28,27 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testLoadLibrary
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+
+    float initState = 0;
+    float inc = 1;
+    int length = 2048;
+    
+    DSPSplitComplex convResult;
+    convResult.realp = malloc(sizeof(float) * length);
+    convResult.imagp = malloc(sizeof(float) * length);
+    
+    vDSP_vramp(&initState, &inc, convResult.realp, 1, length);
+    vDSP_vramp(&initState, &inc, convResult.imagp, 1, length);
+    [TapirTransform fftComplex:&convResult dest:&convResult length:length];
+    [TapirTransform nothing];
 }
+
+//
+//- (void)testExample
+//{
+//    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+//}
 
 @end
