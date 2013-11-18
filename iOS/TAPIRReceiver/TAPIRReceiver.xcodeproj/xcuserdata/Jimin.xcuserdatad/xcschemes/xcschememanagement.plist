@@ -7,7 +7,12 @@
 		<key>TAPIRReceiver.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+		<key>TAPIRReceiverTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>245AC6A318364DBE00AF31AE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC0EEFE6183A68FB001BC8DE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC0EEFEC183A6F7A001BC8DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

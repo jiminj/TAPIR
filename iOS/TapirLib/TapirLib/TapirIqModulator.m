@@ -56,7 +56,7 @@
     
     [self generateCarrier:&carrier length:length samplingFreq:samplingFreq carrierFreq:carrierFreq];
     [self scaleCompSignal:&carrier dest:&carrier length:length scale:scale];
-    zrvmul(&carrier, 1, signal, 1, destSignal, 1, length);
+    vDSP_zrvmul(&carrier, 1, signal, 1, destSignal, 1, length);
     
     free(carrier.realp);
     free(carrier.imagp);
@@ -75,8 +75,8 @@
     carrier.imagp = malloc(sizeof(float) * length);
     [self generateCarrier:&carrier length:length samplingFreq:samplingFreq carrierFreq:carrierFreq];
     
-    vmul(signal->realp, 1, carrier.realp, 1, signal->realp, 1, length);
-    vmul(signal->imagp, 1, carrier.imagp, 1, signal->imagp, 1, length);
+    vDSP_vmul(signal->realp, 1, carrier.realp, 1, signal->realp, 1, length);
+    vDSP_vmul(signal->imagp, 1, carrier.imagp, 1, signal->imagp, 1, length);
     vDSP_vsadd(signal->realp, 1, signal->imagp, destSignal, 1, length);
     [self scaleFloatSignal:destSignal dest:destSignal length:length scale:2.0f];
     

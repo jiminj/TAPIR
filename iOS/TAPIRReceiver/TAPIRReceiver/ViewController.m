@@ -14,9 +14,6 @@
 @end
 
 
-
-
-
 @implementation ViewController
 
 - (void)viewDidLoad
@@ -27,6 +24,7 @@
     aia = [[LKAudioInputAccessor alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
+
     
 }
 
