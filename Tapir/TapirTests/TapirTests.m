@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 #include <AudioToolbox/AudioToolbox.h>
+#include "TapirTransform.h"
+#include "TapirIqModulator.h"
+
 
 @interface TapirTests : XCTestCase
 
@@ -33,19 +36,39 @@
 //}
 
 
-- (void)testLoadData
+- (void)testConvert
 {
 
     NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"t" ofType: @".wav"];
     UInt32 length = 2048;
-    Float32 * audioData = malloc(length * sizeof(Float32));
+    float * audioData = malloc(length * sizeof(float));
     [self readWavDataFrom:filePath to:audioData lengthOf:length];
-
-    for( int i=0; i< length ; i++ )
-    {
-        NSLog(@"%f",audioData[i]);
-    }
     
+    DSPSplitComplex convResult;
+    convResult.realp = malloc(sizeof(float) * length);
+    convResult.imagp = malloc(sizeof(float) * length);
+
+    [TapirIqModulator iqDemodulate:audioData dest:&convResult length:2048 samplingFreq:44100 carrierFreq:20000];
+//    [converter iqDemodulate:audioData dest:&convResult withLength:length];
+    
+//    for(int i=0; i<10; ++i)
+//    {
+//        NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
+//    }
+//    for(int i=length - 10;i<length; ++i)
+//    {
+//        NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
+//    }
+    [TapirTransform fftComplex:&convResult dest:&convResult length:2048];
+
+    for(int i=0; i<10; ++i)
+    {
+        NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
+    }
+    for(int i=length - 10;i<length; ++i)
+    {
+        NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
+    }
     
     XCTAssertTrue(YES);
 }
