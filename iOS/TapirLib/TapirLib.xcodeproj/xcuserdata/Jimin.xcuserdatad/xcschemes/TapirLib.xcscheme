@@ -37,6 +37,11 @@
                BlueprintName = "TapirLibTests"
                ReferencedContainer = "container:TapirLib.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "TapirLibTests/testConvert">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
