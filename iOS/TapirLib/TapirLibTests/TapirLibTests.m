@@ -8,8 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #include <AudioToolbox/AudioToolbox.h>
-#include "TapirIqModulator.h"
-#include "TapirTransform.h"
+#include "TapirLib.h"
 
 @interface TapirLibTests : XCTestCase
 
@@ -34,6 +33,69 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testModulation
+{
+    int symRate = 4;
+    PskModulator * mod = [[PskModulator alloc] initWithSymbolRate:symRate initPhase:0];
+
+    int n = 10;
+    
+    //Demodulation
+    DSPSplitComplex testDemodValue;
+    testDemodValue.realp = malloc(sizeof(float) * n);
+    testDemodValue.imagp = malloc(sizeof(float) * n);
+    
+    int * result = malloc(sizeof(int) * n);
+    float * phase = malloc(sizeof(float) * n);
+    
+    float phaseDiv = 2*M_PI / n;
+    float mag = 1.0f;
+    
+    for(int i=0; i<n; ++i)
+    {
+        phase[i] = phaseDiv * i;
+        testDemodValue.realp[i] = cosf(phase[i]) / mag;
+        testDemodValue.imagp[i] = sinf(phase[i]) / mag;
+    }
+
+    [mod demodulate:&testDemodValue dest:result length:n];
+    for(int i=0; i<n; ++i)
+    {
+        NSLog(@"%2f+%2fi (%2f)=> %d", testDemodValue.realp[i], testDemodValue.imagp[i], phase[i] * 180 / M_PI, result[i]);
+    }
+
+    //Modulation
+    int * testModValue = malloc(sizeof(int) * n);
+    for( int i=0; i<n; ++i)
+    {
+        testModValue[i] = (int)(arc4random() % symRate);
+    }
+
+    DSPSplitComplex testModResult;
+    testModResult.realp = malloc(sizeof(float) * n);
+    testModResult.imagp = malloc(sizeof(float) * n);
+    
+    
+    DpskModulator *mod2 = [[DpskModulator alloc]initWithSymbolRate:symRate];
+    [mod2 modulate:testModValue dest:&testModResult length:n];
+    
+    for(int i=0;i<n;++i)
+    {
+        NSLog(@"%d => %2f + %2fi",testModValue[i],testModResult.realp[i],testModResult.imagp[i]);
+    }
+    
+    
+    free(testDemodValue.realp);
+    free(testDemodValue.imagp);
+    free(phase);
+    free(result);
+    
+//    DbpskModulator * mod = [[DbpskModulator alloc] init];
+    
+//    int result = [TapirTransform calculateLogLength:2048];
+//    NSLog(@"%d",result);
+}
+
 - (void)testConvert
 {
     
@@ -46,7 +108,8 @@
     convResult.realp = malloc(sizeof(float) * length);
     convResult.imagp = malloc(sizeof(float) * length);
     
-    [TapirIqModulator iqDemodulate:audioData dest:&convResult length:2048 samplingFreq:44100 carrierFreq:20000];
+    iqDemodulate(audioData,&convResult,2048, 44100, 20000);
+    
     //    [converter iqDemodulate:audioData dest:&convResult withLength:length];
     
     //    for(int i=0; i<10; ++i)
@@ -57,8 +120,8 @@
     //    {
     //        NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
     //    }
-    [TapirTransform fftComplex:&convResult dest:&convResult length:2048];
-    
+    fftComplexForward(&convResult, &convResult, 2048);
+
     for(int i=0; i<10; ++i)
     {
         NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
@@ -67,6 +130,10 @@
     {
         NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
     }
+
+    free(audioData);
+    free(convResult.realp);
+    free(convResult.imagp);
     
     XCTAssertTrue(YES);
 }
