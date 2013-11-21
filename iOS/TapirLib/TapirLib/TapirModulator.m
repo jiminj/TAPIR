@@ -99,7 +99,7 @@ const float kTwoPi = 2 * M_PI;
     for(int i=0; i<length; ++i)
     {
         val += source[i];
-        if(val > symbolRate)
+        if(val >= symbolRate)
         { val -= symbolRate; }
         
         diffMod[i] = val;
@@ -110,6 +110,16 @@ const float kTwoPi = 2 * M_PI;
 }
 -(void)demodulate:(const DSPSplitComplex *)source dest:(int *)dest length:(const int)length
 {
-    [super demodulate:source dest:dest length:length];
+    int * pskDemod = malloc(sizeof(int) * length);
+    [super demodulate:source dest:pskDemod length:length];
+
+    dest[0] = pskDemod[0];
+    for(int i=1; i<length; ++i)
+    {
+        dest[i] = pskDemod[i] - pskDemod[i-1];
+        if(dest[i] < 0)
+        { dest[i] += symbolRate; }
+    }
+    free(pskDemod);
 }
 @end

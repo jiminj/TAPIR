@@ -11,6 +11,7 @@
 
 #include "TapirDsp.h"
 #include "TapirModulator.h"
+#include "TapirInterleaver.h"
 #include "TapirChannelEstimator.h"
 
 #endif
