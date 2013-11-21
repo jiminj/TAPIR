@@ -41,6 +41,9 @@
                <Test
                   Identifier = "TapirLibTests/testConvert">
                </Test>
+               <Test
+                  Identifier = "TapirLibTests/testModulation">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

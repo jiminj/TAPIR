@@ -33,6 +33,37 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testInterleaver
+{
+    DSPSplitComplex src;
+    DSPSplitComplex interleaved;
+    DSPSplitComplex deinterleaved;
+    int n = 15;
+    
+    src.realp = malloc(sizeof(float) * n);
+    src.imagp = malloc(sizeof(float) * n);
+    interleaved.realp = malloc(sizeof(float) * n);
+    interleaved.imagp = malloc(sizeof(float) * n);
+    deinterleaved.realp = malloc(sizeof(float) * n);
+    deinterleaved.imagp = malloc(sizeof(float) * n);
+    
+    
+    for(int i=1; i<=n; ++i)
+    { src.realp[i-1] = i; }
+    
+    TapirInterleaver * interleaver = [[TapirInterleaver alloc] initWithNRows:3 NCols:5];
+    [interleaver interleave:&src to:&interleaved];
+    [interleaver deinterleave:&interleaved to:&deinterleaved];
+    
+    for(int i=0; i<n; ++i)
+    {
+        NSLog(@"%f => %f => %f", src.realp[i], interleaved.realp[i], deinterleaved.realp[i]);
+    }
+    
+    free(src.realp); free(src.imagp);
+    free(interleaved.realp); free(interleaved.imagp);
+}
+
 - (void)testModulation
 {
     int symRate = 4;
@@ -76,12 +107,18 @@
     testModResult.imagp = malloc(sizeof(float) * n);
     
     
+    int * testDemodValue2 = malloc(sizeof(int) * n);
+    int * phaseInfo = malloc(sizeof(int)*n);
     DpskModulator *mod2 = [[DpskModulator alloc]initWithSymbolRate:symRate];
     [mod2 modulate:testModValue dest:&testModResult length:n];
+    [mod demodulate:&testModResult dest:phaseInfo length:n];
+    [mod2 demodulate:&testModResult dest:testDemodValue2 length:n];
+    
+
     
     for(int i=0;i<n;++i)
     {
-        NSLog(@"%d => %2f + %2fi",testModValue[i],testModResult.realp[i],testModResult.imagp[i]);
+        NSLog(@"%d => %2f + %2fi (%d)=> %d",testModValue[i],testModResult.realp[i],testModResult.imagp[i], phaseInfo[i], testDemodValue2[i]);
     }
     
     
