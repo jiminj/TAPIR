@@ -13,5 +13,6 @@
 #include "TapirModulator.h"
 #include "TapirInterleaver.h"
 #include "TapirChannelEstimator.h"
+#include "TapirEncoder.h"
 
 #endif
