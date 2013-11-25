@@ -33,6 +33,40 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testChannelEstimation
+{
+    int size = 20;
+
+    float pilotReal[4] = { 1.f, 1.f, 1.f, -1.f };
+    float pilotImag[4] = { 0., 0., 0., 0.};
+    
+    DSPSplitComplex pilot;
+    pilot.realp = pilotReal;
+    pilot.imagp = pilotImag;
+
+    int loc[4] = {3, 7, 11, 15};
+//    float index[4] = { 0.f, 2.f, 13.f, 16.f};
+
+//    vDSP_vindex(testData, index, 1, picked, 1, 4);
+
+//    for(int i=0; i<4; ++i)
+//    {
+//        NSLog(@"%f",picked[i]);
+//    }
+
+    float lsEstReal[4] = {156.43f, 154.73f, 137.09f, 105.55f};
+    float lsEstImag[4] = {-79.93f, -114.81f, -142.31f, -158.51f};
+
+    DSPSplitComplex lsEst;
+    lsEst.realp = lsEstReal;
+    lsEst.imagp = lsEstImag;
+    
+    TapirLSChannelEstimator * lschan = [[TapirLSChannelEstimator alloc] init];
+    [lschan setPilot:&pilot index:loc length:4];
+    [lschan generateChannelWith:&lsEst channelLength:size];
+//    [lschan applyChannel:]
+}
+
 - (void)testInterleaver
 {
     DSPSplitComplex src;
@@ -48,10 +82,12 @@
     deinterleaved.imagp = malloc(sizeof(float) * n);
     
     
+    
     for(int i=1; i<=n; ++i)
     { src.realp[i-1] = i; }
-    
-    TapirInterleaver * interleaver = [[TapirInterleaver alloc] initWithNRows:3 NCols:5];
+    //    vDSP_mtrans
+
+    TapirMatrixInterleaver * interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:3 NCols:5];
     [interleaver interleave:&src to:&interleaved];
     [interleaver deinterleave:&interleaved to:&deinterleaved];
     

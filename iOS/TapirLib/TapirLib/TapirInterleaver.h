@@ -9,14 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 
-@interface TapirInterleaver : NSObject
+@protocol TapirInterleaver <NSObject>
+
+- (void)interleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
+- (void)deinterleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
+
+@end
+
+@interface TapirMatrixInterleaver : NSObject<TapirInterleaver>
 {
     int nRows;
     int nCols;
 }
 - (id)initWithNRows:(const int)_nRows NCols:(const int)_nCols;
-- (void)interleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
-- (void)deinterleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
 
 
 @property int nRows, nCols;
