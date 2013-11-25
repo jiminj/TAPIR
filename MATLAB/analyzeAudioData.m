@@ -41,10 +41,10 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         k = 1:pilotLen;
         LsEst(k) = roiData(pilotLocation(k)) ./ pilotSig(k);
         
+
         H = interpolate(LsEst, pilotLocation, length(roiData), 'linear');
         
         chanEstData = roiData .* H';
-
         chanEstData(pilotLocation) = [];
         dataBlk = chanEstData;
         
