@@ -34,7 +34,68 @@
 //}
 
 
+- (void)testEncoder
+{
+//    int gTest = 13;
+//    TrellisCode * trel = [[TrellisCode alloc] init];
+//    [trel encode:gTest];
+//    
+//    float * test = malloc(sizeof(float) * 5);
+//    float * test2 = malloc(sizeof(float) * 4);
+//    for(int i =0; i<5; ++i)
+//    {
+//        *(test+i) = (float)i;
+//    }
+//    memcpy(test2, test+1, 4 * sizeof(float));
+//    for(int i =0; i<4; ++i)
+//    {
+//        NSLog(@"%f",test2[i]);
+//    }
+    
+//    
+//    TrellisCode * trel = [[TrellisCode alloc] initWithG:23];
+//    NSLog(@"%d",[trel codeLength]);
+//    float * trelData = [trel code];
+//    for(int i=0; i<[trel codeLength]; ++i)
+//    {
+//        NSLog(@"%d => %f", i, trelData[i]);
+//    }
+//    [trel extendTo:8];
+//    NSLog(@"Extend ==> %d",[trel codeLength]);
+//
+//    trelData = [trel code];
+//    for(int i=0; i<[trel codeLength]; ++i)
+//    {
+//        NSLog(@"%d => %f", i, trelData[i]);
+//    }
+//    
+    
 
+    NSMutableArray * treArr = [[NSMutableArray alloc] init];
+    [treArr addObject:[[TrellisCode alloc] initWithG:133]];
+    [treArr addObject:[[TrellisCode alloc] initWithG:171]];
+    float input[] = {.0f, 1.0f, 1.0f, 1.0f, .0f, 1.0f, .0f, .0f};
+    TapirConvEncoder *enc = [[TapirConvEncoder alloc] initWithTrellisArray:treArr];
+    float * dest = calloc(16, sizeof(float));
+    [enc encode:input dest:dest srcLength:8];
+    for(int i=0; i<16; ++i)
+    {
+        NSLog(@"%d => %f", i, dest[i]);
+    }
+    
+    //    TrellisCode * trel = [[TrellisCode alloc]initWithG:171];
+//    TrellisCode * trel2 = [[T]]
+//    float * trelData = [trel code];
+//    for(int i=0; i<[trel length]; ++i)
+//    {
+//        NSLog(@"%d => %f", i, trelData[i]);
+//    }
+
+    
+//    [treArr addObject:[[TrellisCode alloc] initWithG:177]];
+    
+//    [enc addTrellisCodeWithTrellisArray:treArr];
+}
 
 - (void)testChannelEstimation
 {

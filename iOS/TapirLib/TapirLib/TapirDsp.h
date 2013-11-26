@@ -19,4 +19,3 @@ void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int le
 //FFT
 void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength);
 void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength);
-
