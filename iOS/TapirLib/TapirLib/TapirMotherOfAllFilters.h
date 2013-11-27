@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TapirLib.h"
 
-@interface TapirMotherOfAllFilters : NSObject
-
+@interface TapirMotherOfAllFilters : NSObject{
+    int length;
+    float* buffer;
+    float* coefficients;
+}
+-(id)initWithLength:(int)l;
+-(void)setCoef:(float*)values length:(int)length;
+-(void)next:(float)newValue writeTo:(float*)destination;
 @end

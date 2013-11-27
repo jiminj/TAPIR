@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		249B622A184477EC001C3E2B /* TapirMotherOfAllFilters.h in Headers */ = {isa = PBXBuildFile; fileRef = 249B6228184477EC001C3E2B /* TapirMotherOfAllFilters.h */; };
+		249B622B184477EC001C3E2B /* TapirMotherOfAllFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 249B6229184477EC001C3E2B /* TapirMotherOfAllFilters.m */; };
+		249B623818447A3F001C3E2B /* LKRealSampleBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 249B623418447A3F001C3E2B /* LKRealSampleBuffer.h */; };
+		249B623918447A3F001C3E2B /* LKRealSampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 249B623518447A3F001C3E2B /* LKRealSampleBuffer.m */; };
+		249B623A18447A3F001C3E2B /* LKVirtualSampleBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 249B623618447A3F001C3E2B /* LKVirtualSampleBuffer.h */; };
+		249B623B18447A3F001C3E2B /* LKVirtualSampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 249B623718447A3F001C3E2B /* LKVirtualSampleBuffer.m */; };
 		EC0EEF75183A4A51001BC8DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEF73183A4A51001BC8DE /* InfoPlist.strings */; };
 		EC0EEF81183A4A51001BC8DE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEF80183A4A51001BC8DE /* XCTest.framework */; };
 		EC0EEF83183A4A51001BC8DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEF82183A4A51001BC8DE /* Foundation.framework */; };
@@ -38,6 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		249B6228184477EC001C3E2B /* TapirMotherOfAllFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirMotherOfAllFilters.h; sourceTree = "<group>"; };
+		249B6229184477EC001C3E2B /* TapirMotherOfAllFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirMotherOfAllFilters.m; sourceTree = "<group>"; };
+		249B623418447A3F001C3E2B /* LKRealSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKRealSampleBuffer.h; sourceTree = "<group>"; };
+		249B623518447A3F001C3E2B /* LKRealSampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKRealSampleBuffer.m; sourceTree = "<group>"; };
+		249B623618447A3F001C3E2B /* LKVirtualSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKVirtualSampleBuffer.h; sourceTree = "<group>"; };
+		249B623718447A3F001C3E2B /* LKVirtualSampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKVirtualSampleBuffer.m; sourceTree = "<group>"; };
 		EC0EEF6E183A4A51001BC8DE /* TapirLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TapirLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC0EEF72183A4A51001BC8DE /* TapirLib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirLib-Info.plist"; sourceTree = "<group>"; };
 		EC0EEF74183A4A51001BC8DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -117,6 +129,12 @@
 				EC186CF8183DEF4B00A89628 /* TapirInterleaver.m */,
 				EC313894183B75FC00C82186 /* TapirModulator.h */,
 				EC313895183B75FC00C82186 /* TapirModulator.m */,
+				249B6228184477EC001C3E2B /* TapirMotherOfAllFilters.h */,
+				249B6229184477EC001C3E2B /* TapirMotherOfAllFilters.m */,
+				249B623418447A3F001C3E2B /* LKRealSampleBuffer.h */,
+				249B623518447A3F001C3E2B /* LKRealSampleBuffer.m */,
+				249B623618447A3F001C3E2B /* LKVirtualSampleBuffer.h */,
+				249B623718447A3F001C3E2B /* LKVirtualSampleBuffer.m */,
 				EC0EEF71183A4A51001BC8DE /* Supporting Files */,
 			);
 			path = TapirLib;
@@ -173,9 +191,12 @@
 			files = (
 				ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */,
 				EC313896183B75FC00C82186 /* TapirModulator.h in Headers */,
+				249B623818447A3F001C3E2B /* LKRealSampleBuffer.h in Headers */,
 				EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */,
+				249B622A184477EC001C3E2B /* TapirMotherOfAllFilters.h in Headers */,
 				EC186CF9183DEF4B00A89628 /* TapirInterleaver.h in Headers */,
 				EC186CFD183DEF6F00A89628 /* TapirChannelEstimator.h in Headers */,
+				249B623A18447A3F001C3E2B /* LKVirtualSampleBuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,10 +314,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				249B623918447A3F001C3E2B /* LKRealSampleBuffer.m in Sources */,
 				EC31389B183BE1A200C82186 /* TapirDsp.m in Sources */,
 				EC313897183B75FC00C82186 /* TapirModulator.m in Sources */,
 				EC186CFA183DEF4B00A89628 /* TapirInterleaver.m in Sources */,
 				EC186CFE183DEF6F00A89628 /* TapirChannelEstimator.m in Sources */,
+				249B623B18447A3F001C3E2B /* LKVirtualSampleBuffer.m in Sources */,
+				249B622B184477EC001C3E2B /* TapirMotherOfAllFilters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,8 +23,6 @@
 		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.m */; };
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */; };
 		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
-		245AC6C518364DF100AF31AE /* LKRealSampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6C018364DF100AF31AE /* LKRealSampleBuffer.m */; };
-		245AC6C618364DF100AF31AE /* LKVirtualSampleBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6C218364DF100AF31AE /* LKVirtualSampleBuffer.m */; };
 		EC0EEFF3183A6FFE001BC8DE /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,10 +60,6 @@
 		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKAudioInputAccessor.m; sourceTree = "<group>"; };
 		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
 		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
-		245AC6BF18364DF100AF31AE /* LKRealSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKRealSampleBuffer.h; sourceTree = "<group>"; };
-		245AC6C018364DF100AF31AE /* LKRealSampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKRealSampleBuffer.m; sourceTree = "<group>"; };
-		245AC6C118364DF100AF31AE /* LKVirtualSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKVirtualSampleBuffer.h; sourceTree = "<group>"; };
-		245AC6C218364DF100AF31AE /* LKVirtualSampleBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKVirtualSampleBuffer.m; sourceTree = "<group>"; };
 		EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphonesimulator/TapirLib.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,10 +126,6 @@
 				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */,
 				245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */,
 				245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */,
-				245AC6BF18364DF100AF31AE /* LKRealSampleBuffer.h */,
-				245AC6C018364DF100AF31AE /* LKRealSampleBuffer.m */,
-				245AC6C118364DF100AF31AE /* LKVirtualSampleBuffer.h */,
-				245AC6C218364DF100AF31AE /* LKVirtualSampleBuffer.m */,
 				245AC69518364DBE00AF31AE /* AppDelegate.h */,
 				245AC69618364DBE00AF31AE /* AppDelegate.m */,
 				245AC69818364DBE00AF31AE /* Main.storyboard */,
@@ -276,12 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				245AC6C518364DF100AF31AE /* LKRealSampleBuffer.m in Sources */,
 				245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */,
 				245AC69D18364DBE00AF31AE /* ViewController.m in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.m in Sources */,
-				245AC6C618364DF100AF31AE /* LKVirtualSampleBuffer.m in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

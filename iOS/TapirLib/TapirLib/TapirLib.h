@@ -13,5 +13,7 @@
 #include "TapirModulator.h"
 #include "TapirInterleaver.h"
 #include "TapirChannelEstimator.h"
+#import "LKRealSampleBuffer.h"
+#import "LKVirtualSampleBuffer.h"
 
 #endif
