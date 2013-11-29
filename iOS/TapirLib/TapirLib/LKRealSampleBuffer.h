@@ -26,4 +26,5 @@
 -(id)initWithBufferLength:(int)bufferLength;
 -(float)sampleAt:(int)index;
 -(void)newSample:(float)newSample;
+-(void)reset;
 @end

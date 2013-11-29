@@ -36,4 +36,9 @@
 -(void)dealloc{
     free(samples);
 }
+-(void)reset{
+    for(int i = 0; i<length; i++){
+        samples[i] = 0;
+    }
+}
 @end

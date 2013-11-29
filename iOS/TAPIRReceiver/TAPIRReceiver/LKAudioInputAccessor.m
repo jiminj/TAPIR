@@ -31,7 +31,7 @@ static void HandleInputBuffer (
     if (inNumPackets == 0 && aia.aqData.mDataFormat.mBytesPerPacket != 0)
         inNumPackets = inBuffer->mAudioDataByteSize / aia.aqData.mDataFormat.mBytesPerPacket;
     
-    short* buffer = inBuffer->mAudioData;
+    SInt16* buffer = inBuffer->mAudioData;
 
     for(int i = 0; i<inNumPackets; i++){
         [aia newSample:buffer[i]];
@@ -62,8 +62,18 @@ static void HandleInputBuffer (
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     documentsDirectory = [paths objectAtIndex:0] ;
     
-    AudioFileCreateWithURL((__bridge CFURLRef)([NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"filtered.wav"]]), kAudioFileWAVEType, &aqData.mDataFormat, kAudioFileFlags_EraseFile, &audioFile);
+    AudioStreamBasicDescription asbd;
+    bzero(&asbd, sizeof(asbd));
+    asbd.mSampleRate = 44100;
+    asbd.mFramesPerPacket = 1;
+    asbd.mChannelsPerFrame = 1;
+    asbd.mBytesPerPacket = asbd.mBytesPerFrame = 2;
+    asbd.mBitsPerChannel = 16;
+    asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+    asbd.mFormatID = kAudioFormatLinearPCM;
     
+    OSStatus err = AudioFileCreateWithURL((__bridge CFURLRef)([NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"audio.caf"]]), kAudioFileCAFType, &asbd, kAudioFileFlags_EraseFile, &audioFile);
+    audioFileLength =0;
 
     
     // create audio input
@@ -119,10 +129,11 @@ static void HandleInputBuffer (
     [correlationManager trace];
 }
 -(void)newSample:(float)sample{
-    float fileteredSample = [hpf next:sample];
-    short s = fileteredSample*10000;
+    /*float fileteredSample = [hpf next:sample];
+    SInt16 s = fileteredSample;
     UInt32 n = 1;
-    AudioFileWritePackets(audioFile, NO, 1, nil, 0, &n, &s);
-    
+    OSStatus err = AudioFileWritePackets(audioFile, NO, 1, nil, audioFileLength, &n, &s);
+    audioFileLength+=n;*/
+    [correlationManager newSample:sample];
 }
 @end

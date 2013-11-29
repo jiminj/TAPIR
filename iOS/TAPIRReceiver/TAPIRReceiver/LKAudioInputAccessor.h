@@ -45,6 +45,7 @@ struct AQRecorderState {
     LKBiquadHPF* hpf;
     AudioFileID audioFile;
     NSString* documentsDirectory;
+    int audioFileLength;
 
 }
 @property int correlationSampleSize;

@@ -20,6 +20,7 @@
     float squareSumA;
     float squareSumB;
     float sumAB;
+    float absSum;
     LKRealSampleBuffer* correlationBuffer;
     float sumCor;
 }

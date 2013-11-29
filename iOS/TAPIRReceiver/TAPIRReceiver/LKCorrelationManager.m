@@ -7,7 +7,7 @@
 //
 
 #import "LKCorrelationManager.h"
-#define CORRELATION_THRESHOLD 0.5
+#define CORRELATION_THRESHOLD 0.6
 
 @implementation LKCorrelationManager
 
@@ -29,6 +29,7 @@
         squareSumB = 0;
         sumAB = 0;
         sumCor = 0;
+        absSum =0;
     }
     return self;
 }
@@ -41,6 +42,7 @@
     sumB-=[sampleBufferB lastSample];
     squareSumB-=[sampleBufferB lastSample]*[sampleBufferB lastSample];
     sumAB -= [ sampleBufferA lastSample]*[sampleBufferB lastSample];
+    absSum-=fabs([sampleBufferA lastSample]);
     
     [realBuffer newSample:value];
     
@@ -49,6 +51,7 @@
     sumB+=[sampleBufferB sampleAt:0];
     squareSumB+=[sampleBufferB sampleAt:0]*[sampleBufferB sampleAt:0];
     sumAB+=[sampleBufferA sampleAt:0]*[sampleBufferB sampleAt:0];
+    absSum+=fabs([sampleBufferA sampleAt:0]);
     
     //add
     sumCor-=[correlationBuffer sampleAt:correlationBuffer.length-1];
@@ -56,15 +59,28 @@
     sumCor+=[correlationBuffer sampleAt:0];
     
     
-    if(sumCor/correlationBuffer.length>CORRELATION_THRESHOLD){
+    
+    if(sumCor/absSum>0.00055){
         int maxIndex = 0;
         for(int i = 1; i<correlationBuffer.length; i++){
             if([correlationBuffer sampleAt:i]>[correlationBuffer sampleAt:maxIndex]){
                 maxIndex=i;
             }
         }
+        
+        
         LKVirtualSampleBuffer* sampleLog = [[LKVirtualSampleBuffer alloc] initWithRealSampleBuffer:realBuffer offSet:maxIndex andLength:backtrackSize];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"correlationDetected" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:[correlationBuffer sampleAt:maxIndex]] forKey:@"maxCorrelation"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"correlationDetected" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:sumCor/absSum] forKey:@"maxCorrelation"]];
+        
+        sumA = 0;
+        sumB = 0;
+        squareSumA = 0;
+        squareSumB = 0;
+        sumAB = 0;
+        sumCor = 0;
+        absSum =0;
+        [realBuffer reset];
+        [correlationBuffer reset];
     }
 }
 

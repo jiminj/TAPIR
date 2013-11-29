@@ -35,12 +35,13 @@
 }
 
 -(void)startTracking:(id)sender{
-    [aia prepareAudioInputWithCorrelationWindowSize:windowTF.text.intValue andBacktrackBufferSize:bufferTF.text.intValue];
+    [aia prepareAudioInputWithCorrelationWindowSize:400 andBacktrackBufferSize:1000];
     [aia startAudioInput];
 }
 
 -(void)correlationDetected:(NSNotification*)not{
-    outTF.text = [outTF.text stringByAppendingFormat:@"new signal detected\nmax correlation : %f", [[[not userInfo] valueForKey:@"maxCorrelation"] floatValue]];
+    //outTF.text = [outTF.text stringByAppendingFormat:@"new signal detected\nmax correlation : %f", [[[not userInfo] valueForKey:@"maxCorrelation"] floatValue]];
+    NSLog(@"new signal detected\nmax correlation : %f", [[[not userInfo] valueForKey:@"maxCorrelation"] floatValue]);
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
