@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "LKCorrelationManager.h"
+#import "TapirLib/TapirLib.h"
+#import <AVFoundation/AVFoundation.h>
 
 @protocol correlationDelegate <NSObject>
 -(void)newCorrelationValue:(float)value;
@@ -40,6 +42,10 @@ struct AQRecorderState {
     BOOL sampleBSumCalculated;
     id<correlationDelegate> delegate;
     LKCorrelationManager* correlationManager;
+    LKBiquadHPF* hpf;
+    AudioFileID audioFile;
+    NSString* documentsDirectory;
+
 }
 @property int correlationSampleSize;
 @property int correlationOffset;
@@ -57,4 +63,5 @@ struct AQRecorderState {
 -(float)calculateCorrelation;
 -(float)calculateCorrelationWithReferenceWithANewSampleValue:(float)value;
 -(void)trace;
+-(void)newSample:(float)sample;
 @end

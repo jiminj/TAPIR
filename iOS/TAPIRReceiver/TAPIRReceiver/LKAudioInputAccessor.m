@@ -34,7 +34,7 @@ static void HandleInputBuffer (
     short* buffer = inBuffer->mAudioData;
 
     for(int i = 0; i<inNumPackets; i++){
-        [aia.correlationManager newSample:buffer[i]];
+        [aia newSample:buffer[i]];
     }
     
     AudioQueueEnqueueBuffer (inAQ,inBuffer,0,NULL);
@@ -42,8 +42,8 @@ static void HandleInputBuffer (
 }
 
 -(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize{
-    
-    // set audio format for recording
+    hpf = [[LKBiquadHPF alloc] init];
+        // set audio format for recording
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
     aqData.mDataFormat.mSampleRate       = 44100.0;
     aqData.mDataFormat.mChannelsPerFrame = 1;
@@ -58,6 +58,13 @@ static void HandleInputBuffer (
     | kLinearPCMFormatFlagIsSignedInteger
     | kLinearPCMFormatFlagIsPacked;
     aqData.bufferByteSize = 1024;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    documentsDirectory = [paths objectAtIndex:0] ;
+    
+    AudioFileCreateWithURL((__bridge CFURLRef)([NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"filtered.wav"]]), kAudioFileWAVEType, &aqData.mDataFormat, kAudioFileFlags_EraseFile, &audioFile);
+    
+
     
     // create audio input
     AudioQueueNewInput (
@@ -110,5 +117,12 @@ static void HandleInputBuffer (
 }
 -(void)trace{
     [correlationManager trace];
+}
+-(void)newSample:(float)sample{
+    float fileteredSample = [hpf next:sample];
+    short s = fileteredSample*10000;
+    UInt32 n = 1;
+    AudioFileWritePackets(audioFile, NO, 1, nil, 0, &n, &s);
+    
 }
 @end

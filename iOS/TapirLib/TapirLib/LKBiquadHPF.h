@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LKBiquadHPF : NSObject
-
+@interface LKBiquadHPF : NSObject{
+    int index;
+    int lastIndex;
+    float max;
+    float lastSample;
+    float x1;
+    float x2;
+    float y1;
+    float y2;
+}
+-(float)next:(float)sample;
 @end

@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LKRealSampleBuffer.h"
-#import "LKVirtualSampleBuffer.h"
+#import "TapirLib/TapirLib.h"
 
 @interface LKCorrelationManager : NSObject{
     LKRealSampleBuffer* realBuffer;

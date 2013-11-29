@@ -15,5 +15,5 @@
 #include "TapirChannelEstimator.h"
 #import "LKRealSampleBuffer.h"
 #import "LKVirtualSampleBuffer.h"
-
+#import "LKBiquadHPF.h"
 #endif
