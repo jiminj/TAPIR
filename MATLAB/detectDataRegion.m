@@ -13,7 +13,7 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 %     end
 %     
 %     
-	rxFilter = txrxLpf;
+	rxFilter = txrxHpf;
 %     minBlkSize = 1280;
 
     %%%%%% Apply BPF first! (to prevent unwanted noise) %%%%%%%%%%%
