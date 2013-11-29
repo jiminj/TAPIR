@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
+//
+//@protocol TapirChannelEstimator <NSObject>
+//
+//@end
 
-@protocol TapirChannelEstimator <NSObject>
-
-@end
-
-@interface TapirLSChannelEstimator : NSObject<TapirChannelEstimator>
+@interface TapirLSChannelEstimator : NSObject /* <TapirChannelEstimator> */
 {
     float * pilotIndex;
     DSPSplitComplex refPilotValue;

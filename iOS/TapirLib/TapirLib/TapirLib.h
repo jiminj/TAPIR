@@ -9,11 +9,13 @@
 #ifndef TapirLib_TapirLib_h
 #define TapirLib_TapirLib_h
 
-#include "TapirDsp.h"
-#include "TapirModulator.h"
-#include "TapirInterleaver.h"
-#include "TapirChannelEstimator.h"
+#import "TapirDsp.h"
+#import "TapirModulator.h"
+#import "TapirInterleaver.h"
+#import "TapirChannelEstimator.h"
 #import "LKRealSampleBuffer.h"
 #import "LKVirtualSampleBuffer.h"
+#import "TapirEncoder.h"
+#import "TapirDecoder.h"
 #import "LKBiquadHPF.h"
 #endif

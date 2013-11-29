@@ -33,6 +33,100 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testDecoder
+{
+    NSMutableArray * treArr = [[NSMutableArray alloc] init];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:7]];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:5]];
+
+    TapirViterbiDecoder * vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:treArr];
+    
+    float input[] = {0,0,1,1,0,1,1,0,0,1,0,0,1,0,1,1};
+    int dest[8];
+    
+    [vitdec decode:input dest:dest srcLength:16];
+    
+    
+}
+
+- (void)testEncoder
+{
+//    int gTest = 13;
+//    TrellisCode * trel = [[TrellisCode alloc] init];
+//    [trel encode:gTest];
+//    
+//    float * test = malloc(sizeof(float) * 5);
+//    float * test2 = malloc(sizeof(float) * 4);
+//    for(int i =0; i<5; ++i)
+//    {
+//        *(test+i) = (float)i;
+//    }
+//    memcpy(test2, test+1, 4 * sizeof(float));
+//    for(int i =0; i<4; ++i)
+//    {
+//        NSLog(@"%f",test2[i]);
+//    }
+    
+//    
+//    TrellisCode * trel = [[TrellisCode alloc] initWithG:23];
+//    NSLog(@"%d",[trel codeLength]);
+//    float * trelData = [trel code];
+//    for(int i=0; i<[trel codeLength]; ++i)
+//    {
+//        NSLog(@"%d => %f", i, trelData[i]);
+//    }
+//    [trel extendTo:8];
+//    NSLog(@"Extend ==> %d",[trel codeLength]);
+//
+//    trelData = [trel code];
+//    for(int i=0; i<[trel codeLength]; ++i)
+//    {
+//        NSLog(@"%d => %f", i, trelData[i]);
+//    }
+//    
+    
+
+    NSMutableArray * treArr = [[NSMutableArray alloc] init];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:171]];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:133]];
+//    float input[] = {.0f, 1.0f, 1.0f, 1.0f, .0f, 1.0f, .0f, .0f};
+    int input[] = {0,1,1,1,0,1,0,0};
+    TapirConvEncoder *enc = [[TapirConvEncoder alloc] initWithTrellisArray:treArr];
+    float * encoded = calloc(16, sizeof(float));
+    int * decoded = malloc(sizeof(int) * 8);
+    
+    [enc encode:input dest:encoded srcLength:8];
+    
+    TapirViterbiDecoder * vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:treArr];
+    
+    [vitdec decode:encoded dest:decoded srcLength:16];
+    
+    
+    
+    NSLog(@"tbLen = %d ", [enc trellisCodeLength]);
+    for(int i=0; i<16; ++i)
+    {
+        NSLog(@"%d => %f", i, encoded[i]);
+    }
+    for(int i=0; i<8; ++i)
+    {
+        NSLog(@"%d => %d", i, decoded[i]);
+    }
+    
+    //    TrellisCode * trel = [[TrellisCode alloc]initWithG:171];
+//    TrellisCode * trel2 = [[T]]
+//    float * trelData = [trel code];
+//    for(int i=0; i<[trel length]; ++i)
+//    {
+//        NSLog(@"%d => %f", i, trelData[i]);
+//    }
+
+    
+//    [treArr addObject:[[TrellisCode alloc] initWithG:177]];
+    
+//    [enc addTrellisCodeWithTrellisArray:treArr];
+}
+
 - (void)testChannelEstimation
 {
     int size = 20;
@@ -80,8 +174,6 @@
     interleaved.imagp = malloc(sizeof(float) * n);
     deinterleaved.realp = malloc(sizeof(float) * n);
     deinterleaved.imagp = malloc(sizeof(float) * n);
-    
-    
     
     for(int i=1; i<=n; ++i)
     { src.realp[i-1] = i; }

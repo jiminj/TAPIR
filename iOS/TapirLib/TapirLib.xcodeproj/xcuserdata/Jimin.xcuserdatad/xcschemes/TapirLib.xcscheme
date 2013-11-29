@@ -47,6 +47,9 @@
                <Test
                   Identifier = "TapirLibTests/testInterleaver">
                </Test>
+               <Test
+                  Identifier = "TapirLibTests/testChannelEstimation">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
