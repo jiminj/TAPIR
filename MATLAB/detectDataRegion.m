@@ -3,21 +3,23 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 %   Detailed explanation goes here
     TapirConf;
     
-    switch Fc
-        case 10000
-            rxBpf = rxBpf10k;
-        case 18000
-            rxBpf = rxBpf18k;
-        case 20000
-            rxBpf = rxBpf20k;
-    end
-    
+%     switch Fc
+%         case 10000
+%             rxBpf = rxBpf10k;
+%         case 18000
+%             rxBpf = rxBpf18k;
+%         case 20000
+%             rxBpf = rxBpf20k;
+%     end
+%     
+%     
+	rxFilter = txrxLpf;
 %     minBlkSize = 1280;
 
     %%%%%% Apply BPF first! (to prevent unwanted noise) %%%%%%%%%%%
-    filtDelay = ceil(rxBpf.order / 2);
+    filtDelay = ceil(rxFilter.order / 2);
     extSignal = [signal; zeros(filtDelay,1)];
-    bandSig = filter(rxBpf, extSignal);
+    bandSig = filter(rxFilter, extSignal);
     bandSig = bandSig(filtDelay+1 : end);
 
 %     bandSig = signal;
