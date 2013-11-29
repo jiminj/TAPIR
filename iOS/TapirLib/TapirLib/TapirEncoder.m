@@ -8,86 +8,17 @@
 
 #import "TapirEncoder.h"
 
-@implementation TrellisCode
-@synthesize length;
-@synthesize encodedCode;
 
-//Trellis Code Generator
+@interface TapirConvEncoder()
 
-- (id)initWithG : (int)_g
-{
-    if(self = [super init])
-    {
-        [self encode:_g];
-    }
-    return self;
-}
-
--(void) encode:(int) _g
-{
-    g = _g;
-    int gClone = _g;
-
-    //get the length of trellis code.
-    length = 0;
-    
-    for( ; gClone > 9 ; gClone/=10 )
-    { length += 3; }
-    for( ; gClone > 0; gClone /= 2 )
-    { ++length; }
-    
-
-    //Alloc and clear the array for code
-    if(encodedCode != NULL)
-    {
-        free(encodedCode);
-        encodedCode = NULL;
-    }
-    encodedCode = calloc(length, sizeof(float));
-
-    //encoding
-    int arrayIdx = length - 1;
-    
-    for(; _g > 0; _g /= 10)
-    {
-        int gLastDigit = _g % 10;
-        int cnt = 3;
-        while(gLastDigit > 0)
-        {
-            encodedCode[arrayIdx--] = (float) (gLastDigit % 2);
-            gLastDigit /= 2;
-            --cnt;
-        }
-        arrayIdx -= cnt;
-    }
-}
-
-- (void)extendTo : (int)extLength
-{
-    int ext = extLength - length;
-    if(ext > 0)
-    {
-        float * temp = calloc(extLength, sizeof(float));
-        memcpy((temp+ext), encodedCode, length * sizeof(float));
-        length = extLength;
-        
-        free(encodedCode);
-        encodedCode = temp;
-        
-    }
-}
-
-- (void) dealloc
-{
-    if(encodedCode != NULL)
-    { free(encodedCode); }
-}
+- (NSMutableArray *)allocTrelCode;
+- (void)addTrellisCode:(TapirTrellisCode *)code;
 
 @end
 
 
 @implementation TapirConvEncoder
-@synthesize trelCodeArr;
+@synthesize trellisCodeLength;
 
 - (NSMutableArray *)allocTrelCode
 {
@@ -112,19 +43,11 @@
     return self;
 }
 
-- (id)initWithTrellisCode:(TrellisCode *)code
+- (id)initWithTrellisCode:(TapirTrellisCode *)code
 {
     if(self = [super init])
     {
         [self addTrellisCode:code];
-    }
-    return self;
-}
-- (id) initWithTrellisG : (const int)trellisG
-{
-    if(self = [super init])
-    {
-        [self addTrellisCodeWithG:trellisG];
     }
     return self;
 }
@@ -137,38 +60,33 @@
     return self;
 }
 
-- (void)addTrellisCode:(TrellisCode *)code
+- (void)addTrellisCode:(TapirTrellisCode *)code
 {
     [self allocTrelCode];
     int newLength = [code length];
 
-    if(newLength > trelCodeLen)
+    if(newLength > trellisCodeLength)
     {
-        for(TrellisCode * trelElem in trelCodeArr)
+        for(TapirTrellisCode * trelElem in trelCodeArr)
         {
             [trelElem extendTo:newLength];
         }
-        trelCodeLen = newLength;
+        trellisCodeLength = newLength;
     }
-    else if(newLength < trelCodeLen)
+    else if(newLength < trellisCodeLength)
     {
-        [code extendTo:trelCodeLen];
+        [code extendTo:trellisCodeLength];
     }
 
     [trelCodeArr addObject:code];
 }
-- (void)addTrellisCodeWithG:(const int)g
-{
-    [self allocTrelCode];
-    TrellisCode * newTrel = [[TrellisCode alloc] initWithG:g];
-    [self addTrellisCode:newTrel];
-}
+
 - (void)addTrellisCodeWithTrellisArray:(const NSMutableArray *)trelArray
 {
     [self allocTrelCode];
-    for(TrellisCode * trelElem in trelArray)
+    for(TapirTrellisCode * trelElem in trelArray)
     {
-        if([trelElem isKindOfClass:[TrellisCode class]])
+        if([trelElem isKindOfClass:[TapirTrellisCode class]])
         {
             [self addTrellisCode:trelElem];
         }
@@ -180,28 +98,32 @@
     return (float)([trelCodeArr count]);
 }
 
-- (void)encode:(const float *)src dest:(float *)dest srcLength:(const int)srcLength
+- (void)encode:(const int *)src dest:(float *)dest srcLength:(const int)srcLength
 {
     //Convolutional Encoding
     
-    int inputLength = (srcLength + trelCodeLen - 1);
+    
+    
+    
+    int inputLength = (srcLength + trellisCodeLength - 1);
     float * input = calloc(inputLength, sizeof(float));
-    memcpy((input+trelCodeLen - 1), src, sizeof(float) * srcLength);
-
+    vDSP_vflt32(src, 1, (input+trellisCodeLength-1), 1, srcLength);
+//    memcpy((input+trellisCodeLength - 1), src, sizeof(float) * srcLength);
+    
+    
     int encodingRate = [self getEncodingRate];
     for(int i=0; i<encodingRate; ++i)
     {
-        float * filt = [[trelCodeArr objectAtIndex:i] encodedCode] + trelCodeLen - 1; //End of the array
-        vDSP_conv(input, 1, filt, -1, dest + i, encodingRate, srcLength, trelCodeLen);
+        float * filt = [[trelCodeArr objectAtIndex:i] encodedCode] + trellisCodeLength - 1; //End of the array
+        vDSP_conv(input, 1, filt, -1, dest + i, encodingRate, srcLength, trellisCodeLength);
     }
-    
+    int destLength = srcLength * encodingRate;
+    for(int i=0; i<destLength; ++i)
+    {
+        dest[i] = fmodf(dest[i], 2.0f);
+    }
     free(input);
 }
-- (void)decode:(const float *)src dest:(float *)dest
-{
-    //Viterbi Decoding
-    
-}
-
 
 @end
+

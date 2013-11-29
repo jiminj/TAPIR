@@ -33,6 +33,21 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testDecoder
+{
+    NSMutableArray * treArr = [[NSMutableArray alloc] init];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:7]];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:5]];
+
+    TapirViterbiDecoder * vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:treArr];
+    
+    float input[] = {0,0,1,1,0,1,1,0,0,1,0,0,1,0,1,1};
+    int dest[8];
+    
+    [vitdec decode:input dest:dest srcLength:16];
+    
+    
+}
 
 - (void)testEncoder
 {
@@ -72,15 +87,30 @@
     
 
     NSMutableArray * treArr = [[NSMutableArray alloc] init];
-    [treArr addObject:[[TrellisCode alloc] initWithG:133]];
-    [treArr addObject:[[TrellisCode alloc] initWithG:171]];
-    float input[] = {.0f, 1.0f, 1.0f, 1.0f, .0f, 1.0f, .0f, .0f};
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:171]];
+    [treArr addObject:[[TapirTrellisCode alloc] initWithG:133]];
+//    float input[] = {.0f, 1.0f, 1.0f, 1.0f, .0f, 1.0f, .0f, .0f};
+    int input[] = {0,1,1,1,0,1,0,0};
     TapirConvEncoder *enc = [[TapirConvEncoder alloc] initWithTrellisArray:treArr];
-    float * dest = calloc(16, sizeof(float));
-    [enc encode:input dest:dest srcLength:8];
+    float * encoded = calloc(16, sizeof(float));
+    int * decoded = malloc(sizeof(int) * 8);
+    
+    [enc encode:input dest:encoded srcLength:8];
+    
+    TapirViterbiDecoder * vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:treArr];
+    
+    [vitdec decode:encoded dest:decoded srcLength:16];
+    
+    
+    
+    NSLog(@"tbLen = %d ", [enc trellisCodeLength]);
     for(int i=0; i<16; ++i)
     {
-        NSLog(@"%d => %f", i, dest[i]);
+        NSLog(@"%d => %f", i, encoded[i]);
+    }
+    for(int i=0; i<8; ++i)
+    {
+        NSLog(@"%d => %d", i, decoded[i]);
     }
     
     //    TrellisCode * trel = [[TrellisCode alloc]initWithG:171];
