@@ -42,7 +42,7 @@ typedef struct _TapirViterbiNode
 }
 
 //- (void)genTables:(NSMutableArray *)trellisArray;
-- (id)initWithTrellisArray:(NSMutableArray *)trellisArray;
+- (id)initWithTrellisArray:(NSArray *)trellisArray;
 - (int)encodingRate;
 
 @end

@@ -16,8 +16,8 @@
 @interface TapirViterbiDecoder()
 
 - (void) genNextStatusTable;
-- (void) genOutputTableWith:(NSMutableArray *)trellisArray;
-- (void) genTables:(NSMutableArray *)trellisArray;
+- (void) genOutputTableWith:(NSArray *)trellisArray;
+- (void) genTables:(NSArray *)trellisArray;
 
 - (int) calHammingDistance:(int)a with:(int)b;
 
@@ -30,7 +30,7 @@
     return nil;
 }
 
-- (id)initWithTrellisArray:(NSMutableArray *)trellisArray
+- (id)initWithTrellisArray:(NSArray *)trellisArray
 {
     if(self = [super init])
     {
@@ -104,7 +104,7 @@
 }
 
 
-- (void)genOutputTableWith:(NSMutableArray *)trellisArray;
+- (void)genOutputTableWith:(NSArray *)trellisArray;
 {
     outputTable = malloc(sizeof(int *) * noStates);
     noTrellis = (int)[trellisArray count];
@@ -148,7 +148,7 @@
 }
 
 
-- (void)genTables:(NSMutableArray *)trellisArray
+- (void)genTables:(NSArray *)trellisArray
 {
     //Assume that all trellis codes have same length
     noRegisterBits = [[trellisArray objectAtIndex:0] length] - 1;

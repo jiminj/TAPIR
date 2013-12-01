@@ -33,6 +33,14 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testMisc
+{
+    int test[6] = {0,1,0,1,1,1};
+    int result = mergeBitsToIntegerValue(test, 6);
+    NSLog(@"%d", result);
+}
+
+
 - (void)testDecoder
 {
     NSMutableArray * treArr = [[NSMutableArray alloc] init];

@@ -26,6 +26,9 @@
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */; };
 		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
 		EC0EEFF3183A6FFE001BC8DE /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */; };
+		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
+		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
+		EC5B3854184B558600EB4050 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B3853184B558600EB4050 /* TapirConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,11 @@
 		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
 		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
 		EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphonesimulator/TapirLib.framework"; sourceTree = "<group>"; };
+		EC5B384B184B266A00EB4050 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
+		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
+		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalAnalyzer.m; sourceTree = "<group>"; };
+		EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
+		EC5B3853184B558600EB4050 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +138,10 @@
 		245AC68C18364DBE00AF31AE /* TAPIRReceiver */ = {
 			isa = PBXGroup;
 			children = (
+				EC5B384B184B266A00EB4050 /* TapirConfig.h */,
+				EC5B3853184B558600EB4050 /* TapirConfig.m */,
+				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
+				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
 				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */,
 				245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */,
@@ -159,6 +171,7 @@
 		245AC6AB18364DBE00AF31AE /* TAPIRReceiverTests */ = {
 			isa = PBXGroup;
 			children = (
+				EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */,
 				245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.m */,
 				245AC6AC18364DBE00AF31AE /* Supporting Files */,
 			);
@@ -264,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */,
+				EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +292,7 @@
 				245AC69D18364DBE00AF31AE /* ViewController.m in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.m in Sources */,
+				EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC5B3854184B558600EB4050 /* TapirConfig.m in Sources */,
 				245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,7 +380,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				New_Setting = "";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					TapirLib,
+				);
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -399,7 +418,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				New_Setting = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					TapirLib,
+				);
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
