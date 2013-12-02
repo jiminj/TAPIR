@@ -25,16 +25,24 @@
     }
     return self;
 }
-- (void)interleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest
+- (void)interleaveComplex:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest
 {
     vDSP_mtrans(source->realp, 1, dest->realp, 1, nCols, nRows);
     vDSP_mtrans(source->imagp, 1, dest->imagp, 1, nCols, nRows);
 }
 
-- (void)deinterleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest
+- (void)deinterleaveComplex:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest
 {
     vDSP_mtrans(source->realp, 1, dest->realp, 1, nRows, nCols);
     vDSP_mtrans(source->imagp, 1, dest->imagp, 1, nRows, nCols);
+}
+- (void)interleave:(float *)source to:(float *)dest
+{
+    vDSP_mtrans(source, 1, dest, 1, nCols, nRows);
+}
+- (void)deinterleave:(float *)source to:(float *)dest
+{
+    vDSP_mtrans(source, 1, dest, 1, nRows, nCols);
 }
 
 @end

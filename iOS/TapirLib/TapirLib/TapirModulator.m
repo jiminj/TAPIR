@@ -11,7 +11,7 @@
 
 const float kTwoPi = 2 * M_PI;
 
-@implementation PskModulator
+@implementation TapirPskModulator
 @synthesize symbolRate, initialPhase, magnitude;
 
 
@@ -40,16 +40,16 @@ const float kTwoPi = 2 * M_PI;
 }
 
 
--(void)modulate:(const int *)source dest:(DSPSplitComplex *)dest length:(const int)length
+-(void)modulate:(const float *)source dest:(DSPSplitComplex *)dest length:(const int)length
 {
     float phaseDiv = kTwoPi / symbolRate;
     
-    float * fSrc = malloc(sizeof(float) * length);
-    vDSP_vflt32(source, 1, fSrc, 1, length);
+//    float * fSrc = malloc(sizeof(float) * length);
+//    vDSP_vflt32(source, 1, fSrc, 1, length);
     
     //Phase = 2*pi*value/symbolRate + initPhase
     float * phase = malloc(sizeof(float) * length);
-    vDSP_vsmsa(fSrc, 1, &phaseDiv, &initialPhase, phase, 1, length);
+    vDSP_vsmsa(source, 1, &phaseDiv, &initialPhase, phase, 1, length);
     vvsincosf(dest->imagp, dest->realp, phase, &length);
 
     float amp = sqrt(magnitude);
@@ -57,11 +57,11 @@ const float kTwoPi = 2 * M_PI;
     vDSP_vsmul(dest->imagp, 1, &amp, dest->imagp, 1, length);
     
     free(phase);
-    free(fSrc);
+//    free(fSrc);
 
 }
 
--(void)demodulate:(const DSPSplitComplex *)source dest:(int *)dest length:(const int)length
+-(void)demodulate:(const DSPSplitComplex *)source dest:(float *)dest length:(const int)length
 {
     float * phase = malloc(sizeof(float) * length);
     vDSP_zvphas(source, 1, phase, 1, length);
@@ -89,10 +89,10 @@ const float kTwoPi = 2 * M_PI;
 
 @end
 
-@implementation DpskModulator
--(void)modulate:(const int *)source dest:(DSPSplitComplex *)dest length:(const int)length
+@implementation TapirDpskModulator
+-(void)modulate:(const float *)source dest:(DSPSplitComplex *)dest length:(const int)length
 {
-    int * diffMod = malloc(sizeof(int) * length);
+    float * diffMod = malloc(sizeof(float) * length);
     int val = 0;
 
     diffMod[0] = 0;
@@ -108,9 +108,9 @@ const float kTwoPi = 2 * M_PI;
     [super modulate:diffMod dest:dest length:length];
     free(diffMod);
 }
--(void)demodulate:(const DSPSplitComplex *)source dest:(int *)dest length:(const int)length
+-(void)demodulate:(const DSPSplitComplex *)source dest:(float *)dest length:(const int)length
 {
-    int * pskDemod = malloc(sizeof(int) * length);
+    float * pskDemod = malloc(sizeof(float) * length);
     [super demodulate:source dest:pskDemod length:length];
 
     dest[0] = pskDemod[0];

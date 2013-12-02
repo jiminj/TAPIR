@@ -25,7 +25,7 @@ for idx = 1:numBlocks
     block = convenc(block, trel);
 %     blockSize = length(block);
 %     block(block == 0) = -1; % To reduce the dynamic range of output signal.
-    convEncBlk = block;
+    convEncBlk = block
     
     %%%%% Interleaver %%%%% 
     block = matintrlv(convEncBlk, intRows, intCols);
@@ -41,7 +41,7 @@ for idx = 1:numBlocks
     end
     
 %     block = qammod(bunchedBlk,4);
-    block = real(dpskmod(block,2));
+    block = real(pskmod(block,2));
     modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -71,6 +71,7 @@ for idx = 1:numBlocks
     
     %%%%% IDFT %%%%% 
     block =[block(end - length(block)/2 + 1:end); zeros(symLength - length(block), 1); block(1:length(block)/2)];
+    
     extendedBlk = block;
     block = noDataCarrier .* ifft(block);
     transformedBlk = block;

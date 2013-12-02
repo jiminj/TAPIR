@@ -10,6 +10,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
+#import "TapirSignalAnalyzer.h"
 
 @interface TAPIRReceiverTests : XCTestCase
 
@@ -29,47 +30,48 @@
     [super tearDown];
 }
 
-- (void)testLoadLibrary
-{
-}
-
 - (void)testAnalyzeTapir
 {
+    TapirConfig * cfg = [TapirConfig getInstance];
+    TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
     
-    TapirConfig();
-    
-    TapirTrellisCode * trellis1 = [[TapirTrellisCode alloc] initWithG:171];
-    TapirTrellisCode * trellis2 = [[TapirTrellisCode alloc] initWithG:133];
-    
-    kTapirTrellisArray = [NSArray arrayWithObjects: trellis1, trellis2, nil];
-    
-    
-    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"t_20k_puresymbol" ofType: @".wav"];
+    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"g_20k_puresymbol" ofType: @".wav"];
+    float * audioData = malloc([cfg kSymbolLength] * sizeof(float));
+    [self readWavDataFrom:filePath to:audioData lengthOf:[cfg kSymbolLength]];
 
-    
-    float * audioData = malloc(kTapirSymbolLength * sizeof(float));
-    [self readWavDataFrom:filePath to:audioData lengthOf:kTapirSymbolLength];
-    
+//    [analyzer setSignalLength:[cfg kSymbolLength] resultLength:[cfg kNoTotalSubcarriers]];
+    [analyzer analyzeSignal:audioData];
     
     
-    DSPSplitComplex convResult;
-    convResult.realp = malloc(sizeof(float) * kTapirSymbolLength);
-    convResult.imagp = malloc(sizeof(float) * kTapirSymbolLength);
     
-    iqDemodulate(audioData,&convResult, kTapirSymbolLength, kTapirAudioSampleRate, kTapirCarrierFrequency);
-    fftComplexForward(&convResult, &convResult, kTapirSymbolLength);
+    //Channel Estimate
 
-    DSPSplitComplex cutResult;
-    cutResult.realp = malloc(sizeof(float) * 16);
-    cutResult.imagp = malloc(sizeof(float) * 16);
+//    TapirLSChannelEstimator * lschan = [[TapirLSChannelEstimator alloc] init];
+//    [lschan setPilot:&kTapirPilotData index:kTapirPilotLocation pilotLength:kTapirPilotLength channelLength:kTapirTotalNoSubcarriers];
+//    [lschan channelEstimate:&cutResult dest:&cutResult];
+//    
+//    DSPSplitComplex estimated;
+//    estimated.realp = malloc(sizeof(float) * kTapirNoDataSubcarriers);
+//    estimated.imagp = malloc(sizeof(float) * kTapirNoDataSubcarriers);
+//    [lschan removePilotsFromSignal:&cutResult dest:&estimated];
+//    
+//    
+//    
+//    for(int i=0; i<kTapirTotalNoSubcarriers; ++i)
+//    {
+//        NSLog(@"[%d] = %f + %f", i, estimated.realp[i], estimated.imagp[i]);
+//    }
     
-    cutCentralRegions(&convResult, &cutResult, kTapirSymbolLength, 16);
     
     
     
     free(audioData);
-    free(convResult.realp);
-    free(convResult.imagp);
+//    free(convResult.realp);
+//    free(convResult.imagp);
+//    free(cutResult.realp);
+//    free(cutResult.imagp);
+//    free(estimated.realp);
+//    free(estimated.imagp);
     
     XCTAssertTrue(YES);
 
@@ -114,7 +116,6 @@
     {
         audioData[i] = ((SInt16 *)readBuffer)[i] / 32768.0f;
     }
-    
 }
 
 

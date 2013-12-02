@@ -163,10 +163,10 @@
     lsEst.realp = lsEstReal;
     lsEst.imagp = lsEstImag;
     
-    TapirLSChannelEstimator * lschan = [[TapirLSChannelEstimator alloc] init];
-    [lschan setPilot:&pilot index:loc length:4];
-    [lschan generateChannelWith:&lsEst channelLength:size];
-//    [lschan applyChannel:]
+//    TapirLSChannelEstimator * lschan = [[TapirLSChannelEstimator alloc] init];
+//    [lschan setPilot:&pilot index:loc length:4];
+//    [lschan generateChannelWith:&lsEst channelLength:size];
+
 }
 
 - (void)testInterleaver
@@ -203,7 +203,7 @@
 - (void)testModulation
 {
     int symRate = 4;
-    PskModulator * mod = [[PskModulator alloc] initWithSymbolRate:symRate initPhase:0];
+    TapirPskModulator * mod = [[TapirPskModulator alloc] initWithSymbolRate:symRate initPhase:0];
 
     int n = 10;
     
@@ -245,7 +245,7 @@
     
     int * testDemodValue2 = malloc(sizeof(int) * n);
     int * phaseInfo = malloc(sizeof(int)*n);
-    DpskModulator *mod2 = [[DpskModulator alloc]initWithSymbolRate:symRate];
+    TapirDpskModulator *mod2 = [[TapirDpskModulator alloc]initWithSymbolRate:symRate];
     [mod2 modulate:testModValue dest:&testModResult length:n];
     [mod demodulate:&testModResult dest:phaseInfo length:n];
     [mod2 demodulate:&testModResult dest:testDemodValue2 length:n];

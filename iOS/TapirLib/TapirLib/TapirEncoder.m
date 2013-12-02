@@ -9,88 +9,36 @@
 #import "TapirEncoder.h"
 
 
-@interface TapirConvEncoder()
-
-- (NSMutableArray *)allocTrelCode;
-- (void)addTrellisCode:(TapirTrellisCode *)code;
-
-@end
-
-
 @implementation TapirConvEncoder
 @synthesize trellisCodeLength;
 
-- (NSMutableArray *)allocTrelCode
-{
-    if(trelCodeArr == NULL)
-    {
-        trelCodeArr = [[NSMutableArray alloc] init];
-    }
-    return trelCodeArr;
-}
-- (void)clearTrellisCode
-{
-    [trelCodeArr removeAllObjects];
-    [self allocTrelCode];
-}
 
-- (id)init
+- (id) initWithTrellisArray : (NSArray *)trelArray
 {
     if(self = [super init])
     {
-        [self allocTrelCode];
-    }
-    return self;
-}
-
-- (id)initWithTrellisCode:(TapirTrellisCode *)code
-{
-    if(self = [super init])
-    {
-        [self addTrellisCode:code];
-    }
-    return self;
-}
-- (id) initWithTrellisArray : (const NSMutableArray *)trelArray
-{
-    if(self = [super init])
-    {
-        [self addTrellisCodeWithTrellisArray:trelArray];
-    }
-    return self;
-}
-
-- (void)addTrellisCode:(TapirTrellisCode *)code
-{
-    [self allocTrelCode];
-    int newLength = [code length];
-
-    if(newLength > trellisCodeLength)
-    {
-        for(TapirTrellisCode * trelElem in trelCodeArr)
+        trelCodeArr = [NSArray arrayWithArray:trelArray];
+        
+        trellisCodeLength = [[trelCodeArr objectAtIndex:0] length];
+        for(int i=1; i<[trelCodeArr count]; ++i)
         {
-            [trelElem extendTo:newLength];
+            int objLength = [[trelArray objectAtIndex:i] length];
+            if(objLength < trellisCodeLength)
+            {
+                [[trelArray objectAtIndex:i] extendTo:(trellisCodeLength-objLength)];
+            }
+            else if(objLength > trellisCodeLength)
+            {
+                trellisCodeLength = objLength;
+                for(int j=0; j<i; ++j)
+                {
+                    [[trelArray objectAtIndex:j] extendTo:(objLength - trellisCodeLength)];
+                }
+            }
         }
-        trellisCodeLength = newLength;
+        
     }
-    else if(newLength < trellisCodeLength)
-    {
-        [code extendTo:trellisCodeLength];
-    }
-
-    [trelCodeArr addObject:code];
-}
-
-- (void)addTrellisCodeWithTrellisArray:(const NSMutableArray *)trelArray
-{
-    [self allocTrelCode];
-    for(TapirTrellisCode * trelElem in trelArray)
-    {
-        if([trelElem isKindOfClass:[TapirTrellisCode class]])
-        {
-            [self addTrellisCode:trelElem];
-        }
-    }
+    return self;
 }
 
 - (float)getEncodingRate
@@ -101,15 +49,9 @@
 - (void)encode:(const int *)src dest:(float *)dest srcLength:(const int)srcLength
 {
     //Convolutional Encoding
-    
-    
-    
-    
     int inputLength = (srcLength + trellisCodeLength - 1);
     float * input = calloc(inputLength, sizeof(float));
-    vDSP_vflt32(src, 1, (input+trellisCodeLength-1), 1, srcLength);
-//    memcpy((input+trellisCodeLength - 1), src, sizeof(float) * srcLength);
-    
+    vDSP_vflt32(src, 1, input + (trellisCodeLength-1), 1, srcLength);
     
     int encodingRate = [self getEncodingRate];
     for(int i=0; i<encodingRate; ++i)

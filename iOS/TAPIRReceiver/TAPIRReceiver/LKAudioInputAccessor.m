@@ -46,9 +46,9 @@ static void HandleInputBuffer (
     hpf = [[LKBiquadHPF alloc] init];
         // set audio format for recording
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
-    aqData.mDataFormat.mSampleRate       = kTapirAudioSampleRate;
-    aqData.mDataFormat.mChannelsPerFrame = kTapirAudioChannel;
-    aqData.mDataFormat.mBitsPerChannel   = kTapirAudioBitsPerChannel;
+    aqData.mDataFormat.mSampleRate       = 44100.f;
+    aqData.mDataFormat.mChannelsPerFrame = 1;
+    aqData.mDataFormat.mBitsPerChannel   = 16;
     aqData.mDataFormat.mBytesPerPacket   =
     aqData.mDataFormat.mBytesPerFrame =
     aqData.mDataFormat.mChannelsPerFrame * sizeof (SInt16);
@@ -65,11 +65,11 @@ static void HandleInputBuffer (
     
     AudioStreamBasicDescription asbd;
     bzero(&asbd, sizeof(asbd));
-    asbd.mSampleRate = kTapirAudioSampleRate;
+    asbd.mSampleRate = 44100.f;
     asbd.mFramesPerPacket = 1;
     asbd.mChannelsPerFrame = 1;
     asbd.mBytesPerPacket = asbd.mBytesPerFrame = 2;
-    asbd.mBitsPerChannel = kTapirAudioBitsPerChannel;
+    asbd.mBitsPerChannel = 16;
     asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     asbd.mFormatID = kAudioFormatLinearPCM;
     

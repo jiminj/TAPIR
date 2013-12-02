@@ -26,6 +26,7 @@
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */; };
 		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
 		EC0EEFF3183A6FFE001BC8DE /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */; };
+		EC3785E2184B5F990008335C /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */; };
 		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
 		EC5B3854184B558600EB4050 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B3853184B558600EB4050 /* TapirConfig.m */; };
@@ -96,6 +97,7 @@
 				245AC6A618364DBE00AF31AE /* XCTest.framework in Frameworks */,
 				245AC6A818364DBE00AF31AE /* UIKit.framework in Frameworks */,
 				245AC6A718364DBE00AF31AE /* Foundation.framework in Frameworks */,
+				EC3785E2184B5F990008335C /* TapirLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +476,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphonesimulator",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
@@ -502,6 +505,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphonesimulator",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";

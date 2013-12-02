@@ -111,19 +111,6 @@ void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     vDSP_fft_zop(setup, signal, 1, dest, 1, logLen, FFT_INVERSE);
 }
 
-
-void cutCentralRegions(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int signalLength, const int cutLength)
-{
-    int halfCutLength = cutLength / 2;
-    int sigLastHalfStPoint = signalLength - halfCutLength;
-    int cpMemSize = halfCutLength * sizeof(float);
-    
-    memcpy(dest->realp, signal->realp + sigLastHalfStPoint, cpMemSize);
-    memcpy(dest->imagp, signal->imagp + sigLastHalfStPoint, cpMemSize);
-    memcpy(dest->realp + halfCutLength, signal->realp, cpMemSize);
-    memcpy(dest->imagp + halfCutLength, signal->imagp, cpMemSize);
-}
-
 int mergeBitsToIntegerValue(const int * intArray, int arrLength)
 {
     int retVal = 0;

@@ -137,10 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */,
-				EC313898183BE1A200C82186 /* TapirDsp.h */,
-				EC313899183BE1A200C82186 /* TapirDsp.m */,
 				EC186D0B1847A47C00A89628 /* TapirTrellisCode.h */,
 				EC186D0C1847A47C00A89628 /* TapirTrellisCode.m */,
+				EC313898183BE1A200C82186 /* TapirDsp.h */,
+				EC313899183BE1A200C82186 /* TapirDsp.m */,
 				EC186D0318463D9B00A89628 /* TapirDecoder.h */,
 				EC186D0418463D9B00A89628 /* TapirDecoder.m */,
 				EC186CFF18437F0800A89628 /* TapirEncoder.h */,

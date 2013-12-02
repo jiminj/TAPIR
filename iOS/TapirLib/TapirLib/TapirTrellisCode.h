@@ -19,6 +19,8 @@
 - (id)initWithG: (int)_g;
 - (void)extendTo : (int)extLength;
 - (int)getBitsAsInteger;
+- (void)test;
+
 
 @property int length;
 @property float * encodedCode;

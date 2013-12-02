@@ -9,9 +9,30 @@
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 #import <TapirLib/TapirLib.h>
+#import "TapirConfig.h"
 
 @interface TapirSignalAnalyzer : NSObject
+{
 
--(void)analyzeSignal:(const DSPSplitComplex *)signal;
+    DSPSplitComplex convertedSignal;
+    DSPSplitComplex roiSignal;
+    DSPSplitComplex estimatedSignal;
+    DSPSplitComplex pilotRemovedSignal;
+
+    float * demod;
+    float * deinterleaved;
+    int * decoded;
+    
+    TapirConfig * cfg;
+    TapirLSChannelEstimator * chanEstimator;
+    TapirPskModulator * modulator;
+    TapirMatrixInterleaver * interleaver;
+    TapirViterbiDecoder * vitdec;
+    
+}
+
+-(char)analyzeSignal:(const float *)signal;
+-(id)initWithConfig:(TapirConfig *)cfg;
+
 
 @end

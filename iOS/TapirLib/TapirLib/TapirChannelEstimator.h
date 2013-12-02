@@ -18,16 +18,18 @@
     float * pilotIndex;
     DSPSplitComplex refPilotValue;
     int pilotLength;
-    
-    DSPSplitComplex channel;
     int channelLength;
+
+    DSPSplitComplex channel;
+
+
 }
-- (void)setPilot:(const DSPSplitComplex *)value index:(const int *)index length:(const int)length;
+- (void)setPilot:(const DSPSplitComplex *)value index:(const int *)index pilotLength:(const int)length channelLength:(const int)chLength;
+- (void)channelEstimate:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest;
+- (void)removePilotsFromSignal:(const DSPSplitComplex *)src dest:(DSPSplitComplex *) dest;
 
-- (void)generateChannelWith:(const DSPSplitComplex *)pilotChannel channelLength:(const int)channelLength;
 
-- (void)channelEstimate:(const DSPSplitComplex *)data length:(const int)length;
-
-- (void)applyChannel:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest;
+@property (readonly) DSPSplitComplex channel;
+@property (readonly) int channelLength;
 
 @end

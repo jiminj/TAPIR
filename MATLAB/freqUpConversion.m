@@ -8,7 +8,7 @@ function result = freqUpConversion( signal, Fc, Fs)
     % %%%%% I&Q Modulation & Frequency Upconversion %%%%%
 
     tC = (0:1/Fs:(length(signal)-1)/Fs);
-    carrier = 2 * exp(1i*2*pi*Fc*tC)';
+    carrier = 2 * exp(1i*2*pi*Fc*tC).';
     rePulse = real(signal) .* real(carrier);
     imPulse = imag(signal) .* imag(carrier);
     modulatedSig = rePulse + imPulse;

@@ -8,32 +8,83 @@
 
 #import <TapirLib/TapirLib.h>
 
-static const Float64 kTapirAudioSampleRate = 44100.f;
-static const int    kTapirAudioChannel = 1;
-static const int    kTapirAudioBitsPerChannel = 16;
+@interface TapirConfig : NSObject
+{
+    Float64 kAudioSampleRate;
+    
+    int     kAudioChannel;
+    int     kAudioBitsPerChannel;
 
-static const int    kTapirSymbolLength = 2048;
-static const int    kTapirCyclicPrefixLength = kTapirSymbolLength / 2;
-static const int    kTapirCyclicPostfixLength = kTapirSymbolLength / 4;
-static const int    kTapirGuardInterval = 0;
+    int     kIntervalAfterPreamble;
+    int     kSymbolLength;
+    int     kCyclicPrefixLength;
+    int     kCyclicPostfixLength;
+    int     kGuardIntervalLength;
 
-static const int    kTapirIntervalAfterPreamble = kTapirSymbolLength / 2;
+    float   kCarrierFrequency;
+    int     kNoDataSubcarriers;
 
+    //For Channel Estimator
+    int     kPilotLength;
+    int     kNoTotalSubcarriers;
+    int *   kPilotLocation;
 
+    DSPSplitComplex kPilotData;
 
-static const float  kTapirCarrierFrequency = 20000;
-static const int    kTapirNoSubcarriers = 16;
+    
+    //For modulator
+    int     kModulationRate;
+    
+    
+    //For Interleaver
+    int     kInterleaverRows;
+    int     kInterleaverCols;
+    
+    //For Decoder
+    
+    int kDecoderExtTracebackLength;
+    NSArray * kTrellisArray;
+    int kEncodingRate;
+    int kDataBitLength;
+    
+}
+
++(TapirConfig *)getInstance;
+
+//aditional getters
+-(DSPSplitComplex *) kPilotData;
+-(int *) kPilotLocation;
+
+@property (readonly, nonatomic) Float64 kAudioSampleRate;
+@property (readonly, nonatomic) int     kAudioChannel;
+@property (readonly, nonatomic) int     kAudioBitsPerChannel;
+
+@property (readonly, nonatomic) int     kSymbolLength;
+@property (readonly, nonatomic) int     kCyclicPrefixLength;
+@property (readonly, nonatomic) int     kCyclicPostfixLength;
+@property (readonly, nonatomic) int     kGuardIntervalLength;
+
+@property (readonly, nonatomic) int     kIntervalAfterPreamble;
+
+@property (readonly, nonatomic) float   kCarrierFrequency;
+@property (readonly, nonatomic) int     kNoDataSubcarriers;
 
 //For Channel Estimator
-static const float  kTapirPilotDataReal[4] = { 1.f, 1.f, 1.f, -1.f };
-static const float  kTapirPilotDataImag[4] = { .0f, .0f, .0f, .0f  };
-static const int    kTapirPilotLocation[4] = { 3, 7, 11, 15 };
+@property (readonly, nonatomic) int     kPilotLength;
+@property (readonly, nonatomic) int     kNoTotalSubcarriers;
 
-//For Decoder
-static const int    kTapirDecoderTracebackLength = 4;
-extern NSArray *    kTapirTrellisArray;
+@property (readonly, nonatomic) int     kModulationRate;
 
-void TapirConfig();
+@property (readonly, nonatomic) int     kInterleaverRows;
+@property (readonly, nonatomic) int     kInterleaverCols;
+
+@property (readonly, nonatomic) int     kDecoderExtTracebackLength;
+
+@property (readonly, nonatomic) NSArray * kTrellisArray;
+@property (readonly, nonatomic) int     kEncodingRate;
+@property (readonly, nonatomic) int     kDataBitLength;
+@end
+
 
 //For Interleaver
 //static const int kTapirInterleaveRows = 4;
