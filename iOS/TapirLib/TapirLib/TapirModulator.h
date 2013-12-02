@@ -12,13 +12,13 @@
 @protocol TapirModulator <NSObject>
 
 @required
--(void)modulate:(const int *)source dest:(DSPSplitComplex *) dest length:(const int)length;
--(void)demodulate:(const DSPSplitComplex *)source dest:(int *)dest length:(const int)length;
+-(void)modulate:(const float *)source dest:(DSPSplitComplex *) dest length:(const int)length;
+-(void)demodulate:(const DSPSplitComplex *)source dest:(float *)dest length:(const int)length;
 
 @end
 
 
-@interface PskModulator : NSObject <TapirModulator>
+@interface TapirPskModulator : NSObject <TapirModulator>
 {
     int symbolRate;
     float initialPhase;
@@ -34,6 +34,6 @@
 @property float magnitude;
 @end
 
-@interface DpskModulator : PskModulator <TapirModulator>
+@interface TapirDpskModulator : TapirPskModulator <TapirModulator>
 
 @end

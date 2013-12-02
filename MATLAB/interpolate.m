@@ -10,9 +10,6 @@ if pilot_loc(end) < Nfft
     H = [H;H(end)+slope*(Nfft-pilot_loc(end))];
     pilot_loc = [pilot_loc;Nfft];
 end
-H
-pilot_loc
-
 if lower(method(1))=='s', H_interpolated = interp1(pilot_loc,H,[1:Nfft],'spline'); 
 else H_interpolated=interp1(pilot_loc,H,[1:Nfft]);
 end

@@ -7,8 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <TapirLib/TapirTransform.h>
-#import <TapirLib/TapirIqModulator.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <TapirLib/TapirLib.h>
+#import "TapirConfig.h"
+#import "TapirSignalAnalyzer.h"
 
 @interface TAPIRReceiverTests : XCTestCase
 
@@ -28,21 +30,51 @@
     [super tearDown];
 }
 
-- (void)testLoadLibrary
+- (void)testAnalyzeTapir
 {
+    TapirConfig * cfg = [TapirConfig getInstance];
+    TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
+    
+    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"g_20k_puresymbol" ofType: @".wav"];
+    float * audioData = malloc([cfg kSymbolLength] * sizeof(float));
+    [self readWavDataFrom:filePath to:audioData lengthOf:[cfg kSymbolLength]];
 
-    float initState = 0;
-    float inc = 1;
-    int length = 2048;
+//    [analyzer setSignalLength:[cfg kSymbolLength] resultLength:[cfg kNoTotalSubcarriers]];
+    [analyzer analyzeSignal:audioData];
     
-    DSPSplitComplex convResult;
-    convResult.realp = malloc(sizeof(float) * length);
-    convResult.imagp = malloc(sizeof(float) * length);
     
-    vDSP_vramp(&initState, &inc, convResult.realp, 1, length);
-    vDSP_vramp(&initState, &inc, convResult.imagp, 1, length);
-    [TapirTransform fftComplex:&convResult dest:&convResult length:length];
-    [TapirTransform nothing];
+    
+    //Channel Estimate
+
+//    TapirLSChannelEstimator * lschan = [[TapirLSChannelEstimator alloc] init];
+//    [lschan setPilot:&kTapirPilotData index:kTapirPilotLocation pilotLength:kTapirPilotLength channelLength:kTapirTotalNoSubcarriers];
+//    [lschan channelEstimate:&cutResult dest:&cutResult];
+//    
+//    DSPSplitComplex estimated;
+//    estimated.realp = malloc(sizeof(float) * kTapirNoDataSubcarriers);
+//    estimated.imagp = malloc(sizeof(float) * kTapirNoDataSubcarriers);
+//    [lschan removePilotsFromSignal:&cutResult dest:&estimated];
+//    
+//    
+//    
+//    for(int i=0; i<kTapirTotalNoSubcarriers; ++i)
+//    {
+//        NSLog(@"[%d] = %f + %f", i, estimated.realp[i], estimated.imagp[i]);
+//    }
+    
+    
+    
+    
+    free(audioData);
+//    free(convResult.realp);
+//    free(convResult.imagp);
+//    free(cutResult.realp);
+//    free(cutResult.imagp);
+//    free(estimated.realp);
+//    free(estimated.imagp);
+    
+    XCTAssertTrue(YES);
+
 }
 
 //
@@ -50,5 +82,41 @@
 //{
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
+
+
+
+- (void)readWavDataFrom:(NSString *)filePath to:(Float32 *)audioData lengthOf:(UInt32)frameCount
+{
+    
+    CFURLRef inputFileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault,
+                                                          (CFStringRef)filePath,
+                                                          kCFURLPOSIXPathStyle,
+                                                          false);
+    ExtAudioFileRef fileRef = NULL;
+    ExtAudioFileOpenURL(inputFileURL, &fileRef);
+    if( NULL == fileRef)
+    { XCTFail(@"Failed to open the file"); }
+    
+    UInt32 propSize;
+    AudioStreamBasicDescription descriptor;
+    propSize = sizeof(descriptor);
+    ExtAudioFileGetProperty(fileRef, kExtAudioFileProperty_FileDataFormat, &propSize, &descriptor);
+    
+    void * readBuffer = malloc(descriptor.mBytesPerFrame * descriptor.mChannelsPerFrame *frameCount);
+    
+    AudioBufferList bufferList;
+    bufferList.mNumberBuffers = 1;
+    bufferList.mBuffers[0].mNumberChannels = descriptor.mChannelsPerFrame;
+    bufferList.mBuffers[0].mDataByteSize = frameCount * descriptor.mBytesPerFrame;
+    bufferList.mBuffers[0].mData = readBuffer;
+    
+    ExtAudioFileRead(fileRef, &frameCount, &bufferList);
+    
+    for( int i=0; i< frameCount ; i++ )
+    {
+        audioData[i] = ((SInt16 *)readBuffer)[i] / 32768.0f;
+    }
+}
+
 
 @end

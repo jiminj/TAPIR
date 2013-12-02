@@ -8,9 +8,19 @@
 
 #import "TapirChannelEstimator.h"
 
-@implementation TapirLSChannelEstimator
+@interface TapirLSChannelEstimator()
+{
+    DSPSplitComplex rcvPilotValue;
+    DSPSplitComplex pilotChannel;
+}
+- (void)generateChannelWith:(const DSPSplitComplex *)pilotChannel;
 
-- (void)setPilot:(const DSPSplitComplex *)value index:(const int *)index length:(const int)length
+@end
+
+@implementation TapirLSChannelEstimator
+@synthesize channel;
+@synthesize channelLength;
+- (void)setPilot:(const DSPSplitComplex *)value index:(const int *)index pilotLength:(const int)length channelLength:(const int)chLength
 {
     //Memory deallocation for safe
     if(pilotIndex != NULL)
@@ -25,18 +35,28 @@
     }
 
     pilotLength = length;
+    channelLength = chLength;
+    
     pilotIndex = malloc(sizeof(float) * pilotLength);
     refPilotValue.realp = malloc(sizeof(float) * pilotLength);
     refPilotValue.imagp = malloc(sizeof(float) * pilotLength);
+
+    channel.realp = malloc(sizeof(float) * channelLength);
+    channel.imagp = malloc(sizeof(float) * channelLength);
+    
+    rcvPilotValue.realp = malloc(sizeof(float) * pilotLength);
+    rcvPilotValue.imagp = malloc(sizeof(float) * pilotLength);
+    pilotChannel.realp = malloc(sizeof(float) * pilotLength);
+    pilotChannel.imagp = malloc(sizeof(float) * pilotLength);
     
     //copy
     vDSP_vflt32(index, 1, pilotIndex, 1, length);
     vDSP_zvmov(value, 1, &refPilotValue, 1, length);
+
 }
 
-- (void)generateChannelWith:(const DSPSplitComplex *)pilotChannel channelLength:(const int)_channelLength
+- (void)generateChannelWith:(const DSPSplitComplex *)_pilotChannel
 {
-
     bool isFirstElemAdded = false;
     bool isLastElemAdded = false;
     int extLength = pilotLength;
@@ -52,7 +72,6 @@
         ++extLength;
     }
     
-    NSLog(@"%d",extLength);
     
     float * extPilotIndex = malloc(sizeof(int) * extLength);
     DSPSplitComplex extPilotChannel;
@@ -65,18 +84,18 @@
     for(int i=stPos; i<edPos; ++i)
     {
         extPilotIndex[i] = pilotIndex[i-stPos];
-        extPilotChannel.realp[i] = pilotChannel->realp[i-stPos];
-        extPilotChannel.imagp[i] = pilotChannel->imagp[i-stPos];
+        extPilotChannel.realp[i] = _pilotChannel->realp[i-stPos];
+        extPilotChannel.imagp[i] = _pilotChannel->imagp[i-stPos];
     }
-
+    
     //Add first & last elem
     if(isFirstElemAdded)
     {
         extPilotIndex[0] = 0;
         if(pilotLength < 2)
         {
-            extPilotChannel.realp[0] = pilotChannel->realp[0];
-            extPilotChannel.imagp[0] = pilotChannel->imagp[0];
+            extPilotChannel.realp[0] = _pilotChannel->realp[0];
+            extPilotChannel.imagp[0] = _pilotChannel->imagp[0];
         }
         else
         {
@@ -92,11 +111,11 @@
     }
     if(isLastElemAdded)
     {
-        extPilotIndex[extLength - 1] = (float)_channelLength;
+        extPilotIndex[extLength - 1] = (float)channelLength;
         if(pilotLength < 2)
         {
-            extPilotChannel.realp[extLength - 1] = pilotChannel->realp[0];
-            extPilotChannel.imagp[extLength - 1] = pilotChannel->imagp[0];
+            extPilotChannel.realp[extLength - 1] = _pilotChannel->realp[0];
+            extPilotChannel.imagp[extLength - 1] = _pilotChannel->imagp[0];
         }
         else
         {
@@ -109,68 +128,60 @@
             extPilotChannel.imagp[extLength - 1] = extPilotChannel.imagp[extLength - 2] + slope.imag * newDist;
         }
     }
-    
-    //Generate Channel
-    channel.realp = malloc(sizeof(float) * _channelLength);
-    channel.imagp = malloc(sizeof(float) * _channelLength);
-    
-    vDSP_vgenp(extPilotChannel.realp, 1, extPilotIndex, 1, channel.realp, 1, _channelLength, extLength);
-    vDSP_vgenp(extPilotChannel.imagp, 1, extPilotIndex, 1, channel.imagp, 1, _channelLength, extLength);
 
-//    for(int i=0; i<_channelLength; ++i)
-//    {
-//        NSLog(@"%d => %f + %fi", i, channel.realp[i], channel.imagp[i]);
-//    }
+    //Generate Channel
+    vDSP_vgenp(extPilotChannel.realp, 1, extPilotIndex, 1, channel.realp, 1, channelLength, extLength);
+    vDSP_vgenp(extPilotChannel.imagp, 1, extPilotIndex, 1, channel.imagp, 1, channelLength, extLength);
 
     free(extPilotIndex);
     free(extPilotChannel.realp);
     free(extPilotChannel.imagp);
+    
 }
 
 
-- (void)channelEstimate:(const DSPSplitComplex *)data length:(const int)length
+- (void)channelEstimate:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest
 {
-    DSPSplitComplex rcvPilotValue;
-    rcvPilotValue.realp = malloc(sizeof(float) * pilotLength);
-    rcvPilotValue.imagp = malloc(sizeof(float) * pilotLength);
-    
     //Save Pilot Value
-    vDSP_vindex(data->realp, pilotIndex, 1, rcvPilotValue.realp, 1, pilotLength);
-    vDSP_vindex(data->imagp, pilotIndex, 1, rcvPilotValue.imagp, 1, pilotLength);
-    
+    vDSP_vindex(src->realp, pilotIndex, 1, rcvPilotValue.realp, 1, pilotLength);
+    vDSP_vindex(src->imagp, pilotIndex, 1, rcvPilotValue.imagp, 1, pilotLength);
+    vDSP_zvdiv(&refPilotValue, 1, &rcvPilotValue, 1, &pilotChannel, 1, pilotLength);
 
-    DSPSplitComplex pilotChannel;
-    pilotChannel.realp = malloc(sizeof(float) * pilotLength);
-    pilotChannel.imagp = malloc(sizeof(float) * pilotLength);
-    vDSP_zvdiv(&rcvPilotValue, 1, &refPilotValue, 1, &pilotChannel, 1, pilotLength);
+    [self generateChannelWith:&pilotChannel];
     
-    [self generateChannelWith:&pilotChannel channelLength:length];
-    
-    free(rcvPilotValue.realp);
-    free(rcvPilotValue.imagp);
+    //Conjugate and multiply
+    vDSP_zvconj(&channel, 1, &channel, 1, channelLength);
+    vDSP_zvmul(src, 1, &channel, 1, dest, 1, channelLength, 1 );
     
 }
 
-- (void)applyChannel:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest
+- (void)removePilotsFromSignal:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest
 {
-    vDSP_zvmul(src, 1, &channel, 1, dest, 1, channelLength, 1);
+    float *curPilot = pilotIndex;
+    int destIdx = 0;
+    
+    for(int i=0; i<channelLength; ++i)
+    {
+        if(i == *curPilot)
+        { ++curPilot; }
+        else
+        {
+            dest->realp[destIdx] = src->realp[i];
+            dest->imagp[destIdx++] = src->imagp[i];
+        }
+    }
 }
 
 - (void)dealloc
 {
-    if(pilotIndex != NULL)
-    { free(pilotIndex); }
-    if(refPilotValue.realp != NULL)
-    {
-        free(refPilotValue.realp);
-        free(refPilotValue.imagp);
-    }
-    if(channel.realp != NULL)
-    {
-        free(channel.realp);
-        free(channel.imagp);
-    }
-
+    if(pilotIndex != NULL) { free(pilotIndex); }
+    if(refPilotValue.realp != NULL) { free(refPilotValue.realp); }
+    if(refPilotValue.imagp != NULL){ free(refPilotValue.imagp); }
+    if(channel.realp != NULL) { free(channel.realp); }
+    if(channel.imagp != NULL) { free(channel.imagp); }
+    if(rcvPilotValue.realp != NULL) { free(rcvPilotValue.realp); }
+    if(rcvPilotValue.imagp != NULL) { free(rcvPilotValue.imagp); }
+    
 }
 
 @end

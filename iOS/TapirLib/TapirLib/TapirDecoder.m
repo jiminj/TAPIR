@@ -16,8 +16,8 @@
 @interface TapirViterbiDecoder()
 
 - (void) genNextStatusTable;
-- (void) genOutputTableWith:(NSMutableArray *)trellisArray;
-- (void) genTables:(NSMutableArray *)trellisArray;
+- (void) genOutputTableWith:(NSArray *)trellisArray;
+- (void) genTables:(NSArray *)trellisArray;
 
 - (int) calHammingDistance:(int)a with:(int)b;
 
@@ -30,7 +30,7 @@
     return nil;
 }
 
-- (id)initWithTrellisArray:(NSMutableArray *)trellisArray
+- (id)initWithTrellisArray:(NSArray *)trellisArray
 {
     if(self = [super init])
     {
@@ -86,25 +86,11 @@
             nextStateRouteTable[i][j] = (i >> 1) | (j << (noRegisterBits-1));
         }
     }
-//
-//// ======== DUMP ===========
-//
-//    NSLog(@"===Next State Table===");
-//    
-//    for(int i=0; i<noStates; ++i)
-//    {
-//        int * temp = nextStateRouteTable[i];
-//        NSMutableString * text = [[NSMutableString alloc] initWithFormat:@"[%d] => ",i];
-//        for(int j=0; j<noCols; ++j)
-//        {
-//            [text appendFormat:@"%d ",temp[j]];
-//        }
-//        NSLog(text);
-//    }
+
 }
 
 
-- (void)genOutputTableWith:(NSMutableArray *)trellisArray;
+- (void)genOutputTableWith:(NSArray *)trellisArray;
 {
     outputTable = malloc(sizeof(int *) * noStates);
     noTrellis = (int)[trellisArray count];
@@ -131,24 +117,11 @@
             }
         }
     }
-//
-//// ======== DUMP ===========
-//    NSLog(@"===Output Table===");
-//    for(int i=0; i<noStates; ++i)
-//    {
-//        int * temp = outputTable[i];
-//        NSMutableString * text = [[NSMutableString alloc] initWithFormat:@"[%d] => ",i];
-//        for(int j=0; j<noCols; ++j)
-//        {
-//            [text appendFormat:@"%d ",temp[j]];
-//        }
-//        NSLog(text);
-//    }
-    
+
 }
 
 
-- (void)genTables:(NSMutableArray *)trellisArray
+- (void)genTables:(NSArray *)trellisArray
 {
     //Assume that all trellis codes have same length
     noRegisterBits = [[trellisArray objectAtIndex:0] length] - 1;
@@ -173,18 +146,23 @@
     return retVal;
 }
 
-
 - (void)decode:(const float *)src dest:(int *)dest srcLength:(const int)srcLength
+{
+    [self decode:src dest:dest srcLength:srcLength extLength:0];
+}
+
+- (void)decode:(const float *)src dest:(int *)dest srcLength:(const int)srcLength extLength:(const int)extTbLength
 {
     
     //Make input blocks (bind noTrellis blocks to one block)
     int * intSrc = malloc(sizeof(int) * srcLength);
     vDSP_vfix32(src, 1, intSrc, 1, srcLength);
     
-    int inputLength = srcLength / noTrellis;
+    int outputLength = srcLength / noTrellis;
+    int inputLength = outputLength + extTbLength;
     int * input = calloc(inputLength, sizeof(int));
     
-    for(int i=0; i<inputLength; ++i)
+    for(int i=0; i<inputLength - extTbLength; ++i)
     {
         int srcLoc = i * noTrellis;
         for(int j=0; j<noTrellis; ++j)
@@ -255,8 +233,6 @@
         }
     }
     
-    
-    
     int minRouteIdx = 0;
     int minValue = inputLength * 2; //maximum hamming distance;
     
@@ -271,25 +247,45 @@
         }
     }
 
+    int * tbResult = malloc(sizeof(int) * inputLength);
+
     //Backtrack
 //    NSLog(@"minStartingPoint : %d", minRouteIdx);
     for(int i=inputLength-1; i >= 0; --i)
     {
-        dest[i] = selectionTable[minRouteIdx][i];
+//        dest[i] = selectionTable[minRouteIdx][i];
+        tbResult[i] = selectionTable[minRouteIdx][i];
         minRouteIdx = trackInfoTable[minRouteIdx][i];
     }
+    
+    memcpy(dest, tbResult, sizeof(int) * outputLength);
+    
 //
-//// ======== DUMP ===========
+// ======== DUMP ===========
 //    
-//    NSLog(@"==DEST===");
-//    for(int i=0; i<inputLength; ++i)
-//    { NSLog(@"%d", dest[i]); }
+//    NSMutableString * nsTableView = [[NSMutableString alloc] initWithFormat:@"\n==Next State Table== \n"];
+//    NSMutableString * outputTableView = [[NSMutableString alloc] initWithFormat:@"\n==Output Table== \n"];
+//    for(int i=0; i<noStates; ++i)
+//    {
+//        int * nTemp = nextStateRouteTable[i];
+//        int * oTemp = outputTable[i];
+//        [nsTableView appendFormat:@"[%d] => ",i];
+//        [outputTableView appendFormat:@"[%d] => ", i];
+//        
+//        for(int j=0; j<noInfoTableCols; ++j)
+//        {
+//            [nsTableView appendFormat:@"%d\t",nTemp[j]];
+//            [outputTableView appendFormat:@"%d\t",oTemp[j]];
+//        }
+//        [nsTableView appendFormat:@"\n"];
+//        [outputTableView appendFormat:@"\n"];
+//    }
+//    NSLog(@"%@",nsTableView);
+//    NSLog(@"%@",outputTableView);
 //    
-//    
-//    
-//    NSMutableString * wTableView = [[NSMutableString alloc] initWithFormat:@"\n ==Weight Table== \n"];
-//    NSMutableString * rTableView = [[NSMutableString alloc] initWithFormat:@"\n ==Route Table == \n"];
-//    NSMutableString * sTableView = [[NSMutableString alloc] initWithFormat:@"\n ==Selection Table == \n"];
+//    NSMutableString * wTableView = [[NSMutableString alloc] initWithFormat:@"\n==Weight Table== \n"];
+//    NSMutableString * rTableView = [[NSMutableString alloc] initWithFormat:@"\n==Route Table == \n"];
+//    NSMutableString * sTableView = [[NSMutableString alloc] initWithFormat:@"\n==Selection Table == \n"];
 //    for(int i=0; i<noStates; ++i)
 //    {
 //        int * wTemp = weightTable[i];
@@ -310,12 +306,29 @@
 //        [rTableView appendFormat:@"\n"];
 //        [sTableView appendFormat:@"\n"];
 //    }
-//    NSLog(wTableView);
-//    NSLog(rTableView);
-//    NSLog(sTableView);
+//    NSLog(@"%@", wTableView);
+//    NSLog(@"%@", rTableView);
+//    NSLog(@"%@", sTableView);
 //
+//    NSMutableString * inputView = [[NSMutableString alloc] initWithFormat:@"\n==Input== \n"];
+//    NSMutableString * resultView = [[NSMutableString alloc] initWithFormat:@"\n==Result== \n"];
+//    NSMutableString * outputView = [[NSMutableString alloc] initWithFormat:@"\n==Output==(Length : %d)\n",outputLength];
+//    for(int i=0; i<inputLength; ++i)
+//    {
+//        [inputView appendFormat:@"%d\t", input[i]];
+//        [resultView appendFormat:@"%d\t", tbResult[i]];
+//    }
+//    for(int i=0; i<inputLength; ++i)
+//    {
+//        [outputView appendFormat:@"%d\t", dest[i]];
+//    }
+//    
+//    NSLog(@"%@",inputView);
+//    NSLog(@"%@",resultView);
+//    NSLog(@"%@",outputView);
+//    
 //    NSLog(@"Minimum : %d", minRouteIdx);
-    
+//    
     for(int i=0; i< noStates; ++i)
     {
         free(weightTable[i]);
@@ -325,6 +338,7 @@
     free(weightTable);
     free(trackInfoTable);
     free(selectionTable);
+    free(tbResult);
 //    free(result);
 }
 

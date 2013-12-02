@@ -22,7 +22,7 @@
 		EC0EEF88183A4A51001BC8DE /* TapirLib.framework in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEF6E183A4A51001BC8DE /* TapirLib.framework */; };
 		EC0EEF8E183A4A51001BC8DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEF8C183A4A51001BC8DE /* InfoPlist.strings */; };
 		EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */; };
-		EC0EEFA3183A4A6E001BC8DE /* t.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEFA1183A4A6E001BC8DE /* t.wav */; };
+		EC0EEFA3183A4A6E001BC8DE /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */; };
 		EC0EEFE5183A5FA3001BC8DE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */; };
 		EC186CF9183DEF4B00A89628 /* TapirInterleaver.h in Headers */ = {isa = PBXBuildFile; fileRef = EC186CF7183DEF4B00A89628 /* TapirInterleaver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC186CFA183DEF4B00A89628 /* TapirInterleaver.m in Sources */ = {isa = PBXBuildFile; fileRef = EC186CF8183DEF4B00A89628 /* TapirInterleaver.m */; };
@@ -71,7 +71,7 @@
 		EC0EEF8B183A4A51001BC8DE /* TapirLibTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirLibTests-Info.plist"; sourceTree = "<group>"; };
 		EC0EEF8D183A4A51001BC8DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirLibTests.m; sourceTree = "<group>"; };
-		EC0EEFA1183A4A6E001BC8DE /* t.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t.wav; sourceTree = "<group>"; };
+		EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
 		EC0EEFE0183A5F85001BC8DE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		EC0EEFE2183A5F98001BC8DE /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -137,10 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */,
-				EC313898183BE1A200C82186 /* TapirDsp.h */,
-				EC313899183BE1A200C82186 /* TapirDsp.m */,
 				EC186D0B1847A47C00A89628 /* TapirTrellisCode.h */,
 				EC186D0C1847A47C00A89628 /* TapirTrellisCode.m */,
+				EC313898183BE1A200C82186 /* TapirDsp.h */,
+				EC313899183BE1A200C82186 /* TapirDsp.m */,
 				EC186D0318463D9B00A89628 /* TapirDecoder.h */,
 				EC186D0418463D9B00A89628 /* TapirDecoder.m */,
 				EC186CFF18437F0800A89628 /* TapirEncoder.h */,
@@ -190,7 +190,7 @@
 		EC0EEF89183A4A51001BC8DE /* TapirLibTests */ = {
 			isa = PBXGroup;
 			children = (
-				EC0EEFA1183A4A6E001BC8DE /* t.wav */,
+				EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */,
 				EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */,
 				EC0EEF8A183A4A51001BC8DE /* Supporting Files */,
 			);
@@ -313,7 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC0EEFA3183A4A6E001BC8DE /* t.wav in Resources */,
+				EC0EEFA3183A4A6E001BC8DE /* t_20k_puresymbol.wav in Resources */,
 				EC0EEF88183A4A51001BC8DE /* TapirLib.framework in Resources */,
 				EC0EEF8E183A4A51001BC8DE /* InfoPlist.strings in Resources */,
 			);

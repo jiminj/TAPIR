@@ -110,13 +110,14 @@ void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);
     vDSP_fft_zop(setup, signal, 1, dest, 1, logLen, FFT_INVERSE);
 }
-//
-//CFBitVectorRef binFloatArr2CFBitVector(const float * floatArr, const int arrLength)
-//{
-//    UInt8 * bytes = malloc(sizeof(UInt8) * arrLength);
-//    vDSP_vfixru8(floatArr, 1, bytes, 1, arrLength);
-//
-//    CFBitVectorRef retVal = CFBitVectorCreate(NULL, bytes, arrLength);
-//    free(bytes);
-//    return retVal;
-//}
+
+int mergeBitsToIntegerValue(const int * intArray, int arrLength)
+{
+    int retVal = 0;
+    for(int i=0; i<arrLength; ++i)
+    {
+        retVal += (intArray[i] & 1) << (arrLength - 1 - i);
+    }
+    return retVal;
+}
+

@@ -52,6 +52,16 @@
                ReferencedContainer = "container:TAPIRReceiver.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EC0EEF7D183A4A51001BC8DE"
+               BuildableName = "TapirLibTests.xctest"
+               BlueprintName = "TapirLibTests"
+               ReferencedContainer = "container:../TapirLib/TapirLib.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

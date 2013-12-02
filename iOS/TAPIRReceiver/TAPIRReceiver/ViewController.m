@@ -27,7 +27,6 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
 
-    
 }
 
 - (void)didReceiveMemoryWarning

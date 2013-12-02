@@ -11,8 +11,8 @@
 
 @protocol TapirInterleaver <NSObject>
 
-- (void)interleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
-- (void)deinterleave:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
+- (void)interleave:(float *)source to:(float *)dest;
+- (void)deinterleave:(float *)source to:(float *)dest;
 
 @end
 
@@ -22,6 +22,8 @@
     int nCols;
 }
 - (id)initWithNRows:(const int)_nRows NCols:(const int)_nCols;
+- (void)interleaveComplex:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
+- (void)deinterleaveComplex:(DSPSplitComplex *)source to:(DSPSplitComplex *)dest;
 
 
 @property int nRows, nCols;

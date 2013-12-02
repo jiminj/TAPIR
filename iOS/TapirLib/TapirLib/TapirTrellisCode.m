@@ -94,6 +94,11 @@
     return retVal;
 }
 
+- (void)test
+{
+    NSLog(@"%d!!", g);
+}
+
 @end
 
 

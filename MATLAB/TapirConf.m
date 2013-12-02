@@ -50,7 +50,7 @@ guardInterval = 0;
 % noTotCarrier = noDataCarrier + noDcCarrier + noPilotCarrier;
 
 % Trellis Code for Convolutional Encoding
-trel = poly2trellis(7, [133 171]);
+trel = poly2trellis(7, [171 133]);
 tbLen = 8; %Traceback Length for Viterbi decoder
 
 intRows = 4;

@@ -7,6 +7,7 @@
 //
 
 #import "LKAudioInputAccessor.h"
+#import "TapirConfig.h"
 
 #define SELF_CORRELATION true
 
@@ -47,7 +48,7 @@ static void HandleInputBuffer (
     
         // set audio format for recording
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
-    aqData.mDataFormat.mSampleRate       = 44100.0;
+    aqData.mDataFormat.mSampleRate       = 44100.f;
     aqData.mDataFormat.mChannelsPerFrame = 1;
     aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)*8;
     aqData.mDataFormat.mBytesPerPacket   =
@@ -65,7 +66,7 @@ static void HandleInputBuffer (
     
     AudioStreamBasicDescription asbd;
     bzero(&asbd, sizeof(asbd));
-    asbd.mSampleRate = 44100;
+    asbd.mSampleRate = 44100.f;
     asbd.mFramesPerPacket = 1;
     asbd.mChannelsPerFrame = 1;
     asbd.mBytesPerPacket = asbd.mBytesPerFrame = sizeof (SInt16);

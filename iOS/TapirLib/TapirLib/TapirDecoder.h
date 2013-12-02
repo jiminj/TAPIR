@@ -16,19 +16,13 @@
 
 @end
 
-typedef struct _TapirViterbiNode
-{
-    struct _TapirViterbiNode * prevNode;
-    int prevChoosedValue;
-    int * outputValue;
-    
-} TapirViterbiNode;
 
 @interface TapirViterbiDecoder : NSObject <TapirDecoder>
 {
     int ** nextStateRouteTable;
     int ** outputTable;
 
+    
     int noTrellis; //No. of trellis code used
     int noRegisterBits; // No. of register bits in Trellis Code (constraint Length - 1)
     int noStates; // No. of states enabled
@@ -41,8 +35,8 @@ typedef struct _TapirViterbiNode
     
 }
 
-//- (void)genTables:(NSMutableArray *)trellisArray;
-- (id)initWithTrellisArray:(NSMutableArray *)trellisArray;
+- (id)initWithTrellisArray:(NSArray *)trellisArray;
 - (int)encodingRate;
+- (void)decode:(const float *)src dest:(int *)dest srcLength:(const int)srcLength extLength:(const int)extTbLength;
 
 @end

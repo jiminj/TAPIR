@@ -21,14 +21,12 @@
 
 @interface TapirConvEncoder : NSObject <TapirEncoder>
 {
-    NSMutableArray * trelCodeArr;
+    NSArray * trelCodeArr;
     int trellisCodeLength;
 }
-- (id)init;
-- (id)initWithTrellisArray : (const NSMutableArray *)trelArray;
-- (void)addTrellisCodeWithTrellisArray:(const NSMutableArray *)trelArray;
-
-- (void)clearTrellisCode;
+- (id)initWithTrellisArray : (NSArray *)trelArray;
+//- (void)addTrellisCodeWithTrellisArray:(const NSMutableArray *)trelArray;
+//- (void)clearTrellisCode;
 - (float)getEncodingRate;
 
 @property int trellisCodeLength;

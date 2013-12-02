@@ -33,13 +33,15 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
     findFlag = 0;
     searchMaxStPoint = 0;
     corrThreshold = 2;
-   
+    origCorrResult = 0;
+    
     for idx=2*preambleLen+1:length(bandSig)       
         denom = 0;
         for k = 0:(preambleLen - 1)
             corrResult(idx) = corrResult(idx) + bandSig(idx - k) * bandSig(idx - k - preambleLen);
             denom = denom + abs(bandSig(idx-k));
         end
+        origCorrResult(idx) = corrResult(idx);
         corrResult(idx) = corrResult(idx) / (denom / preambleLen);
         
         if(abs(corrResult(idx)) > corrThreshold) && (findFlag ~= 1)
@@ -58,17 +60,21 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
     dataSignal = bandSig(peakPoint+1:peakPoint + blockLen * noBlksPerSig + preambleInterval);
     
     figure();
-    subplot(4,1,1);
+    subplot(5,1,1);
     plot(signal); 
     
-    subplot(4,1,2);
+    subplot(5,1,2);
     plot(bandSig(1:peakPoint)); hold on;
     plot( peakPoint+1:peakPoint + length(dataSignal), dataSignal,'r');
     plot( peakPoint+length(dataSignal)+1:length(bandSig), bandSig(peakPoint+length(dataSignal)+1:end ));
-    subplot(4,1,3);
+    
+    subplot(5,1,3);
+    plot(origCorrResult);
+    
+    subplot(5,1,4);
     plot(abs(corrResult));
 
-    subplot(4,1,4);
+    subplot(5,1,5);
     plot(dataSignal);
     
 %     %%%% Detect Block (Double Sliding Window) %%%%

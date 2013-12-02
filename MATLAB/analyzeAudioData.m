@@ -27,13 +27,14 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         endPos = pos + symLength;
         curDataBlk = signal(pos + 1: endPos);
         curDataBlk = freqDownConversion(curDataBlk, Fc, Fs);
-        
-        lpfCurDataBlk = [curDataBlk; zeros(rxLpfDelay,1)];
-        lpfCurDataBlk = filter(rxLpf, lpfCurDataBlk);
-        lpfCurDataBlk = lpfCurDataBlk(rxLpfDelay+1:end);
+
+        lpfCurDataBlk = curDataBlk;
+%         lpfCurDataBlk = [curDataBlk; zeros(rxLpfDelay,1)];
+%         lpfCurDataBlk = filter(rxLpf, lpfCurDataBlk);
+%         lpfCurDataBlk = lpfCurDataBlk(rxLpfDelay+1:end);
         
         fftData = fft(lpfCurDataBlk);
-        roiData = [fftData(end - roiBitLength/2+1:end); fftData(1:roiBitLength/2)];
+        roiData = [fftData(end - roiBitLength/2+1:end); fftData(1:roiBitLength/2)]
         
         % Channel Estimation
         LsEst = zeros(pilotLen,1);
@@ -45,15 +46,16 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         H = interpolate(LsEst, pilotLocation, length(roiData), 'linear');
         
         chanEstData = roiData .* H';
+%         chanEstData = roiData;
         chanEstData(pilotLocation) = [];
-        dataBlk = chanEstData;
+        dataBlk = chanEstData
         
         %%%%% QAM demodulation %%%%%
 %         demodBlk = qamdemod(dataBlk,4);
 %         demodBlk = de2bi(demodBlk);
 %         demodBlk = demodBlk(:,end:-1:1);
 
-        demodBlk = dpskdemod(dataBlk,2);
+        demodBlk = pskdemod(dataBlk,2);
         binDemodBlk = reshape(demodBlk',[],1);
   
         %%%%% DeInterleaver %%%%%%
@@ -75,11 +77,12 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         subplot(noBlksPerSig,6,blkIdx*6-2);
         stem(real(roiData)); hold on;
         stem(imag(roiData),'g');
+        plot(real(H),'r'); 
+        plot(imag(H),'y'); hold off;
+        
         subplot(noBlksPerSig,6,blkIdx*6-1);
         stem(real(chanEstData)); hold on;
         stem(imag(chanEstData),'g');
-        plot(real(H),'r'); 
-        plot(imag(H),'y'); hold off;
         subplot(noBlksPerSig,6,blkIdx*6);
         scatter(real(roiData),imag(roiData),'*'); hold on;
         scatter(real(chanEstData),imag(chanEstData),'*','r');        
