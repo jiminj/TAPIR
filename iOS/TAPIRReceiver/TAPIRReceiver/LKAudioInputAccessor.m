@@ -42,15 +42,24 @@ static void HandleInputBuffer (
     
 }
 
+- (id) init
+{
+    if(self = [super init])
+    {
+        cfg = [TapirConfig getInstance];
+    }
+    return self;
+}
+
 -(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize{
     //hpf = [[LKBiquadHPF alloc] init];
     filter = [TapirMotherOfAllFilters createHPF1];
     
         // set audio format for recording
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
-    aqData.mDataFormat.mSampleRate       = 44100.f;
-    aqData.mDataFormat.mChannelsPerFrame = 1;
-    aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)*8;
+    aqData.mDataFormat.mSampleRate       = [cfg kAudioSampleRate];
+    aqData.mDataFormat.mChannelsPerFrame = [cfg kAudioChannel];
+    aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)* [cfg kAudioBitsPerChannel];
     aqData.mDataFormat.mBytesPerPacket   =
     aqData.mDataFormat.mBytesPerFrame =
     aqData.mDataFormat.mChannelsPerFrame * sizeof (SInt16);
@@ -66,11 +75,11 @@ static void HandleInputBuffer (
     
     AudioStreamBasicDescription asbd;
     bzero(&asbd, sizeof(asbd));
-    asbd.mSampleRate = 44100.f;
+    asbd.mSampleRate = [cfg kAudioSampleRate];
     asbd.mFramesPerPacket = 1;
-    asbd.mChannelsPerFrame = 1;
+    asbd.mChannelsPerFrame = [cfg kAudioChannel];
     asbd.mBytesPerPacket = asbd.mBytesPerFrame = sizeof (SInt16);
-    asbd.mBitsPerChannel = 8*sizeof (SInt16);
+    asbd.mBitsPerChannel = [cfg kAudioBitsPerChannel] * sizeof (SInt16);
     asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     asbd.mFormatID = kAudioFormatLinearPCM;
     

@@ -27,20 +27,6 @@
     if(self == [super init])
     {
         cfg = _cfg;
-//        sampleRate = [cfg kAudioSampleRate];
-//        carrierFreq = [cfg kCarrierFrequency];
-//        
-//        symbolLength = [cfg kSymbolLength];
-//        cPreLength = [cfg kCyclicPrefixLength];
-//        cPostLength = [cfg kCyclicPostfixLength];
-//        giLength = [cfg kGuardIntervalLength];
-//        
-//        intervalAfterPreamble = [cfg kIntervalAfterPreamble];
-//        lenDataSubcarriers = [cfg kNoDataSubcarriers];
-//        
-//        //For Channel Estimator
-//        pilotLength = [cfg kPilotLength];
-//        lenTotalSubcarriers = [cfg kNoTotalSubcarriers];
         
         convertedSignal.realp = malloc(sizeof(float) * [cfg kSymbolLength]);
         convertedSignal.imagp = malloc(sizeof(float) * [cfg kSymbolLength]);

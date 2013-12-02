@@ -13,6 +13,7 @@
 
 -(id)initWithCorrelationWindowSize:(int)size1 andBacktrackSize:(int)size2{
     if(self=[super init]){
+        cfg = [TapirConfig getInstance];
         correlationWindowSize = size1;
         backtrackSize = size2;
         //the real sample data
@@ -33,6 +34,7 @@
         tt = 0;
         fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"corr.txt"]];
         stop = NO;
+
     }
     return self;
 }
@@ -79,10 +81,10 @@
         [self trace];
         
     }*/
-    vDSP_dotpr(sampleBufferA.samples, 1, sampleBufferB.samples, 1, &xCorr, 400);
+    vDSP_dotpr(sampleBufferA.samples, 1, sampleBufferB.samples, 1, &xCorr, [cfg kPreambleLength]);
     vDSP_svemg(sampleBufferA.samples, 1, &absSum, correlationWindowSize);
     [correlationBuffer newSample:xCorr/absSum];
-    if(fabs(correlationBuffer.samples[400])>2400){
+    if(fabs(correlationBuffer.samples[ [cfg kPreambleLength] ]) > 2400){
         [self trace];
         stop = YES;
         int maxIndex = 0;

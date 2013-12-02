@@ -10,6 +10,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "LKCorrelationManager.h"
 #import "TapirLib/TapirLib.h"
+#import "TapirConfig.h"
 #import <AVFoundation/AVFoundation.h>
 
 @protocol correlationDelegate <NSObject>
@@ -27,6 +28,7 @@ struct AQRecorderState {
     bool                         mIsRunning;                    // 8
 };
 @interface LKAudioInputAccessor : NSObject{
+    TapirConfig * cfg;
     struct AQRecorderState aqData;
     int _correlationSampleSize;
     int _correlationOffset;

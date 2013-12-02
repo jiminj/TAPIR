@@ -30,6 +30,7 @@
 		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
 		EC5B3854184B558600EB4050 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B3853184B558600EB4050 /* TapirConfig.m */; };
+		EC7DDF39184D032400909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B3853184B558600EB4050 /* TapirConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,6 +296,7 @@
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.m in Sources */,
 				EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */,
+				EC7DDF39184D032400909C92 /* TapirConfig.m in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

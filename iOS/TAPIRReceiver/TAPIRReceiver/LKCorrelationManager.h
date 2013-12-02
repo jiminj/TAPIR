@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "TapirLib/TapirLib.h"
+#import "TapirConfig.h"
 
 @interface LKCorrelationManager : NSObject{
+    TapirConfig * cfg;
     LKRealSampleBuffer* realBuffer;
     int correlationWindowSize;
     int backtrackSize;

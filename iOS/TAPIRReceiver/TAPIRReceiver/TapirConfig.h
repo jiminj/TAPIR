@@ -15,12 +15,18 @@
     int     kAudioChannel;
     int     kAudioBitsPerChannel;
 
+    int     kPreambleLength;
+    int     kMaximumSymbolLength;
+    
     int     kIntervalAfterPreamble;
     int     kSymbolLength;
     int     kCyclicPrefixLength;
     int     kCyclicPostfixLength;
     int     kGuardIntervalLength;
 
+    int     kAudioBufferLength;
+    
+    
     float   kCarrierFrequency;
     int     kNoDataSubcarriers;
 
@@ -58,11 +64,15 @@
 @property (readonly, nonatomic) Float64 kAudioSampleRate;
 @property (readonly, nonatomic) int     kAudioChannel;
 @property (readonly, nonatomic) int     kAudioBitsPerChannel;
+@property (readonly, nonatomic) int     kMaximumSymbolLength;
 
+@property (readonly, nonatomic) int     kPreambleLength;
 @property (readonly, nonatomic) int     kSymbolLength;
 @property (readonly, nonatomic) int     kCyclicPrefixLength;
 @property (readonly, nonatomic) int     kCyclicPostfixLength;
 @property (readonly, nonatomic) int     kGuardIntervalLength;
+
+@property (readonly, nonatomic) int     kAudioBufferLength;
 
 @property (readonly, nonatomic) int     kIntervalAfterPreamble;
 
@@ -83,6 +93,7 @@
 @property (readonly, nonatomic) NSArray * kTrellisArray;
 @property (readonly, nonatomic) int     kEncodingRate;
 @property (readonly, nonatomic) int     kDataBitLength;
+
 @end
 
 
