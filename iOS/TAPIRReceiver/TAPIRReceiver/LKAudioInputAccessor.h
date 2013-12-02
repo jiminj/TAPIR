@@ -43,6 +43,7 @@ struct AQRecorderState {
     id<correlationDelegate> delegate;
     LKCorrelationManager* correlationManager;
     LKBiquadHPF* hpf;
+    TapirMotherOfAllFilters* filter;
     AudioFileID audioFile;
     NSString* documentsDirectory;
     int audioFileLength;
@@ -64,5 +65,5 @@ struct AQRecorderState {
 -(float)calculateCorrelation;
 -(float)calculateCorrelationWithReferenceWithANewSampleValue:(float)value;
 -(void)trace;
--(void)newSample:(float)sample;
+-(void)newSample:(SInt16)sample;
 @end

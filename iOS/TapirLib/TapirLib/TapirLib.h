@@ -18,4 +18,5 @@
 #import "TapirEncoder.h"
 #import "TapirDecoder.h"
 #import "LKBiquadHPF.h"
+#import "TapirMotherOfAllFilters.h"
 #endif

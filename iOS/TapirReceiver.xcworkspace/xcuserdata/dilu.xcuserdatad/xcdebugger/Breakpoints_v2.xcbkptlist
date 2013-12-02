@@ -143,7 +143,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
             endingLineNumber = "88"
+<<<<<<< HEAD
             landmarkName = "-calculateCorrelation"
+=======
+            landmarkName = "-newSample:"
+>>>>>>> dilu
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -26,12 +26,14 @@
     return self;
 }
 -(float)sampleAt:(int)index{
-    return samples[(firstSampleIndex+index)%length];
+    return samples[index];
 }
 -(void)newSample:(float)newSample{
-    firstSampleIndex--;
+    /*firstSampleIndex--;
     if(firstSampleIndex<0)firstSampleIndex+=length;
-    samples[firstSampleIndex]=newSample;
+    samples[firstSampleIndex]=newSample;*/
+    memmove(samples+1, samples, sizeof(float)*(length-1));
+    samples[0]= newSample;
 }
 -(void)dealloc{
     free(samples);

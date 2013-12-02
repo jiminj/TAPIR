@@ -42,20 +42,21 @@ static void HandleInputBuffer (
 }
 
 -(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize{
-    hpf = [[LKBiquadHPF alloc] init];
+    //hpf = [[LKBiquadHPF alloc] init];
+    filter = [TapirMotherOfAllFilters createHPF1];
+    
         // set audio format for recording
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
     aqData.mDataFormat.mSampleRate       = 44100.0;
     aqData.mDataFormat.mChannelsPerFrame = 1;
-    aqData.mDataFormat.mBitsPerChannel   = 16;
+    aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)*8;
     aqData.mDataFormat.mBytesPerPacket   =
     aqData.mDataFormat.mBytesPerFrame =
     aqData.mDataFormat.mChannelsPerFrame * sizeof (SInt16);
     aqData.mDataFormat.mFramesPerPacket  = 1;
     
     aqData.mDataFormat.mFormatFlags =
-    kLinearPCMFormatFlagIsBigEndian
-    | kLinearPCMFormatFlagIsSignedInteger
+    kLinearPCMFormatFlagIsSignedInteger
     | kLinearPCMFormatFlagIsPacked;
     aqData.bufferByteSize = 1024;
     
@@ -67,8 +68,8 @@ static void HandleInputBuffer (
     asbd.mSampleRate = 44100;
     asbd.mFramesPerPacket = 1;
     asbd.mChannelsPerFrame = 1;
-    asbd.mBytesPerPacket = asbd.mBytesPerFrame = 2;
-    asbd.mBitsPerChannel = 16;
+    asbd.mBytesPerPacket = asbd.mBytesPerFrame = sizeof (SInt16);
+    asbd.mBitsPerChannel = 8*sizeof (SInt16);
     asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     asbd.mFormatID = kAudioFormatLinearPCM;
     
@@ -128,12 +129,18 @@ static void HandleInputBuffer (
 -(void)trace{
     [correlationManager trace];
 }
--(void)newSample:(float)sample{
-    /*float fileteredSample = [hpf next:sample];
-    SInt16 s = fileteredSample;
+-(void)newSample:(SInt16)sample{
+    // test code for file recording
+    //float fileteredSample = [hpf next:sample];
+    float filteredSample = 0;
+    [filter next:sample*1.0 writeTo:&filteredSample];
+    //filteredSample*=10;
+   /*SInt16 s = filteredSample;
     UInt32 n = 1;
     OSStatus err = AudioFileWritePackets(audioFile, NO, 1, nil, audioFileLength, &n, &s);
     audioFileLength+=n;*/
-    [correlationManager newSample:sample];
+    
+    
+    [correlationManager newSample:filteredSample];
 }
 @end
