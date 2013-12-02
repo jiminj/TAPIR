@@ -21,8 +21,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    aia = [[LKAudioInputAccessor alloc] init];
+
     
+    aia = [[LKAudioInputAccessor alloc] init];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
 
     

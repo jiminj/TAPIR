@@ -14,6 +14,7 @@
     float* buffer;
     float* coefficients;
 }
++(id)createHPF1;
 -(id)initWithLength:(int)l;
 -(void)setCoef:(float*)values length:(int)length;
 -(void)next:(float)newValue writeTo:(float*)destination;

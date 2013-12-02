@@ -23,6 +23,10 @@
     float absSum;
     LKRealSampleBuffer* correlationBuffer;
     float sumCor;
+    NSFileHandle* fileHandle;
+    long tt;
+    BOOL stop;
+    float xCorr;
 }
 
 -(id)initWithCorrelationWindowSize:(int)size1 andBacktrackSize:(int)size2;

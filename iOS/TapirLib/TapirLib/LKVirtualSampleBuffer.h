@@ -15,9 +15,12 @@
 
 @interface LKVirtualSampleBuffer : NSObject{
     LKRealSampleBuffer* realBuffer;
+    float* samples;
     int length;
     int offset;
 }
+
+@property(readonly) float* samples;
 -(id)initWithRealSampleBuffer:(LKRealSampleBuffer*)buffer offSet:(int)offsetValue andLength:(int)lengthValue;
 -(float)lastSample;
 -(float)sampleAt:(int)index;
