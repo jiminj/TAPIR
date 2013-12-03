@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:TapirTransmitter/TapirTransmitter.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TAPIRReceiver/TAPIRReceiver.xcodeproj">
    </FileRef>
    <FileRef

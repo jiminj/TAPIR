@@ -25,12 +25,10 @@
 		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.m */; };
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */; };
 		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
-		EC0EEFF3183A6FFE001BC8DE /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */; };
-		EC3785E2184B5F990008335C /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */; };
 		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
-		EC5B3854184B558600EB4050 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B3853184B558600EB4050 /* TapirConfig.m */; };
-		EC7DDF39184D032400909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B3853184B558600EB4050 /* TapirConfig.m */; };
+		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
+		EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD0184E2BE200909C92 /* TapirConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,12 +67,12 @@
 		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKAudioInputAccessor.m; sourceTree = "<group>"; };
 		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
 		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
-		EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphonesimulator/TapirLib.framework"; sourceTree = "<group>"; };
-		EC5B384B184B266A00EB4050 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
 		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
 		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalAnalyzer.m; sourceTree = "<group>"; };
 		EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
-		EC5B3853184B558600EB4050 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
+		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
+		EC7DDFCF184E2BE200909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
+		EC7DDFD0184E2BE200909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +80,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */,
 				242DA5EB18486D9A0043EC2A /* AVFoundation.framework in Frameworks */,
 				242DA5E918486C430043EC2A /* AudioToolbox.framework in Frameworks */,
-				EC0EEFF3183A6FFE001BC8DE /* TapirLib.framework in Frameworks */,
 				245AC68918364DBE00AF31AE /* CoreGraphics.framework in Frameworks */,
 				245AC68B18364DBE00AF31AE /* UIKit.framework in Frameworks */,
 				245AC68718364DBE00AF31AE /* Foundation.framework in Frameworks */,
@@ -98,7 +96,6 @@
 				245AC6A618364DBE00AF31AE /* XCTest.framework in Frameworks */,
 				245AC6A818364DBE00AF31AE /* UIKit.framework in Frameworks */,
 				245AC6A718364DBE00AF31AE /* Foundation.framework in Frameworks */,
-				EC3785E2184B5F990008335C /* TapirLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,9 +124,9 @@
 		245AC68518364DBE00AF31AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */,
 				242DA5EA18486D9A0043EC2A /* AVFoundation.framework */,
 				242DA5E818486C430043EC2A /* AudioToolbox.framework */,
-				EC0EEFF2183A6FFE001BC8DE /* TapirLib.framework */,
 				245AC68618364DBE00AF31AE /* Foundation.framework */,
 				245AC68818364DBE00AF31AE /* CoreGraphics.framework */,
 				245AC68A18364DBE00AF31AE /* UIKit.framework */,
@@ -141,8 +138,8 @@
 		245AC68C18364DBE00AF31AE /* TAPIRReceiver */ = {
 			isa = PBXGroup;
 			children = (
-				EC5B384B184B266A00EB4050 /* TapirConfig.h */,
-				EC5B3853184B558600EB4050 /* TapirConfig.m */,
+				EC7DDFCF184E2BE200909C92 /* TapirConfig.h */,
+				EC7DDFD0184E2BE200909C92 /* TapirConfig.m */,
 				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
 				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
@@ -296,8 +293,8 @@
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.m in Sources */,
 				EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */,
-				EC7DDF39184D032400909C92 /* TapirConfig.m in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
+				EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +302,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC5B3854184B558600EB4050 /* TapirConfig.m in Sources */,
 				245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,6 +363,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -413,6 +410,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -439,7 +437,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
@@ -457,7 +458,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";

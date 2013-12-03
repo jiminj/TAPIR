@@ -71,6 +71,10 @@
 {
     //Freq Downconversion & FFT, and cut central spectrum region
     iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
+
+    //LowPassFilter!
+    
+    
     fftComplexForward(&convertedSignal, &convertedSignal, [cfg kSymbolLength]);
     
     [self cutCentralRegion:&convertedSignal dest:&roiSignal signalLength:[cfg kSymbolLength] destLength:[cfg kNoTotalSubcarriers] firstHalfLength:[cfg kNoTotalSubcarriers]/2];
