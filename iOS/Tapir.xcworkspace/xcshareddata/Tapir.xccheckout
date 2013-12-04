@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D5A4041D-699E-4BAC-9BAF-967E9EC2167F</string>
+	<string>24FFDC73-1AD1-4F4F-B032-54752247E907</string>
 	<key>IDESourceControlProjectName</key>
-	<string>TapirReceiver</string>
+	<string>Tapir</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>46A6BF5E-8548-4F2F-B39C-5A476A9435D9</key>
+		<key>152C21C8-DD58-465A-B0FB-C067530B4CB5</key>
 		<string>https://bitbucket.org/haven04/tapir.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TapirReceiver.xcworkspace</string>
+	<string>iOS/Tapir.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>46A6BF5E-8548-4F2F-B39C-5A476A9435D9</key>
-		<string>..</string>
+		<key>152C21C8-DD58-465A-B0FB-C067530B4CB5</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://bitbucket.org/haven04/tapir.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>46A6BF5E-8548-4F2F-B39C-5A476A9435D9</string>
+	<string>152C21C8-DD58-465A-B0FB-C067530B4CB5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>46A6BF5E-8548-4F2F-B39C-5A476A9435D9</string>
+			<string>152C21C8-DD58-465A-B0FB-C067530B4CB5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TAPIR</string>
 		</dict>

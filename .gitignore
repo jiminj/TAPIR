@@ -1,7 +1,7 @@
 .DS_Store
 build/
 
-./iOS/TapirReceiver.xcworkspace/xcuserdata/
+./iOS/Tapir.xcworkspace/xcuserdata/
 ./iOS/TapirLib/TapirLib.xcodeproj/xcuserdata/
 ./iOS/TapirLib/TapirLib.xcodeproj/project.xcworkspace/xcuserdata/
 ./iOS/TAPIRReceiver/TAPIRReceiver.xcodeproj/xcuserdata/
