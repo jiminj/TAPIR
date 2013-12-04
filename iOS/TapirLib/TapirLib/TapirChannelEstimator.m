@@ -77,7 +77,7 @@
     }
     
     
-    float * extPilotIndex = malloc(sizeof(int) * extLength);
+    float * extPilotIndex = malloc(sizeof(float) * extLength);
     DSPSplitComplex extPilotChannel;
     extPilotChannel.realp = malloc(sizeof(float) * extLength);
     extPilotChannel.imagp = malloc(sizeof(float) * extLength);
@@ -87,7 +87,7 @@
     int edPos = pilotLength + stPos;
     for(int i=stPos; i<edPos; ++i)
     {
-        extPilotIndex[i] = (float)(pilotIndex[i-stPos]);
+        extPilotIndex[i] = fltPilotIndex[i-stPos];
         extPilotChannel.realp[i] = _pilotChannel->realp[i-stPos];
         extPilotChannel.imagp[i] = _pilotChannel->imagp[i-stPos];
     }
@@ -104,11 +104,11 @@
         else
         {
             DSPComplex slope;
-            float sampleDist = (float)(extPilotIndex[2] - extPilotIndex[1]);
+            float sampleDist = extPilotIndex[2] - extPilotIndex[1];
             slope.real = (extPilotChannel.realp[2] - extPilotChannel.realp[1]) / sampleDist;
             slope.imag = (extPilotChannel.imagp[2] - extPilotChannel.imagp[1]) / sampleDist;
             
-            float newDist = (float)(extPilotIndex[1] - extPilotIndex[0]);
+            float newDist = extPilotIndex[1] - extPilotIndex[0];
             extPilotChannel.realp[0] = extPilotChannel.realp[1] - slope.real * newDist;
             extPilotChannel.imagp[0] = extPilotChannel.imagp[1] - slope.imag * newDist;
         }
@@ -126,10 +126,10 @@
         else
         {
             DSPComplex slope;
-            float sampleDist = (float)(extPilotIndex[extLength - 2] - extPilotIndex[extLength - 3]);
+            float sampleDist = extPilotIndex[extLength - 2] - extPilotIndex[extLength - 3];
             slope.real = (extPilotChannel.realp[extLength - 2] - extPilotChannel.realp[extLength - 3]) / sampleDist;
             slope.imag = (extPilotChannel.imagp[extLength - 2] - extPilotChannel.imagp[extLength - 3]) / sampleDist;
-            float newDist = (float)(extPilotIndex[extLength - 1] - extPilotIndex[extLength - 2]);
+            float newDist = extPilotIndex[extLength - 1] - extPilotIndex[extLength - 2];
             extPilotChannel.realp[extLength - 1] = extPilotChannel.realp[extLength - 2] + slope.real * newDist;
             extPilotChannel.imagp[extLength - 1] = extPilotChannel.imagp[extLength - 2] + slope.imag * newDist;
         }
