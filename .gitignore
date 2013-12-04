@@ -1,4 +1,15 @@
 .DS_Store
-build
-*.wav
+build/
+
 ./iOS/TapirReceiver.xcworkspace/xcuserdata/
+./iOS/TapirLib/TapirLib.xcodeproj/xcuserdata/
+./iOS/TapirLib/TapirLib.xcodeproj/project.xcworkspace/xcuserdata/
+./iOS/TAPIRReceiver/TAPIRReceiver.xcodeproj/xcuserdata/
+./iOS/TapirReceiver/TAPIRReceiver.xcodeproj/project.xcworkspace/xcuserdata/
+./iOS/TapirTransmitter/TapirTransmitter.xcodeproj/xcuserdata/
+./iOS/TapirReceiver/TAPIRReceiver.xcodeproj/project.xcworkspace/xcuserdata/
+
+*.wav
+*.swp
+*~.nib
+
