@@ -24,6 +24,7 @@
     int * decoded;
     
     TapirConfig * cfg;
+    TapirPilotManager * pilotMgr;
     TapirLSChannelEstimator * chanEstimator;
     TapirPskModulator * modulator;
     TapirMatrixInterleaver * interleaver;
@@ -31,7 +32,7 @@
     
 }
 
--(char)analyzeSignal:(const float *)signal;
+-(char)decodeBlock:(const float *)signal;
 -(id)initWithConfig:(TapirConfig *)cfg;
 
 

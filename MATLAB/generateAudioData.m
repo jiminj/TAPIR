@@ -34,11 +34,11 @@ for idx = 1:numBlocks
         
 	%%%%% QAM modulation %%%%%
      
-    bunchedBlk = zeros(length(block)/modulationRate,1);
-    k = 1:length(bunchedBlk);
-    for m = 0: modulationRate-1
-        bunchedBlk(k) = bunchedBlk(k) + block(k*modulationRate-m)*(2^m);
-    end
+%     bunchedBlk = zeros(length(block)/modulationRate,1);
+%     k = 1:length(bunchedBlk);
+%     for m = 0: modulationRate-1
+%         bunchedBlk(k) = bunchedBlk(k) + block(k*modulationRate-m)*(2^m);
+%     end
     
 %     block = qammod(bunchedBlk,4);
     block = real(pskmod(block,2));
@@ -73,7 +73,7 @@ for idx = 1:numBlocks
     block =[block(end - length(block)/2 + 1:end); zeros(symLength - length(block), 1); block(1:length(block)/2)];
     
     extendedBlk = block;
-    block = noDataCarrier .* ifft(block);
+    block = noDataCarrier * ifft(block);
     transformedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     

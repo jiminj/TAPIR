@@ -10,6 +10,7 @@
 #define TapirLib_TapirLib_h
 
 #import "TapirDsp.h"
+#import "TapirPilotManager.h"
 #import "TapirEncoder.h"
 #import "TapirDecoder.h"
 #import "TapirTrellisCode.h"

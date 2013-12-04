@@ -35,13 +35,14 @@
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
     
-    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"g_20k_puresymbol" ofType: @".wav"];
+    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"t_20k_puresymbol" ofType: @".wav"];
     float * audioData = malloc([cfg kSymbolLength] * sizeof(float));
     [self readWavDataFrom:filePath to:audioData lengthOf:[cfg kSymbolLength]];
 
 //    [analyzer setSignalLength:[cfg kSymbolLength] resultLength:[cfg kNoTotalSubcarriers]];
-    [analyzer analyzeSignal:audioData];
+    char result = [analyzer decodeBlock:audioData];
     
+    NSLog(@"RESULT => %c", result);
     
     
     //Channel Estimate

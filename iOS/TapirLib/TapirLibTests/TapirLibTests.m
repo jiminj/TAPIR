@@ -135,6 +135,66 @@
 //    [enc addTrellisCodeWithTrellisArray:treArr];
 }
 
+
+- (void)testPilot
+{
+    float pilotReal[4] = { 1.f, 1.f, 1.f, -1.f };
+    float pilotImag[4] = { 0., 0., 0., 0.};
+    int loc[4] = {3, 7, 11, 15};
+    DSPSplitComplex pilot;
+    pilot.realp = pilotReal;
+    pilot.imagp = pilotImag;
+    
+    
+    DSPSplitComplex origSignal;
+    origSignal.realp = malloc(sizeof(float) * 16);
+    origSignal.imagp = malloc(sizeof(float) * 16);
+    
+    DSPSplitComplex removedSignal;
+    removedSignal.realp = malloc(sizeof(float) * 16);
+    removedSignal.imagp = malloc(sizeof(float) * 16);
+    
+    DSPSplitComplex destSignal;
+    destSignal.realp = malloc(sizeof(float) * 20);
+    destSignal.imagp = malloc(sizeof(float) * 20);
+    
+    for(int i=0; i<16; ++i)
+    {
+        origSignal.realp[i] = (float) i;
+        origSignal.imagp[i] = (float) (-i);
+    }
+    
+    TapirPilotManager * pilotMag = [[TapirPilotManager alloc] initWithPilot:&pilot index:loc length:4];
+    
+    [pilotMag addPilotTo:&origSignal dest:&destSignal srcLength:16];
+    [pilotMag removePilotFrom:&destSignal dest:&removedSignal srcLength:20];
+    
+    NSLog(@"Pilot Test");
+    NSLog(@"==Original==");
+    for(int i=0; i<16; ++i)
+    {
+        NSLog(@"[%d] = %.2f + %.2f", i ,origSignal.realp[i], origSignal.imagp[i]);
+    }
+    NSLog(@"==Added==");
+    for(int i=0; i<20; ++i)
+    {
+        NSLog(@"[%d] = %.2f + %.2f", i ,destSignal.realp[i], destSignal.imagp[i]);
+    }
+    NSLog(@"==Removed==");
+    for(int i=0; i<16; ++i)
+    {
+        NSLog(@"[%d] = %.2f + %.2f", i ,removedSignal.realp[i], removedSignal.imagp[i]);
+    }
+
+    free(origSignal.realp);
+    free(origSignal.imagp);
+    free(removedSignal.realp);
+    free(removedSignal.imagp);
+    free(destSignal.realp);
+    free(destSignal.imagp);
+    
+}
+
 - (void)testChannelEstimation
 {
     int size = 20;

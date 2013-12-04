@@ -437,10 +437,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
@@ -458,10 +455,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
@@ -478,11 +472,10 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TAPIRReceiver.app/TAPIRReceiver";
 				FRAMEWORK_SEARCH_PATHS = (
+					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphonesimulator",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
@@ -507,11 +500,10 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TAPIRReceiver.app/TAPIRReceiver";
 				FRAMEWORK_SEARCH_PATHS = (
+					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphonesimulator",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";

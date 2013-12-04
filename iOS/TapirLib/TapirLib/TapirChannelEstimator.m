@@ -10,7 +10,7 @@
 
 @interface TapirLSChannelEstimator()
 {
-    DSPSplitComplex rcvPilotValue;
+    DSPSplitComplex pilotOfRcvSignal;
     DSPSplitComplex pilotChannel;
 }
 - (void)generateChannelWith:(const DSPSplitComplex *)pilotChannel;
@@ -20,38 +20,40 @@
 @implementation TapirLSChannelEstimator
 @synthesize channel;
 @synthesize channelLength;
-- (void)setPilot:(const DSPSplitComplex *)value index:(const int *)index pilotLength:(const int)length channelLength:(const int)chLength
-{
-    //Memory deallocation for safe
-    if(pilotIndex != NULL)
-    {
-        free(pilotIndex);
-        pilotIndex = NULL;
-    }
-    if( (refPilotValue.realp != NULL))
-    {
-        free(refPilotValue.realp);
-        free(refPilotValue.imagp);
-    }
 
-    pilotLength = length;
+- (id)initWithPilot:(TapirPilotManager *)_pilot channelLength:(const int)chLength
+{
+    if(self = [super init])
+    {
+        [self setPilot:_pilot channelLength:chLength];
+    }
+    return self;
+}
+
+- (void)setPilot:(TapirPilotManager *)_pilot channelLength:(const int)chLength
+{
+    pilotInfo = _pilot;
+
     channelLength = chLength;
     
-    pilotIndex = malloc(sizeof(float) * pilotLength);
-    refPilotValue.realp = malloc(sizeof(float) * pilotLength);
-    refPilotValue.imagp = malloc(sizeof(float) * pilotLength);
-
+    if(channel.realp != NULL) { free(channel.realp);}
+    if(channel.imagp != NULL) { free(channel.imagp);}
     channel.realp = malloc(sizeof(float) * channelLength);
     channel.imagp = malloc(sizeof(float) * channelLength);
+
+    if(pilotOfRcvSignal.realp != NULL) { free(pilotOfRcvSignal.realp);}
+    if(pilotOfRcvSignal.imagp != NULL) { free(pilotOfRcvSignal.imagp);}
+    pilotOfRcvSignal.realp = malloc(sizeof(float) * [pilotInfo pilotLength]);
+    pilotOfRcvSignal.imagp = malloc(sizeof(float) * [pilotInfo pilotLength]);
     
-    rcvPilotValue.realp = malloc(sizeof(float) * pilotLength);
-    rcvPilotValue.imagp = malloc(sizeof(float) * pilotLength);
-    pilotChannel.realp = malloc(sizeof(float) * pilotLength);
-    pilotChannel.imagp = malloc(sizeof(float) * pilotLength);
+    if(pilotChannel.realp != NULL) { free(pilotChannel.realp);}
+    if(pilotChannel.imagp != NULL) { free(pilotChannel.imagp);}
+    pilotChannel.realp = malloc(sizeof(float) * [pilotInfo pilotLength]);
+    pilotChannel.imagp = malloc(sizeof(float) * [pilotInfo pilotLength]);
     
-    //copy
-    vDSP_vflt32(index, 1, pilotIndex, 1, length);
-    vDSP_zvmov(value, 1, &refPilotValue, 1, length);
+    if(fltPilotIndex != NULL) { free(fltPilotIndex); }
+    fltPilotIndex = malloc(sizeof(float) * [pilotInfo pilotLength]);
+    vDSP_vflt32([pilotInfo pilotIndex], 1, fltPilotIndex, 1, [pilotInfo pilotLength]);
 
 }
 
@@ -59,7 +61,9 @@
 {
     bool isFirstElemAdded = false;
     bool isLastElemAdded = false;
+    int pilotLength = [pilotInfo pilotLength];
     int extLength = pilotLength;
+    int * pilotIndex = [pilotInfo pilotIndex];
     
     if(pilotIndex[0] != 0)
     {
@@ -83,7 +87,7 @@
     int edPos = pilotLength + stPos;
     for(int i=stPos; i<edPos; ++i)
     {
-        extPilotIndex[i] = pilotIndex[i-stPos];
+        extPilotIndex[i] = (float)(pilotIndex[i-stPos]);
         extPilotChannel.realp[i] = _pilotChannel->realp[i-stPos];
         extPilotChannel.imagp[i] = _pilotChannel->imagp[i-stPos];
     }
@@ -109,6 +113,8 @@
             extPilotChannel.imagp[0] = extPilotChannel.imagp[1] - slope.imag * newDist;
         }
     }
+
+    
     if(isLastElemAdded)
     {
         extPilotIndex[extLength - 1] = (float)channelLength;
@@ -128,7 +134,7 @@
             extPilotChannel.imagp[extLength - 1] = extPilotChannel.imagp[extLength - 2] + slope.imag * newDist;
         }
     }
-
+    
     //Generate Channel
     vDSP_vgenp(extPilotChannel.realp, 1, extPilotIndex, 1, channel.realp, 1, channelLength, extLength);
     vDSP_vgenp(extPilotChannel.imagp, 1, extPilotIndex, 1, channel.imagp, 1, channelLength, extLength);
@@ -143,9 +149,9 @@
 - (void)channelEstimate:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest
 {
     //Save Pilot Value
-    vDSP_vindex(src->realp, pilotIndex, 1, rcvPilotValue.realp, 1, pilotLength);
-    vDSP_vindex(src->imagp, pilotIndex, 1, rcvPilotValue.imagp, 1, pilotLength);
-    vDSP_zvdiv(&refPilotValue, 1, &rcvPilotValue, 1, &pilotChannel, 1, pilotLength);
+    vDSP_vindex(src->realp, fltPilotIndex, 1, pilotOfRcvSignal.realp, 1, [pilotInfo pilotLength]);
+    vDSP_vindex(src->imagp, fltPilotIndex, 1, pilotOfRcvSignal.imagp, 1, [pilotInfo pilotLength]);
+    vDSP_zvdiv([pilotInfo pilotData], 1, &pilotOfRcvSignal, 1, &pilotChannel, 1, [pilotInfo pilotLength]);
 
     [self generateChannelWith:&pilotChannel];
     
@@ -155,33 +161,13 @@
     
 }
 
-- (void)removePilotsFromSignal:(const DSPSplitComplex *)src dest:(DSPSplitComplex *)dest
-{
-    float *curPilot = pilotIndex;
-    int destIdx = 0;
-    
-    for(int i=0; i<channelLength; ++i)
-    {
-        if(i == *curPilot)
-        { ++curPilot; }
-        else
-        {
-            dest->realp[destIdx] = src->realp[i];
-            dest->imagp[destIdx++] = src->imagp[i];
-        }
-    }
-}
-
 - (void)dealloc
 {
-    if(pilotIndex != NULL) { free(pilotIndex); }
-    if(refPilotValue.realp != NULL) { free(refPilotValue.realp); }
-    if(refPilotValue.imagp != NULL){ free(refPilotValue.imagp); }
     if(channel.realp != NULL) { free(channel.realp); }
     if(channel.imagp != NULL) { free(channel.imagp); }
-    if(rcvPilotValue.realp != NULL) { free(rcvPilotValue.realp); }
-    if(rcvPilotValue.imagp != NULL) { free(rcvPilotValue.imagp); }
-    
+    if(pilotOfRcvSignal.realp != NULL) { free(pilotOfRcvSignal.realp); }
+    if(pilotOfRcvSignal.imagp != NULL) { free(pilotOfRcvSignal.imagp); }
+    if(fltPilotIndex != NULL) { free(fltPilotIndex); }
 }
 
 @end

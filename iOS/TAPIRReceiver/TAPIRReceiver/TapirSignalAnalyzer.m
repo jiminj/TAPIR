@@ -40,9 +40,10 @@
         demod = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
         deinterleaved = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
         decoded = malloc(sizeof(int) * [cfg kDataBitLength]);
+
+        pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
         
-        chanEstimator = [[TapirLSChannelEstimator alloc] init];
-        [chanEstimator setPilot:[cfg kPilotData] index:[cfg kPilotLocation] pilotLength:[cfg kPilotLength] channelLength:[cfg kNoTotalSubcarriers]];
+        chanEstimator = [[TapirLSChannelEstimator alloc] initWithPilot:pilotMgr channelLength:[cfg kNoTotalSubcarriers]];
         
         modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
         interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
@@ -67,7 +68,7 @@
     memcpy(dest->imagp + lastHalfCutLength, src->imagp, cpFHMemSize);
 }
 
--(char)analyzeSignal:(const float *)signal
+-(char)decodeBlock:(const float *)signal
 {
     //Freq Downconversion & FFT, and cut central spectrum region
     iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
@@ -81,7 +82,9 @@
 
     //Channel Estimation
     [chanEstimator channelEstimate:&roiSignal dest:&estimatedSignal];
-    [chanEstimator removePilotsFromSignal:&estimatedSignal dest:&pilotRemovedSignal];
+    
+    //Pilot Remove
+    [pilotMgr removePilotFrom:&estimatedSignal dest:&pilotRemovedSignal srcLength:[cfg kNoTotalSubcarriers]];
 
     //Demodulation
     [modulator demodulate:&pilotRemovedSignal dest:demod length:[cfg kNoDataSubcarriers]];
@@ -90,7 +93,7 @@
     
     // Viterbi Decoding
     [vitdec decode:deinterleaved dest:decoded srcLength:[cfg kNoDataSubcarriers] extLength:[cfg kDecoderExtTracebackLength]];
-    
+
     return ((char)mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
 
 }

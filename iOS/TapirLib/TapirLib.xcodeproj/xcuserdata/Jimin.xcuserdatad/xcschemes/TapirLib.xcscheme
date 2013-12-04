@@ -50,6 +50,9 @@
                <Test
                   Identifier = "TapirLibTests/testChannelEstimation">
                </Test>
+               <Test
+                  Identifier = "TapirLibTests/testPilot">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
