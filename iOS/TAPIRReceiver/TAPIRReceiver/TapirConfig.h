@@ -15,13 +15,18 @@
     int     kAudioChannel;
     int     kAudioBitsPerChannel;
 
+    int     kPreambleBitLength;
+    float   kPreambleBandwidth;
     int     kPreambleLength;
+    float * kPreambleBit;
+    
     int     kMaximumSymbolLength;
     
     int     kIntervalAfterPreamble;
     int     kSymbolLength;
     int     kCyclicPrefixLength;
     int     kCyclicPostfixLength;
+    int     kSymbolWithCyclicExtLength;
     int     kGuardIntervalLength;
 
     int     kAudioBufferLength;
@@ -34,6 +39,7 @@
     int     kPilotLength;
     int     kNoTotalSubcarriers;
     int *   kPilotLocation;
+    
 
     DSPSplitComplex kPilotData;
 
@@ -60,17 +66,22 @@
 //aditional getters
 -(DSPSplitComplex *) kPilotData;
 -(int *) kPilotLocation;
+-(float *) kPreambleBit;
 
 @property (readonly, nonatomic) Float64 kAudioSampleRate;
 @property (readonly, nonatomic) int     kAudioChannel;
 @property (readonly, nonatomic) int     kAudioBitsPerChannel;
 @property (readonly, nonatomic) int     kMaximumSymbolLength;
 
+@property (readonly, nonatomic) int     kPreambleBitLength;
+@property (readonly, nonatomic) float   kPreambleBandwidth;
 @property (readonly, nonatomic) int     kPreambleLength;
+
 @property (readonly, nonatomic) int     kSymbolLength;
 @property (readonly, nonatomic) int     kCyclicPrefixLength;
 @property (readonly, nonatomic) int     kCyclicPostfixLength;
 @property (readonly, nonatomic) int     kGuardIntervalLength;
+@property (readonly, nonatomic) int     kSymbolWithCyclicExtLength;
 
 @property (readonly, nonatomic) int     kAudioBufferLength;
 

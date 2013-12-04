@@ -71,11 +71,13 @@ void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int le
     DSPSplitComplex carrier;
     carrier.realp = malloc(sizeof(float) * length);
     carrier.imagp = malloc(sizeof(float) * length);
+
     generateCarrier(&carrier, length, samplingFreq, carrierFreq);
     
     vDSP_vmul(signal->realp, 1, carrier.realp, 1, signal->realp, 1, length);
     vDSP_vmul(signal->imagp, 1, carrier.imagp, 1, signal->imagp, 1, length);
-    vDSP_vsadd(signal->realp, 1, signal->imagp, destSignal, 1, length);
+
+    vDSP_vadd(signal->realp, 1, signal->imagp,1 , destSignal, 1, length);
     scaleFloatSignal(destSignal, destSignal, length, 2.0f);
     
     free(carrier.realp);
@@ -120,4 +122,16 @@ int mergeBitsToIntegerValue(const int * intArray, int arrLength)
     }
     return retVal;
 }
+void divdeIntIntoBits(const int src, int * arr, int arrLength)
+{
+    int input = src;
+    for(int i = 0; i < arrLength; ++i)
+    {
+        arr[arrLength - i - 1] = (input & 1);
+        input >>= 1;
+    }
+    
+}
+
+
 

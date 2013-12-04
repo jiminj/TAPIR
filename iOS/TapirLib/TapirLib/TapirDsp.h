@@ -21,3 +21,4 @@ void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
 void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength);
 
 int mergeBitsToIntegerValue(const int * intArray, int arrLength);
+void divdeIntIntoBits(const int src, int * arr, int arrLength);

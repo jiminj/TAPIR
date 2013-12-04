@@ -11,7 +11,8 @@
 
 @implementation TapirConfig
 @synthesize  kAudioSampleRate, kAudioChannel, kAudioBitsPerChannel;
-@synthesize kPreambleLength, kSymbolLength, kCyclicPostfixLength, kCyclicPrefixLength, kGuardIntervalLength, kMaximumSymbolLength, kAudioBufferLength;
+@synthesize kPreambleLength, kSymbolLength, kCyclicPostfixLength, kCyclicPrefixLength, kGuardIntervalLength, kMaximumSymbolLength, kSymbolWithCyclicExtLength, kAudioBufferLength;
+@synthesize kPreambleBitLength, kPreambleBandwidth;
 @synthesize kIntervalAfterPreamble;
 @synthesize kCarrierFrequency, kNoDataSubcarriers;
 @synthesize kPilotLength, kNoTotalSubcarriers;
@@ -40,8 +41,15 @@ static TapirConfig * sTapirConfig = nil;
     kAudioBitsPerChannel = 8;
     
     kMaximumSymbolLength = 8;
-
-    kPreambleLength = 400;
+    kPreambleBitLength = 4;
+    kPreambleBandwidth = 441.f;
+    kPreambleBit = malloc(sizeof(float) * kPreambleBitLength);
+    kPreambleBit[0] = -1.f;
+    kPreambleBit[1] = -1.f;
+    kPreambleBit[2] = -1.f;
+    kPreambleBit[3] = 1.f;
+    
+    kPreambleLength = (floor)((kAudioSampleRate * kPreambleBitLength) / kPreambleBandwidth);
     
     kSymbolLength = 2048;
     kCyclicPrefixLength = kSymbolLength / 2;
@@ -49,8 +57,10 @@ static TapirConfig * sTapirConfig = nil;
     kGuardIntervalLength = 0;
     
     kIntervalAfterPreamble = kSymbolLength / 2;
+    kSymbolWithCyclicExtLength = (kCyclicPrefixLength + kSymbolLength + kCyclicPostfixLength);
+    
     kAudioBufferLength = kIntervalAfterPreamble +
-                        (kCyclicPrefixLength + kSymbolLength + kCyclicPostfixLength) * kMaximumSymbolLength +
+                         kSymbolWithCyclicExtLength * kMaximumSymbolLength +
                         (kGuardIntervalLength) * (kMaximumSymbolLength-1);
     
     kCarrierFrequency = 20000.f;
@@ -103,12 +113,17 @@ static TapirConfig * sTapirConfig = nil;
 {
     return kPilotLocation;
 }
+- (float *) kPreambleBit
+{
+    return kPreambleBit;
+}
 
 - (void) dealloc
 {
     if(kPilotData.realp != NULL) { free(kPilotData.realp); }
     if(kPilotData.imagp != NULL) { free(kPilotData.imagp); }
     if(kPilotLocation != NULL) { free(kPilotLocation); }
+    if(kPreambleBit != NULL) { free(kPreambleBit); }
 }
 
 @end

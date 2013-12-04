@@ -2,7 +2,6 @@ function result = generateSinPreamble(codeLength, bandwidth, Fs)
 
 %     preambleLen = 2048;
 %     dcOffset = 2;
-
     hBCode = comm.BarkerCode('SamplesPerFrame', codeLength);
     barkerSeq = step(hBCode);
 %     bandwidth = 441;

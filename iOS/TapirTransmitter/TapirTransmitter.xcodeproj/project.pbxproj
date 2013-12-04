@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */; };
+		EC0AC785184E2EB900F391C9 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
 		EC7DDF8B184E187D00909C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8A184E187D00909C92 /* Foundation.framework */; };
 		EC7DDF8D184E187D00909C92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8C184E187D00909C92 /* CoreGraphics.framework */; };
 		EC7DDF8F184E187D00909C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8E184E187D00909C92 /* UIKit.framework */; };
@@ -24,6 +26,7 @@
 		EC7DDFC3184E2AD100909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
 		EC7DDFD5184E2C2A00909C92 /* TapirConfig.h in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFD3184E2C2A00909C92 /* TapirConfig.h */; };
 		EC7DDFD6184E2C2A00909C92 /* TapirConfig.m in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */; };
+		EC892AA2184F018500EAC727 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalGenerator.h; sourceTree = "<group>"; };
+		EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalGenerator.m; sourceTree = "<group>"; };
 		EC7DDF87184E187D00909C92 /* TapirTransmitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapirTransmitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC7DDF8A184E187D00909C92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC7DDF8C184E187D00909C92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -57,8 +62,8 @@
 		EC7DDFB3184E187D00909C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirTransmitterTests.m; sourceTree = "<group>"; };
 		EC7DDFC1184E296000909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
-		EC7DDFD3184E2C2A00909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = TapirConfig.h; path = ../TAPIRReceiver/TAPIRReceiver/TapirConfig.h; sourceTree = "<group>"; };
-		EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = TapirConfig.m; path = ../TAPIRReceiver/TAPIRReceiver/TapirConfig.m; sourceTree = "<group>"; };
+		EC7DDFD3184E2C2A00909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapirConfig.h; path = ../TAPIRReceiver/TAPIRReceiver/TapirConfig.h; sourceTree = "<group>"; };
+		EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapirConfig.m; path = ../TAPIRReceiver/TAPIRReceiver/TapirConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +85,7 @@
 				EC7DDFAA184E187D00909C92 /* XCTest.framework in Frameworks */,
 				EC7DDFAC184E187D00909C92 /* UIKit.framework in Frameworks */,
 				EC7DDFAB184E187D00909C92 /* Foundation.framework in Frameworks */,
+				EC0AC785184E2EB900F391C9 /* TapirLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +127,8 @@
 		EC7DDF90184E187D00909C92 /* TapirTransmitter */ = {
 			isa = PBXGroup;
 			children = (
+				EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */,
+				EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */,
 				EC7DDF99184E187D00909C92 /* AppDelegate.h */,
 				EC7DDF9A184E187D00909C92 /* AppDelegate.m */,
 				EC7DDF9C184E187D00909C92 /* Main.storyboard */,
@@ -271,6 +279,8 @@
 			files = (
 				EC7DDFA1184E187D00909C92 /* ViewController.m in Sources */,
 				EC7DDF9B184E187D00909C92 /* AppDelegate.m in Sources */,
+				EC892AA2184F018500EAC727 /* TapirConfig.m in Sources */,
+				EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.m in Sources */,
 				EC7DDF97184E187D00909C92 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +451,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TapirTransmitter.app/TapirTransmitter";
 				FRAMEWORK_SEARCH_PATHS = (
+					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -452,6 +463,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "TapirTransmitterTests/TapirTransmitterTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					TapirLib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -464,6 +479,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TapirTransmitter.app/TapirTransmitter";
 				FRAMEWORK_SEARCH_PATHS = (
+					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -471,6 +487,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TapirTransmitter/TapirTransmitter-Prefix.pch";
 				INFOPLIST_FILE = "TapirTransmitterTests/TapirTransmitterTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					TapirLib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -496,6 +516,7 @@
 				EC7DDFBB184E187D00909C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EC7DDFBC184E187D00909C92 /* Build configuration list for PBXNativeTarget "TapirTransmitterTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +525,7 @@
 				EC7DDFBE184E187D00909C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

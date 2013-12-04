@@ -38,6 +38,8 @@
 		EC313897183B75FC00C82186 /* TapirModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = EC313895183B75FC00C82186 /* TapirModulator.m */; };
 		EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */ = {isa = PBXBuildFile; fileRef = EC313898183BE1A200C82186 /* TapirDsp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31389B183BE1A200C82186 /* TapirDsp.m in Sources */ = {isa = PBXBuildFile; fileRef = EC313899183BE1A200C82186 /* TapirDsp.m */; };
+		EC892AAD184F38EB00EAC727 /* TapirPilotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC892AAB184F38EB00EAC727 /* TapirPilotManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC892AAE184F38EB00EAC727 /* TapirPilotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC892AAC184F38EB00EAC727 /* TapirPilotManager.m */; };
 		ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,8 @@
 		EC313895183B75FC00C82186 /* TapirModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirModulator.m; sourceTree = "<group>"; };
 		EC313898183BE1A200C82186 /* TapirDsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirDsp.h; sourceTree = "<group>"; };
 		EC313899183BE1A200C82186 /* TapirDsp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirDsp.m; sourceTree = "<group>"; };
+		EC892AAB184F38EB00EAC727 /* TapirPilotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirPilotManager.h; sourceTree = "<group>"; };
+		EC892AAC184F38EB00EAC727 /* TapirPilotManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirPilotManager.m; sourceTree = "<group>"; };
 		ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapirLib.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +140,8 @@
 		EC0EEF70183A4A51001BC8DE /* TapirLib */ = {
 			isa = PBXGroup;
 			children = (
+				EC892AAB184F38EB00EAC727 /* TapirPilotManager.h */,
+				EC892AAC184F38EB00EAC727 /* TapirPilotManager.m */,
 				ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */,
 				EC186D0B1847A47C00A89628 /* TapirTrellisCode.h */,
 				EC186D0C1847A47C00A89628 /* TapirTrellisCode.m */,
@@ -220,6 +226,7 @@
 				EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */,
 				249B622A184477EC001C3E2B /* TapirMotherOfAllFilters.h in Headers */,
 				EC186CF9183DEF4B00A89628 /* TapirInterleaver.h in Headers */,
+				EC892AAD184F38EB00EAC727 /* TapirPilotManager.h in Headers */,
 				EC186D0518463D9B00A89628 /* TapirDecoder.h in Headers */,
 				EC186D0118437F0800A89628 /* TapirEncoder.h in Headers */,
 				EC186CFD183DEF6F00A89628 /* TapirChannelEstimator.h in Headers */,
@@ -351,6 +358,7 @@
 				EC186CFA183DEF4B00A89628 /* TapirInterleaver.m in Sources */,
 				EC186D0E1847A47C00A89628 /* TapirTrellisCode.m in Sources */,
 				EC186CFE183DEF6F00A89628 /* TapirChannelEstimator.m in Sources */,
+				EC892AAE184F38EB00EAC727 /* TapirPilotManager.m in Sources */,
 				249B623B18447A3F001C3E2B /* LKVirtualSampleBuffer.m in Sources */,
 				249B622B184477EC001C3E2B /* TapirMotherOfAllFilters.m in Sources */,
 			);
