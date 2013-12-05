@@ -11,7 +11,7 @@
 
 @implementation TapirConfig
 @synthesize  kAudioSampleRate, kAudioChannel, kAudioBitsPerChannel;
-@synthesize kPreambleLength, kSymbolLength, kCyclicPostfixLength, kCyclicPrefixLength, kGuardIntervalLength, kMaximumSymbolLength, kSymbolWithCyclicExtLength, kAudioBufferLength;
+@synthesize kPreambleLength, kSymbolLength, kCyclicPostfixLength, kCyclicPrefixLength, kGuardIntervalLength, kMaximumSymbolLength, kSymbolWithCyclicExtLength, kAudioBufferLength, kAudioMaxVolume;
 @synthesize kPreambleBitLength, kPreambleBandwidth;
 @synthesize kIntervalAfterPreamble;
 @synthesize kCarrierFrequency, kNoDataSubcarriers;
@@ -39,7 +39,8 @@ static TapirConfig * sTapirConfig = nil;
     kAudioSampleRate = 44100.f;
     kAudioChannel = 1;
     kAudioBitsPerChannel = 8;
-    
+    kAudioMaxVolume = 1.0f;
+
     kMaximumSymbolLength = 8;
     kPreambleBitLength = 4;
     kPreambleBandwidth = 441.f;

@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
+#define ASCII_ETX 0x03
+
 #import <TapirLib/TapirLib.h>
 
 @interface TapirConfig : NSObject
@@ -14,6 +16,7 @@
     
     int     kAudioChannel;
     int     kAudioBitsPerChannel;
+    float   kAudioMaxVolume;
 
     int     kPreambleBitLength;
     float   kPreambleBandwidth;
@@ -70,6 +73,7 @@
 
 @property (readonly, nonatomic) Float64 kAudioSampleRate;
 @property (readonly, nonatomic) int     kAudioChannel;
+@property (readonly, nonatomic) float   kAudioMaxVolume;
 @property (readonly, nonatomic) int     kAudioBitsPerChannel;
 @property (readonly, nonatomic) int     kMaximumSymbolLength;
 

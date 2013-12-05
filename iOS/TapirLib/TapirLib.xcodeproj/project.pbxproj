@@ -163,9 +163,9 @@
 				249B623518447A3F001C3E2B /* LKRealSampleBuffer.m */,
 				249B623618447A3F001C3E2B /* LKVirtualSampleBuffer.h */,
 				249B623718447A3F001C3E2B /* LKVirtualSampleBuffer.m */,
-				EC0EEF71183A4A51001BC8DE /* Supporting Files */,
 				242DA5E11848677F0043EC2A /* LKBiquadHPF.h */,
 				242DA5E21848677F0043EC2A /* LKBiquadHPF.m */,
+				EC0EEF71183A4A51001BC8DE /* Supporting Files */,
 			);
 			path = TapirLib;
 			sourceTree = "<group>";

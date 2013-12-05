@@ -166,6 +166,8 @@ function btnPlay_Callback(hObject, eventdata, handles)
     
     audioData = [upconvPreamble; zeros(preambleInterval,1); audioData];
     audioData = [audioData; zeros(txBpfDelay,1)];
+    
+    
     audioData = filter(txBpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
 

@@ -31,9 +31,10 @@
 }
 - (id) initWithConfig:(TapirConfig *)_cfg;
 
-- (void) generateSignalWith:(char *)string dest:(float *)dest;
+- (int) calculateResultLength:(NSString *)string;
+- (void) generateSignalWith:(NSString *)inputString dest:(float *)dest;
 - (void) encodeOneChar:(const char)src dest:(float *)dest;
-- (void) addPrefixWith:(const float *)src dest:(float *)dest;
+- (void) addPrefixAndPostfixWith:(const float *)src dest:(float *)dest;
 - (void) applyHpf:(float *)input output:(float *)output;
 - (void) generatePreamble:(float *)dest;
 
