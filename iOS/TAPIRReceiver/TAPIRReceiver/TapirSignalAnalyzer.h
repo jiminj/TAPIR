@@ -34,6 +34,6 @@
 
 -(char)decodeBlock:(const float *)signal;
 -(id)initWithConfig:(TapirConfig *)cfg;
-
+-(NSString *)analyze:(float *)signal;
 
 @end

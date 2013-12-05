@@ -21,12 +21,25 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-
-    
     aia = [[LKAudioInputAccessor alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
-
+    
+    
+    
+    //Signal Decoding
+    
+    TapirConfig * cfg = [TapirConfig getInstance];
+    
+    // Float * to NSString
+    float * signal = calloc([cfg kAudioBufferLength], sizeof(float)); //signal
+    // TODO: HPF (for *signal)
+    
+    TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
+    NSString * result = [analyzer analyze:signal];
+    
+    free(signal);
+    
 }
 
 - (void)didReceiveMemoryWarning
