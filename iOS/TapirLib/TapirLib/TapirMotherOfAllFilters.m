@@ -15,10 +15,6 @@
         length = l;
         buffer = calloc(length, sizeof(float));
         coefficients = calloc(length, sizeof(float));
-        for(int i = 0; i<l; i++){
-            buffer[i]=0;
-            coefficients[i]=0;
-        }
     }
     return self;
 }

@@ -13,6 +13,7 @@
     IBOutlet UITextField* inputText;
     float* encodedText;
     Sonifier* son;
+    TapirMotherOfAllFilters* hpf;
 }
 -(IBAction)send:(id)sender;
 

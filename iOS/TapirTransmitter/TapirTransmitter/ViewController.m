@@ -22,7 +22,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    
+    hpf = [TapirMotherOfAllFilters createHPF1];
     NSString * inputStr = @"test";
     TapirConfig * cfg = [TapirConfig getInstance];
 // File write
@@ -57,6 +57,9 @@
     if(encodedText != NULL) { free(encodedText); }
     encodedText = calloc(resultLength, sizeof(float));
     [generator generateSignalWith:inputStr dest:encodedText];
+    for(int i = 0; i<resultLength; i++){
+        [hpf next:encodedText[i] writeTo:encodedText+i];
+    }
     [son transmit:encodedText length:resultLength ];
 }
 
