@@ -13,8 +13,8 @@
 -(id)initWithLength:(int)l{
     if(self=[super init]){
         length = l;
-        buffer = malloc(sizeof(float)*l);
-        coefficients = malloc(sizeof(float)*l);
+        buffer = calloc(length, sizeof(float));
+        coefficients = calloc(length, sizeof(float));
         for(int i = 0; i<l; i++){
             buffer[i]=0;
             coefficients[i]=0;

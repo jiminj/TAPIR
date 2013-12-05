@@ -27,18 +27,7 @@
     
     
     
-    //Signal Decoding
-    
-    TapirConfig * cfg = [TapirConfig getInstance];
-    
-    // Float * to NSString
-    float * signal = calloc([cfg kAudioBufferLength], sizeof(float)); //signal
-    // TODO: HPF (for *signal)
-    
-    TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
-    NSString * result = [analyzer analyze:signal];
-    
-    free(signal);
+
     
 }
 
@@ -49,19 +38,31 @@
 }
 
 -(void)startTracking:(id)sender{
-    [aia prepareAudioInputWithCorrelationWindowSize:400 andBacktrackBufferSize:1000];
+    
+    [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
     [aia startAudioInput];
 }
 
 -(void)correlationDetected:(NSNotification*)not{
-    //outTF.text = [outTF.text stringByAppendingFormat:@"new signal detected\nmax correlation : %f", [[[not userInfo] valueForKey:@"maxCorrelation"] floatValue]];
-    NSLog(@"new signal detected\nmax correlation : %f", [[[not userInfo] valueForKey:@"maxCorrelation"] floatValue]);
+    TapirConfig * cfg = [TapirConfig getInstance];
+    TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
+
+    NSString * result = [analyzer analyze:(float*)([[[not userInfo] valueForKey:@"samples" ] intValue])];
+    NSLog(@"%@",result);
+    //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    /*[manager GET:@"https://api-ssl.bitly.com" parameters:[NSString stringWithFormat:@"/v3/expand?access_token=%@&longUrl=%@", BITLY_API_KEY, result] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString* longURL = [[[[responseObject objectForKey:@"data"] objectForKey:@"expand"] objectAtIndex:0] objectForKey:@"long_url"];
+        NSLog(longURL);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];*/
+    //[aia restart];
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }
 -(void)trace:(id)sender{
-    [aia trace];
+    [aia restart];
 }
 @end

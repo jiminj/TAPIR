@@ -38,7 +38,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="trace:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Gme-hP-YdM"/>
+                                    <action selector="trace:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="FL7-SP-FOy"/>
                                 </connections>
                             </button>
                         </subviews>

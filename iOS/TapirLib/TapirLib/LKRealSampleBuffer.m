@@ -17,7 +17,7 @@
 -(id)initWithBufferLength:(int)bufferLength{
     if(self=[super init]){
         length = bufferLength;
-        samples = malloc(length*sizeof(float));
+        samples = calloc(length, sizeof(float));
         for(int i = 0; i<length; i++){
             samples[i] = 0;
         }
@@ -26,14 +26,16 @@
     return self;
 }
 -(float)sampleAt:(int)index{
+    index+=firstSampleIndex;
+    if(index>=length)index-=length;
     return samples[index];
 }
 -(void)newSample:(float)newSample{
-    /*firstSampleIndex--;
+    firstSampleIndex--;
     if(firstSampleIndex<0)firstSampleIndex+=length;
-    samples[firstSampleIndex]=newSample;*/
-    memmove(samples+1, samples, sizeof(float)*(length-1));
-    samples[0]= newSample;
+    samples[firstSampleIndex]=newSample;
+    //memmove(samples+1, samples, sizeof(float)*(length-1));
+    //samples[0]= newSample;
 }
 -(void)dealloc{
     free(samples);
