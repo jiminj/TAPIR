@@ -23,21 +23,25 @@ static void generateCarrier(DSPSplitComplex * carrier, const int length, const f
     vvsincosf(carrier->imagp, carrier->realp, carrierIndex, &length);
     
     free(carrierIndex);
-    
-    return;
 }
 
-static void scaleFloatSignal(const float * source, float * dest, const int length, const float scale)
+void scaleFloatSignal(const float * source, float * dest, const int length, const float scale)
 {
     vDSP_vsmul(source, 1, &scale, dest, 1, length);
-    return;
 }
-static void scaleCompSignal(const DSPSplitComplex * source, DSPSplitComplex * dest, const int length, const float scale)
+void scaleCompSignal(const DSPSplitComplex * source, DSPSplitComplex * dest, const int length, const float scale)
 {
     scaleFloatSignal(source->realp, dest->realp, length, scale);
     scaleFloatSignal(source->imagp, dest->imagp, length, scale);
-    return;
 }
+
+void maximizeSignal(const float * source, float * dest, const int length, const float maximum)
+{
+    float maxVal;
+    vDSP_maxmgv(source, 1, &maxVal, length);
+    scaleFloatSignal(source, dest, length, maximum / maxVal);
+}
+
 
 void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int length, const float samplingFreq, const float carrierFreq)
 {
@@ -58,7 +62,6 @@ void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int 
     
     free(carrier.realp);
     free(carrier.imagp);
-    return;
 }
 
 void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int length, const float samplingFreq, const float carrierFreq)
@@ -82,7 +85,6 @@ void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int le
     
     free(carrier.realp);
     free(carrier.imagp);
-    return;
 }
 
 //FFT

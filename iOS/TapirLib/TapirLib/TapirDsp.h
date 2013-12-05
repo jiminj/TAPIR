@@ -16,6 +16,12 @@ void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int 
 void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int length, const float samplingFreq, const float carrierFreq);
 
 
+void scaleFloatSignal(const float * source, float * dest, const int length, const float scale);
+void scaleCompSignal(const DSPSplitComplex * source, DSPSplitComplex * dest, const int length, const float scale);
+
+void maximizeSignal(const float * source, float * dest, const int length, const float maximum);
+
+
 //FFT
 void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength);
 void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength);

@@ -75,7 +75,7 @@
     
 }
 
-- (void) addPrefixWith:(const float *)src dest:(float *)dest
+- (void) addPrefixAndPostfixWith:(const float *)src dest:(float *)dest
 {
     
     if(dest + [cfg kCyclicPrefixLength] != src)
@@ -88,16 +88,56 @@
 
 - (void) generatePreamble:(float *)dest
 {
+    DSPSplitComplex preamble;
+    preamble.realp = malloc(sizeof(float) * [cfg kPreambleLength] * 2);
+    preamble.imagp = calloc([cfg kPreambleLength] * 2, sizeof(float));
+    
     int lenForEachBit = (floor)([cfg kPreambleLength] / [cfg kPreambleBitLength]);
     for(int i=0; i<[cfg kPreambleBitLength]; ++i)
     {
-        vDSP_vfill([cfg kPreambleBit]+i, dest + (i * lenForEachBit), 1, lenForEachBit);
+        vDSP_vfill([cfg kPreambleBit]+i, preamble.realp + (i * lenForEachBit), 1, lenForEachBit);
     }
+    
+    iqModulate(&preamble, dest, [cfg kPreambleLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
+    maximizeSignal(dest, dest, [cfg kPreambleLength], [cfg kAudioMaxVolume]);
+    memcpy(dest + [cfg kPreambleLength], dest, [cfg kPreambleLength] * sizeof(float));
+
+    free(preamble.realp);
+    free(preamble.imagp);
 }
 
-- (void) generateSignalWith:(char *)string dest:(float *)dest
+- (void) generateSignalWith:(NSString *)inputString dest:(float *)dest
 {
     
+    float * destPtr = dest;
+  
+    //Generate preamble
+    [self generatePreamble:destPtr];
+    destPtr += [cfg kPreambleLength] * 2 + [cfg kIntervalAfterPreamble];
+    
+    //Convert each char to signal
+    for(int i=0; i<[inputString length]; ++i)
+    {
+        float * curPureSymbolSt = destPtr + [cfg kCyclicPrefixLength];
+
+        char inputChar = [inputString characterAtIndex:i];
+        [self encodeOneChar:inputChar dest:curPureSymbolSt ];
+        maximizeSignal(curPureSymbolSt, curPureSymbolSt, [cfg kSymbolLength], [cfg kAudioMaxVolume]);
+        [self addPrefixAndPostfixWith:curPureSymbolSt dest:destPtr];
+        destPtr += [cfg kSymbolWithCyclicExtLength] + [cfg kGuardIntervalLength];
+    }
+
+}
+
+- (int) calculateResultLength:(NSString *)string
+{
+    int retVal = 0;
+    retVal = [cfg kPreambleLength] * 2 + [cfg kIntervalAfterPreamble]
+            + ([cfg kSymbolWithCyclicExtLength]
+            + [cfg kGuardIntervalLength]) * [string length]
+            - [cfg kGuardIntervalLength];
+    
+    return retVal;
 }
 
 - (void) dealloc
