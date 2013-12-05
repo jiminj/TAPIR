@@ -20,8 +20,6 @@
     DSPSplitComplex pilotAdded;
     DSPSplitComplex extended;
     DSPSplitComplex ifftData;
-
-    
     
     TapirConfig * cfg;
     TapirPilotManager * pilotMgr;
@@ -35,7 +33,8 @@
 - (void) generateSignalWith:(NSString *)inputString dest:(float *)dest;
 - (void) encodeOneChar:(const char)src dest:(float *)dest;
 - (void) addPrefixAndPostfixWith:(const float *)src dest:(float *)dest;
-- (void) applyHpf:(float *)input output:(float *)output;
 - (void) generatePreamble:(float *)dest;
+
+//- (void) applyHpf:(float *)input output:(float *)output;
 
 @end

@@ -67,7 +67,8 @@
     
     //ifft
     fftComplexInverse(&extended, &ifftData, [cfg kSymbolLength]);
-    //LPF
+
+    // TODO: LPF (for real and imag both)
     
     //frequency upconversion
     iqModulate(&ifftData, dest, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
@@ -97,6 +98,7 @@
     {
         vDSP_vfill([cfg kPreambleBit]+i, preamble.realp + (i * lenForEachBit), 1, lenForEachBit);
     }
+    // TODO: LPF (for real and imag both)
     
     iqModulate(&preamble, dest, [cfg kPreambleLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
     maximizeSignal(dest, dest, [cfg kPreambleLength], [cfg kAudioMaxVolume]);
@@ -118,14 +120,20 @@
     //Convert each char to signal
     for(int i=0; i<[inputString length]; ++i)
     {
-        float * curPureSymbolSt = destPtr + [cfg kCyclicPrefixLength];
+        float * curSymbolPtr = destPtr + [cfg kCyclicPrefixLength];
 
         char inputChar = [inputString characterAtIndex:i];
-        [self encodeOneChar:inputChar dest:curPureSymbolSt ];
-        maximizeSignal(curPureSymbolSt, curPureSymbolSt, [cfg kSymbolLength], [cfg kAudioMaxVolume]);
-        [self addPrefixAndPostfixWith:curPureSymbolSt dest:destPtr];
-        destPtr += [cfg kSymbolWithCyclicExtLength] + [cfg kGuardIntervalLength];
+        [self encodeOneChar:inputChar dest:curSymbolPtr ];
+        maximizeSignal(curSymbolPtr, curSymbolPtr, [cfg kSymbolLength], [cfg kAudioMaxVolume]);
+        [self addPrefixAndPostfixWith:curSymbolPtr dest:destPtr];
+
+        if( i != [inputString length] -1 )
+        {
+            destPtr += [cfg kSymbolWithCyclicExtLength] + [cfg kGuardIntervalLength];
+            //To prevent to access unallocated space.
+        }
     }
+    //TODO: HPF for destPtr
 
 }
 

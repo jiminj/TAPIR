@@ -73,9 +73,9 @@
     //Freq Downconversion & FFT, and cut central spectrum region
     iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
 
-    //LowPassFilter!
+    // TODO: LPF (for real & imag both)
     
-    
+    //FFT
     fftComplexForward(&convertedSignal, &convertedSignal, [cfg kSymbolLength]);
     
     [self cutCentralRegion:&convertedSignal dest:&roiSignal signalLength:[cfg kSymbolLength] destLength:[cfg kNoTotalSubcarriers] firstHalfLength:[cfg kNoTotalSubcarriers]/2];
@@ -96,6 +96,31 @@
 
     return ((char)mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
 
+}
+
+-(NSString *)analyze:(float *)signal
+{
+    NSMutableString * result = [[NSMutableString alloc] init];
+    
+    //skip preambleInterval
+    float * ptr = signal + [cfg kIntervalAfterPreamble];
+    for(int i=0;i < [cfg kMaximumSymbolLength]; ++i)
+    {
+        float * curSymbol = (ptr + [cfg kCyclicPrefixLength]);
+        char decodedChar = [self decodeBlock:curSymbol];
+        if(decodedChar == ASCII_ETX) { break; }
+        else
+        {
+            [result appendFormat:@"%c", decodedChar];
+        }
+        
+        if( i != [cfg kMaximumSymbolLength])
+        {
+            ptr += ([cfg kGuardIntervalLength] + [cfg kSymbolWithCyclicExtLength]);
+        }
+    }
+    return (NSString *)result;
+    
 }
 
 - (void)dealloc

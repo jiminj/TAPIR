@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "LKAudioInputAccessor.h"
 
+#import <TapirLib/TapirLib.h>
+#import "TapirConfig.h"
+#import "TapirSignalAnalyzer.h"
+
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     LKAudioInputAccessor* aia;
     IBOutlet UITextField* windowTF;

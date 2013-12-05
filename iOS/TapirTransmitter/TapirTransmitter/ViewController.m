@@ -22,31 +22,36 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    
+    NSString * inputStr = @"test";
+    float * result;
+    
+    //convert NSString * to Float *
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
     
-    NSString * inputStr = @"te";
+    //Add ETX ascii code (end of the text)
+    inputStr = [inputStr stringByAppendingFormat:@"%c", ASCII_ETX];
     if([inputStr length] > [cfg kMaximumSymbolLength])
     {
         inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
     }
-    else if([inputStr length] < [cfg kMaximumSymbolLength])
-    {
-        inputStr = [inputStr stringByAppendingFormat:@"%c", ASCII_ETX];
-    }
+    
     int resultLength = [generator calculateResultLength:inputStr];
-    float * result = calloc(resultLength, sizeof(float));
+    result = calloc(resultLength, sizeof(float));
     [generator generateSignalWith:inputStr dest:result];
-
     
     
-    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"genResult.txt"]];
-    NSMutableString * resultString = [[NSMutableString alloc] init];
-    for(int i=0; i<resultLength; ++i)
-    {
-        [resultString appendFormat:@"%f\n",result[i]];
-    }
-    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
+    free(result);
+// File write
+    
+//    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"genResult.txt"]];
+//    NSMutableString * resultString = [[NSMutableString alloc] init];
+//    for(int i=0; i<resultLength; ++i)
+//    {
+//        [resultString appendFormat:@"%f\n",result[i]];
+//    }
+//    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
     
     
     
