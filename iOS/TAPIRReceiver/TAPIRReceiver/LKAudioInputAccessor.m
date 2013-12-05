@@ -153,4 +153,7 @@ static void HandleInputBuffer (
     
     [correlationManager newSample:filteredSample];
 }
+-(void)restart{
+    [correlationManager restart];
+}
 @end

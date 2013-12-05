@@ -22,27 +22,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    
+    hpf = [TapirMotherOfAllFilters createHPF1];
     NSString * inputStr = @"test";
-    float * result;
-    
-    //convert NSString * to Float *
     TapirConfig * cfg = [TapirConfig getInstance];
-    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
-    
-    //Add ETX ascii code (end of the text)
-    inputStr = [inputStr stringByAppendingFormat:@"%c", ASCII_ETX];
-    if([inputStr length] > [cfg kMaximumSymbolLength])
-    {
-        inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
-    }
-    
-    int resultLength = [generator calculateResultLength:inputStr];
-    result = calloc(resultLength, sizeof(float));
-    [generator generateSignalWith:inputStr dest:result];
-    
-    
-    free(result);
 // File write
     
 //    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"genResult.txt"]];
@@ -53,8 +35,32 @@
 //    }
 //    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
     
+    son = [[Sonifier alloc] init];
+    [son start];
     
+}
+
+-(void)send:(id)sender{
+
+    //convert NSString * to Float *
+    TapirConfig * cfg = [TapirConfig getInstance];
+    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
     
+    //Add ETX ascii code (end of the text)
+    NSString* inputStr = [inputText.text stringByAppendingFormat:@"%c", ASCII_ETX];
+    if([inputStr length] > [cfg kMaximumSymbolLength])
+    {
+        inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
+    }
+    
+    int resultLength = [generator calculateResultLength:inputStr];
+    if(encodedText != NULL) { free(encodedText); }
+    encodedText = calloc(resultLength, sizeof(float));
+    [generator generateSignalWith:inputStr dest:encodedText];
+    for(int i = 0; i<resultLength; i++){
+        [hpf next:encodedText[i] writeTo:encodedText+i];
+    }
+    [son transmit:encodedText length:resultLength ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,4 +69,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) dealloc
+{
+    if(encodedText != NULL) { free(encodedText); }
+}
 @end

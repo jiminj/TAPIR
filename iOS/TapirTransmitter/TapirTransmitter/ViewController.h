@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Sonifier.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController{
+    IBOutlet UITextField* inputText;
+    float* encodedText;
+    Sonifier* son;
+    TapirMotherOfAllFilters* hpf;
+}
+-(IBAction)send:(id)sender;
 
 @end

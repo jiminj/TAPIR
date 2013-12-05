@@ -29,10 +29,13 @@
     long tt;
     BOOL stop;
     float xCorr;
+    int backtrackCounter;
+    int maxIndex;
 }
 
 -(id)initWithCorrelationWindowSize:(int)size1 andBacktrackSize:(int)size2;
 -(void)newSample:(float)value;
 -(float)calculateCorrelation;
 -(void)trace;
+-(void)restart;
 @end

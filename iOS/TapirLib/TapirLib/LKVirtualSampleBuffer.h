@@ -20,8 +20,8 @@
     int offset;
 }
 
-@property(readonly) float* samples;
 -(id)initWithRealSampleBuffer:(LKRealSampleBuffer*)buffer offSet:(int)offsetValue andLength:(int)lengthValue;
 -(float)lastSample;
 -(float)sampleAt:(int)index;
+-(float*)samples;
 @end

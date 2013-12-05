@@ -67,5 +67,6 @@ struct AQRecorderState {
 -(float)calculateCorrelation;
 -(float)calculateCorrelationWithReferenceWithANewSampleValue:(float)value;
 -(void)trace;
+-(void)restart;
 -(void)newSample:(SInt16)sample;
 @end
