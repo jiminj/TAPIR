@@ -20,6 +20,7 @@
     IBOutlet UITextField* windowTF;
     IBOutlet UITextField* bufferTF;
     IBOutlet UITextView* outTF;
+    NSString* logString;
 }
 
 -(IBAction)startTracking:(id)sender;

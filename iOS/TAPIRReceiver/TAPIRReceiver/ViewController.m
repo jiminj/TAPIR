@@ -25,7 +25,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
     
-    
+    logString = @"";
     
 
     
@@ -49,6 +49,12 @@
 
     NSString * result = [analyzer analyze:(float*)([[[not userInfo] valueForKey:@"samples" ] intValue])];
     NSLog(@"%@",result);
+    logString = [[NSString stringWithFormat:@"%@: %@\n", [NSDate date], result] stringByAppendingString:logString];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        //Your code goes in here
+        outTF.text = logString;
+
+    }];
     //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     /*[manager GET:@"https://api-ssl.bitly.com" parameters:[NSString stringWithFormat:@"/v3/expand?access_token=%@&longUrl=%@", BITLY_API_KEY, result] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* longURL = [[[[responseObject objectForKey:@"data"] objectForKey:@"expand"] objectAtIndex:0] objectForKey:@"long_url"];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24F769A01850E94C009EB100 /* Sonifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F7699E1850E94C009EB100 /* Sonifier.m */; };
 		EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */; };
 		EC0AC785184E2EB900F391C9 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
 		EC7DDF8B184E187D00909C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8A184E187D00909C92 /* Foundation.framework */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24F7699E1850E94C009EB100 /* Sonifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sonifier.m; sourceTree = "<group>"; };
+		24F7699F1850E94C009EB100 /* Sonifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sonifier.h; sourceTree = "<group>"; };
 		EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalGenerator.h; sourceTree = "<group>"; };
 		EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalGenerator.m; sourceTree = "<group>"; };
 		EC7DDF87184E187D00909C92 /* TapirTransmitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapirTransmitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +132,8 @@
 			children = (
 				EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */,
 				EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */,
+				24F7699E1850E94C009EB100 /* Sonifier.m */,
+				24F7699F1850E94C009EB100 /* Sonifier.h */,
 				EC7DDF99184E187D00909C92 /* AppDelegate.h */,
 				EC7DDF9A184E187D00909C92 /* AppDelegate.m */,
 				EC7DDF9C184E187D00909C92 /* Main.storyboard */,
@@ -279,6 +284,7 @@
 			files = (
 				EC7DDFA1184E187D00909C92 /* ViewController.m in Sources */,
 				EC7DDF9B184E187D00909C92 /* AppDelegate.m in Sources */,
+				24F769A01850E94C009EB100 /* Sonifier.m in Sources */,
 				EC892AA2184F018500EAC727 /* TapirConfig.m in Sources */,
 				EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.m in Sources */,
 				EC7DDF97184E187D00909C92 /* main.m in Sources */,

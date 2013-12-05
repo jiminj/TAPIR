@@ -23,7 +23,7 @@
         //sample buffer for correlation 2
         sampleBufferB = [[LKVirtualSampleBuffer alloc] initWithRealSampleBuffer:realBuffer offSet:correlationWindowSize andLength:correlationWindowSize];
         //this buffer stores correlation values
-        correlationBuffer = [[LKRealSampleBuffer alloc] initWithBufferLength:10000];
+        correlationBuffer = [[LKRealSampleBuffer alloc] initWithBufferLength:5000];
         sumA = 0;
         sumB = 0;
         squareSumA = 0;
@@ -103,7 +103,7 @@
         vDSP_svemg([sampleBufferA samples], 1, &absSum, correlationWindowSize);
         [correlationBuffer newSample:xCorr/absSum];
     }
-    if(fabs([correlationBuffer sampleAt:[cfg kPreambleLength] ]) > 5000){
+    if(fabs([correlationBuffer sampleAt:[cfg kPreambleLength] ]) > 2000){
         //[self trace];
         stop = YES;
         maxIndex = 0;
@@ -113,7 +113,8 @@
             }
         }
         
-        
+        for(int i = 0; i<5000; i++)
+            [fileHandle writeData:[[NSString stringWithFormat:@"%f\n", [correlationBuffer sampleAt:i]] dataUsingEncoding:NSUTF8StringEncoding]];
         
         
          
