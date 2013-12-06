@@ -150,17 +150,17 @@
 
 - (void) dealloc
 {
-    if(input != NULL) { free(input); }
-    if(encoded != NULL) { free(encoded); }
-    if(interleaved != NULL) { free(interleaved); }
-    if(modulated.realp != NULL) { free(modulated.realp); }
-    if(modulated.imagp != NULL) { free(modulated.imagp); }
-    if(pilotAdded.realp != NULL) { free(pilotAdded.realp); }
-    if(pilotAdded.imagp != NULL) { free(pilotAdded.imagp); }
-    if(extended.realp != NULL) { free(extended.realp); }
-    if(extended.imagp != NULL) { free(extended.imagp); }
-    if(ifftData.realp != NULL) { free(ifftData.realp); }
-    if(ifftData.imagp != NULL) { free(ifftData.imagp); }
+    free(input); 
+    free(encoded); 
+    free(interleaved); 
+    free(modulated.realp);
+    free(modulated.imagp);
+    free(pilotAdded.realp);
+    free(pilotAdded.imagp);
+    free(extended.realp);
+    free(extended.imagp);
+    free(ifftData.realp);
+    free(ifftData.imagp);
 }
 
 @end

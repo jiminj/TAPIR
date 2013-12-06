@@ -125,17 +125,17 @@
 
 - (void)dealloc
 {
-    if(convertedSignal.realp != NULL) { free(convertedSignal.realp); }
-    if(convertedSignal.imagp != NULL)  { free(convertedSignal.imagp);}
-    if(roiSignal.realp != NULL) {free(roiSignal.realp);}
-    if(roiSignal.imagp != NULL) {free(roiSignal.imagp);}
-    if(estimatedSignal.realp != NULL) {free(estimatedSignal.realp);}
-    if(estimatedSignal.imagp != NULL) {free(estimatedSignal.imagp);}
-    if(pilotRemovedSignal.realp != NULL) {free(pilotRemovedSignal.realp);}
-    if(pilotRemovedSignal.realp != NULL) {free(pilotRemovedSignal.imagp);}
-    if(demod != NULL) {free(demod);}
-    if(deinterleaved != NULL) { free(deinterleaved); }
-    if(decoded != NULL) {free(decoded); }
+    free(convertedSignal.realp);
+    free(convertedSignal.imagp);
+    free(roiSignal.realp);
+    free(roiSignal.imagp);
+    free(estimatedSignal.realp);
+    free(estimatedSignal.imagp);
+    free(pilotRemovedSignal.realp);
+    free(pilotRemovedSignal.imagp);
+    free(demod);
+    free(deinterleaved);
+    free(decoded);
     
 }
 

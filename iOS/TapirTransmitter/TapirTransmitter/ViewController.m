@@ -54,7 +54,7 @@
     }
     
     int resultLength = [generator calculateResultLength:inputStr];
-    if(encodedText != NULL) { free(encodedText); }
+    free(encodedText);
     encodedText = calloc(resultLength, sizeof(float));
     [generator generateSignalWith:inputStr dest:encodedText];
     for(int i = 0; i<resultLength; i++){
@@ -71,6 +71,6 @@
 
 -(void) dealloc
 {
-    if(encodedText != NULL) { free(encodedText); }
+    free(encodedText);
 }
 @end

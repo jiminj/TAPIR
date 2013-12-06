@@ -36,22 +36,22 @@
 
     channelLength = chLength;
     
-    if(channel.realp != NULL) { free(channel.realp);}
-    if(channel.imagp != NULL) { free(channel.imagp);}
+    free(channel.realp);
+    free(channel.imagp);
     channel.realp = malloc(sizeof(float) * channelLength);
     channel.imagp = malloc(sizeof(float) * channelLength);
 
-    if(pilotOfRcvSignal.realp != NULL) { free(pilotOfRcvSignal.realp);}
-    if(pilotOfRcvSignal.imagp != NULL) { free(pilotOfRcvSignal.imagp);}
+    free(pilotOfRcvSignal.realp);
+    free(pilotOfRcvSignal.imagp);
     pilotOfRcvSignal.realp = malloc(sizeof(float) * [pilotInfo pilotLength]);
     pilotOfRcvSignal.imagp = malloc(sizeof(float) * [pilotInfo pilotLength]);
     
-    if(pilotChannel.realp != NULL) { free(pilotChannel.realp);}
-    if(pilotChannel.imagp != NULL) { free(pilotChannel.imagp);}
+    free(pilotChannel.realp);
+    free(pilotChannel.imagp);
     pilotChannel.realp = malloc(sizeof(float) * [pilotInfo pilotLength]);
     pilotChannel.imagp = malloc(sizeof(float) * [pilotInfo pilotLength]);
     
-    if(fltPilotIndex != NULL) { free(fltPilotIndex); }
+    free(fltPilotIndex);
     fltPilotIndex = malloc(sizeof(float) * [pilotInfo pilotLength]);
     vDSP_vflt32([pilotInfo pilotIndex], 1, fltPilotIndex, 1, [pilotInfo pilotLength]);
 
@@ -163,11 +163,11 @@
 
 - (void)dealloc
 {
-    if(channel.realp != NULL) { free(channel.realp); }
-    if(channel.imagp != NULL) { free(channel.imagp); }
-    if(pilotOfRcvSignal.realp != NULL) { free(pilotOfRcvSignal.realp); }
-    if(pilotOfRcvSignal.imagp != NULL) { free(pilotOfRcvSignal.imagp); }
-    if(fltPilotIndex != NULL) { free(fltPilotIndex); }
+    free(channel.realp);
+    free(channel.imagp); 
+    free(pilotOfRcvSignal.realp);
+    free(pilotOfRcvSignal.imagp);
+    free(fltPilotIndex);
 }
 
 @end

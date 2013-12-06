@@ -47,26 +47,13 @@
 -(void)dealloc
 {
     
-    if(nextStateRouteTable != NULL)
-    {
-        for(int i=0; i<noStates; ++i)
-        {
-            if(nextStateRouteTable[i] != NULL)
-            { free(nextStateRouteTable[i]); }
-        }
-        free(nextStateRouteTable);
-    }
+    for(int i=0; i<noStates; ++i)
+    { free(nextStateRouteTable[i]); }
+    free(nextStateRouteTable);
     
-    if(outputTable != NULL)
-    {
-        for(int i=0; i<noStates; ++i)
-        {
-            if(outputTable[i] != NULL)
-            { free(outputTable[i]); }
-        }
-        free(outputTable);
-    }
-    
+    for(int i=0; i<noStates; ++i)
+    { free(outputTable[i]); }
+    free(outputTable);
 }
 
 - (void) genNextStatusTable;

@@ -134,6 +134,12 @@ function btnPlay_Callback(hObject, eventdata, handles)
     txBpfDelay = ceil(txBpf.order / 2);
     
     msg = get(handles.tbMsg,'String');
+    if(length(msg) < maxBitLength)
+        msg = [msg, 3];
+    elseif(length(msg) > maxBitLength)
+        msg = msg(1:maxBitLength);
+    end
+
     binData = dec2bin(msg, 8)' - 48;
     genAudioData = generateAudioData(binData);
     extendedAudioData = zeros(size(genAudioData,1) + cPreLength + cPostLength, size(genAudioData,2));

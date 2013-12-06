@@ -42,11 +42,11 @@
 
 - (void)setPilot:(DSPSplitComplex *)data index:(const int *)index pilotLength:(const int)length;
 {
-    if(pilotIndex != NULL) { free(pilotIndex); }
+    free(pilotIndex);
     pilotIndex = malloc(sizeof(int) * length);
     
-    if(pilotData.realp != NULL) { free(pilotData.realp); }
-    if(pilotData.imagp != NULL) { free(pilotData.imagp); }
+    free(pilotData.realp);
+    free(pilotData.imagp);
     pilotData.realp = malloc(sizeof(float) * length);
     pilotData.imagp = malloc(sizeof(float) * length);
     
@@ -107,9 +107,9 @@
 
 - (void)dealloc
 {
-    if(pilotIndex != NULL) { free(pilotIndex); }
-    if(pilotData.realp != NULL) { free(pilotData.realp); }
-    if(pilotData.imagp != NULL) { free(pilotData.imagp); }
+    free(pilotIndex);
+    free(pilotData.realp);
+    free(pilotData.imagp);
 }
 
 @end

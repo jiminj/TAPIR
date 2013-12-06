@@ -121,10 +121,10 @@ static TapirConfig * sTapirConfig = nil;
 
 - (void) dealloc
 {
-    if(kPilotData.realp != NULL) { free(kPilotData.realp); }
-    if(kPilotData.imagp != NULL) { free(kPilotData.imagp); }
-    if(kPilotLocation != NULL) { free(kPilotLocation); }
-    if(kPreambleBit != NULL) { free(kPreambleBit); }
+    free(kPilotData.realp);
+    free(kPilotData.imagp);
+    free(kPilotLocation);
+    free(kPreambleBit);
 }
 
 @end

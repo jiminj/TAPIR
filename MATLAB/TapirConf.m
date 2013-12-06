@@ -10,6 +10,8 @@ modulationRate = 1; % PSK Modulation Rate
 noDataCarrier = noDataFrame * encodingRate;
 pilotSig = [1;1;1;-1];
 
+
+maxBitLength = 8;
 % Ts = 1/1764; % symbol time (1/BW)
 % noTotCarrier = 64; % Must be larger than 2*noOfDataCarrier
 % symLength = noTotCarrier * Fs * Ts;
