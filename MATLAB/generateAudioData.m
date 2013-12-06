@@ -5,14 +5,17 @@ function result = generateAudioData( binData )
 TapirConf;
 
 % seperates msg to frames by framesize
-blockedMsg = reshape(binData, noDataFrame,[]);
+addCols = mod(size(binData,2), modulationRate);
+blockedMsg = [binData, zeros(size(binData,1),addCols)];
+blockedMsg = reshape(blockedMsg, noDataFrame * modulationRate,[]);
 numBlocks = size(blockedMsg, 2);
 
 % result = zeros((Fs*Ts*noTotCarrier + cpLength), numBlocks);
 result = zeros((symLength), numBlocks);
 
-figure(1);
 
+
+figure(1);
 %for each block
 for idx = 1:numBlocks
 
@@ -22,16 +25,23 @@ for idx = 1:numBlocks
     block = convenc(block, trel);
 %     blockSize = length(block);
 %     block(block == 0) = -1; % To reduce the dynamic range of output signal.
-    convEncBlk = block;
+    convEncBlk = block
     
     %%%%% Interleaver %%%%% 
     block = matintrlv(convEncBlk, intRows, intCols);
     interleavedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
-	%%%%% DBPSK modulation %%%%%
-%     block(block == -1) = 0; % For Convolutional Encoding
-    block = real(dpskmod(block,2));
+	%%%%% QAM modulation %%%%%
+     
+%     bunchedBlk = zeros(length(block)/modulationRate,1);
+%     k = 1:length(bunchedBlk);
+%     for m = 0: modulationRate-1
+%         bunchedBlk(k) = bunchedBlk(k) + block(k*modulationRate-m)*(2^m);
+%     end
+    
+%     block = qammod(bunchedBlk,4);
+    block = real(pskmod(block,2));
     modBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -41,7 +51,6 @@ for idx = 1:numBlocks
     blockLen = length(block);
     pilotInterval = floor(blockLen / (noPilot +1 ) );
    
-    
     blkStIdx = 1;
     blkWithPilot = [];
     for pIdx = 1:noPilot
@@ -62,8 +71,9 @@ for idx = 1:numBlocks
     
     %%%%% IDFT %%%%% 
     block =[block(end - length(block)/2 + 1:end); zeros(symLength - length(block), 1); block(1:length(block)/2)];
+    
     extendedBlk = block;
-    block = noDataCarrier .* ifft(block);
+    block = noDataCarrier * ifft(block);
     transformedBlk = block;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -83,7 +93,7 @@ for idx = 1:numBlocks
     subplot(numBlocks,4, idx*4-3 );
     stem(modBlk);
     subplot(numBlocks,4, idx*4-2 );
-    stem(blkWithPilot );
+    stem(real(blkWithPilot)); hold on; stem(imag(blkWithPilot),'g'); hold off;
     subplot(numBlocks,4, idx*4-1);
     stem(real(extendedBlk)); hold on; stem(imag(extendedBlk),'g'); 
     subplot(numBlocks,4, idx*4);

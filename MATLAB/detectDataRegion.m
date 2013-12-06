@@ -3,21 +3,23 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 %   Detailed explanation goes here
     TapirConf;
     
-    switch Fc
-        case 10000
-            rxBpf = rxBpf10k;
-        case 18000
-            rxBpf = rxBpf18k;
-        case 20000
-            rxBpf = rxBpf20k;
-    end
-    
+%     switch Fc
+%         case 10000
+%             rxBpf = rxBpf10k;
+%         case 18000
+%             rxBpf = rxBpf18k;
+%         case 20000
+%             rxBpf = rxBpf20k;
+%     end
+%     
+%     
+	rxFilter = txrxHpf;
 %     minBlkSize = 1280;
 
     %%%%%% Apply BPF first! (to prevent unwanted noise) %%%%%%%%%%%
-    filtDelay = ceil(rxBpf.order / 2);
+    filtDelay = ceil(rxFilter.order / 2);
     extSignal = [signal; zeros(filtDelay,1)];
-    bandSig = filter(rxBpf, extSignal);
+    bandSig = filter(rxFilter, extSignal);
     bandSig = bandSig(filtDelay+1 : end);
 
 %     bandSig = signal;
@@ -31,13 +33,15 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
     findFlag = 0;
     searchMaxStPoint = 0;
     corrThreshold = 2;
-   
+    origCorrResult = 0;
+    
     for idx=2*preambleLen+1:length(bandSig)       
         denom = 0;
         for k = 0:(preambleLen - 1)
             corrResult(idx) = corrResult(idx) + bandSig(idx - k) * bandSig(idx - k - preambleLen);
             denom = denom + abs(bandSig(idx-k));
         end
+        origCorrResult(idx) = corrResult(idx);
         corrResult(idx) = corrResult(idx) / (denom / preambleLen);
         
         if(abs(corrResult(idx)) > corrThreshold) && (findFlag ~= 1)
@@ -48,21 +52,29 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 
     
     [~, peakPoint] = max(abs(corrResult(searchMaxStPoint : searchMaxStPoint+preambleLen)));
-    peakPoint = peakPoint + searchMaxStPoint - 1
+    peakPoint = peakPoint + searchMaxStPoint - 1;
     
+    
+    length(bandSig)
+    peakPoint + blockLen * noBlksPerSig + preambleInterval
     dataSignal = bandSig(peakPoint+1:peakPoint + blockLen * noBlksPerSig + preambleInterval);
     
     figure();
-    subplot(4,1,1);
-    plot(signal);
+    subplot(5,1,1);
+    plot(signal); 
     
-    subplot(4,1,2);
-    plot(bandSig);
+    subplot(5,1,2);
+    plot(bandSig(1:peakPoint)); hold on;
+    plot( peakPoint+1:peakPoint + length(dataSignal), dataSignal,'r');
+    plot( peakPoint+length(dataSignal)+1:length(bandSig), bandSig(peakPoint+length(dataSignal)+1:end ));
     
-    subplot(4,1,3);
+    subplot(5,1,3);
+    plot(origCorrResult);
+    
+    subplot(5,1,4);
     plot(abs(corrResult));
 
-    subplot(4,1,4);
+    subplot(5,1,5);
     plot(dataSignal);
     
 %     %%%% Detect Block (Double Sliding Window) %%%%

@@ -13,7 +13,7 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         pilotLocation = [pilotLocation; (idx * pilotInterval + idx)];
     end
     
-    analyzedMat = zeros(noDataFrame, noBlksPerSig);
+    analyzedMat = zeros(noDataFrame * modulationRate, noBlksPerSig);
     blkIdx = 1;
     pos = preambleInterval + cPreLength;
     
@@ -27,46 +27,44 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         endPos = pos + symLength;
         curDataBlk = signal(pos + 1: endPos);
         curDataBlk = freqDownConversion(curDataBlk, Fc, Fs);
-        
-        lpfCurDataBlk = [curDataBlk; zeros(rxLpfDelay,1)];
-        lpfCurDataBlk = filter(rxLpf, lpfCurDataBlk);
-        lpfCurDataBlk = lpfCurDataBlk(rxLpfDelay+1:end);
-        
+
+        lpfCurDataBlk = curDataBlk;
+%         lpfCurDataBlk = [curDataBlk; zeros(rxLpfDelay,1)];
+%         lpfCurDataBlk = filter(rxLpf, lpfCurDataBlk);
+%         lpfCurDataBlk = lpfCurDataBlk(rxLpfDelay+1:end);
         
         fftData = fft(lpfCurDataBlk);
-        roiData = [fftData(end - roiBitLength/2+1:end); fftData(1:roiBitLength/2)];
+        roiData = [fftData(end - roiBitLength/2+1:end); fftData(1:roiBitLength/2)]
         
         % Channel Estimation
         LsEst = zeros(pilotLen,1);
-        
+        length(roiData);
         k = 1:pilotLen;
-        LsEst(k) = roiData(pilotLocation(k)) ./ pilotSig(k); 
+        LsEst(k) = roiData(pilotLocation(k)) ./ pilotSig(k);
         
-%         LsEst(pilotLocation) = roiData(pilotLocation) ./ pilotSig;
+
         H = interpolate(LsEst, pilotLocation, length(roiData), 'linear');
         
         chanEstData = roiData .* H';
+%         chanEstData = roiData;
+        chanEstData(pilotLocation) = [];
+        dataBlk = chanEstData
+        
+        %%%%% QAM demodulation %%%%%
+%         demodBlk = qamdemod(dataBlk,4);
+%         demodBlk = de2bi(demodBlk);
+%         demodBlk = demodBlk(:,end:-1:1);
 
-        
-        dataBlk = chanEstData;
-        dataBlk(pilotLocation) = [];
-        
-        %%%%% DBPSK demodulation %%%%%
-        dataBlk = real(dpskdemod(dataBlk,2));
-            
+        demodBlk = pskdemod(dataBlk,2);
+        binDemodBlk = reshape(demodBlk',[],1);
+  
         %%%%% DeInterleaver %%%%%%
-        deIntBlk = matdeintrlv(dataBlk,intRows,intCols);
-        deIntBlk(deIntBlk>0) = 1;
-        deIntBlk(deIntBlk<0) = 0;
-        deIntBlk = [deIntBlk; zeros(length(deIntBlk),1)];
-
+        deIntBlk = matdeintrlv(binDemodBlk,intRows,intCols);
+        
         %%%%% Viterbi Decoding %%%%%
         decodedBlk = vitdec(deIntBlk, trel, tbLen, 'trunc', 'hard');
-        decodedBlk = decodedBlk(1:length(decodedBlk)/2);
-        
         analyzedMat(:,blkIdx) = decodedBlk;
 
-        
         %%%%%%%%%%%%% PLOT %%%%%%%%%%%%%                
         subplot(noBlksPerSig,6,blkIdx*6-5);
         plot(signal(pos + 1: endPos));
@@ -79,17 +77,17 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         subplot(noBlksPerSig,6,blkIdx*6-2);
         stem(real(roiData)); hold on;
         stem(imag(roiData),'g');
+        plot(real(H),'r'); 
+        plot(imag(H),'y'); hold off;
+        
         subplot(noBlksPerSig,6,blkIdx*6-1);
         stem(real(chanEstData)); hold on;
         stem(imag(chanEstData),'g');
-        plot(real(H),'r'); 
-        plot(imag(H),'y'); hold off;
         subplot(noBlksPerSig,6,blkIdx*6);
         scatter(real(roiData),imag(roiData),'*'); hold on;
         scatter(real(chanEstData),imag(chanEstData),'*','r');        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-               
-        
+
         blkIdx = blkIdx + 1;
         pos = endPos + guardInterval + cPreLength + cPostLength;
         

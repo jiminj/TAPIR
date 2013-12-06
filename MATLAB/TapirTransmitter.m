@@ -134,6 +134,12 @@ function btnPlay_Callback(hObject, eventdata, handles)
     txBpfDelay = ceil(txBpf.order / 2);
     
     msg = get(handles.tbMsg,'String');
+    if(length(msg) < maxBitLength)
+        msg = [msg, 3];
+    elseif(length(msg) > maxBitLength)
+        msg = msg(1:maxBitLength);
+    end
+
     binData = dec2bin(msg, 8)' - 48;
     genAudioData = generateAudioData(binData);
     extendedAudioData = zeros(size(genAudioData,1) + cPreLength + cPostLength, size(genAudioData,2));
@@ -156,15 +162,27 @@ function btnPlay_Callback(hObject, eventdata, handles)
     preambleData = preambleData(txLpfDelay+1:end);
     
     upconvPreamble = freqUpConversion(preambleData, Fc, Fs);
+    
+%     testAudioData = audioData;
+%     testAudioData = [testAudioData; zeros(txBpfDelay,1)];
+%     testAudioData = filter(txBpf, testAudioData);  % Filtering
+%     testAudioData = testAudioData(txBpfDelay+1:end);
+%     
+%     audiowrite('readTest.wav', testAudioData, Fs, 'BitsPerSample', 16);
+    
     audioData = [upconvPreamble; zeros(preambleInterval,1); audioData];
     audioData = [audioData; zeros(txBpfDelay,1)];
+    
+    
     audioData = filter(txBpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
 
-%     figure();
-%     subplot(3,1,1); stem(reshape(binData,[],1));
-%     subplot(3,1,2); plot(real(audioData));
-%     subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
+    figure();
+    subplot(3,1,1); stem(reshape(binData,[],1));
+    subplot(3,1,2); plot(real(audioData));
+    subplot(3,1,3); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
+    
+    
     
     if(saveFlag == 1)
         filename = get(handles.tbFilename, 'String');
@@ -172,7 +190,9 @@ function btnPlay_Callback(hObject, eventdata, handles)
             filename = [filename, '.wav'];
         end
         filename = [pwd, '/', filename]
-        
+
+        audioData = [audioData; zeros((symLength + guardInterval + cPreLength + cPostLength) * noBlksPerSig + preambleInterval,1)];
+        length(audioData)
         audiowrite(filename, audioData, Fs, 'BitsPerSample', 16)
     end
     sound(audioData, Fs);
