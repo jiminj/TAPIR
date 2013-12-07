@@ -62,6 +62,10 @@
     int kEncodingRate;
     int kDataBitLength;
     
+    
+    //For FilterDelay
+    int kFilterDelayGuardLength;
+    
 }
 
 +(TapirConfig *)getInstance;
@@ -108,6 +112,8 @@
 @property (readonly, nonatomic) NSArray * kTrellisArray;
 @property (readonly, nonatomic) int     kEncodingRate;
 @property (readonly, nonatomic) int     kDataBitLength;
+
+@property (readonly, nonatomic) int     kFilterDelayGuardLength;
 
 @end
 

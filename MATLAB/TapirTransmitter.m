@@ -171,7 +171,7 @@ function btnPlay_Callback(hObject, eventdata, handles)
 %     audiowrite('readTest.wav', testAudioData, Fs, 'BitsPerSample', 16);
     
     audioData = [upconvPreamble; zeros(preambleInterval,1); audioData];
-    audioData = [audioData; zeros(txBpfDelay,1)];
+    audioData = [audioData; zeros(txBpfDelay*2,1)];
     
     
     audioData = filter(txBpf, audioData);  % Filtering
