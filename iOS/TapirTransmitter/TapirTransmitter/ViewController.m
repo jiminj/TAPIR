@@ -23,8 +23,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     hpf = [TapirMotherOfAllFilters createHPF1];
-    NSString * inputStr = @"test";
-    TapirConfig * cfg = [TapirConfig getInstance];
+//    NSString * inputStr = @"test";
+//    TapirConfig * cfg = [TapirConfig getInstance];
 // File write
     
 //    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"genResult.txt"]];

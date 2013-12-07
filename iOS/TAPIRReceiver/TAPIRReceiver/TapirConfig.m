@@ -21,6 +21,7 @@
 @synthesize kDecoderExtTracebackLength;
 @synthesize kTrellisArray;
 @synthesize kEncodingRate, kDataBitLength;
+@synthesize kFilterDelayGuardLength;
 
 static TapirConfig * sTapirConfig = nil;
 
@@ -103,6 +104,8 @@ static TapirConfig * sTapirConfig = nil;
     kDecoderExtTracebackLength = 4;
     kEncodingRate = [kTrellisArray count];
     kDataBitLength = kNoDataSubcarriers / kEncodingRate;
+    
+    kFilterDelayGuardLength = 100;
 
 }
 
