@@ -24,15 +24,17 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ovP-AQ-HwH">
                                 <rect key="frame" x="0.0" y="20" width="63" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Start"/>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="startTracking:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="AC4-0d-oxu"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bB3-sF-sDa">
-                                <rect key="frame" x="0.0" y="58" width="320" height="510"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bB3-sF-sDa">
+                                <rect key="frame" x="57" y="20" width="152" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -51,6 +53,9 @@
                     </view>
                     <connections>
                         <outlet property="outTF" destination="bB3-sF-sDa" id="ABK-lo-jwt"/>
+                        <outlet property="sendButton" destination="ovP-AQ-HwH" id="DPk-ZM-vjr"/>
+                        <outlet property="typeSC" destination="FaZ-pO-m7D" id="z1t-6o-o5Z"/>
+                        <outlet property="webView" destination="VjH-Jx-p5T" id="Q4X-3j-R0d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

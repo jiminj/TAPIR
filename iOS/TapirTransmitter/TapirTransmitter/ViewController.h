@@ -8,13 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
-
-@interface ViewController : UIViewController{
+#import "TapirLib/TapirLib.h"
+@interface ViewController : UIViewController<LKSimpleBitlyMagicDelegate>{
     IBOutlet UITextField* inputText;
+    IBOutlet UITextField* inputText2;
     float* encodedText;
     Sonifier* son;
     TapirMotherOfAllFilters* hpf;
+    
+    
+    
+    TapirMotherOfAllFilters* hpf2;
+    IBOutlet UISegmentedControl* sendTypeSC;
+    IBOutlet UISegmentedControl* sendTypeSC2;
+    LKSimpleBitlyMagic* wizard;
+    LKSimpleBitlyMagic* sorcerer;
 }
 -(IBAction)send:(id)sender;
-
+-(IBAction)send2:(id)sender;
 @end

@@ -12,15 +12,17 @@
 #import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
 #import "TapirSignalAnalyzer.h"
-//#import "AFNetworking.h"
-#define BITLY_API_KEY ***REMOVED***
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     LKAudioInputAccessor* aia;
     IBOutlet UITextField* windowTF;
     IBOutlet UITextField* bufferTF;
     IBOutlet UITextView* outTF;
+    IBOutlet UIButton* sendButton;
+    IBOutlet UISegmentedControl* typeSC;
+    IBOutlet UIWebView* webView;
     NSString* logString;
+    NSString* lastResultString;
 }
 
 -(IBAction)startTracking:(id)sender;
