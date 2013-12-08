@@ -48,11 +48,8 @@
 }
 
 -(void)send:(id)sender{
-    if(sendTypeSC.selectedSegmentIndex==0){
-        [self transmitString:inputText.text];
-    }else{
-        [wizard bottleMagic:inputText.text];
-    }
+    [self transmitString:@"b"];
+    [self transmitString2:@"M"];
 }
 -(void)send2:(id)sender{
     if(sendTypeSC2.selectedSegmentIndex==0){

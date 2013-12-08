@@ -26,6 +26,7 @@
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */; };
 		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
+		24AF9CB31854E05500E2E2E0 /* htmlSample in Resources */ = {isa = PBXBuildFile; fileRef = 24AF9CB21854E05500E2E2E0 /* htmlSample */; };
 		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
@@ -69,6 +70,7 @@
 		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
 		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
 		248AB4F31854BF850063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		24AF9CB21854E05500E2E2E0 /* htmlSample */ = {isa = PBXFileReference; lastKnownFileType = folder; path = htmlSample; sourceTree = "<group>"; };
 		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
 		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalAnalyzer.m; sourceTree = "<group>"; };
 		EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		245AC68C18364DBE00AF31AE /* TAPIRReceiver */ = {
 			isa = PBXGroup;
 			children = (
+				24AF9CB21854E05500E2E2E0 /* htmlSample */,
 				EC7DDFCF184E2BE200909C92 /* TapirConfig.h */,
 				EC7DDFD0184E2BE200909C92 /* TapirConfig.m */,
 				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				245AC69F18364DBE00AF31AE /* Images.xcassets in Resources */,
+				24AF9CB31854E05500E2E2E0 /* htmlSample in Resources */,
 				245AC69118364DBE00AF31AE /* InfoPlist.strings in Resources */,
 				245AC69A18364DBE00AF31AE /* Main.storyboard in Resources */,
 			);
