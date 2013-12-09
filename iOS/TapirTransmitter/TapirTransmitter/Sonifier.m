@@ -28,7 +28,7 @@
 static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
     Sonifier *data = (__bridge Sonifier *)in;
     SInt16 *buffer = (SInt16 *)qb->mAudioData;
-	qb->mAudioDataByteSize = sizeof(SInt16)* data.aqData.frameCount; // 1 frame per packet, two shorts per frame = 4 * frames
+	qb->mAudioDataByteSize = 4* data.aqData.frameCount; // 1 frame per packet, two shorts per frame = 4 * frames
 
     
     for(int i = 0; i<data.aqData.frameCount*2; i+=2){
@@ -45,6 +45,15 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
             buffer[i+1]=0;
         }
     }
+    /*
+    for(int i = 0; i<data.aqData.frameCount; i++){
+        if(data.length>0){
+            buffer[i] =( *(++data.samples))* 30000;
+            --data.length;
+        }else{
+            buffer[i]=0;
+        }
+    }*/
 
 	AudioQueueEnqueueBuffer(q, qb, 0, NULL);
      
@@ -55,7 +64,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
 		aqData.dataFormat.mSampleRate = [cfg kAudioSampleRate];
 		aqData.dataFormat.mFormatID = kAudioFormatLinearPCM;
 		aqData.dataFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger|kAudioFormatFlagIsPacked;
-		aqData.dataFormat.mBitsPerChannel = [cfg kAudioBitsPerChannel] * sizeof (SInt16);
+		aqData.dataFormat.mBitsPerChannel = 8 * sizeof (SInt16);
 		aqData.dataFormat.mChannelsPerFrame = 2;
         aqData.dataFormat.mBytesPerFrame = aqData.dataFormat.mChannelsPerFrame*aqData.dataFormat.mBitsPerChannel/8;
 		aqData.dataFormat.mFramesPerPacket = 1;

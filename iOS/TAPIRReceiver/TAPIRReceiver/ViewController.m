@@ -27,11 +27,13 @@
     
     logString = @"";
     
-    
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
     [aia startAudioInput];
     webView.allowsInlineMediaPlayback = YES;
     webView.mediaPlaybackRequiresUserAction = NO;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,9 +64,9 @@
     
     
     if([lastResultString isEqualToString:@"b"]){
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"437" ofType:@"html"] isDirectory:NO]]];
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dilu.kaist.ac.kr/mwa/437.html"]]];
     }else if([lastResultString isEqualToString:@"M"]){
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"438" ofType:@"html"] isDirectory:NO]]];
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dilu.kaist.ac.kr/mwa/438.html"]]];
     }
     
     [sendButton setEnabled:YES];

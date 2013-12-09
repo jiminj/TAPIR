@@ -48,8 +48,6 @@
 }
 
 -(void)send:(id)sender{
-    [self transmitString:@"b"];
-    [self transmitString2:@"M"];
 }
 -(void)send2:(id)sender{
     if(sendTypeSC2.selectedSegmentIndex==0){
@@ -57,6 +55,16 @@
     }else{
         [sorcerer bottleMagic:inputText2.text];
     }
+}
+-(void)left:(id)sender{
+    [self transmitString:@"b"];
+}
+-(void)right:(id)sender{
+    [self transmitString2:@"M"];
+}
+-(void)both:(id)sender{
+    [self transmitString:@"b"];
+    [self transmitString2:@"M"];
 }
 -(void)magic:(int)spellName transformed:(NSString *)original into:(NSString *)result by:(id)caster{
     if(caster==wizard){
@@ -104,14 +112,14 @@
     }
     
     int resultLength = [generator calculateResultLength:inputStr];
-    free(encodedText);
-    encodedText = calloc(resultLength, sizeof(float));
-    [generator generateSignalWith:inputStr dest:encodedText];
+    free(encodedText2);
+    encodedText2 = calloc(resultLength, sizeof(float));
+    [generator generateSignalWith:inputStr dest:encodedText2];
     hpf2 = [TapirMotherOfAllFilters createHPF1];
     for(int i = 0; i<resultLength; i++){
-        [hpf2 next:encodedText[i] writeTo:encodedText+i];
+        [hpf2 next:encodedText2[i] writeTo:encodedText2+i];
     }
-    [son transmitRight:encodedText length:resultLength ];
+    [son transmitRight:encodedText2 length:resultLength ];
 }
 
 - (void)didReceiveMemoryWarning

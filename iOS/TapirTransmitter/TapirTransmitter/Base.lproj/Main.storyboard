@@ -17,11 +17,27 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGp-6t-37Y">
-                                <rect key="frame" x="129" y="148" width="62" height="30"/>
+                                <rect key="frame" x="51" y="147" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send"/>
+                                <state key="normal" title="left"/>
                                 <connections>
-                                    <action selector="send:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pQz-x0-Jli"/>
+                                    <action selector="left:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="z1Q-z7-Q72"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n44-RV-IjC">
+                                <rect key="frame" x="209" y="147" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="right"/>
+                                <connections>
+                                    <action selector="right:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZNw-wf-bv1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPS-ha-Goe">
+                                <rect key="frame" x="51" y="185" width="220" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="both"/>
+                                <connections>
+                                    <action selector="both:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9Lb-dJ-YR6"/>
                                 </connections>
                             </button>
                         </subviews>

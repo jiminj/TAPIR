@@ -12,6 +12,7 @@
 #import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
 #import "TapirSignalAnalyzer.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     LKAudioInputAccessor* aia;

@@ -19,6 +19,7 @@
     
     
     TapirMotherOfAllFilters* hpf2;
+    float* encodedText2;
     IBOutlet UISegmentedControl* sendTypeSC;
     IBOutlet UISegmentedControl* sendTypeSC2;
     LKSimpleBitlyMagic* wizard;
@@ -26,4 +27,7 @@
 }
 -(IBAction)send:(id)sender;
 -(IBAction)send2:(id)sender;
+-(IBAction)left:(id)sender;
+-(IBAction)right:(id)sender;
+-(IBAction)both:(id)sender;
 @end
