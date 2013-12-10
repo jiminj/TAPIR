@@ -24,6 +24,7 @@
     IBOutlet UISegmentedControl* sendTypeSC2;
     LKSimpleBitlyMagic* wizard;
     LKSimpleBitlyMagic* sorcerer;
+    NSTimer* timer;
 }
 -(IBAction)send:(id)sender;
 -(IBAction)send2:(id)sender;

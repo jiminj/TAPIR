@@ -84,6 +84,14 @@
     [textField resignFirstResponder];
     return YES;
 }
+/*
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
+-(BOOL)shouldAutorotate{
+    return NO;
+}*/
 -(void)trace:(id)sender{
     [aia restart];
     

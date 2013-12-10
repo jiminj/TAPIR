@@ -45,6 +45,11 @@
     sorcerer = [[LKSimpleBitlyMagic alloc] init];
     sorcerer.delegate = self;
     
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(timer:) userInfo:nil repeats:YES];
+}
+
+-(void)timer:(NSTimer*)timer{
+    [self both:nil];
 }
 
 -(void)send:(id)sender{
