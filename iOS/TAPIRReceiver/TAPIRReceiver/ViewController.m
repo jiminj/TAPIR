@@ -33,7 +33,8 @@
     [aia startAudioInput];
     webView.allowsInlineMediaPlayback = YES;
     webView.mediaPlaybackRequiresUserAction = NO;
-    
+    [aia restart];
+    lastString = @"";
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,6 +47,8 @@
     
     [self trace:nil];
 }
+
+
 
 -(void)correlationDetected:(NSNotification*)not{
     TapirConfig * cfg = [TapirConfig getInstance];
@@ -63,14 +66,17 @@
     }];
     
     
-    if([lastResultString isEqualToString:@"b"]){
+    if([lastResultString isEqualToString:@"b"] && ![lastString isEqualToString:@"b"]){
+        lastString = @"b";
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dilu.kaist.ac.kr/mwa/437.html"]]];
-    }else if([lastResultString isEqualToString:@"M"]){
+    }else if([lastResultString isEqualToString:@"M"] && ![lastString isEqualToString:@"M"]){
+        lastString = @"M";
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dilu.kaist.ac.kr/mwa/438.html"]]];
     }
     
     [sendButton setEnabled:YES];
     
+    NSTimer* t = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(restartTimer:) userInfo:nil repeats:NO];
     //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     /*[manager GET:@"https://api-ssl.bitly.com" parameters:[NSString stringWithFormat:@"/v3/expand?access_token=%@&longUrl=%@", BITLY_API_KEY, result] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* longURL = [[[[responseObject objectForKey:@"data"] objectForKey:@"expand"] objectAtIndex:0] objectForKey:@"long_url"];
@@ -92,6 +98,10 @@
 -(BOOL)shouldAutorotate{
     return NO;
 }*/
+
+-(void)restartTimer:(NSTimer*)t{
+    [aia restart];
+}
 -(void)trace:(id)sender{
     [aia restart];
     

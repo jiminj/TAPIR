@@ -24,6 +24,7 @@
     IBOutlet UIWebView* webView;
     NSString* logString;
     NSString* lastResultString;
+    NSString* lastString;
 }
 
 -(IBAction)startTracking:(id)sender;
