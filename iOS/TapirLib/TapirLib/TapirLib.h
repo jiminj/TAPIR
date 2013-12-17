@@ -23,4 +23,5 @@
 #import "TapirDecoder.h"
 #import "LKBiquadHPF.h"
 #import "TapirMotherOfAllFilters.h"
+#import "LKSimpleBitlyMagic.h"
 #endif

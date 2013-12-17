@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 #import "LKAudioInputAccessor.h"
 
@@ -27,7 +28,14 @@
     
     logString = @"";
     
-
+    
+    [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
+    [aia startAudioInput];
+    
+    [[sendButton layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
+    [[sendButton layer] setBorderWidth:1.0f];
+    [[sendButton layer] setCornerRadius:4.0f];
+    [[sendButton layer] setMasksToBounds:YES];
     
 }
 
@@ -39,22 +47,31 @@
 
 -(void)startTracking:(id)sender{
     
-    [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
-    [aia startAudioInput];
+    [self trace:nil];
 }
 
 -(void)correlationDetected:(NSNotification*)not{
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
 
-    NSString * result = [analyzer analyze:(float*)([[[not userInfo] valueForKey:@"samples" ] intValue])];
-    NSLog(@"%@",result);
-    logString = [[NSString stringWithFormat:@"%@: %@\n", [NSDate date], result] stringByAppendingString:logString];
+    lastResultString = [analyzer analyze:(float*)([[[not userInfo] valueForKey:@"samples" ] intValue])];
+    
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterNoStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    logString = [[NSString stringWithFormat:@"%@: %@\n", [formatter stringFromDate:[NSDate date]], lastResultString] stringByAppendingString:logString];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         //Your code goes in here
         outTF.text = logString;
-
     }];
+    if(typeSC.selectedSegmentIndex==0){
+        [webView loadHTMLString:@"" baseURL:nil];
+    }else{
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bit.ly/%@", lastResultString]]]];
+    }
+    
+    [sendButton setEnabled:YES];
+    
     //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     /*[manager GET:@"https://api-ssl.bitly.com" parameters:[NSString stringWithFormat:@"/v3/expand?access_token=%@&longUrl=%@", BITLY_API_KEY, result] success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* longURL = [[[[responseObject objectForKey:@"data"] objectForKey:@"expand"] objectAtIndex:0] objectForKey:@"long_url"];
@@ -70,5 +87,7 @@
 }
 -(void)trace:(id)sender{
     [aia restart];
+    
+    [sendButton setEnabled:NO];
 }
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 #import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
@@ -22,9 +23,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    hpf = [TapirMotherOfAllFilters createHPF1];
-    NSString * inputStr = @"test";
-    TapirConfig * cfg = [TapirConfig getInstance];
+//    NSString * inputStr = @"test";
+//    TapirConfig * cfg = [TapirConfig getInstance];
 // File write
     
 //    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"genResult.txt"]];
@@ -38,16 +38,90 @@
     son = [[Sonifier alloc] init];
     [son start];
     
+    
+    wizard = [[LKSimpleBitlyMagic alloc] init];
+    wizard.delegate = self;
+    
+    
+    sorcerer = [[LKSimpleBitlyMagic alloc] init];
+    sorcerer.delegate = self;
+    
+    textModeLabelText = @"Text (Max. 8 chars)";
+    urlModeLabelText = @"URL";
+    httpPrefix = @"http://";
+    
+    [sendTypeSC setSelectedSegmentIndex:0];
+    [textLabel setText:textModeLabelText];
+    [inputText setText:@""];
+    
+    [[sendBtn layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
+    [[sendBtn layer] setBorderWidth:1.0f];
+    [[sendBtn layer] setCornerRadius:4.0f];
+    [[sendBtn layer] setMasksToBounds:YES];
+    
+    
+}
+
+-(IBAction)typeSelection:(id)sender;
+{
+    UISegmentedControl * seg = (UISegmentedControl *) sender;
+    if([seg selectedSegmentIndex] == 0 )
+    {
+        [textLabel setText:textModeLabelText];
+        [inputText setText:@""];
+    }
+    else
+    {
+        [textLabel setText:urlModeLabelText];
+        [inputText setText:httpPrefix];
+    }
+    
 }
 
 -(void)send:(id)sender{
+    if(sendTypeSC.selectedSegmentIndex==0){
+        NSString * textToSend = [inputText text];
+        if([textToSend length] >= 8)
+        {
+            textToSend = [textToSend substringToIndex:8];
+        }
+        [self transmitString:textToSend];
+        
+    }else{
+        NSString * urlToSend = [inputText text];
+        if(![urlToSend hasPrefix:httpPrefix])
+        {
+            urlToSend = [NSString stringWithFormat:@"%@%@", httpPrefix, urlToSend];
+        }
+        [wizard bottleMagic:urlToSend];
+    }
+    
+}
+-(void)send2:(id)sender{
+    if(sendTypeSC2.selectedSegmentIndex==0){
+        [self transmitString2:inputText2.text];
+    }else{
+        [sorcerer bottleMagic:inputText2.text];
+    }
+}
+-(void)magic:(int)spellName transformed:(NSString *)original into:(NSString *)result by:(id)caster{
+    if(caster==wizard){
+        [self transmitString:[result substringFromIndex:14]];
+    }else{
+        [self transmitString2:[result substringFromIndex:14]];
+    }
+}
+-(void)magic:(int)spellName failedToTransform:(NSString *)original by:(id)caster{
+    
+}
 
+-(void)transmitString:(NSString*)textToBeSent{
     //convert NSString * to Float *
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
     
     //Add ETX ascii code (end of the text)
-    NSString* inputStr = [inputText.text stringByAppendingFormat:@"%c", ASCII_ETX];
+    NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
     if([inputStr length] > [cfg kMaximumSymbolLength])
     {
         inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
@@ -57,10 +131,33 @@
     free(encodedText);
     encodedText = calloc(resultLength, sizeof(float));
     [generator generateSignalWith:inputStr dest:encodedText];
+    hpf = [TapirMotherOfAllFilters createHPF1];
     for(int i = 0; i<resultLength; i++){
         [hpf next:encodedText[i] writeTo:encodedText+i];
     }
     [son transmit:encodedText length:resultLength ];
+}
+-(void)transmitString2:(NSString*)textToBeSent{
+    //convert NSString * to Float *
+    TapirConfig * cfg = [TapirConfig getInstance];
+    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
+    
+    //Add ETX ascii code (end of the text)
+    NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
+    if([inputStr length] > [cfg kMaximumSymbolLength])
+    {
+        inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
+    }
+    
+    int resultLength = [generator calculateResultLength:inputStr];
+    free(encodedText);
+    encodedText = calloc(resultLength, sizeof(float));
+    [generator generateSignalWith:inputStr dest:encodedText];
+    hpf2 = [TapirMotherOfAllFilters createHPF1];
+    for(int i = 0; i<resultLength; i++){
+        [hpf2 next:encodedText[i] writeTo:encodedText+i];
+    }
+    [son transmitRight:encodedText length:resultLength ];
 }
 
 - (void)didReceiveMemoryWarning

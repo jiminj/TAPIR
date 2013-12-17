@@ -82,7 +82,7 @@ for idx = 1:numBlocks
 %     block = [block(end-cpLength+1:end); block];
 %     cpAddedBlk = block;
     
-%     lpf = txrxLpf;
+    lpf = txrxLpf;
 %     lpfDelay = lpf.order / 2
 %     lpfExtBlock = [block; zeros(lpfDelay, 1)];
 %     lpfExtBlock = filter(lpf, lpfExtBlock);

@@ -33,8 +33,8 @@
         absSum =0;
         tt = 0;
         fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"corr.txt"]];
-        stop = NO;
-        backtrackCounter = 0;
+        stop = YES;
+        backtrackCounter = [cfg kAudioBufferLength];
     }
     return self;
 }
@@ -83,7 +83,7 @@
     
     if(stop){
         [correlationBuffer newSample:0];
-        backtrackCounter++;
+        if(backtrackCounter<=[cfg kAudioBufferLength])backtrackCounter++;
         if(backtrackCounter==[cfg kAudioBufferLength]){
             LKVirtualSampleBuffer* sampleLog = [[LKVirtualSampleBuffer alloc] initWithRealSampleBuffer:realBuffer offSet:maxIndex andLength:[cfg kAudioBufferLength]];
             float* s = [sampleLog samples];
@@ -92,10 +92,11 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"correlationDetected" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:(int)s] forKey:@"samples"]];
             
         }
-        if(backtrackCounter>=[cfg kAudioBufferLength]+40000){
+        
+        /*if(backtrackCounter>=[cfg kAudioBufferLength]+40000){
             stop = NO;
             backtrackCounter = 0;
-        }
+        }*/
         
         return;
     }else{
@@ -169,5 +170,6 @@
 }
 -(void)restart{
     stop = NO;
+    backtrackCounter = 0;
 }
 @end

@@ -112,7 +112,7 @@
 {
     
     float * destPtr = dest;
-  
+    
     //Generate preamble
     [self generatePreamble:destPtr];
     destPtr += [cfg kPreambleLength] * 2 + [cfg kIntervalAfterPreamble];
@@ -143,7 +143,8 @@
     retVal = [cfg kPreambleLength] * 2 + [cfg kIntervalAfterPreamble]
             + ([cfg kSymbolWithCyclicExtLength]
             + [cfg kGuardIntervalLength]) * [string length]
-            - [cfg kGuardIntervalLength];
+            - [cfg kGuardIntervalLength]
+            + [cfg kFilterDelayGuardLength];
     
     return retVal;
 }

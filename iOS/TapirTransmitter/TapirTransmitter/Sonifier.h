@@ -28,6 +28,8 @@ typedef struct AQDataType {
     BOOL smooth;
     float* samples;
     int length;
+    int length2;
+    float* samples2;
 }
 
 @property (nonatomic, assign) AQDataType aqData;
@@ -38,10 +40,12 @@ typedef struct AQDataType {
 @property BOOL smooth;
 @property float* samples;
 @property int length;
+@property float* samples2;
+@property int length2;
 
 -(void)start;
 -(void)stop;
 -(void)setFreq:(float)freq;
 -(void)transmit:(float*)sampleArray length:(int)l;
-
+-(void)transmitRight:(float *)sampleArray length:(int)l;
 @end  

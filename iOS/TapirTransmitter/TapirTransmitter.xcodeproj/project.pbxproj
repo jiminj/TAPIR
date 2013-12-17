@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		248AB4F61854BF950063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F51854BF950063627C /* SystemConfiguration.framework */; };
 		24F769A01850E94C009EB100 /* Sonifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F7699E1850E94C009EB100 /* Sonifier.m */; };
 		EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */; };
 		EC0AC785184E2EB900F391C9 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		248AB4F51854BF950063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		24F7699E1850E94C009EB100 /* Sonifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sonifier.m; sourceTree = "<group>"; };
 		24F7699F1850E94C009EB100 /* Sonifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sonifier.h; sourceTree = "<group>"; };
 		EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalGenerator.h; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				248AB4F61854BF950063627C /* SystemConfiguration.framework in Frameworks */,
 				EC7DDFC3184E2AD100909C92 /* TapirLib.framework in Frameworks */,
 				EC7DDF8D184E187D00909C92 /* CoreGraphics.framework in Frameworks */,
 				EC7DDF8F184E187D00909C92 /* UIKit.framework in Frameworks */,
@@ -118,6 +121,7 @@
 		EC7DDF89184E187D00909C92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				248AB4F51854BF950063627C /* SystemConfiguration.framework */,
 				EC7DDFC1184E296000909C92 /* TapirLib.framework */,
 				EC7DDF8A184E187D00909C92 /* Foundation.framework */,
 				EC7DDF8C184E187D00909C92 /* CoreGraphics.framework */,
@@ -132,8 +136,8 @@
 			children = (
 				EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */,
 				EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.m */,
-				24F7699E1850E94C009EB100 /* Sonifier.m */,
 				24F7699F1850E94C009EB100 /* Sonifier.h */,
+				24F7699E1850E94C009EB100 /* Sonifier.m */,
 				EC7DDF99184E187D00909C92 /* AppDelegate.h */,
 				EC7DDF9A184E187D00909C92 /* AppDelegate.m */,
 				EC7DDF9C184E187D00909C92 /* Main.storyboard */,
