@@ -31,18 +31,12 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
 	qb->mAudioDataByteSize = sizeof(SInt16)* data.aqData.frameCount; // 1 frame per packet, two shorts per frame = 4 * frames
 
     
-    for(int i = 0; i<data.aqData.frameCount*2; i+=2){
+    for(int i = 0; i<data.aqData.frameCount; i++){
         if(data.length>0){
             buffer[i] =( *(++data.samples))* 30000;
             --data.length;
         }else{
             buffer[i]=0;
-        }
-        if(data.length2>0){
-            buffer[i+1] =( *(++data.samples2))* 30000;
-            --data.length2;
-        }else{
-            buffer[i+1]=0;
         }
     }
 
@@ -56,7 +50,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
 		aqData.dataFormat.mFormatID = kAudioFormatLinearPCM;
 		aqData.dataFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger|kAudioFormatFlagIsPacked;
 		aqData.dataFormat.mBitsPerChannel = [cfg kAudioBitsPerChannel] * sizeof (SInt16);
-		aqData.dataFormat.mChannelsPerFrame = 2;
+		aqData.dataFormat.mChannelsPerFrame = 1;
         aqData.dataFormat.mBytesPerFrame = aqData.dataFormat.mChannelsPerFrame*aqData.dataFormat.mBitsPerChannel/8;
 		aqData.dataFormat.mFramesPerPacket = 1;
 		aqData.dataFormat.mBytesPerPacket = aqData.dataFormat.mBytesPerFrame * aqData.dataFormat.mFramesPerPacket;
