@@ -12,12 +12,20 @@
 @interface ViewController : UIViewController<LKSimpleBitlyMagicDelegate>{
     IBOutlet UITextField* inputText;
     IBOutlet UITextField* inputText2;
+    
+    IBOutlet UILabel * textLabel;
+    IBOutlet UIButton *sendBtn;
+    
     float* encodedText;
     Sonifier* son;
+    
+
+    
+    NSString * textModeLabelText;
+    NSString * urlModeLabelText;
+    NSString * httpPrefix;
+    
     TapirMotherOfAllFilters* hpf;
-    
-    
-    
     TapirMotherOfAllFilters* hpf2;
     IBOutlet UISegmentedControl* sendTypeSC;
     IBOutlet UISegmentedControl* sendTypeSC2;
@@ -26,4 +34,7 @@
 }
 -(IBAction)send:(id)sender;
 -(IBAction)send2:(id)sender;
+
+
+-(IBAction)typeSelection:(id)sender;
 @end

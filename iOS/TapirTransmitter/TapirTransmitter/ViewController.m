@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 #import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
@@ -45,14 +46,56 @@
     sorcerer = [[LKSimpleBitlyMagic alloc] init];
     sorcerer.delegate = self;
     
+    textModeLabelText = @"Text (Max. 8 chars)";
+    urlModeLabelText = @"URL";
+    httpPrefix = @"http://";
+    
+    [sendTypeSC setSelectedSegmentIndex:0];
+    [textLabel setText:textModeLabelText];
+    [inputText setText:@""];
+    
+    [[sendBtn layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
+    [[sendBtn layer] setBorderWidth:1.0f];
+    [[sendBtn layer] setCornerRadius:4.0f];
+    [[sendBtn layer] setMasksToBounds:YES];
+    
+    
+}
+
+-(IBAction)typeSelection:(id)sender;
+{
+    UISegmentedControl * seg = (UISegmentedControl *) sender;
+    if([seg selectedSegmentIndex] == 0 )
+    {
+        [textLabel setText:textModeLabelText];
+        [inputText setText:@""];
+    }
+    else
+    {
+        [textLabel setText:urlModeLabelText];
+        [inputText setText:httpPrefix];
+    }
+    
 }
 
 -(void)send:(id)sender{
     if(sendTypeSC.selectedSegmentIndex==0){
-        [self transmitString:inputText.text];
+        NSString * textToSend = [inputText text];
+        if([textToSend length] >= 8)
+        {
+            textToSend = [textToSend substringToIndex:8];
+        }
+        [self transmitString:textToSend];
+        
     }else{
-        [wizard bottleMagic:inputText.text];
+        NSString * urlToSend = [inputText text];
+        if(![urlToSend hasPrefix:httpPrefix])
+        {
+            urlToSend = [NSString stringWithFormat:@"%@%@", httpPrefix, urlToSend];
+        }
+        [wizard bottleMagic:urlToSend];
     }
+    
 }
 -(void)send2:(id)sender{
     if(sendTypeSC2.selectedSegmentIndex==0){
