@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 #import "LKAudioInputAccessor.h"
 
@@ -30,6 +31,11 @@
     
     [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
     [aia startAudioInput];
+    
+    [[sendButton layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
+    [[sendButton layer] setBorderWidth:1.0f];
+    [[sendButton layer] setCornerRadius:4.0f];
+    [[sendButton layer] setMasksToBounds:YES];
     
 }
 
