@@ -102,7 +102,7 @@ static TapirConfig * sTapirConfig = nil;
                      nil];
 
     kDecoderExtTracebackLength = 4;
-    kEncodingRate = [kTrellisArray count];
+    kEncodingRate = (int)[kTrellisArray count];
     kDataBitLength = kNoDataSubcarriers / kEncodingRate;
     
     kFilterDelayGuardLength = 100;

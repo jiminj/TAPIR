@@ -12,10 +12,10 @@
 @implementation Sonifier
 
 @synthesize aqData;
-@synthesize phaseIncrement;
+//@synthesize phaseIncrement;
 @synthesize currentPhase;
 @synthesize indexCount;
-@synthesize period;
+//@synthesize period;
 @synthesize smooth;
 @synthesize samples;
 @synthesize length;
@@ -28,12 +28,12 @@
 static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
     Sonifier *data = (__bridge Sonifier *)in;
     SInt16 *buffer = (SInt16 *)qb->mAudioData;
+    
 	qb->mAudioDataByteSize = sizeof(SInt16)* data.aqData.frameCount; // 1 frame per packet, two shorts per frame = 4 * frames
-
     
     for(int i = 0; i<data.aqData.frameCount; i++){
-        if(data.length>0){
-            buffer[i] =( *(++data.samples))* 30000;
+        if(data.length > 0){
+            buffer[i] =( *(++data.samples)) * 30000;
             --data.length;
         }else{
             buffer[i]=0;
@@ -50,8 +50,8 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
 		aqData.dataFormat.mFormatID = kAudioFormatLinearPCM;
 		aqData.dataFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger|kAudioFormatFlagIsPacked;
 		aqData.dataFormat.mBitsPerChannel = [cfg kAudioBitsPerChannel] * sizeof (SInt16);
-		aqData.dataFormat.mChannelsPerFrame = 1;
-        aqData.dataFormat.mBytesPerFrame = aqData.dataFormat.mChannelsPerFrame*aqData.dataFormat.mBitsPerChannel/8;
+		aqData.dataFormat.mChannelsPerFrame = [cfg kAudioChannel];
+        aqData.dataFormat.mBytesPerFrame = aqData.dataFormat.mChannelsPerFrame * aqData.dataFormat.mBitsPerChannel / 8;
 		aqData.dataFormat.mFramesPerPacket = 1;
 		aqData.dataFormat.mBytesPerPacket = aqData.dataFormat.mBytesPerFrame * aqData.dataFormat.mFramesPerPacket;
 		aqData.frameCount = 1024;
@@ -61,21 +61,19 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
         
 		AudioQueueNewOutput(&aqData.dataFormat, aqCallBack, (__bridge void *)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &aqData.queue); // CFRunLoopGetCurrent()
 		smooth = NO;
-        [self setFreq:18000];
+//        [self setFreq:18000];
         currentPhase = 0;
         indexCount = 0;
 		for(int i = 0; i < NUM_BUFFERS; i++) {
 			
 			UInt32 err = AudioQueueAllocateBuffer(aqData.queue, aqData.frameCount * aqData.dataFormat.mBytesPerFrame, &aqData.buffers[i]);
 			if(err) {
-				NSLog(@"err:%d\n");
+				NSLog(@"err:%d\n", (unsigned int)err);
 			}
 			
 			aqCallBack((__bridge void *)(self), aqData.queue, aqData.buffers[i]); //prime buffer
 		}
-        
-        
-		
+        		
 		//AudioQueueSetParameter(aqData.queue, kAudioQueueParam_Volume, 1.0f);
 		
 	}
@@ -83,12 +81,11 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
 	return self;
 	
 }
-
--(void)setFreq:(float)freq{
-    phaseIncrement = 2*3.141592*freq/44100;
-    
-    period = 100*44100/freq;
-}
+//
+//-(void)setFreq:(float)freq{
+//    phaseIncrement = 2 * M_PI * freq / 44100;
+//    period = 100 * 44100 / freq;
+//}
 
 -(void)start {
 	AudioQueueStart(aqData.queue, NULL);
@@ -102,12 +99,11 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
 	AudioQueueDispose(aqData.queue, true);
 }
 
--(void)transmit:(float *)sampleArray length:(int)l{
-    samples = sampleArray;
-    length = l;
+-(void)transmit:(float *)sampleArray length:(int)len through:(OutputChannel)outputCh{
+    length = len;
+    if(outputCh == LEFT)
+    { samples = sampleArray; }
+    else
+    { samples2 = sampleArray; }
 }
--(void)transmitRight:(float *)sampleArray length:(int)l{
-    samples2 = sampleArray;
-    length2 = l;
-}
-@end  
+@end

@@ -10,14 +10,22 @@
 
 #import <TapirLib/TapirLib.h>
 
+typedef enum
+{
+    LEFT = 0,
+    RIGHT
+} OutputChannel;
+
 @interface TapirConfig : NSObject
 {
+    //For Audio Setup
     Float64 kAudioSampleRate;
     
     int     kAudioChannel;
     int     kAudioBitsPerChannel;
     float   kAudioMaxVolume;
-
+    
+    //for preamble
     int     kPreambleBitLength;
     float   kPreambleBandwidth;
     int     kPreambleLength;

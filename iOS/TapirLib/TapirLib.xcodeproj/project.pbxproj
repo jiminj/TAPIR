@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		242DA5E31848677F0043EC2A /* LKBiquadHPF.h in Headers */ = {isa = PBXBuildFile; fileRef = 242DA5E11848677F0043EC2A /* LKBiquadHPF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		242DA5E41848677F0043EC2A /* LKBiquadHPF.m in Sources */ = {isa = PBXBuildFile; fileRef = 242DA5E21848677F0043EC2A /* LKBiquadHPF.m */; };
-		248AB4B31854B0C80063627C /* LKSimpleBitlyMagic.h in Headers */ = {isa = PBXBuildFile; fileRef = 248AB4B11854B0C80063627C /* LKSimpleBitlyMagic.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		248AB4B41854B0C80063627C /* LKSimpleBitlyMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 248AB4B21854B0C80063627C /* LKSimpleBitlyMagic.m */; };
+		248AB4B31854B0C80063627C /* LKBitlyUrlShortener.h in Headers */ = {isa = PBXBuildFile; fileRef = 248AB4B11854B0C80063627C /* LKBitlyUrlShortener.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		248AB4B41854B0C80063627C /* LKBitlyUrlShortener.m in Sources */ = {isa = PBXBuildFile; fileRef = 248AB4B21854B0C80063627C /* LKBitlyUrlShortener.m */; };
 		248AB4DD1854B7E20063627C /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 248AB4CA1854B7E20063627C /* AFHTTPRequestOperation.h */; };
 		248AB4DE1854B7E20063627C /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 248AB4CB1854B7E20063627C /* AFHTTPRequestOperation.m */; };
 		248AB4DF1854B7E20063627C /* AFHTTPRequestOperationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 248AB4CC1854B7E20063627C /* AFHTTPRequestOperationManager.h */; };
@@ -77,8 +77,8 @@
 /* Begin PBXFileReference section */
 		242DA5E11848677F0043EC2A /* LKBiquadHPF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKBiquadHPF.h; sourceTree = "<group>"; };
 		242DA5E21848677F0043EC2A /* LKBiquadHPF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKBiquadHPF.m; sourceTree = "<group>"; };
-		248AB4B11854B0C80063627C /* LKSimpleBitlyMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKSimpleBitlyMagic.h; sourceTree = "<group>"; };
-		248AB4B21854B0C80063627C /* LKSimpleBitlyMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKSimpleBitlyMagic.m; sourceTree = "<group>"; };
+		248AB4B11854B0C80063627C /* LKBitlyUrlShortener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKBitlyUrlShortener.h; sourceTree = "<group>"; };
+		248AB4B21854B0C80063627C /* LKBitlyUrlShortener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKBitlyUrlShortener.m; sourceTree = "<group>"; };
 		248AB4CA1854B7E20063627C /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		248AB4CB1854B7E20063627C /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		248AB4CC1854B7E20063627C /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -235,9 +235,9 @@
 				249B623718447A3F001C3E2B /* LKVirtualSampleBuffer.m */,
 				242DA5E11848677F0043EC2A /* LKBiquadHPF.h */,
 				242DA5E21848677F0043EC2A /* LKBiquadHPF.m */,
+				248AB4B11854B0C80063627C /* LKBitlyUrlShortener.h */,
+				248AB4B21854B0C80063627C /* LKBitlyUrlShortener.m */,
 				EC0EEF71183A4A51001BC8DE /* Supporting Files */,
-				248AB4B11854B0C80063627C /* LKSimpleBitlyMagic.h */,
-				248AB4B21854B0C80063627C /* LKSimpleBitlyMagic.m */,
 			);
 			path = TapirLib;
 			sourceTree = "<group>";
@@ -301,7 +301,7 @@
 				EC186D0D1847A47C00A89628 /* TapirTrellisCode.h in Headers */,
 				EC313896183B75FC00C82186 /* TapirModulator.h in Headers */,
 				249B623818447A3F001C3E2B /* LKRealSampleBuffer.h in Headers */,
-				248AB4B31854B0C80063627C /* LKSimpleBitlyMagic.h in Headers */,
+				248AB4B31854B0C80063627C /* LKBitlyUrlShortener.h in Headers */,
 				EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */,
 				249B622A184477EC001C3E2B /* TapirMotherOfAllFilters.h in Headers */,
 				248AB4EE1854B7E20063627C /* AFURLSessionManager.h in Headers */,
@@ -438,7 +438,7 @@
 				248AB4E01854B7E20063627C /* AFHTTPRequestOperationManager.m in Sources */,
 				EC186D0218437F0800A89628 /* TapirEncoder.m in Sources */,
 				248AB4E91854B7E20063627C /* AFURLConnectionOperation.m in Sources */,
-				248AB4B41854B0C80063627C /* LKSimpleBitlyMagic.m in Sources */,
+				248AB4B41854B0C80063627C /* LKBitlyUrlShortener.m in Sources */,
 				EC31389B183BE1A200C82186 /* TapirDsp.m in Sources */,
 				248AB4EB1854B7E20063627C /* AFURLRequestSerialization.m in Sources */,
 				EC313897183B75FC00C82186 /* TapirModulator.m in Sources */,

@@ -37,6 +37,8 @@
         modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
         interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
         convEncoder = [[TapirConvEncoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
+        
+        hpf = [TapirMotherOfAllFilters createHPF1];
 //        vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
     }
@@ -108,7 +110,7 @@
     free(preamble.imagp);
 }
 
-- (void) generateSignalWith:(NSString *)inputString dest:(float *)dest
+- (void) generateSignalWith:(NSString *)inputString dest:(float *)dest length:(int)destLength
 {
     
     float * destPtr = dest;
@@ -133,7 +135,12 @@
             //To prevent to access unallocated space.
         }
     }
-    //TODO: HPF for destPtr
+    
+    
+    // HPF
+    for(int i = 0; i < destLength; i++){
+        [hpf next:dest[i] writeTo:&dest[i]];
+    }
 
 }
 
@@ -141,8 +148,7 @@
 {
     int retVal = 0;
     retVal = [cfg kPreambleLength] * 2 + [cfg kIntervalAfterPreamble]
-            + ([cfg kSymbolWithCyclicExtLength]
-            + [cfg kGuardIntervalLength]) * [string length]
+            + ([cfg kSymbolWithCyclicExtLength] + [cfg kGuardIntervalLength]) * (int)[string length]
             - [cfg kGuardIntervalLength]
             + [cfg kFilterDelayGuardLength];
     

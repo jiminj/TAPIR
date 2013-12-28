@@ -14,6 +14,8 @@
 
 @interface ViewController ()
 
+- (void)transmitString:(NSString*)textToBeSent through:(OutputChannel)outputCh;
+
 @end
 
 @implementation ViewController
@@ -39,12 +41,11 @@
     [son start];
     
     
-    wizard = [[LKSimpleBitlyMagic alloc] init];
-    wizard.delegate = self;
+    wizard = [[LKBitlyUrlShortener alloc] init];
+    [wizard setDelegate:self];
     
-    
-    sorcerer = [[LKSimpleBitlyMagic alloc] init];
-    sorcerer.delegate = self;
+    sorcerer = [[LKBitlyUrlShortener alloc] init];
+    [sorcerer setDelegate:self];
     
     textModeLabelText = @"Text (Max. 8 chars)";
     urlModeLabelText = @"URL";
@@ -79,65 +80,53 @@
 }
 
 -(void)send:(id)sender{
-    if(sendTypeSC.selectedSegmentIndex==0){
+    if(sendTypeSC.selectedSegmentIndex==0)
+    {
         NSString * textToSend = [inputText text];
         if([textToSend length] >= 8)
         {
             textToSend = [textToSend substringToIndex:8];
         }
-        [self transmitString:textToSend];
+        [self transmitString:textToSend through:LEFT];
         
-    }else{
+    }
+    else
+    {
         NSString * urlToSend = [inputText text];
         if(![urlToSend hasPrefix:httpPrefix])
         {
             urlToSend = [NSString stringWithFormat:@"%@%@", httpPrefix, urlToSend];
         }
-        [wizard bottleMagic:urlToSend];
+        [wizard shortenUrl:urlToSend];
     }
-    
-}
--(void)send2:(id)sender{
-    if(sendTypeSC2.selectedSegmentIndex==0){
-        [self transmitString2:inputText2.text];
-    }else{
-        [sorcerer bottleMagic:inputText2.text];
-    }
-}
--(void)magic:(int)spellName transformed:(NSString *)original into:(NSString *)result by:(id)caster{
-    if(caster==wizard){
-        [self transmitString:[result substringFromIndex:14]];
-    }else{
-        [self transmitString2:[result substringFromIndex:14]];
-    }
-}
--(void)magic:(int)spellName failedToTransform:(NSString *)original by:(id)caster{
     
 }
 
--(void)transmitString:(NSString*)textToBeSent{
-    //convert NSString * to Float *
-    TapirConfig * cfg = [TapirConfig getInstance];
-    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
-    
-    //Add ETX ascii code (end of the text)
-    NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
-    if([inputStr length] > [cfg kMaximumSymbolLength])
+//-(void)send2:(id)sender{
+//    if(sendTypeSC2.selectedSegmentIndex==0){
+//        [self transmitString2:inputText2.text];
+//    }else{
+//        [sorcerer shortenUrl:inputText2.text];
+//    }
+//}
+
+-(void)didFinishBitlyConvertFrom:(NSString *)original to:(NSString *)result by:(id)obj{
+
+    if([result length] > 0)
     {
-        inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
+        OutputChannel outCh;
+        NSString * bitlyPostfix = [result substringFromIndex:14];
+        if(obj == wizard){
+            outCh = LEFT;
+        }else{
+            outCh = RIGHT;
+        }
+        [self transmitString:bitlyPostfix through:outCh];
     }
-    
-    int resultLength = [generator calculateResultLength:inputStr];
-    free(encodedText);
-    encodedText = calloc(resultLength, sizeof(float));
-    [generator generateSignalWith:inputStr dest:encodedText];
-    hpf = [TapirMotherOfAllFilters createHPF1];
-    for(int i = 0; i<resultLength; i++){
-        [hpf next:encodedText[i] writeTo:encodedText+i];
-    }
-    [son transmit:encodedText length:resultLength ];
 }
--(void)transmitString2:(NSString*)textToBeSent{
+
+- (void)transmitString:(NSString*)textToBeSent through:(OutputChannel)outputCh
+{
     //convert NSString * to Float *
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
@@ -152,12 +141,9 @@
     int resultLength = [generator calculateResultLength:inputStr];
     free(encodedText);
     encodedText = calloc(resultLength, sizeof(float));
-    [generator generateSignalWith:inputStr dest:encodedText];
-    hpf2 = [TapirMotherOfAllFilters createHPF1];
-    for(int i = 0; i<resultLength; i++){
-        [hpf2 next:encodedText[i] writeTo:encodedText+i];
-    }
-    [son transmitRight:encodedText length:resultLength ];
+    [generator generateSignalWith:inputStr dest:encodedText length:resultLength];
+    
+    [son transmit:encodedText length:resultLength through:outputCh];
 }
 
 - (void)didReceiveMemoryWarning

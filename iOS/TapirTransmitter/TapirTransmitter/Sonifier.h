@@ -33,10 +33,12 @@ typedef struct AQDataType {
 }
 
 @property (nonatomic, assign) AQDataType aqData;
-@property float phaseIncrement;
+
 @property float currentPhase;
 @property int indexCount;
-@property int period;
+//@property float phaseIncrement;
+//@property int period;
+
 @property BOOL smooth;
 @property float* samples;
 @property int length;
@@ -46,6 +48,6 @@ typedef struct AQDataType {
 -(void)start;
 -(void)stop;
 -(void)setFreq:(float)freq;
--(void)transmit:(float*)sampleArray length:(int)l;
--(void)transmitRight:(float *)sampleArray length:(int)l;
+-(void)transmit:(float*)sampleArray length:(int)len through:(OutputChannel)outputCh;
+
 @end  
