@@ -72,14 +72,7 @@
     
     [sendButton setEnabled:YES];
     
-    //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    /*[manager GET:@"https://api-ssl.bitly.com" parameters:[NSString stringWithFormat:@"/v3/expand?access_token=%@&longUrl=%@", BITLY_API_KEY, result] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString* longURL = [[[[responseObject objectForKey:@"data"] objectForKey:@"expand"] objectAtIndex:0] objectForKey:@"long_url"];
-        NSLog(longURL);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];*/
-    //[aia restart];
+
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

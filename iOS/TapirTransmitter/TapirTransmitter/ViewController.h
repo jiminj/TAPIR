@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
 #import "TapirLib/TapirLib.h"
-@interface ViewController : UIViewController<LKBitlyUrlConverterDelegate>{
+@interface ViewController : UIViewController<LKBitlyUrlConverterDelegate, SonifierDelegate>{
     IBOutlet UITextField* inputText;
     IBOutlet UITextField* inputText2;
     
@@ -19,8 +19,8 @@
     IBOutlet UISegmentedControl* sendTypeSC;
     IBOutlet UISegmentedControl* sendTypeSC2;
     
-    float* encodedText;
-    Sonifier* son;
+    float* encodedAudioData;
+    Sonifier* sonifier;
     
     NSString * textModeLabelText;
     NSString * urlModeLabelText;

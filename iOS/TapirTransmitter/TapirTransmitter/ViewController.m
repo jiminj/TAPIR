@@ -36,9 +36,10 @@
 //        [resultString appendFormat:@"%f\n",result[i]];
 //    }
 //    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    son = [[Sonifier alloc] init];
-    [son start];
+
+    sonifier = [[Sonifier alloc] initWithConfig:[TapirConfig getInstance]];
+    [sonifier setDelegate:self];
+//    [son start];
     
     
     wizard = [[LKBitlyUrlShortener alloc] init];
@@ -139,11 +140,18 @@
     }
     
     int resultLength = [generator calculateResultLength:inputStr];
-    free(encodedText);
-    encodedText = calloc(resultLength, sizeof(float));
-    [generator generateSignalWith:inputStr dest:encodedText length:resultLength];
-    
-    [son transmit:encodedText length:resultLength through:outputCh];
+
+    free(encodedAudioData);
+    encodedAudioData = calloc(resultLength, sizeof(float));
+
+    [generator generateSignalWith:inputStr dest:encodedAudioData length:resultLength];
+    [sonifier transmit:encodedAudioData length:resultLength];
+//    [sonifier transmit:encodedText length:resultLength outputChannel:outputCh];
+}
+
+-(void) sonifierFinished
+{
+    free(encodedAudioData);
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,6 +162,6 @@
 
 -(void) dealloc
 {
-    free(encodedText);
+    free(encodedAudioData);
 }
 @end

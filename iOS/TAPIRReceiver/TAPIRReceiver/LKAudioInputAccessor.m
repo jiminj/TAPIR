@@ -59,7 +59,7 @@ static void HandleInputBuffer (
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
     aqData.mDataFormat.mSampleRate       = [cfg kAudioSampleRate];
     aqData.mDataFormat.mChannelsPerFrame = [cfg kAudioChannel];
-    aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)* [cfg kAudioBitsPerChannel];
+    aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)* 8;
     aqData.mDataFormat.mBytesPerPacket   =
     aqData.mDataFormat.mBytesPerFrame =
     aqData.mDataFormat.mChannelsPerFrame * sizeof (SInt16);
@@ -79,7 +79,7 @@ static void HandleInputBuffer (
     asbd.mFramesPerPacket = 1;
     asbd.mChannelsPerFrame = [cfg kAudioChannel];
     asbd.mBytesPerPacket = asbd.mBytesPerFrame = sizeof (SInt16);
-    asbd.mBitsPerChannel = [cfg kAudioBitsPerChannel] * sizeof (SInt16);
+    asbd.mBitsPerChannel = 8 * sizeof (SInt16);
     asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     asbd.mFormatID = kAudioFormatLinearPCM;
     
