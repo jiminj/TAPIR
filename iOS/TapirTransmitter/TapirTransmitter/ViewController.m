@@ -141,7 +141,6 @@
     
     int resultLength = [generator calculateResultLength:inputStr];
 
-    free(encodedAudioData);
     encodedAudioData = calloc(resultLength, sizeof(float));
 
     [generator generateSignalWith:inputStr dest:encodedAudioData length:resultLength];
@@ -151,6 +150,7 @@
 
 -(void) sonifierFinished
 {
+    NSLog(@"Finished");
     free(encodedAudioData);
 }
 

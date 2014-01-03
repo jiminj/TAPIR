@@ -62,8 +62,6 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             if(err != noErr) {
                 NSLog(@"err:%d\n", (unsigned int)err);
             }
-//            aqCallBack((__bridge void *)(self), queue, buffer[i]); //prime buffer
-
         }
         
     }
@@ -75,18 +73,14 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
 {
     doneCnt = 0;
     isDone = FALSE;
-    
-    NSLog(@"PLAY!");
-    
+
     for(int i = 0; i < NUM_BUFFERS; i++)
     {
         aqCallBack((__bridge void *)(self), queue, buffer[i]); //prime buffer
     }
 
-//    [self setQueue];
     [self setDataLength:len];
     audioData = _audioData;
-    curDataPosition = audioData;
 
     OSStatus err = AudioQueueStart(queue, NULL);
     if(err != noErr)
@@ -119,13 +113,11 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             copyLen = dataLength;
             memset(bufferData+copyLen, 0, sizeof(SInt16) * (frameCount - dataLength));
             isDone = TRUE;
-//            NSLog(@"DONE!!");
         }
-        
-        vDSP_vmul(curDataPosition, 1, &shortMax, 1, curDataPosition, 1, copyLen);
-        vDSP_vfix16(curDataPosition, 1, bufferData, 1, copyLen);
+        vDSP_vsmul(audioData, 1, &shortMax, audioData, 1, copyLen);
+        vDSP_vfix16(audioData, 1, bufferData, 1, copyLen);
 
-        curDataPosition += copyLen;
+        audioData += copyLen;
         dataLength = newDataLength;
         
         AudioQueueEnqueueBuffer(q, buf, 0, NULL);
@@ -134,13 +126,13 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
     {
         if(isDone)
         {
-            OSStatus err = AudioQueueStop(q, true);
-            if(err!=noErr)
-            {
-                NSLog(@"Cannot Stop");
-            }
             if(++doneCnt >= NUM_BUFFERS)
             {
+                OSStatus err = AudioQueueStop(q, true);
+                if(err!=noErr)
+                {
+                    NSLog(@"Cannot Stop");
+                }
                 [delegate sonifierFinished];
             }
         }

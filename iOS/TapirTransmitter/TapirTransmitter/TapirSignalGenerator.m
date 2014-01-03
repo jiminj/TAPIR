@@ -135,13 +135,11 @@
             //To prevent to access unallocated space.
         }
     }
-    
-    
-    // HPF
+     // HPF
     for(int i = 0; i < destLength; i++){
         [hpf next:dest[i] writeTo:&dest[i]];
     }
-
+//    maximizeSignal(dest, dest, destLength, 0.95);
 }
 
 - (int) calculateResultLength:(NSString *)string
