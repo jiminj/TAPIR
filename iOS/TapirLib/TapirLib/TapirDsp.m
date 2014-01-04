@@ -106,6 +106,7 @@ void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     int logLen = calculateLogLength(fftLength);
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);
     vDSP_fft_zop(setup, signal, 1, dest, 1, logLen, FFT_FORWARD);
+    vDSP_destroy_fftsetup(setup);
 }
 
 void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength)
@@ -113,6 +114,7 @@ void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     int logLen = calculateLogLength(fftLength);
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);
     vDSP_fft_zop(setup, signal, 1, dest, 1, logLen, FFT_INVERSE);
+    vDSP_destroy_fftsetup(setup);    
 }
 
 int mergeBitsToIntegerValue(const int * intArray, int arrLength)
