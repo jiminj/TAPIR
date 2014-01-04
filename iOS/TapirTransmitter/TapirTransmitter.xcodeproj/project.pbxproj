@@ -234,6 +234,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Jimin Jeon";
 				TargetAttributes = {
+					EC7DDF86184E187D00909C92 = {
+						DevelopmentTeam = 6QXQ94WQLA;
+					};
 					EC7DDFA7184E187D00909C92 = {
 						TestTargetID = EC7DDF86184E187D00909C92;
 					};
@@ -426,6 +429,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
@@ -443,6 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
