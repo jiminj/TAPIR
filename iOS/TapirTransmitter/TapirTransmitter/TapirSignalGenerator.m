@@ -57,6 +57,7 @@
     [modulator modulate:interleaved dest:&modulated length:[cfg kNoDataSubcarriers]];
     //Add pilot
     [pilotMgr addPilotTo:&modulated dest:&pilotAdded srcLength:[cfg kNoDataSubcarriers]];
+    
 
     //reverse each half and extend for ifft
     int firstHalfLength = (floor)([cfg kNoTotalSubcarriers] / 2);
@@ -126,6 +127,7 @@
 
         char inputChar = [inputString characterAtIndex:i];
         [self encodeOneChar:inputChar dest:curSymbolPtr ];
+         
         maximizeSignal(curSymbolPtr, curSymbolPtr, [cfg kSymbolLength], [cfg kAudioMaxVolume]);
         [self addPrefixAndPostfixWith:curSymbolPtr dest:destPtr];
 
@@ -135,11 +137,12 @@
             //To prevent to access unallocated space.
         }
     }
+    
      // HPF
     for(int i = 0; i < destLength; i++){
         [hpf next:dest[i] writeTo:&dest[i]];
     }
-//    maximizeSignal(dest, dest, destLength, 0.95);
+    maximizeSignal(dest, dest, destLength, [cfg kAudioMaxVolume]);
 }
 
 - (int) calculateResultLength:(NSString *)string

@@ -49,11 +49,13 @@
 
     TapirViterbiDecoder * vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:treArr];
     
-    float input[] = {0,0,1,1,0,1,1,0,0,1,0,0,1,0,1,1};
+    float z[] = {0,0,1,1, 0,1,1,0, 0,1,1,0, 1,0,1,1};
+    float z2[] = {0,0,1,1, 0,1,1,0, 0,1,1,0, 1,0,0,0};
     int dest[8];
+    int dest2[8];
     
-    [vitdec decode:input dest:dest srcLength:16];
-    
+    [vitdec decode:z dest:dest srcLength:16];
+    [vitdec decode:z2 dest:dest2 srcLength:16];
     
 }
 

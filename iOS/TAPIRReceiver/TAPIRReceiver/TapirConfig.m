@@ -101,7 +101,7 @@ static TapirConfig * sTapirConfig = nil;
                      [[TapirTrellisCode alloc] initWithG:133],
                      nil];
 
-    kDecoderExtTracebackLength = 4;
+//    kDecoderExtTracebackLength = 0;
     kEncodingRate = (int)[kTrellisArray count];
     kDataBitLength = kNoDataSubcarriers / kEncodingRate;
     

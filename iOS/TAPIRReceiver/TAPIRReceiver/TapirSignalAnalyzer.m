@@ -90,10 +90,9 @@
     [modulator demodulate:&pilotRemovedSignal dest:demod length:[cfg kNoDataSubcarriers]];
     //Deinterleaver
     [interleaver deinterleave:demod to:deinterleaved];
-    
-    // Viterbi Decoding
-    [vitdec decode:deinterleaved dest:decoded srcLength:[cfg kNoDataSubcarriers] extLength:[cfg kDecoderExtTracebackLength]];
 
+    // Viterbi Decoding
+    [vitdec decode:deinterleaved dest:decoded srcLength:[cfg kNoDataSubcarriers]];
     return ((char)mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
 
 }

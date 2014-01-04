@@ -9,6 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
 #import "TapirLib/TapirLib.h"
+#import "TapirConfig.h"
+#import "TapirSignalGenerator.h"
+
+typedef enum
+{
+    LEFT = 0,
+    RIGHT
+} OutputChannel;
+
+
+
 @interface ViewController : UIViewController<LKBitlyUrlConverterDelegate, SonifierDelegate>{
     IBOutlet UITextField* inputText;
     IBOutlet UITextField* inputText2;
@@ -22,6 +33,9 @@
     float* encodedAudioData;
     Sonifier* sonifier;
     
+    TapirConfig * cfg;
+    TapirSignalGenerator * generator;
+    
     NSString * textModeLabelText;
     NSString * urlModeLabelText;
     NSString * httpPrefix;
@@ -29,7 +43,7 @@
     TapirMotherOfAllFilters* hpf;
     TapirMotherOfAllFilters* hpf2;
 
-    LKBitlyUrlShortener* wizard;
+    LKBitlyUrlShortener* bitlyShortener;
     LKBitlyUrlShortener* sorcerer;
 }
 -(IBAction)send:(id)sender;

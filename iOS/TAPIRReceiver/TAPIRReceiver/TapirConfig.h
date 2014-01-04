@@ -10,12 +10,6 @@
 
 #import <TapirLib/TapirLib.h>
 
-typedef enum
-{
-    LEFT = 0,
-    RIGHT
-} OutputChannel;
-
 @interface TapirConfig : NSObject
 {
     //For Audio Setup

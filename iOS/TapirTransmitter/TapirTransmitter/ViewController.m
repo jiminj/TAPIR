@@ -9,8 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 #import <TapirLib/TapirLib.h>
-#import "TapirConfig.h"
-#import "TapirSignalGenerator.h"
+
 
 @interface ViewController ()
 
@@ -37,13 +36,17 @@
 //    }
 //    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
 
+    cfg = [TapirConfig getInstance];
+    generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
+
+    
     sonifier = [[Sonifier alloc] initWithConfig:[TapirConfig getInstance]];
     [sonifier setDelegate:self];
 //    [son start];
     
     
-    wizard = [[LKBitlyUrlShortener alloc] init];
-    [wizard setDelegate:self];
+    bitlyShortener = [[LKBitlyUrlShortener alloc] init];
+    [bitlyShortener setDelegate:self];
     
     sorcerer = [[LKBitlyUrlShortener alloc] init];
     [sorcerer setDelegate:self];
@@ -98,7 +101,8 @@
         {
             urlToSend = [NSString stringWithFormat:@"%@%@", httpPrefix, urlToSend];
         }
-        [wizard shortenUrl:urlToSend];
+        [bitlyShortener shortenUrl:urlToSend];
+        [self transmitString:urlToSend through:LEFT];
     }
     
 }
@@ -117,7 +121,7 @@
     {
         OutputChannel outCh;
         NSString * bitlyPostfix = [result substringFromIndex:14];
-        if(obj == wizard){
+        if(obj == bitlyShortener){
             outCh = LEFT;
         }else{
             outCh = RIGHT;
@@ -129,8 +133,8 @@
 - (void)transmitString:(NSString*)textToBeSent through:(OutputChannel)outputCh
 {
     //convert NSString * to Float *
-    TapirConfig * cfg = [TapirConfig getInstance];
-    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
+//    TapirConfig * cfg = [TapirConfig getInstance];
+//    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
     
     //Add ETX ascii code (end of the text)
     NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
@@ -144,14 +148,15 @@
     encodedAudioData = calloc(resultLength, sizeof(float));
 
     [generator generateSignalWith:inputStr dest:encodedAudioData length:resultLength];
+    
     [sonifier transmit:encodedAudioData length:resultLength];
-//    [sonifier transmit:encodedText length:resultLength outputChannel:outputCh];
+    [sendBtn setEnabled:FALSE];
 }
 
 -(void) sonifierFinished
 {
-    NSLog(@"Finished");
     free(encodedAudioData);
+    [sendBtn setEnabled:TRUE];
 }
 
 - (void)didReceiveMemoryWarning
