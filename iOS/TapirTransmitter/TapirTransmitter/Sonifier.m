@@ -7,107 +7,144 @@
 //
 
 #import "Sonifier.h"
-#define pulsePeriod 4410
+
+
 
 @implementation Sonifier
 
-@synthesize aqData;
-@synthesize phaseIncrement;
-@synthesize currentPhase;
-@synthesize indexCount;
-@synthesize period;
-@synthesize smooth;
-@synthesize samples;
-@synthesize length;
-@synthesize samples2;
-@synthesize length2;
+@synthesize dataLength;
+@synthesize isPlaying;
+//@synthesize isBufferInit;
+@synthesize delegate;
+//@synthesize aqData;
 
-//float smoothing[245] = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1,1,1,1,1,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1};
-//float smoothing[24] = {0.0078125,0.015625,0.03125,0.0625,0.125,0.25,0.5,1,1,1,1,1,1,1,1,1,1,0.5,0.25,0.125,0.0625,0.03125,0.015625,0.0078125};
+//@synthesize samples;
+//@synthesize length;
+//@synthesize samples2;
+//@synthesize length2;
 
-static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb) {
-    Sonifier *data = (__bridge Sonifier *)in;
-    SInt16 *buffer = (SInt16 *)qb->mAudioData;
-	qb->mAudioDataByteSize = sizeof(SInt16)* data.aqData.frameCount; // 1 frame per packet, two shorts per frame = 4 * frames
 
-    
-    for(int i = 0; i<data.aqData.frameCount; i++){
-        if(data.length>0){
-            buffer[i] =( *(++data.samples))* 30000;
-            --data.length;
-        }else{
-            buffer[i]=0;
+static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
+{
+    Sonifier * thisInstance = (__bridge Sonifier *)in;
+    [thisInstance processAudioQueue:q buffer:qb];
+}
+
+
+-(id)init{
+    return nil;
+}
+
+- (id)initWithConfig:(TapirConfig *)_cfg
+{
+    if(self = [super init]) {
+        cfg = _cfg;
+		
+        audioDesc.mSampleRate = [cfg kAudioSampleRate];
+		audioDesc.mFormatID = kAudioFormatLinearPCM;
+		audioDesc.mFormatFlags = kAudioFormatFlagIsSignedInteger|kAudioFormatFlagIsPacked;
+        audioDesc.mBitsPerChannel = 8 * sizeof(SInt16);
+		audioDesc.mChannelsPerFrame = [cfg kAudioChannel];
+		audioDesc.mBytesPerFrame = audioDesc.mChannelsPerFrame * audioDesc.mBitsPerChannel / 8;
+		audioDesc.mFramesPerPacket = 1;
+		audioDesc.mBytesPerPacket = audioDesc.mBytesPerFrame * audioDesc.mFramesPerPacket;
+        frameCount = 1024;
+        
+        OSStatus err = AudioQueueNewOutput(&audioDesc, aqCallBack, (__bridge void *)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &queue); // CFRunLoopGetCurrent()
+        if(err != noErr)
+        {
+            NSLog(@"ERR");
         }
+        
+        for(int i = 0; i < NUM_BUFFERS; i++)
+        {
+            OSStatus err = AudioQueueAllocateBuffer(queue, frameCount * audioDesc.mBytesPerFrame, &buffer[i]);
+            if(err != noErr) {
+                NSLog(@"err:%d\n", (unsigned int)err);
+            }
+        }
+        
+    }
+    
+	return self;
+}
+
+-(void)transmit:(float *)_audioData length:(int)len
+{
+    doneCnt = 0;
+    isDone = FALSE;
+
+    for(int i = 0; i < NUM_BUFFERS; i++)
+    {
+        aqCallBack((__bridge void *)(self), queue, buffer[i]); //prime buffer
     }
 
-	AudioQueueEnqueueBuffer(q, qb, 0, NULL);
-     
-}   
--(id)init{
-	if(self = [super init]) {
-        TapirConfig* cfg = [TapirConfig getInstance];
-		aqData.dataFormat.mSampleRate = [cfg kAudioSampleRate];
-		aqData.dataFormat.mFormatID = kAudioFormatLinearPCM;
-		aqData.dataFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger|kAudioFormatFlagIsPacked;
-		aqData.dataFormat.mBitsPerChannel = [cfg kAudioBitsPerChannel] * sizeof (SInt16);
-		aqData.dataFormat.mChannelsPerFrame = 1;
-        aqData.dataFormat.mBytesPerFrame = aqData.dataFormat.mChannelsPerFrame*aqData.dataFormat.mBitsPerChannel/8;
-		aqData.dataFormat.mFramesPerPacket = 1;
-		aqData.dataFormat.mBytesPerPacket = aqData.dataFormat.mBytesPerFrame * aqData.dataFormat.mFramesPerPacket;
-		aqData.frameCount = 1024;
-        //samples = malloc(sizeof(float)*[cfg kAudioBufferLength]);
-        length = 0;
-        length2 = 0;
-        
-		AudioQueueNewOutput(&aqData.dataFormat, aqCallBack, (__bridge void *)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &aqData.queue); // CFRunLoopGetCurrent()
-		smooth = NO;
-        [self setFreq:18000];
-        currentPhase = 0;
-        indexCount = 0;
-		for(int i = 0; i < NUM_BUFFERS; i++) {
-			
-			UInt32 err = AudioQueueAllocateBuffer(aqData.queue, aqData.frameCount * aqData.dataFormat.mBytesPerFrame, &aqData.buffers[i]);
-			if(err) {
-				NSLog(@"err:%d\n");
-			}
-			
-			aqCallBack((__bridge void *)(self), aqData.queue, aqData.buffers[i]); //prime buffer
-		}
-        
-        
-		
-		//AudioQueueSetParameter(aqData.queue, kAudioQueueParam_Volume, 1.0f);
-		
-	}
-	
-	return self;
-	
-}
+    [self setDataLength:len];
+    audioData = _audioData;
 
--(void)setFreq:(float)freq{
-    phaseIncrement = 2*3.141592*freq/44100;
+    OSStatus err = AudioQueueStart(queue, NULL);
+    if(err != noErr)
+    { NSLog(@"cannot play"); }
     
-    period = 100*44100/freq;
 }
 
--(void)start {
-	AudioQueueStart(aqData.queue, NULL);
-}
 
--(void)stop {
-	AudioQueueStop(aqData.queue, true);
+- (void)processAudioQueue:(AudioQueueRef)q buffer:(AudioQueueBufferRef)buf
+{
+
+
+    SInt16 *bufferData = (SInt16 *)buf->mAudioData;
+	buf->mAudioDataByteSize = audioDesc.mChannelsPerFrame * frameCount * sizeof(SInt16); // 1 frame per packet, two shorts per frame = 4 * frames)
+    
+//    NSLog(@"callback - %d of %d",dataLength, buf->mAudioData);
+    float shortMax = (float)(SHRT_MAX);
+    if(dataLength > 0) //isRunning
+    {
+        int copyLen;
+        int newDataLength = 0;
+        
+        if(dataLength > frameCount)
+        {
+            copyLen = frameCount;
+            newDataLength = dataLength - frameCount;
+        }
+        else
+        {
+            copyLen = dataLength;
+            memset(bufferData+copyLen, 0, sizeof(SInt16) * (frameCount - dataLength));
+            isDone = TRUE;
+        }
+        vDSP_vsmul(audioData, 1, &shortMax, audioData, 1, copyLen);
+        vDSP_vfix16(audioData, 1, bufferData, 1, copyLen);
+
+        audioData += copyLen;
+        dataLength = newDataLength;
+        
+        AudioQueueEnqueueBuffer(q, buf, 0, NULL);
+    }
+    else
+    {
+        if(isDone)
+        {
+            if(++doneCnt >= NUM_BUFFERS)
+            {
+                OSStatus err = AudioQueueStop(q, true);
+                if(err!=noErr)
+                {
+                    NSLog(@"Cannot Stop");
+                }
+                [delegate sonifierFinished];
+            }
+        }
+        else
+        {
+            memset(bufferData, 0, frameCount * sizeof(SInt16));
+            AudioQueueEnqueueBuffer(q, buf, 0, NULL);
+        }
+    }
 }
 
 -(void)dealloc {
-	AudioQueueDispose(aqData.queue, true);
+    AudioQueueDispose(queue, true);
 }
-
--(void)transmit:(float *)sampleArray length:(int)l{
-    samples = sampleArray;
-    length = l;
-}
--(void)transmitRight:(float *)sampleArray length:(int)l{
-    samples2 = sampleArray;
-    length2 = l;
-}
-@end  
+@end

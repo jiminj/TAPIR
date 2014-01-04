@@ -9,17 +9,32 @@
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
 #import "TapirLib/TapirLib.h"
-@interface ViewController : UIViewController<LKSimpleBitlyMagicDelegate>{
+#import "TapirConfig.h"
+#import "TapirSignalGenerator.h"
+
+typedef enum
+{
+    LEFT = 0,
+    RIGHT
+} OutputChannel;
+
+
+
+@interface ViewController : UIViewController<LKBitlyUrlConverterDelegate, SonifierDelegate>{
     IBOutlet UITextField* inputText;
     IBOutlet UITextField* inputText2;
     
     IBOutlet UILabel * textLabel;
     IBOutlet UIButton *sendBtn;
     
-    float* encodedText;
-    Sonifier* son;
+    IBOutlet UISegmentedControl* sendTypeSC;
+    IBOutlet UISegmentedControl* sendTypeSC2;
     
-
+    float* encodedAudioData;
+    Sonifier* sonifier;
+    
+    TapirConfig * cfg;
+    TapirSignalGenerator * generator;
     
     NSString * textModeLabelText;
     NSString * urlModeLabelText;
@@ -27,13 +42,13 @@
     
     TapirMotherOfAllFilters* hpf;
     TapirMotherOfAllFilters* hpf2;
-    IBOutlet UISegmentedControl* sendTypeSC;
-    IBOutlet UISegmentedControl* sendTypeSC2;
-    LKSimpleBitlyMagic* wizard;
-    LKSimpleBitlyMagic* sorcerer;
+
+    LKBitlyUrlShortener* bitlyShortener;
+    LKBitlyUrlShortener* sorcerer;
 }
 -(IBAction)send:(id)sender;
--(IBAction)send2:(id)sender;
+//-(IBAction)send2:(id)sender;
+
 
 
 -(IBAction)typeSelection:(id)sender;

@@ -10,7 +10,7 @@
 
 
 @implementation TapirConfig
-@synthesize  kAudioSampleRate, kAudioChannel, kAudioBitsPerChannel;
+@synthesize  kAudioSampleRate, kAudioChannel;
 @synthesize kPreambleLength, kSymbolLength, kCyclicPostfixLength, kCyclicPrefixLength, kGuardIntervalLength, kMaximumSymbolLength, kSymbolWithCyclicExtLength, kAudioBufferLength, kAudioMaxVolume;
 @synthesize kPreambleBitLength, kPreambleBandwidth;
 @synthesize kIntervalAfterPreamble;
@@ -39,7 +39,7 @@ static TapirConfig * sTapirConfig = nil;
 {
     kAudioSampleRate = 44100.f;
     kAudioChannel = 1;
-    kAudioBitsPerChannel = 8;
+//    kAudioBitsPerChannel = 16;
     kAudioMaxVolume = 1.0f;
 
     kMaximumSymbolLength = 8;
@@ -101,8 +101,8 @@ static TapirConfig * sTapirConfig = nil;
                      [[TapirTrellisCode alloc] initWithG:133],
                      nil];
 
-    kDecoderExtTracebackLength = 4;
-    kEncodingRate = [kTrellisArray count];
+//    kDecoderExtTracebackLength = 0;
+    kEncodingRate = (int)[kTrellisArray count];
     kDataBitLength = kNoDataSubcarriers / kEncodingRate;
     
     kFilterDelayGuardLength = 100;

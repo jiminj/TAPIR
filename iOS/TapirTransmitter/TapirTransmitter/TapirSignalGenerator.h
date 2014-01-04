@@ -26,11 +26,14 @@
     TapirPskModulator * modulator;
     TapirMatrixInterleaver * interleaver;
     TapirConvEncoder * convEncoder;
+    
+    TapirMotherOfAllFilters * hpf;
+    
 }
 - (id) initWithConfig:(TapirConfig *)_cfg;
 
 - (int) calculateResultLength:(NSString *)string;
-- (void) generateSignalWith:(NSString *)inputString dest:(float *)dest;
+- (void) generateSignalWith:(NSString *)inputString dest:(float *)dest length:(int)destLength;
 - (void) encodeOneChar:(const char)src dest:(float *)dest;
 - (void) addPrefixAndPostfixWith:(const float *)src dest:(float *)dest;
 - (void) generatePreamble:(float *)dest;

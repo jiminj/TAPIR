@@ -12,12 +12,15 @@
 
 @interface TapirConfig : NSObject
 {
+    //For Audio Setup
     Float64 kAudioSampleRate;
     
     int     kAudioChannel;
-    int     kAudioBitsPerChannel;
+//    int     kAudioBitsPerChannel;
     float   kAudioMaxVolume;
 
+    
+    //for preamble
     int     kPreambleBitLength;
     float   kPreambleBandwidth;
     int     kPreambleLength;
@@ -78,7 +81,7 @@
 @property (readonly, nonatomic) Float64 kAudioSampleRate;
 @property (readonly, nonatomic) int     kAudioChannel;
 @property (readonly, nonatomic) float   kAudioMaxVolume;
-@property (readonly, nonatomic) int     kAudioBitsPerChannel;
+//@property (readonly, nonatomic) int     kAudioBitsPerChannel;
 @property (readonly, nonatomic) int     kMaximumSymbolLength;
 
 @property (readonly, nonatomic) int     kPreambleBitLength;
