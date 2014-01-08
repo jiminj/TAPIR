@@ -51,6 +51,7 @@
 }
 
 -(void)correlationDetected:(NSNotification*)not{
+    NSLog(@"DETECTED!");
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
 
