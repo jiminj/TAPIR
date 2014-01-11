@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		242DA5E31848677F0043EC2A /* LKBiquadHPF.h in Headers */ = {isa = PBXBuildFile; fileRef = 242DA5E11848677F0043EC2A /* LKBiquadHPF.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		242DA5E41848677F0043EC2A /* LKBiquadHPF.m in Sources */ = {isa = PBXBuildFile; fileRef = 242DA5E21848677F0043EC2A /* LKBiquadHPF.m */; };
 		248AB4B31854B0C80063627C /* LKBitlyUrlShortener.h in Headers */ = {isa = PBXBuildFile; fileRef = 248AB4B11854B0C80063627C /* LKBitlyUrlShortener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		248AB4B41854B0C80063627C /* LKBitlyUrlShortener.m in Sources */ = {isa = PBXBuildFile; fileRef = 248AB4B21854B0C80063627C /* LKBitlyUrlShortener.m */; };
 		248AB4DD1854B7E20063627C /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 248AB4CA1854B7E20063627C /* AFHTTPRequestOperation.h */; };
@@ -42,7 +40,7 @@
 		EC0EEF85183A4A51001BC8DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEF84183A4A51001BC8DE /* UIKit.framework */; };
 		EC0EEF88183A4A51001BC8DE /* TapirLib.framework in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEF6E183A4A51001BC8DE /* TapirLib.framework */; };
 		EC0EEF8E183A4A51001BC8DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEF8C183A4A51001BC8DE /* InfoPlist.strings */; };
-		EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */; };
+		EC0EEF90183A4A51001BC8DE /* TapirLibTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC0EEF8F183A4A51001BC8DE /* TapirLibTests.mm */; };
 		EC0EEFA3183A4A6E001BC8DE /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */; };
 		EC0EEFE5183A5FA3001BC8DE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */; };
 		EC186CF9183DEF4B00A89628 /* TapirInterleaver.h in Headers */ = {isa = PBXBuildFile; fileRef = EC186CF7183DEF4B00A89628 /* TapirInterleaver.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,6 +53,9 @@
 		EC186D0618463D9B00A89628 /* TapirDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = EC186D0418463D9B00A89628 /* TapirDecoder.m */; };
 		EC186D0D1847A47C00A89628 /* TapirTrellisCode.h in Headers */ = {isa = PBXBuildFile; fileRef = EC186D0B1847A47C00A89628 /* TapirTrellisCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC186D0E1847A47C00A89628 /* TapirTrellisCode.m in Sources */ = {isa = PBXBuildFile; fileRef = EC186D0C1847A47C00A89628 /* TapirTrellisCode.m */; };
+		EC186DC6187EB9A800F71285 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC186DC4187EB9A800F71285 /* Filter.cpp */; };
+		EC186DC7187EB9A800F71285 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC186DC4187EB9A800F71285 /* Filter.cpp */; };
+		EC186DC8187EB9A800F71285 /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = EC186DC5187EB9A800F71285 /* Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC313896183B75FC00C82186 /* TapirModulator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC313894183B75FC00C82186 /* TapirModulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC313897183B75FC00C82186 /* TapirModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = EC313895183B75FC00C82186 /* TapirModulator.m */; };
 		EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */ = {isa = PBXBuildFile; fileRef = EC313898183BE1A200C82186 /* TapirDsp.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,8 +76,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		242DA5E11848677F0043EC2A /* LKBiquadHPF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKBiquadHPF.h; sourceTree = "<group>"; };
-		242DA5E21848677F0043EC2A /* LKBiquadHPF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKBiquadHPF.m; sourceTree = "<group>"; };
 		248AB4B11854B0C80063627C /* LKBitlyUrlShortener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKBitlyUrlShortener.h; sourceTree = "<group>"; };
 		248AB4B21854B0C80063627C /* LKBitlyUrlShortener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKBitlyUrlShortener.m; sourceTree = "<group>"; };
 		248AB4CA1854B7E20063627C /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -115,7 +114,7 @@
 		EC0EEF84183A4A51001BC8DE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		EC0EEF8B183A4A51001BC8DE /* TapirLibTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirLibTests-Info.plist"; sourceTree = "<group>"; };
 		EC0EEF8D183A4A51001BC8DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirLibTests.m; sourceTree = "<group>"; };
+		EC0EEF8F183A4A51001BC8DE /* TapirLibTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirLibTests.mm; sourceTree = "<group>"; };
 		EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
 		EC0EEFE0183A5F85001BC8DE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		EC0EEFE2183A5F98001BC8DE /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -130,13 +129,15 @@
 		EC186D0418463D9B00A89628 /* TapirDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirDecoder.m; sourceTree = "<group>"; };
 		EC186D0B1847A47C00A89628 /* TapirTrellisCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirTrellisCode.h; sourceTree = "<group>"; };
 		EC186D0C1847A47C00A89628 /* TapirTrellisCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirTrellisCode.m; sourceTree = "<group>"; };
+		EC186DC4187EB9A800F71285 /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
+		EC186DC5187EB9A800F71285 /* Filter.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Filter.h; sourceTree = "<group>"; };
 		EC313894183B75FC00C82186 /* TapirModulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirModulator.h; sourceTree = "<group>"; };
-		EC313895183B75FC00C82186 /* TapirModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirModulator.m; sourceTree = "<group>"; };
+		EC313895183B75FC00C82186 /* TapirModulator.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = TapirModulator.m; sourceTree = "<group>"; };
 		EC313898183BE1A200C82186 /* TapirDsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirDsp.h; sourceTree = "<group>"; };
 		EC313899183BE1A200C82186 /* TapirDsp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirDsp.m; sourceTree = "<group>"; };
 		EC892AAB184F38EB00EAC727 /* TapirPilotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirPilotManager.h; sourceTree = "<group>"; };
 		EC892AAC184F38EB00EAC727 /* TapirPilotManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirPilotManager.m; sourceTree = "<group>"; };
-		ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapirLib.h; sourceTree = "<group>"; };
+		ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = TapirLib.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,14 +228,14 @@
 				EC186CF8183DEF4B00A89628 /* TapirInterleaver.m */,
 				EC313894183B75FC00C82186 /* TapirModulator.h */,
 				EC313895183B75FC00C82186 /* TapirModulator.m */,
+				EC186DC4187EB9A800F71285 /* Filter.cpp */,
+				EC186DC5187EB9A800F71285 /* Filter.h */,
 				249B6228184477EC001C3E2B /* TapirMotherOfAllFilters.h */,
 				249B6229184477EC001C3E2B /* TapirMotherOfAllFilters.m */,
 				249B623418447A3F001C3E2B /* LKRealSampleBuffer.h */,
 				249B623518447A3F001C3E2B /* LKRealSampleBuffer.m */,
 				249B623618447A3F001C3E2B /* LKVirtualSampleBuffer.h */,
 				249B623718447A3F001C3E2B /* LKVirtualSampleBuffer.m */,
-				242DA5E11848677F0043EC2A /* LKBiquadHPF.h */,
-				242DA5E21848677F0043EC2A /* LKBiquadHPF.m */,
 				248AB4B11854B0C80063627C /* LKBitlyUrlShortener.h */,
 				248AB4B21854B0C80063627C /* LKBitlyUrlShortener.m */,
 				EC0EEF71183A4A51001BC8DE /* Supporting Files */,
@@ -270,7 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */,
-				EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */,
+				EC0EEF8F183A4A51001BC8DE /* TapirLibTests.mm */,
 				EC0EEF8A183A4A51001BC8DE /* Supporting Files */,
 			);
 			path = TapirLibTests;
@@ -305,6 +306,7 @@
 				EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */,
 				249B622A184477EC001C3E2B /* TapirMotherOfAllFilters.h in Headers */,
 				248AB4EE1854B7E20063627C /* AFURLSessionManager.h in Headers */,
+				EC186DC8187EB9A800F71285 /* Filter.h in Headers */,
 				EC186CF9183DEF4B00A89628 /* TapirInterleaver.h in Headers */,
 				248AB4E61854B7E20063627C /* AFSecurityPolicy.h in Headers */,
 				EC892AAD184F38EB00EAC727 /* TapirPilotManager.h in Headers */,
@@ -314,7 +316,6 @@
 				EC186CFD183DEF6F00A89628 /* TapirChannelEstimator.h in Headers */,
 				248AB4EC1854B7E20063627C /* AFURLResponseSerialization.h in Headers */,
 				249B623A18447A3F001C3E2B /* LKVirtualSampleBuffer.h in Headers */,
-				242DA5E31848677F0043EC2A /* LKBiquadHPF.h in Headers */,
 				248AB4E31854B7E20063627C /* AFNetworking.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +437,7 @@
 				EC186D0618463D9B00A89628 /* TapirDecoder.m in Sources */,
 				249B623918447A3F001C3E2B /* LKRealSampleBuffer.m in Sources */,
 				248AB4E01854B7E20063627C /* AFHTTPRequestOperationManager.m in Sources */,
+				EC186DC6187EB9A800F71285 /* Filter.cpp in Sources */,
 				EC186D0218437F0800A89628 /* TapirEncoder.m in Sources */,
 				248AB4E91854B7E20063627C /* AFURLConnectionOperation.m in Sources */,
 				248AB4B41854B0C80063627C /* LKBitlyUrlShortener.m in Sources */,
@@ -444,7 +446,6 @@
 				EC313897183B75FC00C82186 /* TapirModulator.m in Sources */,
 				248AB4E21854B7E20063627C /* AFHTTPSessionManager.m in Sources */,
 				248AB4DE1854B7E20063627C /* AFHTTPRequestOperation.m in Sources */,
-				242DA5E41848677F0043EC2A /* LKBiquadHPF.m in Sources */,
 				248AB4E71854B7E20063627C /* AFSecurityPolicy.m in Sources */,
 				EC186CFA183DEF4B00A89628 /* TapirInterleaver.m in Sources */,
 				248AB4E51854B7E20063627C /* AFNetworkReachabilityManager.m in Sources */,
@@ -462,7 +463,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */,
+				EC0EEF90183A4A51001BC8DE /* TapirLibTests.mm in Sources */,
+				EC186DC7187EB9A800F71285 /* Filter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +531,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -561,6 +565,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				LLVM_VECTORIZE_LOOPS = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Accelerate/Accelerate.h>
+
 #import "TapirLib.h"
 
 @interface TapirMotherOfAllFilters : NSObject{

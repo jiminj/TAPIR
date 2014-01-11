@@ -27,11 +27,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
     
     logString = @"";
-    
-    
     [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
-    [aia startAudioInput];
-    
+
     [[sendButton layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
     [[sendButton layer] setBorderWidth:1.0f];
     [[sendButton layer] setCornerRadius:4.0f];
@@ -48,14 +45,19 @@
 -(void)startTracking:(id)sender{
     
     [self trace:nil];
+    [aia startAudioInput];
+    
+    
 }
 
--(void)correlationDetected:(NSNotification*)not{
+-(void)correlationDetected:(NSNotification*)noti{
     NSLog(@"DETECTED!");
     TapirConfig * cfg = [TapirConfig getInstance];
     TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
 
-    lastResultString = [analyzer analyze:(float*)([[[not userInfo] valueForKey:@"samples" ] intValue])];
+    lastResultString = [analyzer analyze:(float*)([[[noti userInfo] valueForKey:@"samples" ] intValue])];
+    
+    NSLog(@"%@", lastResultString);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterNoStyle];
@@ -72,7 +74,6 @@
     }
     
     [sendButton setEnabled:YES];
-    
 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

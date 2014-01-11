@@ -7,7 +7,7 @@
 //
 
 #import "TapirMotherOfAllFilters.h"
-#import <Accelerate/Accelerate.h>
+
 
 @implementation TapirMotherOfAllFilters
 -(id)initWithLength:(int)l{

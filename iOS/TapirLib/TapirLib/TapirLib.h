@@ -9,6 +9,9 @@
 #ifndef TapirLib_TapirLib_h
 #define TapirLib_TapirLib_h
 
+//New CPP Library
+//#include "Filter.h"
+
 #import "TapirDsp.h"
 #import "TapirPilotManager.h"
 #import "TapirEncoder.h"
@@ -21,7 +24,9 @@
 #import "LKVirtualSampleBuffer.h"
 #import "TapirEncoder.h"
 #import "TapirDecoder.h"
-#import "LKBiquadHPF.h"
+//#import "LKBiquadHPF.h"
 #import "TapirMotherOfAllFilters.h"
 #import "LKBitlyUrlShortener.h"
+
+
 #endif

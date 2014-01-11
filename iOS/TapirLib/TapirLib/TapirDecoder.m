@@ -111,7 +111,7 @@
 - (void)genTables:(NSArray *)trellisArray
 {
     //Assume that all trellis codes have same length
-    noRegisterBits = [[trellisArray objectAtIndex:0] length] - 1;
+    noRegisterBits = (int)([[trellisArray objectAtIndex:0] length] - 1);
     noStates = 1 << (noRegisterBits);
     noInfoTableCols = 2;
     

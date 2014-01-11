@@ -24,7 +24,7 @@
 
 - (id)initWithConfig:(TapirConfig *)_cfg
 {
-    if(self == [super init])
+    if(self = [super init])
     {
         cfg = _cfg;
         

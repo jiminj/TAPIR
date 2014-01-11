@@ -110,16 +110,19 @@ const float kTwoPi = 2 * M_PI;
 }
 -(void)demodulate:(const DSPSplitComplex *)source dest:(float *)dest length:(const int)length
 {
-    float * pskDemod = malloc(sizeof(float) * length);
-    [super demodulate:source dest:pskDemod length:length];
-
-    dest[0] = pskDemod[0];
-    for(int i=1; i<length; ++i)
+    if(length > 0)
     {
-        dest[i] = pskDemod[i] - pskDemod[i-1];
-        if(dest[i] < 0)
-        { dest[i] += symbolRate; }
+        float * pskDemod = malloc(sizeof(float) * length);
+        [super demodulate:source dest:pskDemod length:length];
+
+        dest[0] = pskDemod[0];
+        for(int i=1; i<length; ++i)
+        {
+            dest[i] = pskDemod[i] - pskDemod[i-1];
+            if(dest[i] < 0)
+            { dest[i] += symbolRate; }
+        }
+        free(pskDemod);
     }
-    free(pskDemod);
 }
 @end

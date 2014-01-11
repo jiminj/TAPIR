@@ -9,8 +9,6 @@
 #import "LKAudioInputAccessor.h"
 #import "TapirConfig.h"
 
-#define SELF_CORRELATION true
-
 
 @implementation LKAudioInputAccessor
 @synthesize correlationOffset = _correlationOffset;
@@ -28,18 +26,13 @@ static void HandleInputBuffer (
                                const AudioStreamPacketDescription  *inPacketDesc
 ){
     LKAudioInputAccessor *aia = (__bridge LKAudioInputAccessor *) audioInput;
-    
+
     if (inNumPackets == 0 && aia.aqData.mDataFormat.mBytesPerPacket != 0)
         inNumPackets = inBuffer->mAudioDataByteSize / aia.aqData.mDataFormat.mBytesPerPacket;
-    
-    SInt16* buffer = inBuffer->mAudioData;
 
-    for(int i = 0; i<inNumPackets; i++){
-        [aia newSample:buffer[i]];
-    }
-    
+    [aia newInputBuffer:static_cast<SInt16*>(inBuffer->mAudioData) length:inNumPackets];
     AudioQueueEnqueueBuffer (inAQ,inBuffer,0,NULL);
-    
+
 }
 
 - (id) init
@@ -51,9 +44,9 @@ static void HandleInputBuffer (
     return self;
 }
 
--(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize{
-    //hpf = [[LKBiquadHPF alloc] init];
-    filter = [TapirMotherOfAllFilters createHPF1];
+-(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize
+{
+
     
         // set audio format for recording
     aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
@@ -70,6 +63,9 @@ static void HandleInputBuffer (
     | kLinearPCMFormatFlagIsPacked;
     aqData.bufferByteSize = 1024;
     
+    filter = Tapir::TapirFilters::getTxRxHpf(aqData.bufferByteSize / sizeof(SInt16));
+    floatBuf = new float[aqData.bufferByteSize / sizeof(SInt16)];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     documentsDirectory = [paths objectAtIndex:0] ;
     
@@ -83,7 +79,7 @@ static void HandleInputBuffer (
     asbd.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
     asbd.mFormatID = kAudioFormatLinearPCM;
     
-    OSStatus err = AudioFileCreateWithURL((__bridge CFURLRef)([NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"audio.caf"]]), kAudioFileCAFType, &asbd, kAudioFileFlags_EraseFile, &audioFile);
+    AudioFileCreateWithURL((__bridge CFURLRef)([NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"audio.caf"]]), kAudioFileCAFType, &asbd, kAudioFileFlags_EraseFile, &audioFile);
     audioFileLength =0;
 
     
@@ -139,21 +135,23 @@ static void HandleInputBuffer (
 -(void)trace{
     [correlationManager trace];
 }
--(void)newSample:(SInt16)sample{
-    // test code for file recording
-    //float fileteredSample = [hpf next:sample];
-    float filteredSample = 0;
-    [filter next:sample*1.0 writeTo:&filteredSample];
-    //filteredSample*=10;
-   /*SInt16 s = filteredSample;
-    UInt32 n = 1;
-    OSStatus err = AudioFileWritePackets(audioFile, NO, 1, nil, audioFileLength, &n, &s);
-    audioFileLength+=n;*/
-    
-    
-    [correlationManager newSample:filteredSample];
+
+-(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
+{
+    vDSP_vflt16(inputBuffer, 1, floatBuf, 1, length);
+    filter->process(floatBuf, floatBuf, length);
+    for(int i=0; i<length;++i)
+    {
+        [correlationManager newSample:floatBuf[i]];
+    }
 }
+
 -(void)restart{
     [correlationManager restart];
+}
+- (void)dealloc
+{
+    delete [] floatBuf;
+    delete filter;
 }
 @end

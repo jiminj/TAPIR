@@ -6,11 +6,16 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
+
+#include <TapirLib/Filter.h>
+
 #import <XCTest/XCTest.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
 #import "TapirSignalAnalyzer.h"
+#import <Accelerate/Accelerate.h>
+
 
 @interface TAPIRReceiverTests : XCTestCase
 
@@ -36,7 +41,8 @@
     TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
     
     NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"t_20k_puresymbol" ofType: @".wav"];
-    float * audioData = malloc([cfg kSymbolLength] * sizeof(float));
+//    float * audioData = malloc([cfg kSymbolLength] * sizeof(float));
+    float * audioData = new float[[cfg kSymbolLength]];
     [self readWavDataFrom:filePath to:audioData lengthOf:[cfg kSymbolLength]];
 
 //    [analyzer setSignalLength:[cfg kSymbolLength] resultLength:[cfg kNoTotalSubcarriers]];
@@ -66,7 +72,7 @@
     
     
     
-    free(audioData);
+    delete [] audioData;
 //    free(convResult.realp);
 //    free(convResult.imagp);
 //    free(cutResult.realp);
@@ -84,7 +90,49 @@
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
 
+- (void)testFilter
+{
+    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"test19" ofType: @".wav"];
+    float audioData[20000];
+    [self readWavDataFrom:filePath to:audioData lengthOf:20000];
+    
+    
+    
+    int step = 1024;
+    float result1[20000];
+    float result2[20000];
+    
+    Tapir::FilterFIR * filter = Tapir::TapirFilters::getTxRxHpf(step);
+    
+    for(int i=0; i<20000; i+=step)
+    {
+        filter->process(audioData + i, result1 + i, step);
+    }
+    [self writeData:result1 toFile:@"genResult1.txt" lengthOf:20000];
+    
+    TapirMotherOfAllFilters* filter_orig = [TapirMotherOfAllFilters createHPF1];;
+    for(int i=0; i<20000; ++i)
+    {
+        [filter_orig next:audioData[i] writeTo:&result2[i] ];
+    }
+    [self writeData:result2 toFile:@"genResult2.txt" lengthOf:20000];
+    
+    
+}
 
+- (void)writeData:(float *)data toFile:(NSString *)filePath lengthOf:(UInt32)length
+{
+    // File write
+    
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:filePath]];
+    NSMutableString * resultString = [[NSMutableString alloc] init];
+    for(int i=0; i<length; ++i)
+    {
+        [resultString appendFormat:@"%f\n",data[i]];
+    }
+    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+}
 
 - (void)readWavDataFrom:(NSString *)filePath to:(Float32 *)audioData lengthOf:(UInt32)frameCount
 {
