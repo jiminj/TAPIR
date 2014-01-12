@@ -65,7 +65,7 @@ static TapirConfig * sTapirConfig = nil;
                          kSymbolWithCyclicExtLength * kMaximumSymbolLength +
                         (kGuardIntervalLength) * (kMaximumSymbolLength-1);
     
-    kCarrierFrequency = 20000.f;
+    kCarrierFrequency = 19000.f;
     kNoDataSubcarriers = 16;
     
     //For Channel Estimator

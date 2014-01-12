@@ -6,12 +6,16 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
+#include <TapirLib/Filter.h>
+
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "LKCorrelationManager.h"
 #import "TapirLib/TapirLib.h"
 #import "TapirConfig.h"
 #import <AVFoundation/AVFoundation.h>
+
+
 
 @protocol correlationDelegate <NSObject>
 -(void)newCorrelationValue:(float)value;
@@ -44,11 +48,14 @@ struct AQRecorderState {
     BOOL sampleBSumCalculated;
     id<correlationDelegate> delegate;
     LKCorrelationManager* correlationManager;
-    LKBiquadHPF* hpf;
-    TapirMotherOfAllFilters* filter;
+    
+    Tapir::FilterFIR * filter;
     AudioFileID audioFile;
     NSString* documentsDirectory;
     int audioFileLength;
+
+    std::mutex m_mutex;
+    float *floatBuf;
 
 }
 @property int correlationSampleSize;
@@ -68,5 +75,5 @@ struct AQRecorderState {
 -(float)calculateCorrelationWithReferenceWithANewSampleValue:(float)value;
 -(void)trace;
 -(void)restart;
--(void)newSample:(SInt16)sample;
+-(void)newInputBuffer:(SInt16 *)inputBuffer;
 @end

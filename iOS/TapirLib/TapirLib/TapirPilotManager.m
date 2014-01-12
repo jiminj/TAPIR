@@ -31,8 +31,8 @@
 - (void)setPilotIndex:(const int *)index pilotLength:(const int)length
 {
     DSPSplitComplex nullData;
-    nullData.realp = calloc(length, sizeof(int));
-    nullData.imagp = calloc(length, sizeof(int));
+    nullData.realp = calloc(length, sizeof(float));
+    nullData.imagp = calloc(length, sizeof(float));
     
     [self setPilot:&nullData index:index pilotLength:length];
 

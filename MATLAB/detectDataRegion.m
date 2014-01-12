@@ -32,7 +32,7 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
     
     findFlag = 0;
     searchMaxStPoint = 0;
-    corrThreshold = 2;
+    corrThreshold = 1;
     origCorrResult = 0;
     
     for idx=2*preambleLen+1:length(bandSig)       
@@ -49,7 +49,10 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
             searchMaxStPoint = idx;
         end
     end;
-
+    
+    
+    figure();
+    plot(corrResult);
     
     [~, peakPoint] = max(abs(corrResult(searchMaxStPoint : searchMaxStPoint+preambleLen)));
     peakPoint = peakPoint + searchMaxStPoint - 1;

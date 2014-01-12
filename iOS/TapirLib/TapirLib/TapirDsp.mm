@@ -17,12 +17,12 @@ static void generateCarrier(DSPSplitComplex * carrier, const int length, const f
     
     float initState = 0;
     float inc = 2 * M_PI * carrierFreq/(float)samplingFreq;
-    float * carrierIndex = malloc(sizeof(float) * length);
+    float * carrierIndex = new float[length];
     
     vDSP_vramp(&initState, &inc, carrierIndex, 1, length);
     vvsincosf(carrier->imagp, carrier->realp, carrierIndex, &length);
     
-    free(carrierIndex);
+    delete [] carrierIndex;
 }
 
 void scaleFloatSignal(const float * source, float * dest, const int length, const float scale)
@@ -51,8 +51,8 @@ void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int 
     //    basebandSig = realRx + 1i*imagRx;
     
     DSPSplitComplex carrier;
-    carrier.realp = malloc(sizeof(float) * length);
-    carrier.imagp = malloc(sizeof(float) * length);
+    carrier.realp = new float[length];
+    carrier.imagp = new float[length];
     //    float scale = sqrt(2.f);
     float scale = M_SQRT2;
     
@@ -60,8 +60,8 @@ void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int 
     scaleCompSignal(&carrier, &carrier, length, scale);
     vDSP_zrvmul(&carrier, 1, signal, 1, destSignal, 1, length);
     
-    free(carrier.realp);
-    free(carrier.imagp);
+    delete [] carrier.realp;
+    delete [] carrier.imagp;
 }
 
 void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int length, const float samplingFreq, const float carrierFreq)
@@ -72,8 +72,8 @@ void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int le
     //    modulatedSig = rePulse + imPulse;
     
     DSPSplitComplex carrier;
-    carrier.realp = malloc(sizeof(float) * length);
-    carrier.imagp = malloc(sizeof(float) * length);
+    carrier.realp = new float[length];
+    carrier.imagp = new float[length];
 
     generateCarrier(&carrier, length, samplingFreq, carrierFreq);
     
@@ -83,8 +83,8 @@ void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int le
     vDSP_vadd(signal->realp, 1, signal->imagp,1 , destSignal, 1, length);
     scaleFloatSignal(destSignal, destSignal, length, 2.0f);
     
-    free(carrier.realp);
-    free(carrier.imagp);
+    delete [] carrier.realp;
+    delete [] carrier.imagp;
 }
 
 //FFT
