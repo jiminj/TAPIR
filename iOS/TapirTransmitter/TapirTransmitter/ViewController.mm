@@ -102,21 +102,15 @@
             urlToSend = [NSString stringWithFormat:@"%@%@", httpPrefix, urlToSend];
         }
         [bitlyShortener shortenUrl:urlToSend];
-        [self transmitString:urlToSend through:LEFT];
+//        [self transmitString:urlToSend through:LEFT];
     }
     
 }
 
-//-(void)send2:(id)sender{
-//    if(sendTypeSC2.selectedSegmentIndex==0){
-//        [self transmitString2:inputText2.text];
-//    }else{
-//        [sorcerer shortenUrl:inputText2.text];
-//    }
-//}
 
--(void)didFinishBitlyConvertFrom:(NSString *)original to:(NSString *)result by:(id)obj{
-
+-(void)didFinishBitlyConvertFrom:(NSString *)original to:(NSString *)result by:(id)obj
+{
+    NSLog(@"Result: %@", result);
     if([result length] > 0)
     {
         OutputChannel outCh;
