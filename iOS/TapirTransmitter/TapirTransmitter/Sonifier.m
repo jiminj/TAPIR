@@ -114,8 +114,8 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             memset(bufferData+copyLen, 0, sizeof(SInt16) * (frameCount - dataLength));
             isDone = TRUE;
         }
-        vDSP_vsmul(audioData, 1, &shortMax, audioData, 1, copyLen);
-        vDSP_vfix16(audioData, 1, bufferData, 1, copyLen);
+        vDSP_vsmul(audioData, 1, &shortMax, audioData, 1, copyLen); //maximize volume
+        vDSP_vfix16(audioData, 1, bufferData, 1, copyLen); //float to SInt16
 
         audioData += copyLen;
         dataLength = newDataLength;

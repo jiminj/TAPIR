@@ -142,10 +142,9 @@
     {
         inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
     }
-    
-    int resultLength = [generator calculateResultLength:inputStr];
+    int resultLength = [generator calculateResultLengthOfStringWithLength:[inputStr length]];
 
-    encodedAudioData = calloc(resultLength, sizeof(float));
+    encodedAudioData = new float[resultLength]();
 
     [generator generateSignalWith:inputStr dest:encodedAudioData length:resultLength];
     
@@ -155,7 +154,7 @@
 
 -(void) sonifierFinished
 {
-    free(encodedAudioData);
+    delete [] encodedAudioData;
     [sendBtn setEnabled:TRUE];
 }
 
@@ -167,6 +166,6 @@
 
 -(void) dealloc
 {
-    free(encodedAudioData);
+    delete [] encodedAudioData;
 }
 @end

@@ -20,17 +20,18 @@
     {
         cfg = _cfg;
         
-        input = malloc(sizeof(int) * [cfg kDataBitLength]);
-        encoded = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        interleaved = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        modulated.realp = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        modulated.imagp = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        pilotAdded.realp = malloc(sizeof(float) * [cfg kNoTotalSubcarriers]);
-        pilotAdded.imagp = malloc(sizeof(float) * [cfg kNoTotalSubcarriers]);
-        extended.realp = calloc([cfg kSymbolLength], sizeof(float));
-        extended.imagp = calloc([cfg kSymbolLength], sizeof(float));
-        ifftData.realp = malloc(sizeof(float) * [cfg kSymbolLength]);
-        ifftData.imagp = malloc(sizeof(float) * [cfg kSymbolLength]);
+        input = new int[[cfg kDataBitLength]];
+        encoded = new float [[cfg kNoDataSubcarriers]];
+        interleaved = new float[[cfg kNoDataSubcarriers]];
+        modulated.realp = new float[[cfg kNoDataSubcarriers]];
+        modulated.imagp = new float[[cfg kNoDataSubcarriers]];
+        pilotAdded.realp = new float[[cfg kNoTotalSubcarriers]];
+        pilotAdded.imagp = new float[[cfg kNoTotalSubcarriers]];
+        extended.realp = new float[[cfg kSymbolLength]]();
+        extended.imagp = new float[[cfg kSymbolLength]]();
+        ifftData.realp = new float[[cfg kSymbolLength]];
+        ifftData.imagp = new float[[cfg kSymbolLength]];
+        
         
 //        DSPSplitComplex ifftData;
         pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
@@ -38,7 +39,9 @@
         interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
         convEncoder = [[TapirConvEncoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
-        hpf = [TapirMotherOfAllFilters createHPF1];
+        filter = Tapir::TapirFilters::getTxRxHpf([self calculateResultLengthOfStringWithLength:[cfg kMaximumSymbolLength]]);
+        
+//        hpf = [TapirMotherOfAllFilters createHPF1];
 //        vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
     }
@@ -93,8 +96,8 @@
 - (void) generatePreamble:(float *)dest
 {
     DSPSplitComplex preamble;
-    preamble.realp = malloc(sizeof(float) * [cfg kPreambleLength] * 2);
-    preamble.imagp = calloc([cfg kPreambleLength] * 2, sizeof(float));
+    preamble.realp = new float[[cfg kPreambleLength] * 2];
+    preamble.imagp = new float[[cfg kPreambleLength] * 2]();
     
     int lenForEachBit = (floor)([cfg kPreambleLength] / [cfg kPreambleBitLength]);
     for(int i=0; i<[cfg kPreambleBitLength]; ++i)
@@ -107,8 +110,8 @@
     maximizeSignal(dest, dest, [cfg kPreambleLength], [cfg kAudioMaxVolume]);
     memcpy(dest + [cfg kPreambleLength], dest, [cfg kPreambleLength] * sizeof(float));
 
-    free(preamble.realp);
-    free(preamble.imagp);
+    delete [] preamble.realp;
+    delete [] preamble.imagp;
 }
 
 - (void) generateSignalWith:(NSString *)inputString dest:(float *)dest length:(int)destLength
@@ -137,38 +140,36 @@
             //To prevent to access unallocated space.
         }
     }
-    
-     // HPF
-    for(int i = 0; i < destLength; i++){
-        [hpf next:dest[i] writeTo:&dest[i]];
-    }
+
+    filter->process(dest, dest, destLength);
+    filter->clearBuffer();
     maximizeSignal(dest, dest, destLength, [cfg kAudioMaxVolume]);
 }
 
-- (int) calculateResultLength:(NSString *)string
+- (int) calculateResultLengthOfStringWithLength:(int)stringLength
 {
     int retVal = 0;
     retVal = [cfg kPreambleLength] * 2 + [cfg kIntervalAfterPreamble]
-            + ([cfg kSymbolWithCyclicExtLength] + [cfg kGuardIntervalLength]) * (int)[string length]
-            - [cfg kGuardIntervalLength]
-            + [cfg kFilterDelayGuardLength];
+            + ([cfg kSymbolWithCyclicExtLength] + [cfg kGuardIntervalLength]) * (int)stringLength
+            - [cfg kGuardIntervalLength] + [cfg kFilterDelayGuardLength];
     
     return retVal;
 }
 
 - (void) dealloc
 {
-    free(input); 
-    free(encoded); 
-    free(interleaved); 
-    free(modulated.realp);
-    free(modulated.imagp);
-    free(pilotAdded.realp);
-    free(pilotAdded.imagp);
-    free(extended.realp);
-    free(extended.imagp);
-    free(ifftData.realp);
-    free(ifftData.imagp);
+    delete filter;
+    delete [] input;
+    delete [] encoded;
+    delete [] interleaved;
+    delete [] modulated.realp;
+    delete [] modulated.imagp;
+    delete [] pilotAdded.realp;
+    delete [] pilotAdded.imagp;
+    delete [] extended.realp;
+    delete [] extended.imagp;
+    delete [] ifftData.realp;
+    delete [] ifftData.imagp;
 }
 
 @end

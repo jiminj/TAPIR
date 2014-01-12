@@ -167,5 +167,13 @@
     }
 }
 
+-(void)testNew
+{
+    float * testf = new float[100];
+    for(int i=0; i<100; ++i)
+    {
+        NSLog(@"%d",testf[i]);
+    };
+}
 
 @end

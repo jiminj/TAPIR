@@ -15,7 +15,7 @@ namespace Tapir {
     class Filter
     {
     public:
-        virtual void setFilter(const float * coeff, const int order, const int bufferSize) = 0;
+        virtual void setFilter(const float * coeff, const int order, const int maxBufferSize) = 0;
         virtual void process(const float * src, float * dest, int length) const = 0;
     };
 
@@ -25,10 +25,11 @@ namespace Tapir {
     {
     public:
         FilterFIR();
-        FilterFIR(const float * coeff, const int order, const int bufferSize);
-        void setFilter(const float * coeff, const int order, const int bufferSize);
+        FilterFIR(const float * coeff, const int order, const int maxBufferSize);
+        void setFilter(const float * coeff, const int order, const int maxBufferSize);
 
         void process(const float * src, float * dest, int length) const ;
+        void clearBuffer();
         int getFilterOrder() { return m_order;};
 
         virtual ~FilterFIR();
@@ -38,6 +39,7 @@ namespace Tapir {
         float * m_coeff;
         float * m_buffer;
         int m_order;
+        int m_bufferSize;
         
     };
     
@@ -47,8 +49,8 @@ namespace Tapir {
     {
     public:
         FilterIIR();
-        FilterIIR(const float * coeff, const int section, const int bufferSize = 0);
-        void setFilter(const float * coeff, const int section, const int bufferSize = 0);
+        FilterIIR(const float * coeff, const int section, const int maxBufferSize = 0);
+        void setFilter(const float * coeff, const int section, const int maxBufferSize = 0);
 
         void process(const float * src, float * dest, int length) const;
 

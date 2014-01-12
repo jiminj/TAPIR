@@ -26,7 +26,7 @@
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */; };
 		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
-		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
+		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD0184E2BE200909C92 /* TapirConfig.m */; };
@@ -74,7 +74,7 @@
 		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
 		248AB4F31854BF850063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
-		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalAnalyzer.m; sourceTree = "<group>"; };
+		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirSignalAnalyzer.mm; sourceTree = "<group>"; };
 		EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
 		EC7DDFCF184E2BE200909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 				EC7DDFCF184E2BE200909C92 /* TapirConfig.h */,
 				EC7DDFD0184E2BE200909C92 /* TapirConfig.m */,
 				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
-				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */,
+				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
 				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */,
 				245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */,
@@ -308,7 +308,7 @@
 				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.mm in Sources */,
-				EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */,
+				EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.mm in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
 				EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */,
 			);

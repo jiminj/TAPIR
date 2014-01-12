@@ -47,7 +47,6 @@
     [self trace:nil];
     [aia startAudioInput];
     
-    
 }
 
 -(void)correlationDetected:(NSNotification*)noti{

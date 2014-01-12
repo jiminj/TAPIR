@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
+#include <TapirLib/Filter.h>
+
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 #import <TapirLib/TapirLib.h>
@@ -27,12 +29,12 @@
     TapirMatrixInterleaver * interleaver;
     TapirConvEncoder * convEncoder;
     
-    TapirMotherOfAllFilters * hpf;
+    Tapir::FilterFIR * filter;
     
 }
 - (id) initWithConfig:(TapirConfig *)_cfg;
 
-- (int) calculateResultLength:(NSString *)string;
+- (int) calculateResultLengthOfStringWithLength:(int)stringLength;
 - (void) generateSignalWith:(NSString *)inputString dest:(float *)dest length:(int)destLength;
 - (void) encodeOneChar:(const char)src dest:(float *)dest;
 - (void) addPrefixAndPostfixWith:(const float *)src dest:(float *)dest;

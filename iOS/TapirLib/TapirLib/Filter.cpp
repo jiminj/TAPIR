@@ -6,26 +6,28 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
+#include <iostream>
 #include "Filter.h"
 
 namespace Tapir {
 
     //****** FIR Filter ********
     FilterFIR::FilterFIR()
-    :m_order(0), m_coeff(nullptr), m_buffer(nullptr)
+    :m_order(0), m_coeff(nullptr), m_buffer(nullptr), m_bufferSize(0)
     {};
-    FilterFIR::FilterFIR(const float * coeff, const int filtOrder, const int bufferSize)
+    FilterFIR::FilterFIR(const float * coeff, const int filtOrder, const int maxBufferSize)
     :FilterFIR()
     {
-        setFilter(coeff, filtOrder, bufferSize);
+        setFilter(coeff, filtOrder, maxBufferSize);
     };
 
-    void FilterFIR::setFilter(const float *coeff, const int filtOrder, const int bufferSize)
+    void FilterFIR::setFilter(const float *coeff, const int filtOrder, const int maxBufferSize)
     {
         clear();
         m_order = filtOrder;
+        m_bufferSize = m_order + maxBufferSize;
         m_coeff = new float[m_order];
-        m_buffer = new float[m_order + bufferSize]();
+        m_buffer = new float[m_bufferSize]();
         memcpy(m_coeff, coeff, sizeof(float) * filtOrder);
         vDSP_vrvrs(m_coeff, 1, m_order);
         
@@ -43,7 +45,10 @@ namespace Tapir {
         memcpy(m_buffer, src + length - m_order, m_order * sizeof(float));
         
     };
-    
+    void FilterFIR::clearBuffer()
+    {
+        std::memset(m_buffer, 0, m_bufferSize * sizeof(float));
+    };
     void FilterFIR::clear()
     {
         if(m_coeff != nullptr)

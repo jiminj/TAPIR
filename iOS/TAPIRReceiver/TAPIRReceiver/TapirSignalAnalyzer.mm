@@ -20,26 +20,25 @@
 {
     return nil;
 }
-//- (void)cutSymbolDataRegion()
 
 - (id)initWithConfig:(TapirConfig *)_cfg
 {
     if(self = [super init])
     {
         cfg = _cfg;
-        
-        convertedSignal.realp = malloc(sizeof(float) * [cfg kSymbolLength]);
-        convertedSignal.imagp = malloc(sizeof(float) * [cfg kSymbolLength]);
-        roiSignal.realp = malloc(sizeof(float) * [cfg kNoTotalSubcarriers]);
-        roiSignal.imagp = malloc(sizeof(float) * [cfg kNoTotalSubcarriers]);
-        estimatedSignal.realp = malloc(sizeof(float) * [cfg kNoTotalSubcarriers]);
-        estimatedSignal.imagp = malloc(sizeof(float) * [cfg kNoTotalSubcarriers]);
-        pilotRemovedSignal.realp = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        pilotRemovedSignal.imagp = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
 
-        demod = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        deinterleaved = malloc(sizeof(float) * [cfg kNoDataSubcarriers]);
-        decoded = malloc(sizeof(int) * [cfg kDataBitLength]);
+        convertedSignal.realp = new float[[cfg kSymbolLength]];
+        convertedSignal.imagp = new float[[cfg kSymbolLength]];
+        roiSignal.realp = new float[[cfg kNoTotalSubcarriers]];
+        roiSignal.imagp = new float[[cfg kNoTotalSubcarriers]];
+        estimatedSignal.realp = new float[[cfg kNoTotalSubcarriers]];
+        estimatedSignal.imagp = new float[[cfg kNoTotalSubcarriers]];
+        pilotRemovedSignal.realp = new float[[cfg kNoDataSubcarriers]];
+        pilotRemovedSignal.imagp = new float[[cfg kNoDataSubcarriers]];
+//
+        demod = new float[[cfg kNoDataSubcarriers]];
+        deinterleaved = new float[[cfg kNoDataSubcarriers]];
+        decoded = new int[[cfg kDataBitLength]];
 
         pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
         
@@ -124,17 +123,18 @@
 
 - (void)dealloc
 {
-    free(convertedSignal.realp);
-    free(convertedSignal.imagp);
-    free(roiSignal.realp);
-    free(roiSignal.imagp);
-    free(estimatedSignal.realp);
-    free(estimatedSignal.imagp);
-    free(pilotRemovedSignal.realp);
-    free(pilotRemovedSignal.imagp);
-    free(demod);
-    free(deinterleaved);
-    free(decoded);
+
+    delete [] convertedSignal.realp;
+    delete [] convertedSignal.imagp;
+    delete [] roiSignal.realp;
+    delete [] roiSignal.imagp;
+    delete [] estimatedSignal.realp;
+    delete [] estimatedSignal.imagp;
+    delete [] pilotRemovedSignal.realp;
+    delete [] pilotRemovedSignal.imagp;
+    delete [] demod;
+    delete [] deinterleaved;
+    delete [] decoded;
     
 }
 

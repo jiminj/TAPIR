@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 
+#ifndef __TapirLib__Dsp__
+#define __TapirLib__Dsp__
+
 //Frequency Downconversion
 void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int length, const float samplingFreq, const float carrierFreq);
 
@@ -28,3 +31,5 @@ void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
 
 int mergeBitsToIntegerValue(const int * intArray, int arrLength);
 void divdeIntIntoBits(const int src, int * arr, int arrLength);
+
+#endif /* defined(__TapirLib__Dsp__) */
