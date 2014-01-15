@@ -10,7 +10,11 @@
 #define TapirLib_TapirLib_h
 
 //New CPP Library
-//#include "Filter.h"
+
+#ifdef __cplusplus
+#include "Filter.h"
+#include "CircularQueue.h"
+#endif
 
 #include "TapirDsp.h"
 #import "TapirPilotManager.h"
@@ -25,7 +29,7 @@
 #import "TapirEncoder.h"
 #import "TapirDecoder.h"
 //#import "LKBiquadHPF.h"
-#import "TapirMotherOfAllFilters.h"
+//#import "TapirMotherOfAllFilters.h"
 #import "LKBitlyUrlShortener.h"
 
 

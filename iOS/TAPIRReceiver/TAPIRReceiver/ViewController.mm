@@ -34,6 +34,8 @@
     [[sendButton layer] setCornerRadius:4.0f];
     [[sendButton layer] setMasksToBounds:YES];
     
+    NSLog(@"loaded!");
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,6 +64,7 @@
     [formatter setDateStyle:NSDateFormatterNoStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     logString = [[NSString stringWithFormat:@"%@: %@\n", [formatter stringFromDate:[NSDate date]], lastResultString] stringByAppendingString:logString];
+    
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         //Your code goes in here
         outTF.text = logString;
@@ -71,7 +74,7 @@
     }else{
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bit.ly/%@", lastResultString]]]];
     }
-    
+    [aia stopAudioInput];
     [sendButton setEnabled:YES];
 
 }

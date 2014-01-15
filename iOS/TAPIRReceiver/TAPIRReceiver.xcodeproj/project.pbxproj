@@ -34,6 +34,8 @@
 		ECD96E9F18817A0300275F46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DA5E818486C430043EC2A /* AudioToolbox.framework */; };
 		ECD96EA018817A5B00275F46 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		ECD96EA2188180DE00275F46 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
+		ECFD0DB31884426200E43CC8 /* TapirController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DB21884426200E43CC8 /* TapirController.m */; };
+		ECFD0DB41884426200E43CC8 /* TapirController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DB21884426200E43CC8 /* TapirController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		EC7DDFD0184E2BE200909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
 		ECD96E9D1881758D00275F46 /* test19.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test19.wav; sourceTree = "<group>"; };
 		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		ECFD0DB11884426100E43CC8 /* TapirController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirController.h; sourceTree = "<group>"; };
+		ECFD0DB21884426200E43CC8 /* TapirController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,8 @@
 			children = (
 				EC7DDFCF184E2BE200909C92 /* TapirConfig.h */,
 				EC7DDFD0184E2BE200909C92 /* TapirConfig.m */,
+				ECFD0DB11884426100E43CC8 /* TapirController.h */,
+				ECFD0DB21884426200E43CC8 /* TapirController.m */,
 				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
 				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
@@ -304,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECFD0DB31884426200E43CC8 /* TapirController.m in Sources */,
 				245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */,
 				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
@@ -318,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECFD0DB41884426200E43CC8 /* TapirController.m in Sources */,
 				245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,7 +372,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -382,7 +390,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -396,7 +404,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				New_Setting = "";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					TapirLib,
@@ -410,7 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

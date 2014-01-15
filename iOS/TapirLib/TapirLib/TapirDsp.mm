@@ -21,7 +21,7 @@ static void generateCarrier(DSPSplitComplex * carrier, const int length, const f
     
     vDSP_vramp(&initState, &inc, carrierIndex, 1, length);
     vvsincosf(carrier->imagp, carrier->realp, carrierIndex, &length);
-    
+
     delete [] carrierIndex;
 }
 

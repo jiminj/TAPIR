@@ -91,7 +91,8 @@
         {
             textToSend = [textToSend substringToIndex:8];
         }
-        [self transmitString:textToSend through:LEFT];
+        if([sonifier isDone])
+        { [self transmitString:textToSend through:LEFT]; }
         
     }
     else
@@ -102,9 +103,8 @@
             urlToSend = [NSString stringWithFormat:@"%@%@", httpPrefix, urlToSend];
         }
         [bitlyShortener shortenUrl:urlToSend];
-//        [self transmitString:urlToSend through:LEFT];
+        // => didFinishBitlyConvertFrom
     }
-    
 }
 
 
@@ -120,7 +120,8 @@
         }else{
             outCh = RIGHT;
         }
-        [self transmitString:bitlyPostfix through:outCh];
+        if([sonifier isDone])
+        { [self transmitString:bitlyPostfix through:outCh]; }
     }
 }
 
@@ -131,6 +132,7 @@
 //    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
     
     //Add ETX ascii code (end of the text)
+
     NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
     if([inputStr length] > [cfg kMaximumSymbolLength])
     {
@@ -139,16 +141,16 @@
     int resultLength = [generator calculateResultLengthOfStringWithLength:[inputStr length]];
 
     encodedAudioData = new float[resultLength]();
-
     [generator generateSignalWith:inputStr dest:encodedAudioData length:resultLength];
-    
     [sonifier transmit:encodedAudioData length:resultLength];
+
     [sendBtn setEnabled:FALSE];
 }
 
 -(void) sonifierFinished
 {
     delete [] encodedAudioData;
+    NSLog(@"Finished");
     [sendBtn setEnabled:TRUE];
 }
 

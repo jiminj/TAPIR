@@ -11,28 +11,22 @@
 
 
 @implementation LKAudioInputAccessor
-@synthesize correlationOffset = _correlationOffset;
-@synthesize correlationSampleSize = _correlationSampleSize;
-@synthesize aqData;
-@synthesize delegate;
 @synthesize correlationManager;
 
-static void HandleInputBuffer (
-                               void                                *audioInput,
+static void HandleInputBuffer (void                                *audioInput,
                                AudioQueueRef                       inAQ,
                                AudioQueueBufferRef                 inBuffer,
                                const AudioTimeStamp                *inStartTime,
                                UInt32                              inNumPackets,
-                               const AudioStreamPacketDescription  *inPacketDesc
-){
+                               const AudioStreamPacketDescription  *inPacketDesc )
+{
     LKAudioInputAccessor *aia = (__bridge LKAudioInputAccessor *) audioInput;
-
-    if (inNumPackets == 0 && aia.aqData.mDataFormat.mBytesPerPacket != 0)
-        inNumPackets = inBuffer->mAudioDataByteSize / aia.aqData.mDataFormat.mBytesPerPacket;
+    
+    if (inNumPackets == 0 && aia->audioDesc.mBytesPerPacket != 0)
+        inNumPackets = inBuffer->mAudioDataByteSize / aia->audioDesc.mBytesPerPacket;
 
     [aia newInputBuffer:static_cast<SInt16*>(inBuffer->mAudioData) length:inNumPackets];
     AudioQueueEnqueueBuffer (inAQ,inBuffer,0,NULL);
-
 }
 
 - (id) init
@@ -47,28 +41,25 @@ static void HandleInputBuffer (
 -(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize
 {
 
-    
         // set audio format for recording
-    aqData.mDataFormat.mFormatID         = kAudioFormatLinearPCM;
-    aqData.mDataFormat.mSampleRate       = [cfg kAudioSampleRate];
-    aqData.mDataFormat.mChannelsPerFrame = [cfg kAudioChannel];
-    aqData.mDataFormat.mBitsPerChannel   = sizeof (SInt16)* 8;
-    aqData.mDataFormat.mBytesPerPacket   =
-    aqData.mDataFormat.mBytesPerFrame =
-    aqData.mDataFormat.mChannelsPerFrame * sizeof (SInt16);
-    aqData.mDataFormat.mFramesPerPacket  = 1;
+    audioDesc.mSampleRate       = [cfg kAudioSampleRate];
+    audioDesc.mFormatID         = kAudioFormatLinearPCM;
+    audioDesc.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+    audioDesc.mBitsPerChannel   = 8 * sizeof (SInt16);
+    audioDesc.mChannelsPerFrame = 1;
+    audioDesc.mBytesPerFrame    = audioDesc.mChannelsPerFrame * audioDesc.mBitsPerChannel / 8;
+    audioDesc.mFramesPerPacket  = 1;
+    audioDesc.mBytesPerPacket   = audioDesc.mBytesPerFrame * audioDesc.mFramesPerPacket;
+
+    frameLength = 1024;
     
-    aqData.mDataFormat.mFormatFlags =
-    kLinearPCMFormatFlagIsSignedInteger
-    | kLinearPCMFormatFlagIsPacked;
-    aqData.bufferByteSize = 1024;
+    filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
+    floatBuf = new float[frameLength];
     
-    filter = Tapir::TapirFilters::getTxRxHpf(aqData.bufferByteSize / sizeof(SInt16));
-    floatBuf = new float[aqData.bufferByteSize / sizeof(SInt16)];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    documentsDirectory = [paths objectAtIndex:0] ;
-    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    documentsDirectory = [paths objectAtIndex:0] ;
+
+    /*
     AudioStreamBasicDescription asbd;
     bzero(&asbd, sizeof(asbd));
     asbd.mSampleRate = [cfg kAudioSampleRate];
@@ -81,56 +72,41 @@ static void HandleInputBuffer (
     
     AudioFileCreateWithURL((__bridge CFURLRef)([NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"audio.caf"]]), kAudioFileCAFType, &asbd, kAudioFileFlags_EraseFile, &audioFile);
     audioFileLength =0;
+     */
 
     
     // create audio input
-    AudioQueueNewInput (
-                        &aqData.mDataFormat,
-                        HandleInputBuffer,
-                        (__bridge void *)(self),
-                        NULL,
-                        kCFRunLoopCommonModes,
-                        0,
-                        &aqData.mQueue
-                        );
+    AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
     
-    UInt32 dataFormatSize = sizeof (aqData.mDataFormat);
+    /*
+    UInt32 dataFormatSize = sizeof (audioDesc);
     
-    AudioQueueGetProperty (
-                           aqData.mQueue,
+    AudioQueueGetProperty (audioQueue,
                            kAudioQueueProperty_StreamDescription,
                            // in Mac OS X, instead use
                            //    kAudioConverterCurrentInputStreamDescription
-                           &aqData.mDataFormat,
+                           &audioDesc,
                            &dataFormatSize
                            );
+     */
     
     // prepare audio buffer
     for (int i = 0; i < kNumberBuffers; ++i) {
-        AudioQueueAllocateBuffer (
-                                  aqData.mQueue,
-                                  aqData.bufferByteSize,
-                                  &aqData.mBuffers[i]
-                                  );
-        
-        AudioQueueEnqueueBuffer (
-                                 aqData.mQueue,
-                                 aqData.mBuffers[i],
-                                 0,
-                                 NULL
-                                 );
+        AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
+        AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
     }
     
     //init correlation manager
     correlationManager = [[LKCorrelationManager alloc] initWithCorrelationWindowSize:windowSize andBacktrackSize:bufferSize];
+    
 }
 
 -(void)startAudioInput{
-    AudioQueueStart(aqData.mQueue, NULL);
+    AudioQueueStart(audioQueue, NULL);
 }
 
 -(void)stopAudioInput{
-    AudioQueueStop(aqData.mQueue, true);
+    AudioQueueStop(audioQueue, true);
 }
 -(void)trace{
     [correlationManager trace];
@@ -139,6 +115,7 @@ static void HandleInputBuffer (
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
 {
     vDSP_vflt16(inputBuffer, 1, floatBuf, 1, length);
+    
     filter->process(floatBuf, floatBuf, length);
     for(int i=0; i<length;++i)
     {

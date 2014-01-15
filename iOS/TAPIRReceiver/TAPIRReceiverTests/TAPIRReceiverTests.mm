@@ -110,11 +110,11 @@
     }
     [self writeData:result1 toFile:@"genResult1.txt" lengthOf:20000];
     
-    TapirMotherOfAllFilters* filter_orig = [TapirMotherOfAllFilters createHPF1];;
-    for(int i=0; i<20000; ++i)
-    {
-        [filter_orig next:audioData[i] writeTo:&result2[i] ];
-    }
+//    TapirMotherOfAllFilters* filter_orig = [TapirMotherOfAllFilters createHPF1];;
+//    for(int i=0; i<20000; ++i)
+//    {
+//        [filter_orig next:audioData[i] writeTo:&result2[i] ];
+//    }
     [self writeData:result2 toFile:@"genResult2.txt" lengthOf:20000];
     
     
@@ -175,5 +175,23 @@
         NSLog(@"%d",testf[i]);
     };
 }
+
+-(void) testQueue
+{
+    Tapir::CircularQueue<int> q(5);
+
+    for(int i=1; i<=5; ++i)
+    {
+        q.push(i);
+//        q.status();
+    }
+    int enque[7] = {99, 100, 101,102,103,104,105};
+    int enque2[4] = {200,201,202,203};
+    q.push(enque, 7);
+//    q.status();
+    q.push(enque2, 4);
+//    q.status();
+}
+
 
 @end

@@ -22,6 +22,7 @@
     IBOutlet UISegmentedControl* typeSC;
     IBOutlet UIWebView* webView;
     NSString* logString;
+    
     NSString* lastResultString;
 }
 
