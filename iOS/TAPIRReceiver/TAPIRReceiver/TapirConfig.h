@@ -37,8 +37,9 @@
 
     int     kAudioBufferLength;
     
-    
     float   kCarrierFrequency;
+    float   kCarrierFrequencyTransmitterOffset;
+    float   kCarrierFrequencyReceiverOffset;
     int     kNoDataSubcarriers;
 
     //For Channel Estimator
@@ -99,6 +100,9 @@
 @property (readonly, nonatomic) int     kIntervalAfterPreamble;
 
 @property (readonly, nonatomic) float   kCarrierFrequency;
+@property (readonly, nonatomic) float   kCarrierFrequencyTransmitterOffset;
+@property (readonly, nonatomic) float   kCarrierFrequencyReceiverOffset;
+
 @property (readonly, nonatomic) int     kNoDataSubcarriers;
 
 //For Channel Estimator

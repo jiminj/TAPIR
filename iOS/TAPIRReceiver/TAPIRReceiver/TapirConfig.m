@@ -66,6 +66,9 @@ static TapirConfig * sTapirConfig = nil;
                         (kGuardIntervalLength) * (kMaximumSymbolLength-1);
     
     kCarrierFrequency = 19000.f;
+    kCarrierFrequencyTransmitterOffset = 0.0f;
+    kCarrierFrequencyReceiverOffset = 0.0f;
+    
     kNoDataSubcarriers = 16;
     
     //For Channel Estimator

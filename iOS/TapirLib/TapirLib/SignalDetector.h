@@ -23,7 +23,7 @@ namespace Tapir {
 
         float * m_filtered;
         Filter * m_hpf;
-
+        
     };
 }
 #endif /* defined(__TapirLib__SignalDetector__) */

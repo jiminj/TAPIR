@@ -13,15 +13,19 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
 %     end
 %     
 %     
-	rxFilter = txrxHpf;
+	
 %     minBlkSize = 1280;
 
     %%%%%% Apply BPF first! (to prevent unwanted noise) %%%%%%%%%%%
-    filtDelay = ceil(rxFilter.order / 2);
-    extSignal = [signal; zeros(filtDelay,1)];
-    bandSig = filter(rxFilter, extSignal);
-    bandSig = bandSig(filtDelay+1 : end);
-
+    if(Fc > 17000)
+        rxFilter = txrxHpf;        
+        filtDelay = ceil(rxFilter.order / 2);
+        extSignal = [signal; zeros(filtDelay,1)];
+        bandSig = filter(rxFilter, extSignal);
+        bandSig = bandSig(filtDelay+1 : end);
+    else
+        bandSig = signal;
+    end
 %     bandSig = signal;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

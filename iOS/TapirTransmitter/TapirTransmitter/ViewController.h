@@ -39,9 +39,7 @@ typedef enum
     NSString * textModeLabelText;
     NSString * urlModeLabelText;
     NSString * httpPrefix;
-    
-    TapirMotherOfAllFilters* hpf;
-    TapirMotherOfAllFilters* hpf2;
+
 
     LKBitlyUrlShortener* bitlyShortener;
     LKBitlyUrlShortener* sorcerer;

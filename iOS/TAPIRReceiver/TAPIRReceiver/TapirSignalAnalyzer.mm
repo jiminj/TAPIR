@@ -70,7 +70,7 @@
 -(char)decodeBlock:(const float *)signal
 {
     //Freq Downconversion & FFT, and cut central spectrum region
-    iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
+    iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency] + [cfg kCarrierFrequencyReceiverOffset]);
 
     // TODO: LPF (for real & imag both)
     

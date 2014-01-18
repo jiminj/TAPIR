@@ -19,6 +19,7 @@ namespace Tapir {
     void SignalDetector::sendFrame(float * frame)
     {
         m_hpf->process(frame, m_filtered, m_frameSize);
+        
     }
     
     SignalDetector::~SignalDetector()

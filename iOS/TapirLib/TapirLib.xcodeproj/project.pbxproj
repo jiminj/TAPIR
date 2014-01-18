@@ -65,8 +65,8 @@
 		ECFD0DB818858C4500E43CC8 /* SignalDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = ECFD0DB618858C4500E43CC8 /* SignalDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECFD0DBB18859E6D00E43CC8 /* AutoCorrelator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DB918859E6D00E43CC8 /* AutoCorrelator.cpp */; };
 		ECFD0DBC18859E6D00E43CC8 /* AutoCorrelator.h in Headers */ = {isa = PBXBuildFile; fileRef = ECFD0DBA18859E6D00E43CC8 /* AutoCorrelator.h */; };
-		ECFD0DC11885B30300E43CC8 /* CircularQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DBF1885B30300E43CC8 /* CircularQueue.cpp */; };
-		ECFD0DC31885B30300E43CC8 /* CircularQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = ECFD0DC01885B30300E43CC8 /* CircularQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECFD0DC11885B30300E43CC8 /* CircularBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DBF1885B30300E43CC8 /* CircularBuffer.cpp */; };
+		ECFD0DC31885B30300E43CC8 /* CircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECFD0DC01885B30300E43CC8 /* CircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,8 +144,8 @@
 		ECFD0DB618858C4500E43CC8 /* SignalDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalDetector.h; sourceTree = "<group>"; };
 		ECFD0DB918859E6D00E43CC8 /* AutoCorrelator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoCorrelator.cpp; sourceTree = "<group>"; };
 		ECFD0DBA18859E6D00E43CC8 /* AutoCorrelator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCorrelator.h; sourceTree = "<group>"; };
-		ECFD0DBF1885B30300E43CC8 /* CircularQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularQueue.cpp; sourceTree = "<group>"; };
-		ECFD0DC01885B30300E43CC8 /* CircularQueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = CircularQueue.h; sourceTree = "<group>"; };
+		ECFD0DBF1885B30300E43CC8 /* CircularBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularBuffer.cpp; sourceTree = "<group>"; };
+		ECFD0DC01885B30300E43CC8 /* CircularBuffer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = CircularBuffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,8 +236,8 @@
 				EC186CF8183DEF4B00A89628 /* TapirInterleaver.m */,
 				EC313894183B75FC00C82186 /* TapirModulator.h */,
 				EC313895183B75FC00C82186 /* TapirModulator.m */,
-				ECFD0DBF1885B30300E43CC8 /* CircularQueue.cpp */,
-				ECFD0DC01885B30300E43CC8 /* CircularQueue.h */,
+				ECFD0DBF1885B30300E43CC8 /* CircularBuffer.cpp */,
+				ECFD0DC01885B30300E43CC8 /* CircularBuffer.h */,
 				ECFD0DB518858C4500E43CC8 /* SignalDetector.cpp */,
 				ECFD0DB618858C4500E43CC8 /* SignalDetector.h */,
 				EC186DC4187EB9A800F71285 /* Filter.cpp */,
@@ -310,7 +310,7 @@
 				248AB4E41854B7E20063627C /* AFNetworkReachabilityManager.h in Headers */,
 				248AB4E81854B7E20063627C /* AFURLConnectionOperation.h in Headers */,
 				ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */,
-				ECFD0DC31885B30300E43CC8 /* CircularQueue.h in Headers */,
+				ECFD0DC31885B30300E43CC8 /* CircularBuffer.h in Headers */,
 				248AB4DD1854B7E20063627C /* AFHTTPRequestOperation.h in Headers */,
 				EC186D0D1847A47C00A89628 /* TapirTrellisCode.h in Headers */,
 				ECFD0DB818858C4500E43CC8 /* SignalDetector.h in Headers */,
@@ -452,7 +452,7 @@
 				249B623918447A3F001C3E2B /* LKRealSampleBuffer.m in Sources */,
 				248AB4E01854B7E20063627C /* AFHTTPRequestOperationManager.m in Sources */,
 				ECFD0DB718858C4500E43CC8 /* SignalDetector.cpp in Sources */,
-				ECFD0DC11885B30300E43CC8 /* CircularQueue.cpp in Sources */,
+				ECFD0DC11885B30300E43CC8 /* CircularBuffer.cpp in Sources */,
 				EC186DC6187EB9A800F71285 /* Filter.cpp in Sources */,
 				EC186D0218437F0800A89628 /* TapirEncoder.m in Sources */,
 				248AB4E91854B7E20063627C /* AFURLConnectionOperation.m in Sources */,
@@ -518,7 +518,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -558,7 +558,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

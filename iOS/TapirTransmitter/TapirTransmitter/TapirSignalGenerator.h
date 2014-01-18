@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
-#include <TapirLib/Filter.h>
-
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 #import <TapirLib/TapirLib.h>
@@ -18,6 +16,8 @@
     int * input;
     float * encoded; 
     float * interleaved;
+    float carrierFreq;
+    
     DSPSplitComplex modulated;
     DSPSplitComplex pilotAdded;
     DSPSplitComplex extended;

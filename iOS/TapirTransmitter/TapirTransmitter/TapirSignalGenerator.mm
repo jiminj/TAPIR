@@ -31,7 +31,7 @@
         extended.imagp = new float[[cfg kSymbolLength]]();
         ifftData.realp = new float[[cfg kSymbolLength]];
         ifftData.imagp = new float[[cfg kSymbolLength]];
-        
+        carrierFreq = [cfg kCarrierFrequency] + [cfg kCarrierFrequencyTransmitterOffset];
         
 //        DSPSplitComplex ifftData;
         pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
@@ -77,7 +77,7 @@
     // TODO: LPF (for real and imag both)
     
     //frequency upconversion
-    iqModulate(&ifftData, dest, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
+    iqModulate(&ifftData, dest, [cfg kSymbolLength], [cfg kAudioSampleRate], carrierFreq);
     //prepend and append cyclic prefix
     
 }
@@ -106,7 +106,7 @@
     }
     // TODO: LPF (for real and imag both)
     
-    iqModulate(&preamble, dest, [cfg kPreambleLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
+    iqModulate(&preamble, dest, [cfg kPreambleLength], [cfg kAudioSampleRate], carrierFreq);
     maximizeSignal(dest, dest, [cfg kPreambleLength], [cfg kAudioMaxVolume]);
     memcpy(dest + [cfg kPreambleLength], dest, [cfg kPreambleLength] * sizeof(float));
 

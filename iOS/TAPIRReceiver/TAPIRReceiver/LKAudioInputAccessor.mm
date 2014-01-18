@@ -91,7 +91,7 @@ static void HandleInputBuffer (void                                *audioInput,
      */
     
     // prepare audio buffer
-    for (int i = 0; i < kNumberBuffers; ++i) {
+    for (int i = 0; i < kNumBuffers; ++i) {
         AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
         AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
     }
@@ -116,7 +116,7 @@ static void HandleInputBuffer (void                                *audioInput,
 {
     vDSP_vflt16(inputBuffer, 1, floatBuf, 1, length);
     
-    filter->process(floatBuf, floatBuf, length);
+//    filter->process(floatBuf, floatBuf, length);
     for(int i=0; i<length;++i)
     {
         [correlationManager newSample:floatBuf[i]];
@@ -128,6 +128,9 @@ static void HandleInputBuffer (void                                *audioInput,
 }
 - (void)dealloc
 {
+    for(int i=0; i<kNumBuffers; ++i)
+    { AudioQueueFreeBuffer(audioQueue, buffer[i]); }
+    AudioQueueDispose(audioQueue, true);
     delete [] floatBuf;
     delete filter;
 }

@@ -17,6 +17,7 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,6 +51,9 @@
     [aia startAudioInput];
     
 }
+
+
+
 
 -(void)correlationDetected:(NSNotification*)noti{
     NSLog(@"DETECTED!");

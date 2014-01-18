@@ -13,7 +13,8 @@
 
 #ifdef __cplusplus
 #include "Filter.h"
-#include "CircularQueue.h"
+//#include "CircularBuffer.h"
+#include "AutoCorrelator.h"
 #endif
 
 #include "TapirDsp.h"

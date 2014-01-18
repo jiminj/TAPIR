@@ -152,6 +152,8 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
 }
 
 -(void)dealloc {
+    for(int i=0; i<kNumBuffers; ++i)
+    { AudioQueueFreeBuffer(audioQueue, buffer[i]); }
     AudioQueueDispose(audioQueue, true);
 }
 @end

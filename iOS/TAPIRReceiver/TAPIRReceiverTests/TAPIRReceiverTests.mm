@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
-
+#include <mach/mach_time.h>
 #include <TapirLib/Filter.h>
 
 #import <XCTest/XCTest.h>
@@ -93,14 +93,13 @@
 - (void)testFilter
 {
     NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"test19" ofType: @".wav"];
-    float audioData[20000];
-    [self readWavDataFrom:filePath to:audioData lengthOf:20000];
+    float audioData[40000];
+    [self readWavDataFrom:filePath to:audioData lengthOf:40000];
     
-    
-    
+
     int step = 1024;
-    float result1[20000];
-    float result2[20000];
+    float result1[40000];
+    float result2[40000];
     
     Tapir::FilterFIR * filter = Tapir::TapirFilters::getTxRxHpf(step);
     
@@ -178,20 +177,66 @@
 
 -(void) testQueue
 {
-    Tapir::CircularQueue<int> q(5);
+    Tapir::CircularBuffer<int> q(5);
 
     for(int i=1; i<=5; ++i)
     {
         q.push(i);
-//        q.status();
+        q.status();
     }
     int enque[7] = {99, 100, 101,102,103,104,105};
     int enque2[4] = {200,201,202,203};
-    q.push(enque, 7);
+//    q.push(enque, 7);
 //    q.status();
     q.push(enque2, 4);
-//    q.status();
+    q.status();
+    q.push(enque, 7);
+    q.status();
+//    std::cout<<*(q.getLast())<<std::endl;
+    int backtrack = 4;
+    const int * lastElem = q.getLast(backtrack);
+
+    std::cout<<"RESULT : ";
+    for(int i=0; i<backtrack; ++i)
+    {
+        std::cout<<*(lastElem+i)<<" ";
+    }
+    std::cout<<std::endl;
+
+    q.status();
+    
 }
+
+
+- (void)testCorrelator
+{
+//    NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"test19" ofType: @".wav"];
+//    float audioData[40000];
+//    [self readWavDataFrom:filePath to:audioData lengthOf:40000];
+//    
+//    int step = 1024;
+//    float result1[20000];
+//    float result2[20000];
+//    
+//    Tapir::FilterFIR * filter = Tapir::TapirFilters::getTxRxHpf(step);
+//    
+//    for(int i=0; i<20000; i+=step)
+//    {
+//        filter->process(audioData + i, result1 + i, step);
+//    }
+//    [self writeData:result1 toFile:@"genResult1.txt" lengthOf:20000];
+    
+    //    TapirMotherOfAllFilters* filter_orig = [TapirMotherOfAllFilters createHPF1];;
+    //    for(int i=0; i<20000; ++i)
+    //    {
+    //        [filter_orig next:audioData[i] writeTo:&result2[i] ];
+    //    }
+//    [self writeData:result2 toFile:@"genResult2.txt" lengthOf:20000];
+    
+    
+}
+
+
 
 
 @end

@@ -64,7 +64,7 @@ global Fs;
 global Fc;
 
 Fs = 44100;
-Fc = 19000;
+Fc = 19000 - 8;
 
 % UIWAIT makes TapirTransmitter wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -173,11 +173,11 @@ function btnPlay_Callback(hObject, eventdata, handles)
 %     audiowrite('readTest.wav', testAudioData, Fs, 'BitsPerSample', 16);
     
     audioData = [upconvPreamble; zeros(preambleInterval,1); audioData];
+    if Fc > 17000
     audioData = [audioData; zeros(txHpfDelay*2,1)];
-    
-    
     audioData = filter(txHpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
+    end
 
     figure();
     subplot(3,1,1); stem(reshape(binData,[],1));
@@ -249,7 +249,7 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
         case handles.radioFc18k
             Fc = 18500;
         case handles.radioFc19k
-            Fc = 19000;
+            Fc = 19000 - 8;
         case handles.radioFc20k
             Fc = 20000;            
     end

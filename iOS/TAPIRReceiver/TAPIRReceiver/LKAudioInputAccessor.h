@@ -6,12 +6,10 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
-#include <TapirLib/Filter.h>
-#include <TapirLib/TapirLib.h>
+#import <TapirLib/TapirLib.h>
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "LKCorrelationManager.h"
-#import "TapirLib/TapirLib.h"
 #import "TapirConfig.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -21,14 +19,14 @@
 -(void)newCorrelationValue:(float)value;
 @end
 
-static const int kNumberBuffers = 3;
+static const int kNumBuffers = 3;
 @interface LKAudioInputAccessor : NSObject{
 
     TapirConfig * cfg;
 
     AudioStreamBasicDescription  audioDesc;
     AudioQueueRef                audioQueue;
-    AudioQueueBufferRef          buffer[kNumberBuffers];
+    AudioQueueBufferRef          buffer[kNumBuffers];
     AudioFileID                  mAudioFile;
     UInt32                       frameLength;
     
