@@ -24,13 +24,14 @@
     DSPSplitComplex ifftData;
     
     TapirConfig * cfg;
-    Tapir::PilotManager * pilotMgr;
-    
-    TapirPskModulator * modulator;
-    TapirMatrixInterleaver * interleaver;
+    Tapir::PilotManager * m_pilotMgr;
+
+    Tapir::PskModulator * m_modulator;
     TapirConvEncoder * convEncoder;
     
-    Tapir::FilterFIR * filter;
+    Tapir::MatrixInterleaver * m_interleaver;
+    
+    Tapir::FilterFIR * m_filter;
     
 }
 - (id) initWithConfig:(TapirConfig *)_cfg;

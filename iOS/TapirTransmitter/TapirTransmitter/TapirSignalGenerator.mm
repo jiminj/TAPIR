@@ -35,13 +35,16 @@
         
 //        DSPSplitComplex ifftData;
 //        pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
-        pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
+        m_pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
         
-        modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
-        interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
+//        m_modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
+        m_modulator = new Tapir::PskModulator(Tapir::Config::MODULATION_RATE);
+        m_interleaver = new Tapir::MatrixInterleaver(Tapir::Config::INTERLEAVER_ROWS, Tapir::Config::INTERLEAVER_COLS);
+//        interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
+        
         convEncoder = [[TapirConvEncoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
-        filter = Tapir::TapirFilters::getTxRxHpf([self calculateResultLengthOfStringWithLength:[cfg kMaximumSymbolLength]]);
+        m_filter = Tapir::TapirFilters::getTxRxHpf([self calculateResultLengthOfStringWithLength:[cfg kMaximumSymbolLength]]);
         
     }
     return self;
@@ -54,11 +57,12 @@
     //Convolutional Encoding
     [convEncoder encode:input dest:encoded srcLength:[cfg kDataBitLength]];
     //Interleaver
-    [interleaver interleave:encoded to:interleaved];
+    m_interleaver->interleave(encoded, interleaved);
     //Modulation
-    [modulator modulate:interleaved dest:&modulated length:[cfg kNoDataSubcarriers]];
+    m_modulator->modulate(interleaved, &modulated, Tapir::Config::NO_DATA_SUBCARRIERS);
+    
     //Add pilot
-    pilotMgr->addPilot(&modulated, &pilotAdded, Tapir::Config::NO_DATA_SUBCARRIERS);
+    m_pilotMgr->addPilot(&modulated, &pilotAdded, Tapir::Config::NO_DATA_SUBCARRIERS);
     
 
     //reverse each half and extend for ifft
@@ -140,8 +144,8 @@
         }
     }
 
-    filter->process(dest, dest, destLength);
-    filter->clearBuffer();
+    m_filter->process(dest, dest, destLength);
+    m_filter->clearBuffer();
     Tapir::maximizeSignal(dest, dest, destLength, [cfg kAudioMaxVolume]);
 }
 
@@ -157,8 +161,10 @@
 
 - (void) dealloc
 {
-    delete filter;
-    delete pilotMgr;
+    delete m_filter;
+    delete m_pilotMgr;
+    delete m_interleaver;
+    delete m_modulator;
     
     delete [] input;
     delete [] encoded;

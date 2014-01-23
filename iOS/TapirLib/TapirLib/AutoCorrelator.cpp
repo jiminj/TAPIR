@@ -60,9 +60,9 @@ namespace Tapir {
 
             if((!m_isTracking) && (corrResult > m_threshold))
             {
-                std::cout<<"Orig_CORR : "<<origCorr<<std::endl;
-                std::cout<<"CORR : "<<corrResult<<std::endl;
-                std::cout<<"Mag : "<<(mag / m_lag)<<std::endl;
+//                std::cout<<"Orig_CORR : "<<origCorr<<std::endl;
+//                std::cout<<"CORR : "<<corrResult<<std::endl;
+//                std::cout<<"Mag : "<<(mag / m_lag)<<std::endl;
                 m_isTracking = true;
                 m_tracked[m_trackedIdx] = corrResult;
                 m_resultData = m_inBuffer->getLast(backTrackLength);
@@ -77,7 +77,7 @@ namespace Tapir {
                     float maxVal;
                     vDSP_maxvi(m_tracked, 1, &maxVal, &maxIdx, m_lag);
                     m_resultData += maxIdx;
-                    std::cout<<"MAX Corr val : "<<maxVal<<std::endl;
+//                    std::cout<<"MAX Corr val : "<<maxVal<<std::endl;
                     if(m_resultData > m_inBuffer->getLast())
                     {
                         m_resultData -= m_inBuffer->getQueueSize();

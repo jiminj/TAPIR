@@ -25,13 +25,14 @@
     
     TapirConfig * cfg;
 //    TapirPilotManager * pilotMgr;
-    Tapir::PilotManager * pilotMgr;
-    
+    Tapir::PilotManager * m_pilotMgr;
 //    TapirLSChannelEstimator * chanEstimator;
-    Tapir::LSChannelEstimator * chanEstimator;
-    
-    TapirPskModulator * modulator;
-    TapirMatrixInterleaver * interleaver;
+    Tapir::LSChannelEstimator * m_chanEstimator;
+    //    TapirMatrixInterleaver * interleaver;
+    Tapir::MatrixInterleaver * m_interleaver;
+//    TapirPskModulator * modulator;
+    Tapir::PskModulator * m_modulator;
+
     TapirViterbiDecoder * vitdec;
     
 }

@@ -41,12 +41,15 @@
         deinterleaved = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
         decoded = new int[[cfg kDataBitLength]];
 
-        pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
+        m_pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
 
-        chanEstimator = new Tapir::LSChannelEstimator(pilotMgr, Tapir::Config::NO_TOTAL_SUBCARRIERS);
+        m_chanEstimator = new Tapir::LSChannelEstimator(m_pilotMgr, Tapir::Config::NO_TOTAL_SUBCARRIERS);
+//        m_interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:(Tapir::Config::INTERLEAVER_ROWS) NCols:(Tapir::Config::INTERLEAVER_COLS)];
+        m_interleaver = new Tapir::MatrixInterleaver((Tapir::Config::INTERLEAVER_ROWS), (Tapir::Config::INTERLEAVER_COLS));
         
-        modulator = [[TapirPskModulator alloc] initWithSymbolRate:Tapir::Config::MODULATION_RATE];
-        interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:(Tapir::Config::INTERLEAVER_ROWS) NCols:(Tapir::Config::INTERLEAVER_COLS)];
+//        modulator = [[TapirPskModulator alloc] initWithSymbolRate:Tapir::Config::MODULATION_RATE];
+        m_modulator = new Tapir::PskModulator(Tapir::Config::MODULATION_RATE);
+        
         vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
     }
@@ -85,17 +88,21 @@
            firstHalfLength:(Tapir::Config::NO_TOTAL_SUBCARRIERS/2)];
 
     //Channel Estimation
-    chanEstimator->estimateChannel(&roiSignal, &estimatedSignal);
 //    [chanEstimator channelEstimate:&roiSignal dest:&estimatedSignal];
+    m_chanEstimator->estimateChannel(&roiSignal, &estimatedSignal);
     
     //Pilot Remove
 //    [pilotMgr removePilotFrom:&estimatedSignal dest:&pilotRemovedSignal srcLength:Tapir::Config::NO_TOTAL_SUBCARRIERS];
-    pilotMgr->removePilot(&estimatedSignal, &pilotRemovedSignal, Tapir::Config::NO_TOTAL_SUBCARRIERS);
-
+    m_pilotMgr->removePilot(&estimatedSignal, &pilotRemovedSignal, Tapir::Config::NO_TOTAL_SUBCARRIERS);
+    
     //Demodulation
-    [modulator demodulate:&pilotRemovedSignal dest:demod length:(Tapir::Config::NO_DATA_SUBCARRIERS)];
+//    [modulator demodulate:&pilotRemovedSignal dest:demod length:(Tapir::Config::NO_DATA_SUBCARRIERS)];
+    m_modulator->demodulate(&pilotRemovedSignal, demod, Tapir::Config::NO_DATA_SUBCARRIERS);
+    
     //Deinterleaver
-    [interleaver deinterleave:demod to:deinterleaved];
+//    [interleaver deinterleave:demod to:deinterleaved];
+    m_interleaver->deinterleave(demod, deinterleaved);
+
 
     // Viterbi Decoding
     [vitdec decode:deinterleaved dest:decoded srcLength:(Tapir::Config::NO_DATA_SUBCARRIERS)];
@@ -147,8 +154,10 @@
     delete [] deinterleaved;
     delete [] decoded;
     
-    delete chanEstimator;
-    delete pilotMgr;
+    delete m_chanEstimator;
+    delete m_pilotMgr;
+    delete m_interleaver;
+    delete m_modulator;
     
 }
 
