@@ -40,5 +40,5 @@ static const int kNumBuffers = 3;
 -(void)startAudioInput;
 -(void)stopAudioInput;
 
--(void)newInputBuffer:(SInt16 *)inputBuffer;
+-(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length;
 @end

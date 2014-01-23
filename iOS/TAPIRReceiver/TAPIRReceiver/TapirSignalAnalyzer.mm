@@ -27,25 +27,26 @@
     {
         cfg = _cfg;
 
-        convertedSignal.realp = new float[[cfg kSymbolLength]];
-        convertedSignal.imagp = new float[[cfg kSymbolLength]];
-        roiSignal.realp = new float[[cfg kNoTotalSubcarriers]];
-        roiSignal.imagp = new float[[cfg kNoTotalSubcarriers]];
-        estimatedSignal.realp = new float[[cfg kNoTotalSubcarriers]];
-        estimatedSignal.imagp = new float[[cfg kNoTotalSubcarriers]];
-        pilotRemovedSignal.realp = new float[[cfg kNoDataSubcarriers]];
-        pilotRemovedSignal.imagp = new float[[cfg kNoDataSubcarriers]];
-//
-        demod = new float[[cfg kNoDataSubcarriers]];
-        deinterleaved = new float[[cfg kNoDataSubcarriers]];
+        convertedSignal.realp = new float[Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL];
+        convertedSignal.imagp = new float[Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL];
+        
+        roiSignal.realp = new float[Tapir::Config::NO_TOTAL_SUBCARRIERS];
+        roiSignal.imagp = new float[Tapir::Config::NO_TOTAL_SUBCARRIERS];
+        estimatedSignal.realp = new float[Tapir::Config::NO_TOTAL_SUBCARRIERS];
+        estimatedSignal.imagp = new float[Tapir::Config::NO_TOTAL_SUBCARRIERS];
+        pilotRemovedSignal.realp = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
+        pilotRemovedSignal.imagp = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
+
+        demod = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
+        deinterleaved = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
         decoded = new int[[cfg kDataBitLength]];
 
-        pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
+        pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
+
+        chanEstimator = new Tapir::LSChannelEstimator(pilotMgr, Tapir::Config::NO_TOTAL_SUBCARRIERS);
         
-        chanEstimator = [[TapirLSChannelEstimator alloc] initWithPilot:pilotMgr channelLength:[cfg kNoTotalSubcarriers]];
-        
-        modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
-        interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
+        modulator = [[TapirPskModulator alloc] initWithSymbolRate:Tapir::Config::MODULATION_RATE];
+        interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:(Tapir::Config::INTERLEAVER_ROWS) NCols:(Tapir::Config::INTERLEAVER_COLS)];
         vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
     }
@@ -70,28 +71,34 @@
 -(char)decodeBlock:(const float *)signal
 {
     //Freq Downconversion & FFT, and cut central spectrum region
-    Tapir::iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency] + [cfg kCarrierFrequencyReceiverOffset]);
-
+//    Tapir::iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency] + [cfg kCarrierFrequencyReceiverOffset]);
+    Tapir::iqDemodulate(signal, &convertedSignal, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL, Tapir::Config::AUDIO_SAMPLE_RATE, Tapir::Config::CARRIER_FREQUENCY_BASE + Tapir::Config::CARRIER_FREQUENCY_RECEIVE_OFFSET);
     // TODO: LPF (for real & imag both)
     
     //FFT
-    Tapir::fftComplexForward(&convertedSignal, &convertedSignal, [cfg kSymbolLength]);
+    Tapir::fftComplexForward(&convertedSignal, &convertedSignal, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL);
     
-    [self cutCentralRegion:&convertedSignal dest:&roiSignal signalLength:[cfg kSymbolLength] destLength:[cfg kNoTotalSubcarriers] firstHalfLength:[cfg kNoTotalSubcarriers]/2];
+    [self cutCentralRegion:&convertedSignal
+                      dest:&roiSignal
+              signalLength:(Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL)
+                destLength:(Tapir::Config::NO_TOTAL_SUBCARRIERS)
+           firstHalfLength:(Tapir::Config::NO_TOTAL_SUBCARRIERS/2)];
 
     //Channel Estimation
-    [chanEstimator channelEstimate:&roiSignal dest:&estimatedSignal];
+    chanEstimator->estimateChannel(&roiSignal, &estimatedSignal);
+//    [chanEstimator channelEstimate:&roiSignal dest:&estimatedSignal];
     
     //Pilot Remove
-    [pilotMgr removePilotFrom:&estimatedSignal dest:&pilotRemovedSignal srcLength:[cfg kNoTotalSubcarriers]];
+//    [pilotMgr removePilotFrom:&estimatedSignal dest:&pilotRemovedSignal srcLength:Tapir::Config::NO_TOTAL_SUBCARRIERS];
+    pilotMgr->removePilot(&estimatedSignal, &pilotRemovedSignal, Tapir::Config::NO_TOTAL_SUBCARRIERS);
 
     //Demodulation
-    [modulator demodulate:&pilotRemovedSignal dest:demod length:[cfg kNoDataSubcarriers]];
+    [modulator demodulate:&pilotRemovedSignal dest:demod length:(Tapir::Config::NO_DATA_SUBCARRIERS)];
     //Deinterleaver
     [interleaver deinterleave:demod to:deinterleaved];
 
     // Viterbi Decoding
-    [vitdec decode:deinterleaved dest:decoded srcLength:[cfg kNoDataSubcarriers]];
+    [vitdec decode:deinterleaved dest:decoded srcLength:(Tapir::Config::NO_DATA_SUBCARRIERS)];
     return ((char)Tapir::mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
 
 }
@@ -100,11 +107,15 @@
 {
     NSMutableString * result = [[NSMutableString alloc] init];
     
+    int maxSymbolLength = Tapir::Config::MAX_SYMBOL_LENGTH;
+    int symbolWithGuardIntervalSize = Tapir::Config::SAMPLE_LENGTH_GUARD_INTERVAL + Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL_WITH_EXTENSION;
+    int cyclicPrefixLength = Tapir::Config::SAMPLE_LENGTH_CYCLIC_PREFIX;
+    
     //skip preambleInterval
-    float * ptr = signal + [cfg kIntervalAfterPreamble];
-    for(int i=0;i < [cfg kMaximumSymbolLength]; ++i)
+    float * ptr = signal + Tapir::Config::SAMPLE_LENGTH_INTERVAL_AFTER_PREAMBLE;
+    for(int i=0;i < maxSymbolLength; ++i)
     {
-        float * curSymbol = (ptr + [cfg kCyclicPrefixLength]);
+        float * curSymbol = (ptr + cyclicPrefixLength);
         char decodedChar = [self decodeBlock:curSymbol];
         if(decodedChar == ASCII_ETX) { break; }
         else
@@ -112,9 +123,9 @@
             [result appendFormat:@"%c", decodedChar];
         }
         
-        if( i != [cfg kMaximumSymbolLength])
+        if( i != maxSymbolLength)
         {
-            ptr += ([cfg kGuardIntervalLength] + [cfg kSymbolWithCyclicExtLength]);
+            ptr += symbolWithGuardIntervalSize;
         }
     }
     return (NSString *)result;
@@ -135,6 +146,9 @@
     delete [] demod;
     delete [] deinterleaved;
     delete [] decoded;
+    
+    delete chanEstimator;
+    delete pilotMgr;
     
 }
 

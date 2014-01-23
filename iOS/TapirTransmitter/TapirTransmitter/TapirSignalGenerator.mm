@@ -34,15 +34,14 @@
         carrierFreq = [cfg kCarrierFrequency] + [cfg kCarrierFrequencyTransmitterOffset];
         
 //        DSPSplitComplex ifftData;
-        pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
+//        pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
+        pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
+        
         modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
         interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
         convEncoder = [[TapirConvEncoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
         filter = Tapir::TapirFilters::getTxRxHpf([self calculateResultLengthOfStringWithLength:[cfg kMaximumSymbolLength]]);
-        
-//        hpf = [TapirMotherOfAllFilters createHPF1];
-//        vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
         
     }
     return self;
@@ -59,7 +58,7 @@
     //Modulation
     [modulator modulate:interleaved dest:&modulated length:[cfg kNoDataSubcarriers]];
     //Add pilot
-    [pilotMgr addPilotTo:&modulated dest:&pilotAdded srcLength:[cfg kNoDataSubcarriers]];
+    pilotMgr->addPilot(&modulated, &pilotAdded, Tapir::Config::NO_DATA_SUBCARRIERS);
     
 
     //reverse each half and extend for ifft
@@ -159,6 +158,8 @@
 - (void) dealloc
 {
     delete filter;
+    delete pilotMgr;
+    
     delete [] input;
     delete [] encoded;
     delete [] interleaved;

@@ -8,10 +8,6 @@
 
 #import "TapirDecoder.h"
 
-//@implementation TapirViterbiNode
-//@synthesize prevNode, outputValue, choosedRoute;
-//
-//@end
 
 @interface TapirViterbiDecoder()
 

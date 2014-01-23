@@ -14,6 +14,9 @@
 #include "ObjcFuncBridge.h"
 
 #include "Config.h"
+#include "PilotManager.h"
+#include "ChannelEstimator.h"
+
 #include "TapirDsp.h"
 #include "Filter.h"
 #include "CircularQueue.h"
@@ -24,13 +27,13 @@
 
 
 
-#import "TapirPilotManager.h"
+//#import "TapirPilotManager.h"
 #import "TapirEncoder.h"
 #import "TapirDecoder.h"
 #import "TapirTrellisCode.h"
 #import "TapirModulator.h"
 #import "TapirInterleaver.h"
-#import "TapirChannelEstimator.h"
+//#import "TapirChannelEstimator.h"
 //#import "LKBitlyUrlShortener.h"
 
 #endif

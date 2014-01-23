@@ -24,8 +24,12 @@
     int * decoded;
     
     TapirConfig * cfg;
-    TapirPilotManager * pilotMgr;
-    TapirLSChannelEstimator * chanEstimator;
+//    TapirPilotManager * pilotMgr;
+    Tapir::PilotManager * pilotMgr;
+    
+//    TapirLSChannelEstimator * chanEstimator;
+    Tapir::LSChannelEstimator * chanEstimator;
+    
     TapirPskModulator * modulator;
     TapirMatrixInterleaver * interleaver;
     TapirViterbiDecoder * vitdec;

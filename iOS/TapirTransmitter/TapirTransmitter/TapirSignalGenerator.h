@@ -24,7 +24,8 @@
     DSPSplitComplex ifftData;
     
     TapirConfig * cfg;
-    TapirPilotManager * pilotMgr;
+    Tapir::PilotManager * pilotMgr;
+    
     TapirPskModulator * modulator;
     TapirMatrixInterleaver * interleaver;
     TapirConvEncoder * convEncoder;

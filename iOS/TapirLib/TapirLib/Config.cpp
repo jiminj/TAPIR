@@ -43,7 +43,7 @@ namespace Tapir {
     float Config::pilotRealp[] = {1.f, 1.f, 1.f, -1.f};
     float Config::pilotImagp[] = {0.f, 0.f, 0.f, 0.f};
     
-    const DSPSplitComplex Config::PILOT_DATA = { Config::pilotRealp, Config::pilotImagp };
+    const DSPSplitComplex Config::PILOT_DATA = { .realp=Config::pilotRealp, .imagp=Config::pilotImagp };
     
     const int   Config::PILOT_LOCATIONS [] = {3, 7, 11, 15};
     const int   Config::MODULATION_RATE = 2;
