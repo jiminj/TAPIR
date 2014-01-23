@@ -16,7 +16,7 @@
 }
 - (id)initWithConfig:(TapirConfig *)_cfg
 {
-    if(self == [super init])
+    if(self = [super init])
     {
         cfg = _cfg;
         
@@ -31,7 +31,7 @@
         extended.imagp = new float[[cfg kSymbolLength]]();
         ifftData.realp = new float[[cfg kSymbolLength]];
         ifftData.imagp = new float[[cfg kSymbolLength]];
-        
+        carrierFreq = [cfg kCarrierFrequency] + [cfg kCarrierFrequencyTransmitterOffset];
         
 //        DSPSplitComplex ifftData;
         pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
@@ -51,7 +51,7 @@
 - (void)encodeOneChar:(const char)src dest:(float *)dest;
 {
     //Char to Int Array
-    divdeIntIntoBits((int)src, input, [cfg kDataBitLength]);
+    Tapir::divdeIntIntoBits((int)src, input, [cfg kDataBitLength]);
     //Convolutional Encoding
     [convEncoder encode:input dest:encoded srcLength:[cfg kDataBitLength]];
     //Interleaver
@@ -72,12 +72,12 @@
     memcpy(extended.imagp , pilotAdded.imagp + firstHalfLength, firstHalfLength * sizeof(float));
     
     //ifft
-    fftComplexInverse(&extended, &ifftData, [cfg kSymbolLength]);
+    Tapir::fftComplexInverse(&extended, &ifftData, [cfg kSymbolLength]);
 
     // TODO: LPF (for real and imag both)
     
     //frequency upconversion
-    iqModulate(&ifftData, dest, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
+    Tapir::iqModulate(&ifftData, dest, [cfg kSymbolLength], [cfg kAudioSampleRate], carrierFreq);
     //prepend and append cyclic prefix
     
 }
@@ -106,8 +106,8 @@
     }
     // TODO: LPF (for real and imag both)
     
-    iqModulate(&preamble, dest, [cfg kPreambleLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency]);
-    maximizeSignal(dest, dest, [cfg kPreambleLength], [cfg kAudioMaxVolume]);
+    Tapir::iqModulate(&preamble, dest, [cfg kPreambleLength], [cfg kAudioSampleRate], carrierFreq);
+    Tapir::maximizeSignal(dest, dest, [cfg kPreambleLength], [cfg kAudioMaxVolume]);
     memcpy(dest + [cfg kPreambleLength], dest, [cfg kPreambleLength] * sizeof(float));
 
     delete [] preamble.realp;
@@ -131,7 +131,7 @@
         char inputChar = [inputString characterAtIndex:i];
         [self encodeOneChar:inputChar dest:curSymbolPtr ];
          
-        maximizeSignal(curSymbolPtr, curSymbolPtr, [cfg kSymbolLength], [cfg kAudioMaxVolume]);
+        Tapir::maximizeSignal(curSymbolPtr, curSymbolPtr, [cfg kSymbolLength], [cfg kAudioMaxVolume]);
         [self addPrefixAndPostfixWith:curSymbolPtr dest:destPtr];
 
         if( i != [inputString length] -1 )
@@ -143,7 +143,7 @@
 
     filter->process(dest, dest, destLength);
     filter->clearBuffer();
-    maximizeSignal(dest, dest, destLength, [cfg kAudioMaxVolume]);
+    Tapir::maximizeSignal(dest, dest, destLength, [cfg kAudioMaxVolume]);
 }
 
 - (int) calculateResultLengthOfStringWithLength:(int)stringLength

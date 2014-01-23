@@ -24,12 +24,13 @@
 		245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 245AC6AE18364DBE00AF31AE /* InfoPlist.strings */; };
 		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */; };
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */; };
-		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
 		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD0184E2BE200909C92 /* TapirConfig.m */; };
+		ECD1770E188D03F2006D1AC4 /* sony.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD1770D188D03F2006D1AC4 /* sony.wav */; };
+		ECD17710188D05E7006D1AC4 /* samsungFull.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD1770F188D05E7006D1AC4 /* samsungFull.wav */; };
 		ECD96E9E1881758D00275F46 /* test19.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD96E9D1881758D00275F46 /* test19.wav */; };
 		ECD96E9F18817A0300275F46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DA5E818486C430043EC2A /* AudioToolbox.framework */; };
 		ECD96EA018817A5B00275F46 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
@@ -70,8 +71,6 @@
 		245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TAPIRReceiverTests.mm; sourceTree = "<group>"; };
 		245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKAudioInputAccessor.h; sourceTree = "<group>"; };
 		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LKAudioInputAccessor.mm; sourceTree = "<group>"; };
-		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
-		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
 		248AB4F31854BF850063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
 		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirSignalAnalyzer.mm; sourceTree = "<group>"; };
@@ -79,6 +78,8 @@
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
 		EC7DDFCF184E2BE200909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
 		EC7DDFD0184E2BE200909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
+		ECD1770D188D03F2006D1AC4 /* sony.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sony.wav; sourceTree = "<group>"; };
+		ECD1770F188D05E7006D1AC4 /* samsungFull.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = samsungFull.wav; sourceTree = "<group>"; };
 		ECD96E9D1881758D00275F46 /* test19.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test19.wav; sourceTree = "<group>"; };
 		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -158,8 +159,6 @@
 				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
 				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */,
-				245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */,
-				245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */,
 				245AC69518364DBE00AF31AE /* AppDelegate.h */,
 				245AC69618364DBE00AF31AE /* AppDelegate.mm */,
 				245AC69818364DBE00AF31AE /* Main.storyboard */,
@@ -185,6 +184,8 @@
 		245AC6AB18364DBE00AF31AE /* TAPIRReceiverTests */ = {
 			isa = PBXGroup;
 			children = (
+				ECD1770F188D05E7006D1AC4 /* samsungFull.wav */,
+				ECD1770D188D03F2006D1AC4 /* sony.wav */,
 				ECD96E9D1881758D00275F46 /* test19.wav */,
 				EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */,
 				245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */,
@@ -291,7 +292,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD17710188D05E7006D1AC4 /* samsungFull.wav in Resources */,
 				245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */,
+				ECD1770E188D03F2006D1AC4 /* sony.wav in Resources */,
 				ECD96E9E1881758D00275F46 /* test19.wav in Resources */,
 				EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */,
 			);
@@ -304,7 +307,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */,
 				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.mm in Sources */,
@@ -364,7 +366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -382,7 +384,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -396,7 +398,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				New_Setting = "";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					TapirLib,
@@ -410,7 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

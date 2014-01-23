@@ -6,19 +6,12 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "TapirConfig.h"
-#define NUM_BUFFERS 3
 
-//typedef struct AQDataType {
-//    AudioStreamBasicDescription dataFormat;
-//    AudioQueueRef queue;
-//    AudioQueueBufferRef buffers[NUM_BUFFERS];
-//    UInt32 frameCount;	
-//} AQDataType;
-
-
-
+static const int kNumBuffers = 3;
+static const float kShortMax = (float)(SHRT_MAX);
 
 @protocol SonifierDelegate <NSObject>
 -(void) sonifierFinished;
@@ -31,23 +24,26 @@
     TapirConfig * cfg;
 
     AudioStreamBasicDescription audioDesc;
-    AudioQueueRef queue;
-    AudioQueueBufferRef buffer[NUM_BUFFERS];
-    UInt32 frameCount;
+    AudioQueueRef audioQueue;
+//    AudioQueueBufferRef buffer[NUM_BUFFERS];
+    AudioQueueBufferRef buffer[kNumBuffers];
+    UInt32 frameLength;
     
     float * audioData;
+    int audioBufferByteSize;
     
     int dataLength;
     
     BOOL isPlaying;
     BOOL isDone;
     int doneCnt;
+    NSLock * outputLock;
 
 }
 
 @property int dataLength;
 @property id <SonifierDelegate> delegate;
-@property BOOL isPlaying;
+@property (readonly) BOOL isDone;
 
 - (id)initWithConfig:(TapirConfig *)_cfg;
 - (void)transmit:(float *)audioData length:(int)len;

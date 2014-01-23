@@ -15,8 +15,9 @@ namespace Tapir {
     class Filter
     {
     public:
-        virtual void setFilter(const float * coeff, const int order, const int maxBufferSize) = 0;
-        virtual void process(const float * src, float * dest, int length) const = 0;
+        virtual ~Filter() {};
+        virtual void clearBuffer() = 0;
+        virtual void process(const float * src, float * dest, int length) = 0;
     };
 
     
@@ -24,23 +25,19 @@ namespace Tapir {
     class FilterFIR : public Filter
     {
     public:
-        FilterFIR();
-        FilterFIR(const float * coeff, const int order, const int maxBufferSize);
-        void setFilter(const float * coeff, const int order, const int maxBufferSize);
-
-        void process(const float * src, float * dest, int length) const ;
+        FilterFIR(const float * coeff, const int filtOrder, const int maxBufferSize);
+        void process(const float * src, float * dest, int length) ;
         void clearBuffer();
         int getFilterOrder() { return m_order;};
 
         virtual ~FilterFIR();
 
     protected:
-        void clear();
-        float * m_coeff;
-        float * m_buffer;
         int m_order;
+        float * m_coeff;
         int m_bufferSize;
-        
+        float * m_buffer;
+ 
     };
     
     
@@ -48,20 +45,14 @@ namespace Tapir {
     class FilterIIR : public Filter
     {
     public:
-        FilterIIR();
-        FilterIIR(const float * coeff, const int section, const int maxBufferSize = 0);
-        void setFilter(const float * coeff, const int section, const int maxBufferSize = 0);
-
-        void process(const float * src, float * dest, int length) const;
-
+        FilterIIR(const float * coeff, const int numSection);
+        void clearBuffer();
+        void process(const float * src, float * dest, int length);
         virtual ~FilterIIR();
 
     protected:
-        void clear();
-        
+        int m_numSection;
         double * m_coeff;
-        int m_section;
-        
         float * m_filtDelay;
         vDSP_biquad_Setup m_filterSetup;
 

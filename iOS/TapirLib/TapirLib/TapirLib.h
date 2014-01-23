@@ -10,9 +10,20 @@
 #define TapirLib_TapirLib_h
 
 //New CPP Library
-//#include "Filter.h"
+#ifdef __cplusplus
+#include "ObjcFuncBridge.h"
 
+#include "Config.h"
 #include "TapirDsp.h"
+#include "Filter.h"
+#include "CircularQueue.h"
+#include "AutoCorrelator.h"
+#include "SignalDetector.h"
+
+#endif
+
+
+
 #import "TapirPilotManager.h"
 #import "TapirEncoder.h"
 #import "TapirDecoder.h"
@@ -20,13 +31,6 @@
 #import "TapirModulator.h"
 #import "TapirInterleaver.h"
 #import "TapirChannelEstimator.h"
-#import "LKRealSampleBuffer.h"
-#import "LKVirtualSampleBuffer.h"
-#import "TapirEncoder.h"
-#import "TapirDecoder.h"
-//#import "LKBiquadHPF.h"
-#import "TapirMotherOfAllFilters.h"
 #import "LKBitlyUrlShortener.h"
-
 
 #endif

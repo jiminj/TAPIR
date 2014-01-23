@@ -6,33 +6,22 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include <iostream>
 #include "Filter.h"
 
 namespace Tapir {
 
     //****** FIR Filter ********
-    FilterFIR::FilterFIR()
-    :m_order(0), m_coeff(nullptr), m_buffer(nullptr), m_bufferSize(0)
-    {};
     FilterFIR::FilterFIR(const float * coeff, const int filtOrder, const int maxBufferSize)
-    :FilterFIR()
+    :m_order(filtOrder),
+    m_coeff(new float[m_order]),
+    m_bufferSize(filtOrder + maxBufferSize),
+    m_buffer(new float[m_bufferSize]())
     {
-        setFilter(coeff, filtOrder, maxBufferSize);
-    };
-
-    void FilterFIR::setFilter(const float *coeff, const int filtOrder, const int maxBufferSize)
-    {
-        clear();
-        m_order = filtOrder;
-        m_bufferSize = m_order + maxBufferSize;
-        m_coeff = new float[m_order];
-        m_buffer = new float[m_bufferSize]();
         memcpy(m_coeff, coeff, sizeof(float) * filtOrder);
         vDSP_vrvrs(m_coeff, 1, m_order);
-        
+
     };
-    void FilterFIR::process(const float * src, float * dest, int length) const
+    void FilterFIR::process(const float * src, float * dest, int length)
     {
         //copy data to buffer
         memcpy(m_buffer + m_order, src, length * sizeof(float));
@@ -49,38 +38,27 @@ namespace Tapir {
     {
         std::memset(m_buffer, 0, m_bufferSize * sizeof(float));
     };
-    void FilterFIR::clear()
+    FilterFIR::~FilterFIR()
     {
         if(m_coeff != nullptr)
         { delete [] m_coeff; m_coeff = nullptr; }
         if(m_buffer != nullptr)
         { delete [] m_buffer; m_buffer = nullptr; }
     };
-    FilterFIR::~FilterFIR()
-    {
-        clear();
-    };
     
     //****** IIR Filter ********
-    FilterIIR::FilterIIR()
-    : m_coeff(nullptr), m_section(0), m_filtDelay(nullptr), m_filterSetup(nullptr)
-    {};
-    FilterIIR::FilterIIR(const float * coeff, const int section, const int bufferSize)
-    :FilterIIR()
+//    FilterIIR::FilterIIR()
+//    : m_coeff(nullptr), m_section(0), m_filtDelay(nullptr), m_filterSetup(nullptr)
+//    {};
+    FilterIIR::FilterIIR(const float * coeff, const int numSection)
+    :m_numSection(numSection),
+    m_coeff(new double[m_numSection * 5]),
+    m_filtDelay(new float[ 2* m_numSection + 2]),
+    m_filterSetup(vDSP_biquad_CreateSetup(m_coeff, m_numSection))
     {
-        setFilter(coeff, section);
+        vDSP_vspdp(coeff, 1, m_coeff, 1, m_numSection * 5);
     };
-    void FilterIIR::setFilter(const float * coeff, const int section, const int bufferSize)
-    {
-        clear();
-        m_section = section;
-        m_coeff = new double[m_section * 5];
-        m_filtDelay = new float[ 2 * m_section + 2]();
-        m_filterSetup = vDSP_biquad_CreateSetup(m_coeff, m_section);
-        vDSP_vspdp(coeff, 1, m_coeff, 1, m_section * 5);
-        
-    };
-    void FilterIIR::process(const float * src, float * dest, int length) const
+    void FilterIIR::process(const float * src, float * dest, int length)
     {
         vDSP_biquad(m_filterSetup, m_filtDelay, src, 1, dest, 1, length);
         
@@ -130,8 +108,11 @@ namespace Tapir {
         
         
     };
-
-    void FilterIIR::clear()
+    void FilterIIR::clearBuffer()
+    {
+        std::memset(m_filtDelay, 0, (2 * m_numSection + 2) * sizeof(float));
+    };
+    FilterIIR::~FilterIIR()
     {
         if(m_filterSetup != nullptr)
         { vDSP_biquad_DestroySetup(m_filterSetup); }
@@ -139,10 +120,6 @@ namespace Tapir {
         { delete [] m_coeff; m_coeff = nullptr; }
         if(m_filtDelay != nullptr)
         { delete [] m_filtDelay; m_filtDelay = nullptr;}
-    };
-    FilterIIR::~FilterIIR()
-    {
-        clear();
     };
     
 

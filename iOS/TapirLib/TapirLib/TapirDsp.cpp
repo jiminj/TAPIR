@@ -9,6 +9,8 @@
 #import "TapirDsp.h"
 
 //IQ Modulation
+namespace Tapir {
+
 static void generateCarrier(DSPSplitComplex * carrier, const int length, const float samplingFreq, const float carrierFreq)
 {
     // MATLAB code
@@ -21,26 +23,26 @@ static void generateCarrier(DSPSplitComplex * carrier, const int length, const f
     
     vDSP_vramp(&initState, &inc, carrierIndex, 1, length);
     vvsincosf(carrier->imagp, carrier->realp, carrierIndex, &length);
-    
+
     delete [] carrierIndex;
-}
+};
 
 void scaleFloatSignal(const float * source, float * dest, const int length, const float scale)
 {
     vDSP_vsmul(source, 1, &scale, dest, 1, length);
-}
+};
 void scaleCompSignal(const DSPSplitComplex * source, DSPSplitComplex * dest, const int length, const float scale)
 {
     scaleFloatSignal(source->realp, dest->realp, length, scale);
     scaleFloatSignal(source->imagp, dest->imagp, length, scale);
-}
+};
 
 void maximizeSignal(const float * source, float * dest, const int length, const float maximum)
 {
     float maxVal;
     vDSP_maxmgv(source, 1, &maxVal, length);
     scaleFloatSignal(source, dest, length, maximum / maxVal);
-}
+};
 
 
 void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int length, const float samplingFreq, const float carrierFreq)
@@ -62,7 +64,7 @@ void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int 
     
     delete [] carrier.realp;
     delete [] carrier.imagp;
-}
+};
 
 void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int length, const float samplingFreq, const float carrierFreq)
 {
@@ -85,7 +87,7 @@ void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int le
     
     delete [] carrier.realp;
     delete [] carrier.imagp;
-}
+};
 
 //FFT
 
@@ -99,7 +101,7 @@ static int calculateLogLength(int length)
     }
     --count;
     return count;
-}
+};
 
 void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength)
 {
@@ -107,7 +109,7 @@ void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);
     vDSP_fft_zop(setup, signal, 1, dest, 1, logLen, FFT_FORWARD);
     vDSP_destroy_fftsetup(setup);
-}
+};
 
 void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength)
 {
@@ -115,7 +117,7 @@ void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);
     vDSP_fft_zop(setup, signal, 1, dest, 1, logLen, FFT_INVERSE);
     vDSP_destroy_fftsetup(setup);
-}
+};
 
 int mergeBitsToIntegerValue(const int * intArray, int arrLength)
 {
@@ -125,7 +127,7 @@ int mergeBitsToIntegerValue(const int * intArray, int arrLength)
         retVal += (intArray[i] & 1) << (arrLength - 1 - i);
     }
     return retVal;
-}
+};
 void divdeIntIntoBits(const int src, int * arr, int arrLength)
 {
     int input = src;
@@ -135,7 +137,7 @@ void divdeIntIntoBits(const int src, int * arr, int arrLength)
         input >>= 1;
     }
     
-}
+};
 
-
+};
 

@@ -21,10 +21,17 @@
     IBOutlet UIButton* sendButton;
     IBOutlet UISegmentedControl* typeSC;
     IBOutlet UIWebView* webView;
+    IBOutlet UISwitch * holdSwitch;
+    
     NSString* logString;
+    
     NSString* lastResultString;
+    
+    Tapir::SignalDetector * signalDetector;
+    TapirSignalAnalyzer * signalAnalyzer;
+    float * tapirDetected;
 }
 
 -(IBAction)startTracking:(id)sender;
--(IBAction)trace:(id)sender;
+
 @end
