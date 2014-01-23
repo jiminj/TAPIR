@@ -11,7 +11,6 @@
 
 
 @implementation LKAudioInputAccessor
-@synthesize correlationManager;
 
 static void HandleInputBuffer (void                                *audioInput,
                                AudioQueueRef                       inAQ,
@@ -76,9 +75,6 @@ static void HandleInputBuffer (void                                *audioInput,
 -(void)stopAudioInput{
     AudioQueueStop(audioQueue, true);
 }
--(void)trace{
-    [correlationManager trace];
-}
 
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
 {
@@ -88,10 +84,7 @@ static void HandleInputBuffer (void                                *audioInput,
 
 }
 
-                                         
--(void)restart{
-    [correlationManager restart];
-}
+
 - (void)dealloc
 {
     for(int i=0; i<kNumBuffers; ++i)

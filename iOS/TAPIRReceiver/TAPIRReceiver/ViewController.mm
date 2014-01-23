@@ -49,16 +49,15 @@
 }
 
 -(void)startTracking:(id)sender{
-    
-    [self trace:nil];
+    [sendButton setEnabled:NO];
     [aia startAudioInput];
-    
 }
 
 
 -(void)correlationDetected:(float *)result{
     
     lastResultString = [signalAnalyzer analyze:result];
+    
     NSLog(@"%@", lastResultString);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -79,11 +78,7 @@
     
     signalDetector->clear();
     
-    if([holdSwitch isOn])
-    {
-        [aia restart];
-    }
-    else
+    if(![holdSwitch isOn])
     {
         [aia stopAudioInput];
         [sendButton setEnabled:YES];
@@ -92,11 +87,6 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
-}
--(void)trace:(id)sender{
-    [aia restart];
-    
-    [sendButton setEnabled:NO];
 }
 
 -(void) dealloc

@@ -33,7 +33,5 @@
 }
 
 -(IBAction)startTracking:(id)sender;
--(IBAction)trace:(id)sender;
-//-(IBAction)switchToggled:(id)sender;
 
 @end

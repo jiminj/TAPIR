@@ -31,8 +31,6 @@
 #import "TapirModulator.h"
 #import "TapirInterleaver.h"
 #import "TapirChannelEstimator.h"
-#import "LKRealSampleBuffer.h"
-#import "LKVirtualSampleBuffer.h"
 #import "LKBitlyUrlShortener.h"
 
 #endif

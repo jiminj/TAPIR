@@ -24,7 +24,6 @@
 		245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 245AC6AE18364DBE00AF31AE /* InfoPlist.strings */; };
 		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */; };
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */; };
-		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
 		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */; };
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
@@ -72,8 +71,6 @@
 		245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TAPIRReceiverTests.mm; sourceTree = "<group>"; };
 		245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKAudioInputAccessor.h; sourceTree = "<group>"; };
 		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LKAudioInputAccessor.mm; sourceTree = "<group>"; };
-		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
-		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
 		248AB4F31854BF850063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
 		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirSignalAnalyzer.mm; sourceTree = "<group>"; };
@@ -162,8 +159,6 @@
 				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
 				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */,
-				245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */,
-				245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */,
 				245AC69518364DBE00AF31AE /* AppDelegate.h */,
 				245AC69618364DBE00AF31AE /* AppDelegate.mm */,
 				245AC69818364DBE00AF31AE /* Main.storyboard */,
@@ -312,7 +307,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */,
 				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.mm in Sources */,
@@ -372,7 +366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -418,7 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
