@@ -21,7 +21,7 @@ namespace Tapir {
         vDSP_vrvrs(m_coeff, 1, m_order);
 
     };
-    void FilterFIR::process(const float * src, float * dest, int length) const
+    void FilterFIR::process(const float * src, float * dest, int length)
     {
         //copy data to buffer
         memcpy(m_buffer + m_order, src, length * sizeof(float));
@@ -58,7 +58,7 @@ namespace Tapir {
     {
         vDSP_vspdp(coeff, 1, m_coeff, 1, m_numSection * 5);
     };
-    void FilterIIR::process(const float * src, float * dest, int length) const
+    void FilterIIR::process(const float * src, float * dest, int length)
     {
         vDSP_biquad(m_filterSetup, m_filtDelay, src, 1, dest, 1, length);
         
@@ -108,7 +108,10 @@ namespace Tapir {
         
         
     };
-
+    void FilterIIR::clearBuffer()
+    {
+        std::memset(m_filtDelay, 0, (2 * m_numSection + 2) * sizeof(float));
+    };
     FilterIIR::~FilterIIR()
     {
         if(m_filterSetup != nullptr)

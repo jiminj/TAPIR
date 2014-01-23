@@ -30,12 +30,12 @@
 		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD0184E2BE200909C92 /* TapirConfig.m */; };
+		ECD1770E188D03F2006D1AC4 /* sony.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD1770D188D03F2006D1AC4 /* sony.wav */; };
+		ECD17710188D05E7006D1AC4 /* samsungFull.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD1770F188D05E7006D1AC4 /* samsungFull.wav */; };
 		ECD96E9E1881758D00275F46 /* test19.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD96E9D1881758D00275F46 /* test19.wav */; };
 		ECD96E9F18817A0300275F46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DA5E818486C430043EC2A /* AudioToolbox.framework */; };
 		ECD96EA018817A5B00275F46 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		ECD96EA2188180DE00275F46 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
-		ECFD0DB31884426200E43CC8 /* TapirController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DB21884426200E43CC8 /* TapirController.m */; };
-		ECFD0DB41884426200E43CC8 /* TapirController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFD0DB21884426200E43CC8 /* TapirController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,10 +81,10 @@
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
 		EC7DDFCF184E2BE200909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
 		EC7DDFD0184E2BE200909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
+		ECD1770D188D03F2006D1AC4 /* sony.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sony.wav; sourceTree = "<group>"; };
+		ECD1770F188D05E7006D1AC4 /* samsungFull.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = samsungFull.wav; sourceTree = "<group>"; };
 		ECD96E9D1881758D00275F46 /* test19.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test19.wav; sourceTree = "<group>"; };
 		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		ECFD0DB11884426100E43CC8 /* TapirController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirController.h; sourceTree = "<group>"; };
-		ECFD0DB21884426200E43CC8 /* TapirController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,8 +158,6 @@
 			children = (
 				EC7DDFCF184E2BE200909C92 /* TapirConfig.h */,
 				EC7DDFD0184E2BE200909C92 /* TapirConfig.m */,
-				ECFD0DB11884426100E43CC8 /* TapirController.h */,
-				ECFD0DB21884426200E43CC8 /* TapirController.m */,
 				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
 				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.mm */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
@@ -191,6 +189,8 @@
 		245AC6AB18364DBE00AF31AE /* TAPIRReceiverTests */ = {
 			isa = PBXGroup;
 			children = (
+				ECD1770F188D05E7006D1AC4 /* samsungFull.wav */,
+				ECD1770D188D03F2006D1AC4 /* sony.wav */,
 				ECD96E9D1881758D00275F46 /* test19.wav */,
 				EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */,
 				245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */,
@@ -297,7 +297,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD17710188D05E7006D1AC4 /* samsungFull.wav in Resources */,
 				245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */,
+				ECD1770E188D03F2006D1AC4 /* sony.wav in Resources */,
 				ECD96E9E1881758D00275F46 /* test19.wav in Resources */,
 				EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */,
 			);
@@ -310,7 +312,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFD0DB31884426200E43CC8 /* TapirController.m in Sources */,
 				245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */,
 				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
@@ -325,7 +326,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFD0DB41884426200E43CC8 /* TapirController.m in Sources */,
 				245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,21 +9,42 @@
 #ifndef __TapirLib__SignalDetector__
 #define __TapirLib__SignalDetector__
 
+#include "Config.h"
 #include "Filter.h"
+#include "AutoCorrelator.h"
+#include <functional>
 
 namespace Tapir {
+    
     class SignalDetector
     {
     public:
-        SignalDetector(int frameSize);
-        void sendFrame(float * frame);
+        SignalDetector(const int frameSize, std::function<void(float *)> callback);
         virtual ~SignalDetector();
-    private:
-        int m_frameSize;
-
-        float * m_filtered;
-        Filter * m_hpf;
         
+        void detect(float * frame);
+        void clear();
+        
+        float * getLastResult() { return m_result; };
+        int getAudioBufferLength() { return m_resultLength; };
+        
+    protected:
+        int m_frameSize;
+        
+        float * m_filtered;
+        
+        int m_copyIdx;
+        int m_resultLength;
+        float * m_result;
+
+        Filter * m_hpf;
+
+        AutoCorrelator m_correlator;
+        int m_corrBufferLength;
+        bool m_isSignalFound;
+
+
+        std::function<void(float *)> m_callback;
     };
 }
 #endif /* defined(__TapirLib__SignalDetector__) */

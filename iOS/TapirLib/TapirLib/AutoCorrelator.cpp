@@ -9,60 +9,86 @@
 #include "AutoCorrelator.h"
 
 namespace Tapir {
-    AutoCorrelator::AutoCorrelator(const int lag, const float threshold)
-    : m_lag(lag), m_threshold(threshold), m_inBuffer(new CircularBuffer<float>(m_lag * 3))
+    AutoCorrelator::AutoCorrelator(const int bufferSize, const int maxInputLength, const int lag, const float threshold)
+    : m_lag(lag),
+    m_inBuffer(new CircularQueue<float>(bufferSize, maxInputLength)),
+    m_threshold(threshold),
+    m_isTracking(false),
+    m_tracked(new float[m_lag]),
+    m_trackedIdx(0),
+    m_resultData(nullptr)
     {
     };
     AutoCorrelator::~AutoCorrelator()
     {
+        delete [] m_tracked;
         delete m_inBuffer;
     }
-    void AutoCorrelator::clearBuffer()
+    void AutoCorrelator::reset()
     {
         m_inBuffer->clear();
+        std::fill(m_tracked, m_tracked+m_lag, 0);
+        m_trackedIdx = 0;
+        m_resultData = nullptr;
+        m_isTracking = false;
     };
-    void AutoCorrelator::calCorrelation(const float * newBuf, float * result, const int length)
+
+    const float * AutoCorrelator::searchCorrelated(const float * newInput, const int inputLength, int& resultLength)
     {
-        m_inBuffer->push(newBuf, length);
+        m_inBuffer->push(newInput, inputLength);
         
-        const float * backtrackStartPoint;
+        
+        int backTrackLength;
         const float * lastHalf;
         const float * firstHalf;
+        float corrResult;
         float mag;
+        resultLength = 0;
+        float origCorr;
         
-        for(int i=0; i<length; ++i)
+        for(int i=0; i<inputLength; ++i)
         {
-            backtrackStartPoint = m_inBuffer->backtrackFromLast(length - i - 1);
-            lastHalf = m_inBuffer->getLastFrom(backtrackStartPoint, m_lag);
-            firstHalf = m_inBuffer->getLastFrom(backtrackStartPoint, 2 * m_lag);
+            backTrackLength = inputLength - i - 1;
+            lastHalf = m_inBuffer->getLast( backTrackLength + m_lag);
+            firstHalf = m_inBuffer->getLast( backTrackLength + 2 * m_lag);
+            
+            vDSP_dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
+            origCorr = corrResult;
+            vDSP_svemg(lastHalf, 1, &mag, m_lag);
+            corrResult /= (mag / m_lag);
+            corrResult = fabsf(corrResult);
 
-            vDSP_dotpr(firstHalf, 1, lastHalf, 1, result+i, length);
-            vDSP_svemg(lastHalf, 1, &mag, length);
-            vDSP_vsdiv(result, 1, &mag, result, 1, length);
+            if((!m_isTracking) && (corrResult > m_threshold))
+            {
+//                std::cout<<"Orig_CORR : "<<origCorr<<std::endl;
+//                std::cout<<"CORR : "<<corrResult<<std::endl;
+//                std::cout<<"Mag : "<<(mag / m_lag)<<std::endl;
+                m_isTracking = true;
+                m_tracked[m_trackedIdx] = corrResult;
+                m_resultData = m_inBuffer->getLast(backTrackLength);
+            }
+            else if(m_isTracking)
+            {
+                if(++m_trackedIdx < m_lag)
+                { m_tracked[m_trackedIdx] = corrResult; }
+                else //tracking done
+                {
+                    unsigned long maxIdx;
+                    float maxVal;
+                    vDSP_maxvi(m_tracked, 1, &maxVal, &maxIdx, m_lag);
+                    m_resultData += maxIdx;
+//                    std::cout<<"MAX Corr val : "<<maxVal<<std::endl;
+                    if(m_resultData > m_inBuffer->getLast())
+                    {
+                        m_resultData -= m_inBuffer->getQueueSize();
+                    }
+                    resultLength = static_cast<int>(m_inBuffer->getLast() - m_resultData + 1);
+//                    std::cout<<"Mag : "<<mag<<std::endl;
+                    return m_resultData;
+                }
+            }
         }
+        return nullptr;
     };
-    
-    int AutoCorrelator::searchMaximumPoint(const float * data, const int length) const
-    {
-//        int idx = 0;
-//        for(idx=0; idx<length; ++idx)
-//        {
-//            if(data[idx] > m_threshold)
-//            { break; }
-//        }
-//        
-//        if(idx == )
-//        { return idx; }
-//        
-//        float maxVal = data[idx];
-//        for(int i=idx; i<length; ++i)
-//        {
-//            if(data[idx] > maxVal)
-//            {
-//                
-//            }
-//        }
-        return 0;
-    };
-    
-}
+
+ }

@@ -23,20 +23,23 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    aia = [[LKAudioInputAccessor alloc] init];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(correlationDetected:) name:@"correlationDetected" object:nil];
-    
     logString = @"";
-    [aia prepareAudioInputWithCorrelationWindowSize:[[TapirConfig getInstance] kPreambleLength] andBacktrackBufferSize:[[TapirConfig getInstance] kAudioBufferLength]];
 
     [[sendButton layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
     [[sendButton layer] setBorderWidth:1.0f];
     [[sendButton layer] setCornerRadius:4.0f];
     [[sendButton layer] setMasksToBounds:YES];
     
-    NSLog(@"loaded!");
+
+    int frameSize = 1024;
+    auto callback = Tapir::ObjcFuncBridge<void(float *)>(@selector(correlationDetected:),self );
+    signalDetector = new Tapir::SignalDetector(frameSize, callback);
+    signalAnalyzer = [[TapirSignalAnalyzer alloc] initWithConfig:[TapirConfig getInstance]];
     
+    aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
+
+
+    tapirDetected = new float[Tapir::Config::MAX_SYMBOL_LENGTH];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,15 +56,9 @@
 }
 
 
-
-
--(void)correlationDetected:(NSNotification*)noti{
-    NSLog(@"DETECTED!");
-    TapirConfig * cfg = [TapirConfig getInstance];
-    TapirSignalAnalyzer * analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
-
-    lastResultString = [analyzer analyze:(float*)([[[noti userInfo] valueForKey:@"samples" ] intValue])];
+-(void)correlationDetected:(float *)result{
     
+    lastResultString = [signalAnalyzer analyze:result];
     NSLog(@"%@", lastResultString);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -78,9 +75,19 @@
     }else{
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bit.ly/%@", lastResultString]]]];
     }
-    [aia stopAudioInput];
-    [sendButton setEnabled:YES];
-
+    
+    
+    signalDetector->clear();
+    
+    if([holdSwitch isOn])
+    {
+        [aia restart];
+    }
+    else
+    {
+        [aia stopAudioInput];
+        [sendButton setEnabled:YES];
+    }
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
@@ -91,4 +98,11 @@
     
     [sendButton setEnabled:NO];
 }
+
+-(void) dealloc
+{
+    delete signalDetector;
+    delete [] tapirDetected;
+}
+
 @end

@@ -8,26 +8,33 @@
 
 #ifndef __TapirLib__AutoCorrelator__
 #define __TapirLib__AutoCorrelator__
-#include "CircularBuffer.h"
+#include "CircularQueue.h"
 #include <Accelerate/Accelerate.h>
+#include <vector>
+#include <iostream>
 
 namespace Tapir {
-    
-    static const int kNumCorrBufferBlocks = 2;
+
     class AutoCorrelator
     {
     public:
-        AutoCorrelator(const int lag, const float threshold);
+        AutoCorrelator(const int bufferSize, const int maxInputLength, const int lag, const float threshold);
         virtual ~AutoCorrelator();
-        void calCorrelation(const float * newBuf, float * result, const int length);
-        int searchMaximumPoint(const float * data, const int length) const;
-        void clearBuffer();
+        const float * searchCorrelated(const float * newInput, const int inputLength, int& resultLength);
+        void reset();
         
     protected:
-
-        int m_lag;
+        AutoCorrelator(const AutoCorrelator&) = delete;
+        int     m_lag;
+        CircularQueue<float> * m_inBuffer;
+        
         float m_threshold;
-        CircularBuffer<float> * m_inBuffer;
+        bool m_isTracking;
+        float * m_tracked;
+        int m_trackedIdx;
+        
+        const float * m_resultData;
+        
     };
 
 }

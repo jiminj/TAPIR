@@ -54,9 +54,13 @@ function [ dataSignal, remainedBlk] = detectDataRegion( signal, Fc)
         end
     end;
     
-    
     figure();
-    plot(corrResult);
+    plot(bandSig(1:30000));
+    figure();
+    plot(corrResult(1:30000));
+    figure();
+    plot(origCorrResult(1:30000),'r');
+%     save('samsungFullResult', 'bandSig', 'corrResult', 'origCorrResult');
     
     [~, peakPoint] = max(abs(corrResult(searchMaxStPoint : searchMaxStPoint+preambleLen)));
     peakPoint = peakPoint + searchMaxStPoint - 1;

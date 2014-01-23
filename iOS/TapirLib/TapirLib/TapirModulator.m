@@ -18,7 +18,7 @@ const float kTwoPi = 2 * M_PI;
 // Stuuuuuuupid objective-c constructors *****
 -(id)init //default constructor
 {
-    return [self initWithSymbolRate:2 initPhase:0.f magnitude:1.0f];;
+    return [self initWithSymbolRate:2 initPhase:0.f magnitude:1.0f];
 }
 -(id)initWithSymbolRate:(int)_symbolRate
 {

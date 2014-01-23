@@ -64,7 +64,7 @@ global Fs;
 global Fc;
 
 Fs = 44100;
-Fc = 19000 - 8;
+Fc = 19000;
 
 % UIWAIT makes TapirTransmitter wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -137,7 +137,7 @@ function btnPlay_Callback(hObject, eventdata, handles)
     
     msg = get(handles.tbMsg,'String');
     if(length(msg) < maxBitLength)
-        msg = [msg, 3];
+        msg = [msg, 3]; %ETX Code
     elseif(length(msg) > maxBitLength)
         msg = msg(1:maxBitLength);
     end
@@ -249,9 +249,9 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
         case handles.radioFc18k
             Fc = 18500;
         case handles.radioFc19k
-            Fc = 19000 - 8;
+            Fc = 19000;
         case handles.radioFc20k
-            Fc = 20000;            
+            Fc = 20000 + 3;            
     end
         
     

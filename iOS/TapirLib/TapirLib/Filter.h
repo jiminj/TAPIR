@@ -16,7 +16,8 @@ namespace Tapir {
     {
     public:
         virtual ~Filter() {};
-        virtual void process(const float * src, float * dest, int length) const = 0;
+        virtual void clearBuffer() = 0;
+        virtual void process(const float * src, float * dest, int length) = 0;
     };
 
     
@@ -25,7 +26,7 @@ namespace Tapir {
     {
     public:
         FilterFIR(const float * coeff, const int filtOrder, const int maxBufferSize);
-        void process(const float * src, float * dest, int length) const ;
+        void process(const float * src, float * dest, int length) ;
         void clearBuffer();
         int getFilterOrder() { return m_order;};
 
@@ -45,7 +46,8 @@ namespace Tapir {
     {
     public:
         FilterIIR(const float * coeff, const int numSection);
-        void process(const float * src, float * dest, int length) const;
+        void clearBuffer();
+        void process(const float * src, float * dest, int length);
         virtual ~FilterIIR();
 
     protected:

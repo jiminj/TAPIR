@@ -65,7 +65,7 @@ static TapirConfig * sTapirConfig = nil;
                          kSymbolWithCyclicExtLength * kMaximumSymbolLength +
                         (kGuardIntervalLength) * (kMaximumSymbolLength-1);
     
-    kCarrierFrequency = 19000.f;
+    kCarrierFrequency = 20000.f;
     kCarrierFrequencyTransmitterOffset = 0.0f;
     kCarrierFrequencyReceiverOffset = 0.0f;
     

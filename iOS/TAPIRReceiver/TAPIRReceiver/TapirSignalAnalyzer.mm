@@ -70,12 +70,12 @@
 -(char)decodeBlock:(const float *)signal
 {
     //Freq Downconversion & FFT, and cut central spectrum region
-    iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency] + [cfg kCarrierFrequencyReceiverOffset]);
+    Tapir::iqDemodulate(signal, &convertedSignal, [cfg kSymbolLength], [cfg kAudioSampleRate], [cfg kCarrierFrequency] + [cfg kCarrierFrequencyReceiverOffset]);
 
     // TODO: LPF (for real & imag both)
     
     //FFT
-    fftComplexForward(&convertedSignal, &convertedSignal, [cfg kSymbolLength]);
+    Tapir::fftComplexForward(&convertedSignal, &convertedSignal, [cfg kSymbolLength]);
     
     [self cutCentralRegion:&convertedSignal dest:&roiSignal signalLength:[cfg kSymbolLength] destLength:[cfg kNoTotalSubcarriers] firstHalfLength:[cfg kNoTotalSubcarriers]/2];
 
@@ -92,7 +92,7 @@
 
     // Viterbi Decoding
     [vitdec decode:deinterleaved dest:decoded srcLength:[cfg kNoDataSubcarriers]];
-    return ((char)mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
+    return ((char)Tapir::mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
 
 }
 

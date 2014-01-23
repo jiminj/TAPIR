@@ -11,9 +11,11 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "LKCorrelationManager.h"
 #import "TapirConfig.h"
+#import "TapirSignalAnalyzer.h"
 #import <AVFoundation/AVFoundation.h>
 
 
+static const float kShortMax = (float)(SHRT_MAX);
 
 @protocol correlationDelegate <NSObject>
 -(void)newCorrelationValue:(float)value;
@@ -23,7 +25,7 @@ static const int kNumBuffers = 3;
 @interface LKAudioInputAccessor : NSObject{
 
     TapirConfig * cfg;
-
+    TapirSignalAnalyzer * analyzer;
     AudioStreamBasicDescription  audioDesc;
     AudioQueueRef                audioQueue;
     AudioQueueBufferRef          buffer[kNumBuffers];
@@ -31,22 +33,18 @@ static const int kNumBuffers = 3;
     UInt32                       frameLength;
     
     LKCorrelationManager* correlationManager;
-    
     Tapir::FilterFIR * filter;
     float *floatBuf;
-    
-    //    AudioFileID audioFile;
-    //    NSString* documentsDirectory;
-    //    int audioFileLength;
+    Tapir::SignalDetector * detector;
 
 }
 
 @property LKCorrelationManager* correlationManager;
 
--(void)prepareAudioInputWithCorrelationWindowSize:(int)windowSize andBacktrackBufferSize:(int)bufferSize;
+
+- (id) initWithFrameSize:(int)length detector:(Tapir::SignalDetector *)_detector;
 -(void)startAudioInput;
 -(void)stopAudioInput;
-
 
 -(void)trace;
 -(void)restart;
