@@ -9,8 +9,6 @@
 #import "LKBitlyUrlShortener.h"
 #import "AFNetworking.h"
 
-//#define BITLY_ACCESS_TOKEN @"***REMOVED***"
-
 @interface LKBitlyUrlShortener ()
 {
     NSString * kBitlyAccessToken;

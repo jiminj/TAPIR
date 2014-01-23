@@ -6,12 +6,15 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
-#import <TapirLib/TapirLib.h>
+
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
+#import <TapirLib/TapirLib.h>
 #import "TapirConfig.h"
 #import "TapirSignalAnalyzer.h"
-#import <AVFoundation/AVFoundation.h>
+#import "LKBitlyUrlShortener.h"
 
 
 static const float kShortMax = (float)(SHRT_MAX);

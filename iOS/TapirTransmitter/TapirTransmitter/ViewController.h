@@ -11,6 +11,9 @@
 #import "TapirLib/TapirLib.h"
 #import "TapirConfig.h"
 #import "TapirSignalGenerator.h"
+//#import <LKBitlyUrlShortener.h>
+
+#import "LKBitlyUrlShortener.h"
 
 typedef enum
 {
