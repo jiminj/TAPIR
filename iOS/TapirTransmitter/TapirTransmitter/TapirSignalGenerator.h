@@ -27,7 +27,8 @@
     Tapir::PilotManager * m_pilotMgr;
 
     Tapir::PskModulator * m_modulator;
-    TapirConvEncoder * convEncoder;
+//    TapirConvEncoder * convEncoder;
+    Tapir::ConvEncoder * m_encoder;
     
     Tapir::MatrixInterleaver * m_interleaver;
     

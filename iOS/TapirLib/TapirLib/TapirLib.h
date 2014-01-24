@@ -24,11 +24,13 @@
 #include "CircularQueue.h"
 #include "AutoCorrelator.h"
 #include "SignalDetector.h"
+#include "TrellisCode.h"
+#include "Encoder.h"
 
 #endif
 
 
-#import "TapirEncoder.h"
+//#import "TapirEncoder.h"
 #import "TapirDecoder.h"
 #import "TapirTrellisCode.h"
 //#import "TapirModulator.h"

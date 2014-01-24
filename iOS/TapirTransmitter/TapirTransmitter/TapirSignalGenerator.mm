@@ -33,16 +33,12 @@
         ifftData.imagp = new float[[cfg kSymbolLength]];
         carrierFreq = [cfg kCarrierFrequency] + [cfg kCarrierFrequencyTransmitterOffset];
         
-//        DSPSplitComplex ifftData;
-//        pilotMgr = [[TapirPilotManager alloc] initWithPilot:[cfg kPilotData] index:[cfg kPilotLocation] length:[cfg kPilotLength]];
         m_pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
         
-//        m_modulator = [[TapirPskModulator alloc] initWithSymbolRate:[cfg kModulationRate]];
         m_modulator = new Tapir::PskModulator(Tapir::Config::MODULATION_RATE);
         m_interleaver = new Tapir::MatrixInterleaver(Tapir::Config::INTERLEAVER_ROWS, Tapir::Config::INTERLEAVER_COLS);
-//        interleaver = [[TapirMatrixInterleaver alloc] initWithNRows:[cfg kInterleaverRows] NCols:[cfg kInterleaverCols]];
         
-        convEncoder = [[TapirConvEncoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
+        m_encoder = new Tapir::ConvEncoder(Tapir::Config::TRELLIS_ARRAY);
         
         m_filter = Tapir::TapirFilters::getTxRxHpf([self calculateResultLengthOfStringWithLength:[cfg kMaximumSymbolLength]]);
         
@@ -55,7 +51,7 @@
     //Char to Int Array
     Tapir::divdeIntIntoBits((int)src, input, [cfg kDataBitLength]);
     //Convolutional Encoding
-    [convEncoder encode:input dest:encoded srcLength:[cfg kDataBitLength]];
+    m_encoder->encode(input, encoded, Tapir::Config::DATA_BIT_LENGTH);
     //Interleaver
     m_interleaver->interleave(encoded, interleaved);
     //Modulation
