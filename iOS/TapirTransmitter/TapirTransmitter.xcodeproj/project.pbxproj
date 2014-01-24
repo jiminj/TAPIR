@@ -27,9 +27,6 @@
 		EC7DDFB4184E187D00909C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFB2184E187D00909C92 /* InfoPlist.strings */; };
 		EC7DDFB6184E187D00909C92 /* TapirTransmitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */; };
 		EC7DDFC3184E2AD100909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
-		EC7DDFD5184E2C2A00909C92 /* TapirConfig.h in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFD3184E2C2A00909C92 /* TapirConfig.h */; };
-		EC7DDFD6184E2C2A00909C92 /* TapirConfig.m in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */; };
-		EC892AA2184F018500EAC727 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +45,7 @@
 		24F7699F1850E94C009EB100 /* Sonifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sonifier.h; sourceTree = "<group>"; };
 		EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalGenerator.h; sourceTree = "<group>"; };
 		EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirSignalGenerator.mm; sourceTree = "<group>"; };
-		EC4F227118912B270059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
+		EC4F227118912B270059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
 		EC7DDF87184E187D00909C92 /* TapirTransmitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapirTransmitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC7DDF8A184E187D00909C92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC7DDF8C184E187D00909C92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,8 +66,6 @@
 		EC7DDFB3184E187D00909C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirTransmitterTests.m; sourceTree = "<group>"; };
 		EC7DDFC1184E296000909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
-		EC7DDFD3184E2C2A00909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapirConfig.h; path = ../TAPIRReceiver/TAPIRReceiver/TapirConfig.h; sourceTree = "<group>"; };
-		EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapirConfig.m; path = ../TAPIRReceiver/TAPIRReceiver/TapirConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +99,6 @@
 		EC7DDF7E184E187D00909C92 = {
 			isa = PBXGroup;
 			children = (
-				EC7DDFD2184E2BF900909C92 /* configFromReceiver */,
 				EC7DDF90184E187D00909C92 /* TapirTransmitter */,
 				EC7DDFAF184E187D00909C92 /* TapirTransmitterTests */,
 				EC7DDF89184E187D00909C92 /* Frameworks */,
@@ -180,15 +174,6 @@
 				EC7DDFB2184E187D00909C92 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		EC7DDFD2184E2BF900909C92 /* configFromReceiver */ = {
-			isa = PBXGroup;
-			children = (
-				EC7DDFD3184E2C2A00909C92 /* TapirConfig.h */,
-				EC7DDFD4184E2C2A00909C92 /* TapirConfig.m */,
-			);
-			name = configFromReceiver;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,8 +255,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC7DDFD5184E2C2A00909C92 /* TapirConfig.h in Resources */,
-				EC7DDFD6184E2C2A00909C92 /* TapirConfig.m in Resources */,
 				EC7DDFA3184E187D00909C92 /* Images.xcassets in Resources */,
 				EC7DDF95184E187D00909C92 /* InfoPlist.strings in Resources */,
 				EC7DDF9E184E187D00909C92 /* Main.storyboard in Resources */,
@@ -293,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC892AA2184F018500EAC727 /* TapirConfig.m in Sources */,
 				EC7DDFA1184E187D00909C92 /* ViewController.mm in Sources */,
 				EC7DDF9B184E187D00909C92 /* AppDelegate.m in Sources */,
 				24F769A01850E94C009EB100 /* Sonifier.m in Sources */,
