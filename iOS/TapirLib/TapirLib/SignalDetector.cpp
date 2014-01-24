@@ -47,7 +47,6 @@ namespace Tapir {
             }
             else //copy end
             {
-//                std::cout<<"FOUND!!!!!";
                 m_callback(m_result);
                 //alert!
             }

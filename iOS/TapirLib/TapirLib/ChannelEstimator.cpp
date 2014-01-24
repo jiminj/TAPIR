@@ -129,7 +129,7 @@ namespace Tapir {
         vDSP_vgenp(extPilotChannel.realp, 1, extPilotIndex, 1, m_channel.realp, 1, m_chLength, extLength);
         vDSP_vgenp(extPilotChannel.imagp, 1, extPilotIndex, 1, m_channel.imagp, 1, m_chLength, extLength);
    
-        delete extPilotIndex;
+        delete [] extPilotIndex;
         delete [] extPilotChannel.realp;
         delete [] extPilotChannel.imagp;
 

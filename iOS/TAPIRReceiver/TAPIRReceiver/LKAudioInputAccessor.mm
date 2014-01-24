@@ -7,8 +7,6 @@
 //
 
 #import "LKAudioInputAccessor.h"
-#import "TapirConfig.h"
-
 
 @implementation LKAudioInputAccessor
 
@@ -32,9 +30,8 @@ static void HandleInputBuffer (void                                *audioInput,
 {
     if(self = [super init])
     {
-        cfg = [TapirConfig getInstance];
         // set audio format for recording
-        audioDesc.mSampleRate       = [cfg kAudioSampleRate];
+        audioDesc.mSampleRate       = Tapir::Config::AUDIO_SAMPLE_RATE;
         audioDesc.mFormatID         = kAudioFormatLinearPCM;
         audioDesc.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
         audioDesc.mBitsPerChannel   = 8 * sizeof (SInt16);
@@ -49,8 +46,6 @@ static void HandleInputBuffer (void                                *audioInput,
         
         
         detector = _detector;
-        analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
-        
         
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);

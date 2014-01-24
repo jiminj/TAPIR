@@ -44,7 +44,6 @@ namespace Tapir {
         float corrResult;
         float mag;
         resultLength = 0;
-        float origCorr;
         
         for(int i=0; i<inputLength; ++i)
         {
@@ -53,7 +52,6 @@ namespace Tapir {
             firstHalf = m_inBuffer->getLast( backTrackLength + 2 * m_lag);
             
             vDSP_dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
-            origCorr = corrResult;
             vDSP_svemg(lastHalf, 1, &mag, m_lag);
             corrResult /= (mag / m_lag);
             corrResult = fabsf(corrResult);

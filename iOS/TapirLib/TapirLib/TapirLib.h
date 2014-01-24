@@ -26,13 +26,14 @@
 #include "SignalDetector.h"
 #include "TrellisCode.h"
 #include "Encoder.h"
+#include "Decoder.h"
 
 #endif
 
 
 //#import "TapirEncoder.h"
-#import "TapirDecoder.h"
-#import "TapirTrellisCode.h"
+//#import "TapirDecoder.h"
+//#import "TapirTrellisCode.h"
 //#import "TapirModulator.h"
 
 #endif

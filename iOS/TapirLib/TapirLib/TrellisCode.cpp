@@ -69,7 +69,7 @@ namespace Tapir {
             m_encodedCode = temp;
         }
     }
-    int TrellisCode::getBitsAsInteger()
+    int TrellisCode::getBitsAsInteger() const
     {
         int retVal = 0;
         for(int i=0; i<m_length; ++i)

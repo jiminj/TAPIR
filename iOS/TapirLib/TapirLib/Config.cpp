@@ -55,7 +55,7 @@ namespace Tapir {
     
     const std::vector<TrellisCode> Config::TRELLIS_ARRAY = { TrellisCode(171), TrellisCode(133) };
     const unsigned long Config::ENCODING_RATE = TRELLIS_ARRAY.size();
-    const int   Config::DATA_BIT_LENGTH = NO_TOTAL_SUBCARRIERS / ENCODING_RATE;
+    const int   Config::DATA_BIT_LENGTH = NO_DATA_SUBCARRIERS / ENCODING_RATE;
     
     const int   Config::FILTER_GUARD_LENGTH = 100;
     const float Config::CORRELATOR_THRESHOLD = 30.f;

@@ -19,9 +19,9 @@ namespace Tapir {
         virtual ~TrellisCode();
         void extendTo(const int extLength);
 
-        int getLength() { return m_length;};
-        int getBitsAsInteger();
-        const float * getEncodedCode() { return m_encodedCode;};
+        int getLength() const { return m_length;};
+        int getBitsAsInteger() const;
+        const float * getEncodedCode() const { return m_encodedCode;};
     private:
         int m_g;
         int m_length;

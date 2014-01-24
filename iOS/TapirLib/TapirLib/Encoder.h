@@ -24,7 +24,7 @@ namespace Tapir {
     public:
         ConvEncoder(const std::vector<TrellisCode>& trelArray);
         void encode(const int * src, float * dest, const int srcLength);
-        float getEncodingRate() { return static_cast<float>(m_trelArray.size()); };
+        float getEncodingRate() const { return static_cast<float>(m_trelArray.size()); };
         
     private:
         std::vector<TrellisCode> m_trelArray;

@@ -7,7 +7,6 @@
 //
 
 #import "TapirSignalAnalyzer.h"
-#import "TapirConfig.h"
 
 @interface TapirSignalAnalyzer()
 
@@ -18,15 +17,8 @@
 
 - (id) init
 {
-    return nil;
-}
-
-- (id)initWithConfig:(TapirConfig *)_cfg
-{
     if(self = [super init])
     {
-        cfg = _cfg;
-
         convertedSignal.realp = new float[Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL];
         convertedSignal.imagp = new float[Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL];
         
@@ -39,8 +31,9 @@
 
         demod = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
         deinterleaved = new float[Tapir::Config::NO_DATA_SUBCARRIERS];
-        decoded = new int[[cfg kDataBitLength]];
-
+//        decoded = new int[[cfg kDataBitLength]];
+        decoded = new int[Tapir::Config::DATA_BIT_LENGTH];
+        
         m_pilotMgr = new Tapir::PilotManager(&(Tapir::Config::PILOT_DATA), Tapir::Config::PILOT_LOCATIONS, Tapir::Config::NO_PILOT_SUBCARRIERS);
 
         m_chanEstimator = new Tapir::LSChannelEstimator(m_pilotMgr, Tapir::Config::NO_TOTAL_SUBCARRIERS);
@@ -50,7 +43,8 @@
 //        modulator = [[TapirPskModulator alloc] initWithSymbolRate:Tapir::Config::MODULATION_RATE];
         m_modulator = new Tapir::PskModulator(Tapir::Config::MODULATION_RATE);
         
-        vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
+//        vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:[cfg kTrellisArray]];
+        m_decoder = new Tapir::ViterbiDecoder(Tapir::Config::TRELLIS_ARRAY);
         
     }
     return self;
@@ -103,11 +97,11 @@
 //    [interleaver deinterleave:demod to:deinterleaved];
     m_interleaver->deinterleave(demod, deinterleaved);
 
-
     // Viterbi Decoding
-    [vitdec decode:deinterleaved dest:decoded srcLength:(Tapir::Config::NO_DATA_SUBCARRIERS)];
-    return ((char)Tapir::mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
-
+//    [vitdec decode:deinterleaved dest:decoded srcLength:(Tapir::Config::NO_DATA_SUBCARRIERS)];
+    m_decoder->decode(deinterleaved, decoded, (Tapir::Config::NO_DATA_SUBCARRIERS));
+//    return ((char)Tapir::mergeBitsToIntegerValue(decoded, [cfg kDataBitLength]));
+    return ((char)Tapir::mergeBitsToIntegerValue(decoded, Tapir::Config::DATA_BIT_LENGTH));
 }
 
 -(NSString *)analyze:(float *)signal
@@ -117,7 +111,7 @@
     int maxSymbolLength = Tapir::Config::MAX_SYMBOL_LENGTH;
     int symbolWithGuardIntervalSize = Tapir::Config::SAMPLE_LENGTH_GUARD_INTERVAL + Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL_WITH_EXTENSION;
     int cyclicPrefixLength = Tapir::Config::SAMPLE_LENGTH_CYCLIC_PREFIX;
-    
+
     //skip preambleInterval
     float * ptr = signal + Tapir::Config::SAMPLE_LENGTH_INTERVAL_AFTER_PREAMBLE;
     for(int i=0;i < maxSymbolLength; ++i)
@@ -135,6 +129,7 @@
             ptr += symbolWithGuardIntervalSize;
         }
     }
+    NSLog(@"RESULT!!");
     return (NSString *)result;
     
 }

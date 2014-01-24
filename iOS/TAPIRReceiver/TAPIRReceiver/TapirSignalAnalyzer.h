@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <Accelerate/Accelerate.h>
 #import <TapirLib/TapirLib.h>
-#import "TapirConfig.h"
 
 @interface TapirSignalAnalyzer : NSObject
 {
@@ -23,7 +22,7 @@
     float * deinterleaved;
     int * decoded;
     
-    TapirConfig * cfg;
+//    TapirConfig * cfg;
 //    TapirPilotManager * pilotMgr;
     Tapir::PilotManager * m_pilotMgr;
 //    TapirLSChannelEstimator * chanEstimator;
@@ -33,12 +32,12 @@
 //    TapirPskModulator * modulator;
     Tapir::PskModulator * m_modulator;
 
-    TapirViterbiDecoder * vitdec;
+    Tapir::ViterbiDecoder * m_decoder;
+//    TapirViterbiDecoder * vitdec;
     
 }
 
 -(char)decodeBlock:(const float *)signal;
--(id)initWithConfig:(TapirConfig *)cfg;
 -(NSString *)analyze:(float *)signal;
 
 @end

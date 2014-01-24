@@ -12,7 +12,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import <TapirLib/TapirLib.h>
-#import "TapirConfig.h"
 #import "TapirSignalAnalyzer.h"
 #import "LKBitlyUrlShortener.h"
 
@@ -22,8 +21,6 @@ static const float kShortMax = (float)(SHRT_MAX);
 static const int kNumBuffers = 3;
 @interface LKAudioInputAccessor : NSObject{
 
-    TapirConfig * cfg;
-    TapirSignalAnalyzer * analyzer;
     AudioStreamBasicDescription  audioDesc;
     AudioQueueRef                audioQueue;
     AudioQueueBufferRef          buffer[kNumBuffers];
