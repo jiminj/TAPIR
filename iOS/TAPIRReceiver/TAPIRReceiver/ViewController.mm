@@ -32,7 +32,7 @@
     
 
     int frameSize = 1024;
-    auto callback = Tapir::ObjcFuncBridge<void(float *)>(@selector(correlationDetected:),self );
+    auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(correlationDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
     signalAnalyzer = new Tapir::SignalAnalyzer();
     
