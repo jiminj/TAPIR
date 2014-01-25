@@ -28,7 +28,7 @@
     logString = @"";
 
     int frameSize = 1024;
-    auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(correlationDetected:));
+    auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(signalDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
     signalAnalyzer = new Tapir::SignalAnalyzer([TapirFreqOffset getReceiverFreqOffset]);
     
@@ -47,16 +47,14 @@
     if([rcvSwitch isOn])
     {
         [aia startAudioInput];
-        NSLog(@"START");
     }
     else
     {
-        [aia stopAudioInput];
-        NSLog(@"STOP");        
+        [aia stopAudioInput]; 
     }
 }
 
--(void)correlationDetected:(float *)result{
+-(void)signalDetected:(float *)result{
     
     lastResultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
                                           encoding:[NSString defaultCStringEncoding]];
@@ -79,10 +77,6 @@
     
     
     signalDetector->clear();
-}
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
 }
 
 -(void) dealloc

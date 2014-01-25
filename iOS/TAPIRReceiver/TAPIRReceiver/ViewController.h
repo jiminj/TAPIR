@@ -29,5 +29,6 @@
 }
 
 -(IBAction)statusChanged:(id)sender;
+-(void)signalDetected:(float *)result;
 
 @end

@@ -30,6 +30,14 @@ static void HandleInputBuffer (void                                *audioInput,
 {
     if(self = [super init])
     {
+        //setup audioSession to force to use built-in microphone.
+        audioSession = [AVAudioSession sharedInstance]; //get an audioSession instance
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil]; // set cagtegory
+        [audioSession setPreferredInput:[audioSession.availableInputs objectAtIndex:0] error:nil];
+        
+        //get notified when route changes (ex. earphone unplugged)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionRouteChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+
         // set audio format for recording
         audioDesc.mSampleRate       = Tapir::Config::AUDIO_SAMPLE_RATE;
         audioDesc.mFormatID         = kAudioFormatLinearPCM;
@@ -50,16 +58,22 @@ static void HandleInputBuffer (void                                *audioInput,
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
         
-        
         // prepare audio buffer
         for (int i = 0; i < kNumBuffers; ++i) {
             AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
             AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
         }
+
         
     }
     return self;
 }
+
+-(void)audioSessionRouteChanged:(NSNotification*)noti
+{
+    [audioSession setPreferredInput:[audioSession.availableInputs objectAtIndex:0] error:nil];
+}
+
 
 -(void)startAudioInput{
     AudioQueueStart(audioQueue, NULL);

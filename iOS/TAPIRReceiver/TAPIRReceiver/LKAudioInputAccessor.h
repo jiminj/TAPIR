@@ -25,6 +25,8 @@ static const int kNumBuffers = 3;
     AudioQueueBufferRef          buffer[kNumBuffers];
     AudioFileID                  mAudioFile;
     UInt32                       frameLength;
+
+    AVAudioSession *             audioSession;
     
     Tapir::FilterFIR * filter;
     float *floatBuf;
@@ -35,6 +37,7 @@ static const int kNumBuffers = 3;
 - (id) initWithFrameSize:(int)length detector:(Tapir::SignalDetector *)_detector;
 -(void)startAudioInput;
 -(void)stopAudioInput;
-
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length;
+
+-(void)audioSessionRouteChanged:(NSNotification*)noti;
 @end
