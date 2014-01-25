@@ -38,8 +38,6 @@
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
-
-    tapirDetected = new float[Tapir::Config::MAX_SYMBOL_LENGTH];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,7 +90,6 @@
 -(void) dealloc
 {
     delete signalDetector;
-    delete [] tapirDetected;
 }
 
 @end

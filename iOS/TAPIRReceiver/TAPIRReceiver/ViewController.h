@@ -27,7 +27,6 @@
     
     Tapir::SignalDetector * signalDetector;
     Tapir::SignalAnalyzer * signalAnalyzer;
-    float * tapirDetected;
 }
 
 -(IBAction)startTracking:(id)sender;
