@@ -90,6 +90,7 @@
 -(void) dealloc
 {
     delete signalDetector;
+    delete signalAnalyzer;
 }
 
 @end
