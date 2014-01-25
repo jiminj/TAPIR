@@ -30,8 +30,6 @@
     bitlyShortener = [[LKBitlyUrlShortener alloc] init];
     [bitlyShortener setDelegate:self];
     
-    sorcerer = [[LKBitlyUrlShortener alloc] init];
-    [sorcerer setDelegate:self];
     
     textModeLabelText = @"Text (Max. 8 chars)";
     urlModeLabelText = @"URL";
