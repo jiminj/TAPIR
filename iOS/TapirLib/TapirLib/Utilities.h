@@ -1,13 +1,13 @@
 //
-//  TapirDsp.h
+//  Utilities.h
 //  TapirLib
 //
 //  Created by Jimin Jeon on 11/20/13.
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
-#ifndef __TapirLib__Dsp__
-#define __TapirLib__Dsp__
+#ifndef __TapirLib__Utilities__
+#define __TapirLib__Utilities__
 
 #include <Accelerate/Accelerate.h>
 
@@ -34,4 +34,4 @@ int mergeBitsToIntegerValue(const int * intArray, int arrLength);
 void divdeIntIntoBits(const int src, int * arr, int arrLength);
 
 }
-#endif /* defined(__TapirLib__Dsp__) */
+#endif /* defined(__TapirLib__Utils__) */

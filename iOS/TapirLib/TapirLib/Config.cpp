@@ -8,6 +8,8 @@
 
 #include "Config.h"
 
+
+
 namespace Tapir {
 
     const float Config::AUDIO_SAMPLE_RATE = 44100.f;
@@ -43,15 +45,17 @@ namespace Tapir {
     float Config::pilotRealp[] = {1.f, 1.f, 1.f, -1.f};
     float Config::pilotImagp[] = {0.f, 0.f, 0.f, 0.f};
     
-    const DSPSplitComplex Config::PILOT_DATA = { Config::pilotRealp, Config::pilotImagp };
+    const DSPSplitComplex Config::PILOT_DATA = { .realp=Config::pilotRealp, .imagp=Config::pilotImagp };
     
     const int   Config::PILOT_LOCATIONS [] = {3, 7, 11, 15};
     const int   Config::MODULATION_RATE = 2;
     const int   Config::INTERLEAVER_ROWS = 4;
     const int   Config::INTERLEAVER_COLS = Config::NO_DATA_SUBCARRIERS / Config::INTERLEAVER_ROWS;
     
-//    const int   Config::ENCODING_RATE;
-//    const int   Config::DATA_BIT_LENGTH;
+    
+    const std::vector<TrellisCode> Config::TRELLIS_ARRAY = { TrellisCode(171), TrellisCode(133) };
+    const unsigned long Config::ENCODING_RATE = TRELLIS_ARRAY.size();
+    const int   Config::DATA_BIT_LENGTH = NO_DATA_SUBCARRIERS / ENCODING_RATE;
     
     const int   Config::FILTER_GUARD_LENGTH = 100;
     const float Config::CORRELATOR_THRESHOLD = 30.f;

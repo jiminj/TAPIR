@@ -44,7 +44,6 @@ namespace Tapir {
         float corrResult;
         float mag;
         resultLength = 0;
-        float origCorr;
         
         for(int i=0; i<inputLength; ++i)
         {
@@ -53,16 +52,15 @@ namespace Tapir {
             firstHalf = m_inBuffer->getLast( backTrackLength + 2 * m_lag);
             
             vDSP_dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
-            origCorr = corrResult;
             vDSP_svemg(lastHalf, 1, &mag, m_lag);
             corrResult /= (mag / m_lag);
             corrResult = fabsf(corrResult);
 
             if((!m_isTracking) && (corrResult > m_threshold))
             {
-                std::cout<<"Orig_CORR : "<<origCorr<<std::endl;
-                std::cout<<"CORR : "<<corrResult<<std::endl;
-                std::cout<<"Mag : "<<(mag / m_lag)<<std::endl;
+//                std::cout<<"Orig_CORR : "<<origCorr<<std::endl;
+//                std::cout<<"CORR : "<<corrResult<<std::endl;
+//                std::cout<<"Mag : "<<(mag / m_lag)<<std::endl;
                 m_isTracking = true;
                 m_tracked[m_trackedIdx] = corrResult;
                 m_resultData = m_inBuffer->getLast(backTrackLength);
@@ -77,7 +75,7 @@ namespace Tapir {
                     float maxVal;
                     vDSP_maxvi(m_tracked, 1, &maxVal, &maxIdx, m_lag);
                     m_resultData += maxIdx;
-                    std::cout<<"MAX Corr val : "<<maxVal<<std::endl;
+//                    std::cout<<"MAX Corr val : "<<maxVal<<std::endl;
                     if(m_resultData > m_inBuffer->getLast())
                     {
                         m_resultData -= m_inBuffer->getQueueSize();

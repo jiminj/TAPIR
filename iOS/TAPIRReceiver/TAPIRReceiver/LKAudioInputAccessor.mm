@@ -7,8 +7,6 @@
 //
 
 #import "LKAudioInputAccessor.h"
-#import "TapirConfig.h"
-
 
 @implementation LKAudioInputAccessor
 
@@ -32,9 +30,8 @@ static void HandleInputBuffer (void                                *audioInput,
 {
     if(self = [super init])
     {
-        cfg = [TapirConfig getInstance];
         // set audio format for recording
-        audioDesc.mSampleRate       = [cfg kAudioSampleRate];
+        audioDesc.mSampleRate       = Tapir::Config::AUDIO_SAMPLE_RATE;
         audioDesc.mFormatID         = kAudioFormatLinearPCM;
         audioDesc.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
         audioDesc.mBitsPerChannel   = 8 * sizeof (SInt16);
@@ -49,8 +46,6 @@ static void HandleInputBuffer (void                                *audioInput,
         
         
         detector = _detector;
-        analyzer = [[TapirSignalAnalyzer alloc] initWithConfig:cfg];
-        
         
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
@@ -62,8 +57,6 @@ static void HandleInputBuffer (void                                *audioInput,
             AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
         }
         
-        //init correlation manager
-//        correlationManager = [[LKCorrelationManager alloc] initWithCorrelationWindowSize:windowSize andBacktrackSize:bufferSize];
     }
     return self;
 }
@@ -80,10 +73,10 @@ static void HandleInputBuffer (void                                *audioInput,
 {
     vDSP_vflt16(inputBuffer, 1, floatBuf, 1, length);
     vDSP_vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
+    //convert SInt16 array to float, and scale them (set max value to 1.0)
+
     detector->detect(floatBuf);
-
 }
-
 
 - (void)dealloc
 {
@@ -93,13 +86,6 @@ static void HandleInputBuffer (void                                *audioInput,
     delete [] floatBuf;
     delete filter;
 }
-//
-//- (void)redirectNSLogToDocumentFolder{
-//	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//	NSString *documentsDirectory = [paths objectAtIndex:0];
-//	NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
-//	NSString *logFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
-//	freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
-//}
-//
+
+
 @end

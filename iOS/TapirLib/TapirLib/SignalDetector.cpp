@@ -22,7 +22,7 @@ namespace Tapir {
     m_callback(callback)
     { };
     
-    void SignalDetector::detect(float * frame)
+    void SignalDetector::detect(const float * frame)
     {
         m_hpf->process(frame, m_filtered, m_frameSize);
         if(!m_isSignalFound) //not yet found
@@ -47,7 +47,6 @@ namespace Tapir {
             }
             else //copy end
             {
-//                std::cout<<"FOUND!!!!!";
                 m_callback(m_result);
                 //alert!
             }

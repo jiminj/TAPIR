@@ -10,6 +10,10 @@
 #define __TapirLib__Config__
 
 #include <Accelerate/Accelerate.h>
+#include <vector>
+#include "TrellisCode.h"
+
+#define ASCII_ETX 0x03
 
 namespace Tapir{
     class Config
@@ -17,7 +21,7 @@ namespace Tapir{
     public:
         
         Config() = delete;
-        
+
         static const float  AUDIO_SAMPLE_RATE;
         static const int    AUDIO_CHANNEL;
         static const float  AUDIO_MAX_VOLUME;
@@ -53,8 +57,8 @@ namespace Tapir{
         static const int    INTERLEAVER_ROWS;
         static const int    INTERLEAVER_COLS;
         
-//        static const std::vector<> TRELLIS_ARRAY;
-        static const int    ENCODING_RATE;
+        static const std::vector<TrellisCode> TRELLIS_ARRAY;
+        static const unsigned long ENCODING_RATE;
         static const int    DATA_BIT_LENGTH;
         
         static const int    FILTER_GUARD_LENGTH;

@@ -22,28 +22,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
-//    NSString * inputStr = @"test";
-//    TapirConfig * cfg = [TapirConfig getInstance];
-// File write
-    
-//    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"genResult.txt"]];
-//    NSMutableString * resultString = [[NSMutableString alloc] init];
-//    for(int i=0; i<resultLength; ++i)
-//    {
-//        [resultString appendFormat:@"%f\n",result[i]];
-//    }
-//    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
 
-    cfg = [TapirConfig getInstance];
-    generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
-
-    
-    sonifier = [[Sonifier alloc] initWithConfig:[TapirConfig getInstance]];
+    generator = new Tapir::SignalGenerator();
+    sonifier = [[Sonifier alloc] initWithSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE channel:Tapir::Config::AUDIO_CHANNEL];
     [sonifier setDelegate:self];
-//    [son start];
-    
     
     bitlyShortener = [[LKBitlyUrlShortener alloc] init];
     [bitlyShortener setDelegate:self];
@@ -127,21 +109,20 @@
 
 - (void)transmitString:(NSString*)textToBeSent through:(OutputChannel)outputCh
 {
-    //convert NSString * to Float *
-//    TapirConfig * cfg = [TapirConfig getInstance];
-//    TapirSignalGenerator * generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
     
     //Add ETX ascii code (end of the text)
-
     NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
-    if([inputStr length] > [cfg kMaximumSymbolLength])
+    if([inputStr length] > Tapir::Config::MAX_SYMBOL_LENGTH)
     {
-        inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
+        inputStr = [inputStr substringToIndex:Tapir::Config::MAX_SYMBOL_LENGTH];
     }
-    int resultLength = [generator calculateResultLengthOfStringWithLength:[inputStr length]];
+    std::string stdInputStr = std::string([inputStr UTF8String]);
+
+    int resultLength = generator->calResultLength([inputStr length]);
 
     encodedAudioData = new float[resultLength]();
-    [generator generateSignalWith:inputStr dest:encodedAudioData length:resultLength];
+    generator->generateSignal(stdInputStr, encodedAudioData, resultLength);
+    
     [sonifier transmit:encodedAudioData length:resultLength];
 
     [sendBtn setEnabled:FALSE];
@@ -163,5 +144,6 @@
 -(void) dealloc
 {
     delete [] encodedAudioData;
+    delete generator;
 }
 @end

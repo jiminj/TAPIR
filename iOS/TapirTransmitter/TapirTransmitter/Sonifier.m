@@ -28,16 +28,14 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
     return nil;
 }
 
-- (id)initWithConfig:(TapirConfig *)_cfg
+- (id)initWithSampleRate:(const float)sampleRate channel:(const int)ch
 {
     if(self = [super init]) {
-        cfg = _cfg;
-		
-        audioDesc.mSampleRate = [cfg kAudioSampleRate];
+        audioDesc.mSampleRate = sampleRate;
 		audioDesc.mFormatID = kAudioFormatLinearPCM;
 		audioDesc.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
         audioDesc.mBitsPerChannel = 8 * sizeof(SInt16);
-		audioDesc.mChannelsPerFrame = [cfg kAudioChannel];
+		audioDesc.mChannelsPerFrame = ch;
 		audioDesc.mBytesPerFrame = audioDesc.mChannelsPerFrame * audioDesc.mBitsPerChannel / 8;
 		audioDesc.mFramesPerPacket = 1;
 		audioDesc.mBytesPerPacket = audioDesc.mBytesPerFrame * audioDesc.mFramesPerPacket;

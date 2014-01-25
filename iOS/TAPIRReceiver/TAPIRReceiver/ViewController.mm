@@ -32,14 +32,12 @@
     
 
     int frameSize = 1024;
-    auto callback = Tapir::ObjcFuncBridge<void(float *)>(@selector(correlationDetected:),self );
+    auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(correlationDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
-    signalAnalyzer = [[TapirSignalAnalyzer alloc] initWithConfig:[TapirConfig getInstance]];
+    signalAnalyzer = new Tapir::SignalAnalyzer();
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
-
-    tapirDetected = new float[Tapir::Config::MAX_SYMBOL_LENGTH];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,8 +54,8 @@
 
 -(void)correlationDetected:(float *)result{
     
-    lastResultString = [signalAnalyzer analyze:result];
-    
+    lastResultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
+                                          encoding:[NSString defaultCStringEncoding]];
     NSLog(@"%@", lastResultString);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -92,7 +90,7 @@
 -(void) dealloc
 {
     delete signalDetector;
-    delete [] tapirDetected;
+    delete signalAnalyzer;
 }
 
 @end

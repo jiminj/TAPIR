@@ -19,7 +19,7 @@ namespace Tapir {
     public:
         typedef _R (*func)(id, SEL, _Args...);
         
-        ObjcFuncBridge(SEL sel, id obj)
+        ObjcFuncBridge(id obj, SEL sel)
         :m_sel(sel),
         m_obj(obj),
         m_func((func)[m_obj methodForSelector:sel])

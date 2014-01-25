@@ -14,23 +14,22 @@
 #include "ObjcFuncBridge.h"
 
 #include "Config.h"
-#include "TapirDsp.h"
+#include "PilotManager.h"
+#include "ChannelEstimator.h"
+#include "Interleaver.h"
+#include "Modulator.h"
+
+#include "Utilities.h"
 #include "Filter.h"
 #include "CircularQueue.h"
 #include "AutoCorrelator.h"
 #include "SignalDetector.h"
+#include "TrellisCode.h"
+#include "Encoder.h"
+#include "Decoder.h"
 
+#include "SignalAnalyzer.h"
+#include "SignalGenerator.h"
 #endif
-
-
-
-#import "TapirPilotManager.h"
-#import "TapirEncoder.h"
-#import "TapirDecoder.h"
-#import "TapirTrellisCode.h"
-#import "TapirModulator.h"
-#import "TapirInterleaver.h"
-#import "TapirChannelEstimator.h"
-#import "LKBitlyUrlShortener.h"
 
 #endif

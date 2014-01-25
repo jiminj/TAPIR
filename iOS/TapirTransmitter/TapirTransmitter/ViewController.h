@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
 #import "TapirLib/TapirLib.h"
-#import "TapirConfig.h"
-#import "TapirSignalGenerator.h"
+#import <LKBitlyUrlShortener.h>
+
+//#import "LKBitlyUrlShortener.h"
 
 typedef enum
 {
@@ -33,8 +34,8 @@ typedef enum
     float* encodedAudioData;
     Sonifier* sonifier;
     
-    TapirConfig * cfg;
-    TapirSignalGenerator * generator;
+//    TapirSignalGenerator * generator;
+    Tapir::SignalGenerator * generator;
     
     NSString * textModeLabelText;
     NSString * urlModeLabelText;

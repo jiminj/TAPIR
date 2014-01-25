@@ -22,7 +22,7 @@ namespace Tapir {
         SignalDetector(const int frameSize, std::function<void(float *)> callback);
         virtual ~SignalDetector();
         
-        void detect(float * frame);
+        void detect(const float * frame);
         void clear();
         
         float * getLastResult() { return m_result; };

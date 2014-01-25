@@ -10,8 +10,6 @@
 #import "LKAudioInputAccessor.h"
 
 #import <TapirLib/TapirLib.h>
-#import "TapirConfig.h"
-#import "TapirSignalAnalyzer.h"
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     LKAudioInputAccessor* aia;
@@ -28,8 +26,7 @@
     NSString* lastResultString;
     
     Tapir::SignalDetector * signalDetector;
-    TapirSignalAnalyzer * signalAnalyzer;
-    float * tapirDetected;
+    Tapir::SignalAnalyzer * signalAnalyzer;
 }
 
 -(IBAction)startTracking:(id)sender;

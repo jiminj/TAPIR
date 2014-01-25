@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 dilu. All rights reserved.
 //
 
-#import <TapirLib/TapirLib.h>
+
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "TapirConfig.h"
-#import "TapirSignalAnalyzer.h"
 #import <AVFoundation/AVFoundation.h>
+
+#import <TapirLib/TapirLib.h>
+#import "LKBitlyUrlShortener.h"
 
 
 static const float kShortMax = (float)(SHRT_MAX);
@@ -19,8 +20,6 @@ static const float kShortMax = (float)(SHRT_MAX);
 static const int kNumBuffers = 3;
 @interface LKAudioInputAccessor : NSObject{
 
-    TapirConfig * cfg;
-    TapirSignalAnalyzer * analyzer;
     AudioStreamBasicDescription  audioDesc;
     AudioQueueRef                audioQueue;
     AudioQueueBufferRef          buffer[kNumBuffers];
@@ -37,5 +36,5 @@ static const int kNumBuffers = 3;
 -(void)startAudioInput;
 -(void)stopAudioInput;
 
--(void)newInputBuffer:(SInt16 *)inputBuffer;
+-(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length;
 @end

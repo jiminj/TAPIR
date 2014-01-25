@@ -28,6 +28,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EC4F221D18912A6A0059644E"
+               BuildableName = "libBitlyUrlShortener.a"
+               BlueprintName = "BitlyUrlShortener"
+               ReferencedContainer = "container:../BitlyUrlShortener/BitlyUrlShortener.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "EC7DDF86184E187D00909C92"
                BuildableName = "TapirTransmitter.app"
                BlueprintName = "TapirTransmitter"
