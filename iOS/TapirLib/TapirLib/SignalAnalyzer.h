@@ -15,7 +15,7 @@
 #include "Interleaver.h"
 #include "Modulator.h"
 #include "Decoder.h"
-#include "TapirDsp.h"
+#include "Utilities.h"
 
 namespace Tapir {
     class SignalAnalyzer

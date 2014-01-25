@@ -19,8 +19,8 @@
 		EC186DC6187EB9A800F71285 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC186DC4187EB9A800F71285 /* Filter.cpp */; };
 		EC186DC7187EB9A800F71285 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC186DC4187EB9A800F71285 /* Filter.cpp */; };
 		EC186DC8187EB9A800F71285 /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = EC186DC5187EB9A800F71285 /* Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */ = {isa = PBXBuildFile; fileRef = EC313898183BE1A200C82186 /* TapirDsp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC31389B183BE1A200C82186 /* TapirDsp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC313899183BE1A200C82186 /* TapirDsp.cpp */; };
+		EC31389A183BE1A200C82186 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EC313898183BE1A200C82186 /* Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC31389B183BE1A200C82186 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC313899183BE1A200C82186 /* Utilities.cpp */; };
 		EC31E96D1892AF4C00E8912B /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC31E9691892AF4C00E8912B /* Encoder.cpp */; };
 		EC31E96E1892AF4C00E8912B /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC31E9691892AF4C00E8912B /* Encoder.cpp */; };
 		EC31E96F1892AF4C00E8912B /* Encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EC31E96A1892AF4C00E8912B /* Encoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,8 +85,8 @@
 		EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		EC186DC4187EB9A800F71285 /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
 		EC186DC5187EB9A800F71285 /* Filter.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Filter.h; sourceTree = "<group>"; };
-		EC313898183BE1A200C82186 /* TapirDsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirDsp.h; sourceTree = "<group>"; };
-		EC313899183BE1A200C82186 /* TapirDsp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TapirDsp.cpp; sourceTree = "<group>"; };
+		EC313898183BE1A200C82186 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		EC313899183BE1A200C82186 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		EC31E9691892AF4C00E8912B /* Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Encoder.cpp; sourceTree = "<group>"; };
 		EC31E96A1892AF4C00E8912B /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
 		EC31E96B1892AF4C00E8912B /* TrellisCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrellisCode.cpp; sourceTree = "<group>"; };
@@ -172,8 +172,8 @@
 				EC47016E18913EC000F740BD /* PilotManager.h */,
 				EC470171189147E000F740BD /* ChannelEstimator.cpp */,
 				EC470172189147E000F740BD /* ChannelEstimator.h */,
-				EC313898183BE1A200C82186 /* TapirDsp.h */,
-				EC313899183BE1A200C82186 /* TapirDsp.cpp */,
+				EC313898183BE1A200C82186 /* Utilities.h */,
+				EC313899183BE1A200C82186 /* Utilities.cpp */,
 				EC47017B189163F300F740BD /* Modulator.cpp */,
 				EC47017C189163F300F740BD /* Modulator.h */,
 				EC47017618915EC600F740BD /* Interleaver.cpp */,
@@ -251,7 +251,7 @@
 				ECFD0DC31885B30300E43CC8 /* CircularQueue.h in Headers */,
 				ECE0D2A9188E4913000C0CD2 /* Config.h in Headers */,
 				ECFD0DB818858C4500E43CC8 /* SignalDetector.h in Headers */,
-				EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */,
+				EC31389A183BE1A200C82186 /* Utilities.h in Headers */,
 				ECFD0DBC18859E6D00E43CC8 /* AutoCorrelator.h in Headers */,
 				EC186DC8187EB9A800F71285 /* Filter.h in Headers */,
 				EC31E9721892AF4C00E8912B /* TrellisCode.h in Headers */,
@@ -382,7 +382,7 @@
 				EC47017D189163F300F740BD /* Modulator.cpp in Sources */,
 				ECFD0DBB18859E6D00E43CC8 /* AutoCorrelator.cpp in Sources */,
 				ECE0D2A7188E4913000C0CD2 /* Config.cpp in Sources */,
-				EC31389B183BE1A200C82186 /* TapirDsp.cpp in Sources */,
+				EC31389B183BE1A200C82186 /* Utilities.cpp in Sources */,
 				EC470173189147E000F740BD /* ChannelEstimator.cpp in Sources */,
 				EC47016F18913EC100F740BD /* PilotManager.cpp in Sources */,
 				EC31E96D1892AF4C00E8912B /* Encoder.cpp in Sources */,

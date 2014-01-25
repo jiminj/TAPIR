@@ -19,7 +19,7 @@
 #include "Interleaver.h"
 #include "Modulator.h"
 
-#include "TapirDsp.h"
+#include "Utilities.h"
 #include "Filter.h"
 #include "CircularQueue.h"
 #include "AutoCorrelator.h"

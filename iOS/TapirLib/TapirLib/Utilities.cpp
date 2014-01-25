@@ -1,12 +1,12 @@
 //
-//  TapirDsp.m
+//  Utilities.m
 //  TapirLib
 //
 //  Created by Jimin Jeon on 11/20/13.
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
-#import "TapirDsp.h"
+#import "Utilities.h"
 
 //IQ Modulation
 namespace Tapir {
