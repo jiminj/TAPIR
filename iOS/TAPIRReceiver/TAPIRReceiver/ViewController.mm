@@ -17,19 +17,15 @@
 
 @implementation ViewController
 
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortraitUpsideDown;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
     logString = @"";
-
-    [[sendButton layer] setBorderColor:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0].CGColor];
-    [[sendButton layer] setBorderWidth:1.0f];
-    [[sendButton layer] setCornerRadius:4.0f];
-    [[sendButton layer] setMasksToBounds:YES];
-    
 
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(correlationDetected:));
@@ -46,11 +42,17 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)startTracking:(id)sender{
-    [sendButton setEnabled:NO];
-    [aia startAudioInput];
+-(IBAction)statusChanged:(id)sender
+{
+    if([rcvSwitch isOn])
+    {
+        [aia startAudioInput];
+    }
+    else
+    {
+        [aia stopAudioInput];
+    }
 }
-
 
 -(void)correlationDetected:(float *)result{
     
@@ -75,12 +77,6 @@
     
     
     signalDetector->clear();
-    
-    if(![holdSwitch isOn])
-    {
-        [aia stopAudioInput];
-        [sendButton setEnabled:YES];
-    }
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

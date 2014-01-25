@@ -43,7 +43,6 @@ typedef enum
 
 
     LKBitlyUrlShortener* bitlyShortener;
-    LKBitlyUrlShortener* sorcerer;
 }
 -(IBAction)send:(id)sender;
 //-(IBAction)send2:(id)sender;

@@ -125,7 +125,6 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
     }
     else
     {
-
         if(isDone)
         {
             [outputLock unlock];

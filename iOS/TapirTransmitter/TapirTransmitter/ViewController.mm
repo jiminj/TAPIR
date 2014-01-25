@@ -97,11 +97,7 @@
     {
         OutputChannel outCh;
         NSString * bitlyPostfix = [result substringFromIndex:14];
-        if(obj == bitlyShortener){
-            outCh = LEFT;
-        }else{
-            outCh = RIGHT;
-        }
+
         if([sonifier isDone])
         { [self transmitString:bitlyPostfix through:outCh]; }
     }

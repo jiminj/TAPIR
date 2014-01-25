@@ -16,10 +16,9 @@
     IBOutlet UITextField* windowTF;
     IBOutlet UITextField* bufferTF;
     IBOutlet UITextView* outTF;
-    IBOutlet UIButton* sendButton;
     IBOutlet UISegmentedControl* typeSC;
     IBOutlet UIWebView* webView;
-    IBOutlet UISwitch * holdSwitch;
+    IBOutlet UISwitch * rcvSwitch;
     
     NSString* logString;
     
@@ -29,6 +28,6 @@
     Tapir::SignalAnalyzer * signalAnalyzer;
 }
 
--(IBAction)startTracking:(id)sender;
+-(IBAction)statusChanged:(id)sender;
 
 @end
