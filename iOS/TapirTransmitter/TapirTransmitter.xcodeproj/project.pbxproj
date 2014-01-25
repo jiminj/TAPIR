@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		248AB4F61854BF950063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F51854BF950063627C /* SystemConfiguration.framework */; };
 		24F769A01850E94C009EB100 /* Sonifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F7699E1850E94C009EB100 /* Sonifier.m */; };
-		EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.mm */; };
 		EC0AC785184E2EB900F391C9 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
 		EC4F227218912B270059644E /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F227118912B270059644E /* libBitlyUrlShortener.a */; };
 		EC5B9FAC1893D354005A79E1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5B9FAB1893D353005A79E1 /* Accelerate.framework */; };
@@ -45,8 +44,6 @@
 		248AB4F51854BF950063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		24F7699E1850E94C009EB100 /* Sonifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sonifier.m; sourceTree = "<group>"; };
 		24F7699F1850E94C009EB100 /* Sonifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sonifier.h; sourceTree = "<group>"; };
-		EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalGenerator.h; sourceTree = "<group>"; };
-		EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirSignalGenerator.mm; sourceTree = "<group>"; };
 		EC4F227118912B270059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
 		EC5B9FAB1893D353005A79E1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		EC5B9FAD1893D357005A79E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -140,8 +137,6 @@
 		EC7DDF90184E187D00909C92 /* TapirTransmitter */ = {
 			isa = PBXGroup;
 			children = (
-				EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */,
-				EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.mm */,
 				24F7699F1850E94C009EB100 /* Sonifier.h */,
 				24F7699E1850E94C009EB100 /* Sonifier.m */,
 				EC7DDF99184E187D00909C92 /* AppDelegate.h */,
@@ -287,7 +282,6 @@
 				EC7DDFA1184E187D00909C92 /* ViewController.mm in Sources */,
 				EC7DDF9B184E187D00909C92 /* AppDelegate.m in Sources */,
 				24F769A01850E94C009EB100 /* Sonifier.m in Sources */,
-				EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.mm in Sources */,
 				EC7DDF97184E187D00909C92 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

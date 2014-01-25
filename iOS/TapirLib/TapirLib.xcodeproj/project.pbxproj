@@ -45,6 +45,9 @@
 		EC47017E189163F300F740BD /* Modulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC47017B189163F300F740BD /* Modulator.cpp */; };
 		EC47017F189163F300F740BD /* Modulator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC47017C189163F300F740BD /* Modulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC4F212B189043410059644E /* ObjcFuncBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC4F212A189043410059644E /* ObjcFuncBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC5B9FB61893DE41005A79E1 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */; };
+		EC5B9FB71893DE41005A79E1 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */; };
+		EC5B9FB81893DE41005A79E1 /* SignalGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECE0D2A7188E4913000C0CD2 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE0D2A5188E4913000C0CD2 /* Config.cpp */; };
 		ECE0D2A8188E4913000C0CD2 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE0D2A5188E4913000C0CD2 /* Config.cpp */; };
@@ -104,6 +107,8 @@
 		EC47017B189163F300F740BD /* Modulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Modulator.cpp; sourceTree = "<group>"; };
 		EC47017C189163F300F740BD /* Modulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modulator.h; sourceTree = "<group>"; };
 		EC4F212A189043410059644E /* ObjcFuncBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcFuncBridge.h; sourceTree = "<group>"; };
+		EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalGenerator.cpp; sourceTree = "<group>"; };
+		EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalGenerator.h; sourceTree = "<group>"; };
 		ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = TapirLib.h; sourceTree = "<group>"; };
 		ECE0D2A5188E4913000C0CD2 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		ECE0D2A6188E4913000C0CD2 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -158,6 +163,8 @@
 		EC0EEF70183A4A51001BC8DE /* TapirLib */ = {
 			isa = PBXGroup;
 			children = (
+				EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */,
+				EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */,
 				EC31E9791892F51600E8912B /* SignalAnalyzer.cpp */,
 				EC31E97A1892F51600E8912B /* SignalAnalyzer.h */,
 				EC31E9731892B4B100E8912B /* Decoder.cpp */,
@@ -256,6 +263,7 @@
 				EC186DC8187EB9A800F71285 /* Filter.h in Headers */,
 				EC31E9721892AF4C00E8912B /* TrellisCode.h in Headers */,
 				EC31E9771892B4B100E8912B /* Decoder.h in Headers */,
+				EC5B9FB81893DE41005A79E1 /* SignalGenerator.h in Headers */,
 				EC31E96F1892AF4C00E8912B /* Encoder.h in Headers */,
 				EC31E97D1892F51600E8912B /* SignalAnalyzer.h in Headers */,
 			);
@@ -376,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC47017818915EC600F740BD /* Interleaver.cpp in Sources */,
+				EC5B9FB61893DE41005A79E1 /* SignalGenerator.cpp in Sources */,
 				EC31E9751892B4B100E8912B /* Decoder.cpp in Sources */,
 				ECFD0DB718858C4500E43CC8 /* SignalDetector.cpp in Sources */,
 				EC186DC6187EB9A800F71285 /* Filter.cpp in Sources */,
@@ -396,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECE0D2A8188E4913000C0CD2 /* Config.cpp in Sources */,
+				EC5B9FB71893DE41005A79E1 /* SignalGenerator.cpp in Sources */,
 				EC47017918915EC600F740BD /* Interleaver.cpp in Sources */,
 				EC31E9711892AF4C00E8912B /* TrellisCode.cpp in Sources */,
 				EC186DC7187EB9A800F71285 /* Filter.cpp in Sources */,

@@ -29,14 +29,7 @@
 #include "Decoder.h"
 
 #include "SignalAnalyzer.h"
-
+#include "SignalGenerator.h"
 #endif
-
-//#import "TapirSignalAnalyzer.h"
-
-//#import "TapirEncoder.h"
-//#import "TapirDecoder.h"
-//#import "TapirTrellisCode.h"
-//#import "TapirModulator.h"
 
 #endif
