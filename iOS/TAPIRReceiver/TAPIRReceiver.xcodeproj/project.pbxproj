@@ -453,7 +453,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Jimin/Development/Projects/TAPIR/iOS/BitlyUrlShortener/build/Debug-iphoneos",
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -476,7 +476,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Jimin/Development/Projects/TAPIR/iOS/BitlyUrlShortener/build/Debug-iphoneos",
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
