@@ -30,6 +30,9 @@
 		EC31E9751892B4B100E8912B /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC31E9731892B4B100E8912B /* Decoder.cpp */; };
 		EC31E9761892B4B100E8912B /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC31E9731892B4B100E8912B /* Decoder.cpp */; };
 		EC31E9771892B4B100E8912B /* Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EC31E9741892B4B100E8912B /* Decoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC31E97B1892F51600E8912B /* SignalAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC31E9791892F51600E8912B /* SignalAnalyzer.cpp */; };
+		EC31E97C1892F51600E8912B /* SignalAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC31E9791892F51600E8912B /* SignalAnalyzer.cpp */; };
+		EC31E97D1892F51600E8912B /* SignalAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = EC31E97A1892F51600E8912B /* SignalAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC47016F18913EC100F740BD /* PilotManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC47016D18913EC000F740BD /* PilotManager.cpp */; };
 		EC47017018913EC100F740BD /* PilotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC47016E18913EC000F740BD /* PilotManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC470173189147E000F740BD /* ChannelEstimator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC470171189147E000F740BD /* ChannelEstimator.cpp */; };
@@ -90,6 +93,8 @@
 		EC31E96C1892AF4C00E8912B /* TrellisCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrellisCode.h; sourceTree = "<group>"; };
 		EC31E9731892B4B100E8912B /* Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decoder.cpp; sourceTree = "<group>"; };
 		EC31E9741892B4B100E8912B /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		EC31E9791892F51600E8912B /* SignalAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalAnalyzer.cpp; sourceTree = "<group>"; };
+		EC31E97A1892F51600E8912B /* SignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalAnalyzer.h; sourceTree = "<group>"; };
 		EC47016D18913EC000F740BD /* PilotManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PilotManager.cpp; sourceTree = "<group>"; };
 		EC47016E18913EC000F740BD /* PilotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PilotManager.h; sourceTree = "<group>"; };
 		EC470171189147E000F740BD /* ChannelEstimator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChannelEstimator.cpp; sourceTree = "<group>"; };
@@ -153,6 +158,8 @@
 		EC0EEF70183A4A51001BC8DE /* TapirLib */ = {
 			isa = PBXGroup;
 			children = (
+				EC31E9791892F51600E8912B /* SignalAnalyzer.cpp */,
+				EC31E97A1892F51600E8912B /* SignalAnalyzer.h */,
 				EC31E9731892B4B100E8912B /* Decoder.cpp */,
 				EC31E9741892B4B100E8912B /* Decoder.h */,
 				EC31E9691892AF4C00E8912B /* Encoder.cpp */,
@@ -247,9 +254,10 @@
 				EC31389A183BE1A200C82186 /* TapirDsp.h in Headers */,
 				ECFD0DBC18859E6D00E43CC8 /* AutoCorrelator.h in Headers */,
 				EC186DC8187EB9A800F71285 /* Filter.h in Headers */,
+				EC31E9721892AF4C00E8912B /* TrellisCode.h in Headers */,
 				EC31E9771892B4B100E8912B /* Decoder.h in Headers */,
 				EC31E96F1892AF4C00E8912B /* Encoder.h in Headers */,
-				EC31E9721892AF4C00E8912B /* TrellisCode.h in Headers */,
+				EC31E97D1892F51600E8912B /* SignalAnalyzer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +386,7 @@
 				EC470173189147E000F740BD /* ChannelEstimator.cpp in Sources */,
 				EC47016F18913EC100F740BD /* PilotManager.cpp in Sources */,
 				EC31E96D1892AF4C00E8912B /* Encoder.cpp in Sources */,
+				EC31E97B1892F51600E8912B /* SignalAnalyzer.cpp in Sources */,
 				EC31E9701892AF4C00E8912B /* TrellisCode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,6 +402,7 @@
 				EC47017E189163F300F740BD /* Modulator.cpp in Sources */,
 				EC31E9761892B4B100E8912B /* Decoder.cpp in Sources */,
 				EC470174189147E000F740BD /* ChannelEstimator.cpp in Sources */,
+				EC31E97C1892F51600E8912B /* SignalAnalyzer.cpp in Sources */,
 				EC31E96E1892AF4C00E8912B /* Encoder.cpp in Sources */,
 				EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */,
 			);

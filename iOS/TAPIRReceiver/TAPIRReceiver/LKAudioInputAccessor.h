@@ -12,7 +12,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import <TapirLib/TapirLib.h>
-#import "TapirSignalAnalyzer.h"
 #import "LKBitlyUrlShortener.h"
 
 

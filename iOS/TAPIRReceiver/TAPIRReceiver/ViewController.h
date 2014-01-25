@@ -10,7 +10,6 @@
 #import "LKAudioInputAccessor.h"
 
 #import <TapirLib/TapirLib.h>
-#import "TapirSignalAnalyzer.h"
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     LKAudioInputAccessor* aia;
@@ -27,7 +26,7 @@
     NSString* lastResultString;
     
     Tapir::SignalDetector * signalDetector;
-    TapirSignalAnalyzer * signalAnalyzer;
+    Tapir::SignalAnalyzer * signalAnalyzer;
     float * tapirDetected;
 }
 

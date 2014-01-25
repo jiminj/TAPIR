@@ -28,8 +28,11 @@
 #include "Encoder.h"
 #include "Decoder.h"
 
+#include "SignalAnalyzer.h"
+
 #endif
 
+//#import "TapirSignalAnalyzer.h"
 
 //#import "TapirEncoder.h"
 //#import "TapirDecoder.h"

@@ -34,7 +34,7 @@
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(@selector(correlationDetected:),self );
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
-    signalAnalyzer = [[TapirSignalAnalyzer alloc] init];
+    signalAnalyzer = new Tapir::SignalAnalyzer();
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
@@ -56,8 +56,8 @@
 
 -(void)correlationDetected:(float *)result{
     
-    lastResultString = [signalAnalyzer analyze:result];
-    
+    lastResultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
+                                          encoding:[NSString defaultCStringEncoding]];
     NSLog(@"%@", lastResultString);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
