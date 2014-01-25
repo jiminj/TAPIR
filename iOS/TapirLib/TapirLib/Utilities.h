@@ -32,6 +32,7 @@ void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
 
 int mergeBitsToIntegerValue(const int * intArray, int arrLength);
 void divdeIntIntoBits(const int src, int * arr, int arrLength);
+      
 
 }
 #endif /* defined(__TapirLib__Utils__) */

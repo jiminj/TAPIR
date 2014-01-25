@@ -9,8 +9,9 @@
 #include "SignalAnalyzer.h"
 
 namespace Tapir{
-    SignalAnalyzer::SignalAnalyzer()
-    :m_convertedSignal({.realp=new float[Config::SAMPLE_LENGTH_EACH_SYMBOL], .imagp=new float[Config::SAMPLE_LENGTH_EACH_SYMBOL] }),
+    SignalAnalyzer::SignalAnalyzer(float freqOffset)
+    :m_carrier(Config::CARRIER_FREQUENCY_BASE + freqOffset),
+    m_convertedSignal({.realp=new float[Config::SAMPLE_LENGTH_EACH_SYMBOL], .imagp=new float[Config::SAMPLE_LENGTH_EACH_SYMBOL] }),
     m_roiSignal({.realp =new float[Config::NO_TOTAL_SUBCARRIERS], .imagp=new float[Config::NO_TOTAL_SUBCARRIERS]}),
     m_estimatedSignal({.realp =new float[Config::NO_TOTAL_SUBCARRIERS], .imagp=new float[Config::NO_TOTAL_SUBCARRIERS]}),
     m_pilotRemovedSignal({.realp =new float[Config::NO_DATA_SUBCARRIERS], .imagp=new float[Config::NO_DATA_SUBCARRIERS]}),
@@ -62,7 +63,7 @@ namespace Tapir{
     char SignalAnalyzer::decodeBlock(const float *signal)
     {
         //Freq Downconversion & FFT, and cut central spectrum region
-        Tapir::iqDemodulate(signal, &m_convertedSignal, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL, Tapir::Config::AUDIO_SAMPLE_RATE, Tapir::Config::CARRIER_FREQUENCY_BASE + Tapir::Config::CARRIER_FREQUENCY_RECEIVE_OFFSET);
+        Tapir::iqDemodulate(signal, &m_convertedSignal, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrier);
         // TODO: LPF (for real & imag both)
         
         //FFT

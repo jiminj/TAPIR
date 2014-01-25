@@ -9,9 +9,12 @@
 #ifndef TapirLib_TapirLib_h
 #define TapirLib_TapirLib_h
 
-//New CPP Library
-#ifdef __cplusplus
+#ifdef __OBJC__
+
+#import "TapirFreqOffset.h"
 #include "ObjcFuncBridge.h"
+
+#endif
 
 #include "Config.h"
 #include "PilotManager.h"
@@ -30,6 +33,6 @@
 
 #include "SignalAnalyzer.h"
 #include "SignalGenerator.h"
-#endif
+
 
 #endif

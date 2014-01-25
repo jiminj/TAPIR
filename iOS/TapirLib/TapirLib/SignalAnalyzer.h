@@ -21,10 +21,12 @@ namespace Tapir {
     class SignalAnalyzer
     {
     public:
-        SignalAnalyzer();
+        SignalAnalyzer(float freqOffset = 0.f);
         virtual ~SignalAnalyzer();
         char decodeBlock(const float * signal);
         std::string analyze(float * signal);
+        void setFreqOffset(float freqOffset)
+        { m_carrier = Config::CARRIER_FREQUENCY_BASE + freqOffset;};
         
     private:
         void cutCentralRegion(const DSPSplitComplex * src, DSPSplitComplex * dest, const int signalLength, const int destLength, const int fHalfLength);
@@ -34,6 +36,7 @@ namespace Tapir {
         DSPSplitComplex m_estimatedSignal;
         DSPSplitComplex m_pilotRemovedSignal;
         
+        float m_carrier;
         float * m_demod;
         float * m_deinterleaved;
         int * m_decoded;

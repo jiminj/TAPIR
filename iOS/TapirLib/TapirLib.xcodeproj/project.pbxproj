@@ -48,6 +48,9 @@
 		EC5B9FB61893DE41005A79E1 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */; };
 		EC5B9FB71893DE41005A79E1 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */; };
 		EC5B9FB81893DE41005A79E1 /* SignalGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC7161211893F5C100BD8FB9 /* TapirFreqOffset.h in Headers */ = {isa = PBXBuildFile; fileRef = EC71611F1893F5C100BD8FB9 /* TapirFreqOffset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC7161221893F5C100BD8FB9 /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */; };
+		EC7161231893F5C100BD8FB9 /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */; };
 		ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECE0D2A7188E4913000C0CD2 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE0D2A5188E4913000C0CD2 /* Config.cpp */; };
 		ECE0D2A8188E4913000C0CD2 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECE0D2A5188E4913000C0CD2 /* Config.cpp */; };
@@ -109,6 +112,8 @@
 		EC4F212A189043410059644E /* ObjcFuncBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcFuncBridge.h; sourceTree = "<group>"; };
 		EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalGenerator.cpp; sourceTree = "<group>"; };
 		EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalGenerator.h; sourceTree = "<group>"; };
+		EC71611F1893F5C100BD8FB9 /* TapirFreqOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirFreqOffset.h; sourceTree = "<group>"; };
+		EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirFreqOffset.m; sourceTree = "<group>"; };
 		ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = TapirLib.h; sourceTree = "<group>"; };
 		ECE0D2A5188E4913000C0CD2 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		ECE0D2A6188E4913000C0CD2 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -163,6 +168,12 @@
 		EC0EEF70183A4A51001BC8DE /* TapirLib */ = {
 			isa = PBXGroup;
 			children = (
+				EC7161241893F6DD00BD8FB9 /* iOS */,
+				ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */,
+				ECE0D2A5188E4913000C0CD2 /* Config.cpp */,
+				ECE0D2A6188E4913000C0CD2 /* Config.h */,
+				ECFD0DB518858C4500E43CC8 /* SignalDetector.cpp */,
+				ECFD0DB618858C4500E43CC8 /* SignalDetector.h */,
 				EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */,
 				EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */,
 				EC31E9791892F51600E8912B /* SignalAnalyzer.cpp */,
@@ -173,8 +184,6 @@
 				EC31E96A1892AF4C00E8912B /* Encoder.h */,
 				EC31E96B1892AF4C00E8912B /* TrellisCode.cpp */,
 				EC31E96C1892AF4C00E8912B /* TrellisCode.h */,
-				ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */,
-				EC4F212A189043410059644E /* ObjcFuncBridge.h */,
 				EC47016D18913EC000F740BD /* PilotManager.cpp */,
 				EC47016E18913EC000F740BD /* PilotManager.h */,
 				EC470171189147E000F740BD /* ChannelEstimator.cpp */,
@@ -185,11 +194,7 @@
 				EC47017C189163F300F740BD /* Modulator.h */,
 				EC47017618915EC600F740BD /* Interleaver.cpp */,
 				EC47017718915EC600F740BD /* Interleaver.h */,
-				ECE0D2A5188E4913000C0CD2 /* Config.cpp */,
-				ECE0D2A6188E4913000C0CD2 /* Config.h */,
 				ECFD0DC01885B30300E43CC8 /* CircularQueue.h */,
-				ECFD0DB518858C4500E43CC8 /* SignalDetector.cpp */,
-				ECFD0DB618858C4500E43CC8 /* SignalDetector.h */,
 				EC186DC4187EB9A800F71285 /* Filter.cpp */,
 				EC186DC5187EB9A800F71285 /* Filter.h */,
 				ECFD0DB918859E6D00E43CC8 /* AutoCorrelator.cpp */,
@@ -242,6 +247,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EC7161241893F6DD00BD8FB9 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EC4F212A189043410059644E /* ObjcFuncBridge.h */,
+				EC71611F1893F5C100BD8FB9 /* TapirFreqOffset.h */,
+				EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -249,6 +264,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC7161211893F5C100BD8FB9 /* TapirFreqOffset.h in Headers */,
 				EC4F212B189043410059644E /* ObjcFuncBridge.h in Headers */,
 				ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */,
 				EC470175189147E000F740BD /* ChannelEstimator.h in Headers */,
@@ -383,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC7161221893F5C100BD8FB9 /* TapirFreqOffset.m in Sources */,
 				EC47017818915EC600F740BD /* Interleaver.cpp in Sources */,
 				EC5B9FB61893DE41005A79E1 /* SignalGenerator.cpp in Sources */,
 				EC31E9751892B4B100E8912B /* Decoder.cpp in Sources */,
@@ -413,6 +430,7 @@
 				EC31E9761892B4B100E8912B /* Decoder.cpp in Sources */,
 				EC470174189147E000F740BD /* ChannelEstimator.cpp in Sources */,
 				EC31E97C1892F51600E8912B /* SignalAnalyzer.cpp in Sources */,
+				EC7161231893F5C100BD8FB9 /* TapirFreqOffset.m in Sources */,
 				EC31E96E1892AF4C00E8912B /* Encoder.cpp in Sources */,
 				EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */,
 			);
@@ -452,7 +470,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -492,7 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
