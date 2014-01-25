@@ -9,8 +9,8 @@
 #include "SignalGenerator.h"
 
 namespace Tapir{
-    SignalGenerator::SignalGenerator()
-    : m_carrierFreq(Tapir::Config::CARRIER_FREQUENCY_BASE + Tapir::Config::CARRIER_FREQUENCY_TRANSMIT_OFFSET),
+    SignalGenerator::SignalGenerator(float freqOffset)
+    : m_carrier(Tapir::Config::CARRIER_FREQUENCY_BASE + freqOffset),
     m_input(new int[Tapir::Config::DATA_BIT_LENGTH]),
     m_encoded(new float[Tapir::Config::NO_DATA_SUBCARRIERS]),
     m_interleaved(new float[Tapir::Config::NO_DATA_SUBCARRIERS]),
@@ -70,7 +70,7 @@ namespace Tapir{
         }
         // TODO: LPF (for real and imag both)
         
-        Tapir::iqModulate(&preamble, dest, lenPreamble, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrierFreq);
+        Tapir::iqModulate(&preamble, dest, lenPreamble, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrier);
         Tapir::maximizeSignal(dest, dest, lenPreamble, Tapir::Config::AUDIO_MAX_VOLUME);
         memcpy(dest + lenPreamble, dest, lenPreamble * sizeof(float));
         
@@ -110,7 +110,7 @@ namespace Tapir{
         // TODO: LPF (for real and imag both)
 
         //frequency upconversion
-        Tapir::iqModulate(&m_ifftData, dest, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrierFreq);
+        Tapir::iqModulate(&m_ifftData, dest, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrier);
         //prepend and append cyclic prefix
     };
     
@@ -157,8 +157,6 @@ namespace Tapir{
             }
         }
 
-        
-        
         m_filter->process(dest, dest, destLength);
         m_filter->clearBuffer();
         Tapir::maximizeSignal(dest, dest, destLength, Tapir::Config::AUDIO_MAX_VOLUME);

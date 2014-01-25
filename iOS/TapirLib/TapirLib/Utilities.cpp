@@ -136,8 +136,9 @@ void divdeIntIntoBits(const int src, int * arr, int arrLength)
         arr[arrLength - i - 1] = (input & 1);
         input >>= 1;
     }
-    
 };
+    
+    
 
 };
 

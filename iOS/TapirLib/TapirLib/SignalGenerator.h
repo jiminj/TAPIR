@@ -24,7 +24,7 @@ namespace Tapir {
     class SignalGenerator
     {
     public:
-        SignalGenerator();
+        SignalGenerator(float freqOffset = 0.f);
         ~SignalGenerator();
         
         void generateSignal(const std::string& inputString, float * dest, int destLength);
@@ -32,13 +32,15 @@ namespace Tapir {
         int calResultLength(int strLength);
         int calResultLength(const std::string& string)
         { return calResultLength(static_cast<int>( string.length() ) ); };
+        void setFreqOffset(float freqOffset)
+        { m_carrier = Config::CARRIER_FREQUENCY_BASE + freqOffset;};
         
     private:
         void generatePreamble(float * dest);
         void encodeOneChar(const char src, float * dest);
         void addPrefixAndPostfix(const float * src, float * dest);
         
-        float m_carrierFreq;
+        float m_carrier;
         int * m_input;
         float * m_encoded;
         float * m_interleaved;

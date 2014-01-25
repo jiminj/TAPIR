@@ -34,7 +34,7 @@
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(correlationDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
-    signalAnalyzer = new Tapir::SignalAnalyzer();
+    signalAnalyzer = new Tapir::SignalAnalyzer([TapirFreqOffset getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
