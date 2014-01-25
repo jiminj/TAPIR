@@ -12,6 +12,8 @@
 		EC0AC784184E2E7500F391C9 /* TapirSignalGenerator.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.mm */; };
 		EC0AC785184E2EB900F391C9 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC1184E296000909C92 /* TapirLib.framework */; };
 		EC4F227218912B270059644E /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F227118912B270059644E /* libBitlyUrlShortener.a */; };
+		EC5B9FAC1893D354005A79E1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5B9FAB1893D353005A79E1 /* Accelerate.framework */; };
+		EC5B9FAE1893D357005A79E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5B9FAD1893D357005A79E1 /* AudioToolbox.framework */; };
 		EC7DDF8B184E187D00909C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8A184E187D00909C92 /* Foundation.framework */; };
 		EC7DDF8D184E187D00909C92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8C184E187D00909C92 /* CoreGraphics.framework */; };
 		EC7DDF8F184E187D00909C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8E184E187D00909C92 /* UIKit.framework */; };
@@ -46,6 +48,8 @@
 		EC0AC782184E2E7500F391C9 /* TapirSignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalGenerator.h; sourceTree = "<group>"; };
 		EC0AC783184E2E7500F391C9 /* TapirSignalGenerator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirSignalGenerator.mm; sourceTree = "<group>"; };
 		EC4F227118912B270059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
+		EC5B9FAB1893D353005A79E1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		EC5B9FAD1893D357005A79E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		EC7DDF87184E187D00909C92 /* TapirTransmitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapirTransmitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC7DDF8A184E187D00909C92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC7DDF8C184E187D00909C92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC5B9FAE1893D357005A79E1 /* AudioToolbox.framework in Frameworks */,
+				EC5B9FAC1893D354005A79E1 /* Accelerate.framework in Frameworks */,
 				248AB4F61854BF950063627C /* SystemConfiguration.framework in Frameworks */,
 				EC4F227218912B270059644E /* libBitlyUrlShortener.a in Frameworks */,
 				EC7DDFC3184E2AD100909C92 /* TapirLib.framework in Frameworks */,
@@ -118,6 +124,8 @@
 		EC7DDF89184E187D00909C92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC5B9FAD1893D357005A79E1 /* AudioToolbox.framework */,
+				EC5B9FAB1893D353005A79E1 /* Accelerate.framework */,
 				EC4F227118912B270059644E /* libBitlyUrlShortener.a */,
 				248AB4F51854BF950063627C /* SystemConfiguration.framework */,
 				EC7DDFC1184E296000909C92 /* TapirLib.framework */,

@@ -36,11 +36,8 @@
 //    }
 //    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
 
-    cfg = [TapirConfig getInstance];
-    generator = [[TapirSignalGenerator alloc] initWithConfig:cfg];
-
-    
-    sonifier = [[Sonifier alloc] initWithConfig:[TapirConfig getInstance]];
+    generator = [[TapirSignalGenerator alloc] init];
+    sonifier = [[Sonifier alloc] initWithSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE channel:Tapir::Config::AUDIO_CHANNEL];
     [sonifier setDelegate:self];
 //    [son start];
     
@@ -134,9 +131,9 @@
     //Add ETX ascii code (end of the text)
 
     NSString* inputStr = [textToBeSent stringByAppendingFormat:@"%c", ASCII_ETX];
-    if([inputStr length] > [cfg kMaximumSymbolLength])
+    if([inputStr length] > Tapir::Config::MAX_SYMBOL_LENGTH)
     {
-        inputStr = [inputStr substringToIndex:[cfg kMaximumSymbolLength]];
+        inputStr = [inputStr substringToIndex:Tapir::Config::MAX_SYMBOL_LENGTH];
     }
     int resultLength = [generator calculateResultLengthOfStringWithLength:[inputStr length]];
 

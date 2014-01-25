@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "TapirConfig.h"
+#import <Accelerate/Accelerate.h>
 
 static const int kNumBuffers = 3;
 static const float kShortMax = (float)(SHRT_MAX);
@@ -20,8 +20,6 @@ static const float kShortMax = (float)(SHRT_MAX);
 @interface Sonifier : NSObject{
 
     id <SonifierDelegate> delegate;
-
-    TapirConfig * cfg;
 
     AudioStreamBasicDescription audioDesc;
     AudioQueueRef audioQueue;
@@ -45,7 +43,8 @@ static const float kShortMax = (float)(SHRT_MAX);
 @property id <SonifierDelegate> delegate;
 @property (readonly) BOOL isDone;
 
-- (id)initWithConfig:(TapirConfig *)_cfg;
+//- (id)initWithConfig:(TapirConfig *)_cfg;
+- (id)initWithSampleRate:(const float)sampleRate channel:(const int)ch;
 - (void)transmit:(float *)audioData length:(int)len;
 - (void)processAudioQueue:(AudioQueueRef)q buffer:(AudioQueueBufferRef)buf;
 
