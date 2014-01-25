@@ -47,10 +47,12 @@
     if([rcvSwitch isOn])
     {
         [aia startAudioInput];
+        NSLog(@"START");
     }
     else
     {
         [aia stopAudioInput];
+        NSLog(@"STOP");        
     }
 }
 

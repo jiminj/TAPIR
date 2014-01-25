@@ -93,7 +93,7 @@
     NSLog(@"Result: %@", result);
     if([result length] > 0)
     {
-        OutputChannel outCh;
+        OutputChannel outCh = LEFT;
         NSString * bitlyPostfix = [result substringFromIndex:14];
 
         if([sonifier isDone])
