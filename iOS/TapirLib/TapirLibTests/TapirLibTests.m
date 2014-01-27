@@ -6,9 +6,12 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#include <AudioToolbox/AudioToolbox.h>
+//#include "CircularQueue.h"
 #include "TapirLib.h"
+#import <XCTest/XCTest.h>
+#import <AudioToolbox/AudioToolbox.h>
+
+
 
 @interface TapirLibTests : XCTestCase
 
@@ -35,25 +38,29 @@
 
 - (void)testMisc
 {
-    int test[6] = {0,1,0,1,1,1};
-    int result = mergeBitsToIntegerValue(test, 6);
-    NSLog(@"%d", result);
+//    int test[6] = {0,1,0,1,1,1};
+//    int result = mergeBitsToIntegerValue(test, 6);
+//    NSLog(@"%d", result);
 }
 
 
 - (void)testDecoder
 {
+    /*
     NSMutableArray * treArr = [[NSMutableArray alloc] init];
     [treArr addObject:[[TapirTrellisCode alloc] initWithG:7]];
     [treArr addObject:[[TapirTrellisCode alloc] initWithG:5]];
 
     TapirViterbiDecoder * vitdec = [[TapirViterbiDecoder alloc] initWithTrellisArray:treArr];
     
-    float input[] = {0,0,1,1,0,1,1,0,0,1,0,0,1,0,1,1};
+    float z[] = {0,0,1,1, 0,1,1,0, 0,1,1,0, 1,0,1,1};
+    float z2[] = {0,0,1,1, 0,1,1,0, 0,1,1,0, 1,0,0,0};
     int dest[8];
+    int dest2[8];
     
-    [vitdec decode:input dest:dest srcLength:16];
-    
+    [vitdec decode:z dest:dest srcLength:16];
+    [vitdec decode:z2 dest:dest2 srcLength:16];
+     */
     
 }
 
@@ -94,6 +101,7 @@
 //    
     
 
+    /*
     NSMutableArray * treArr = [[NSMutableArray alloc] init];
     [treArr addObject:[[TapirTrellisCode alloc] initWithG:171]];
     [treArr addObject:[[TapirTrellisCode alloc] initWithG:133]];
@@ -120,6 +128,8 @@
     {
         NSLog(@"%d => %d", i, decoded[i]);
     }
+     
+     */
     
     //    TrellisCode * trel = [[TrellisCode alloc]initWithG:171];
 //    TrellisCode * trel2 = [[T]]
@@ -138,6 +148,7 @@
 
 - (void)testPilot
 {
+    /*
     float pilotReal[4] = { 1.f, 1.f, 1.f, -1.f };
     float pilotImag[4] = { 0., 0., 0., 0.};
     int loc[4] = {3, 7, 11, 15};
@@ -192,7 +203,7 @@
     free(removedSignal.imagp);
     free(destSignal.realp);
     free(destSignal.imagp);
-    
+    */
 }
 
 - (void)testChannelEstimation
@@ -231,6 +242,7 @@
 
 - (void)testInterleaver
 {
+    /*
     DSPSplitComplex src;
     DSPSplitComplex interleaved;
     DSPSplitComplex deinterleaved;
@@ -258,10 +270,12 @@
     
     free(src.realp); free(src.imagp);
     free(interleaved.realp); free(interleaved.imagp);
+     */
 }
 
 - (void)testModulation
 {
+    /*
     int symRate = 4;
     TapirPskModulator * mod = [[TapirPskModulator alloc] initWithSymbolRate:symRate initPhase:0];
 
@@ -322,6 +336,7 @@
     free(testDemodValue.imagp);
     free(phase);
     free(result);
+    */
     
 //    DbpskModulator * mod = [[DbpskModulator alloc] init];
     
@@ -332,6 +347,7 @@
 - (void)testConvert
 {
     
+    /*
     NSString *filePath =[[NSBundle bundleForClass:[self class]] pathForResource:@"t" ofType: @".wav"];
     UInt32 length = 2048;
     float * audioData = malloc(length * sizeof(float));
@@ -343,6 +359,7 @@
     
     iqDemodulate(audioData,&convResult,2048, 44100, 20000);
     
+     */
     //    [converter iqDemodulate:audioData dest:&convResult withLength:length];
     
     //    for(int i=0; i<10; ++i)
@@ -353,6 +370,7 @@
     //    {
     //        NSLog(@"%d th result, %f, %f", i, convResult.realp[i], convResult.imagp[i]);
     //    }
+    /*
     fftComplexForward(&convResult, &convResult, 2048);
 
     for(int i=0; i<10; ++i)
@@ -369,6 +387,7 @@
     free(convResult.imagp);
     
     XCTAssertTrue(YES);
+     */
 }
 
 - (void)readWavDataFrom:(NSString *)filePath to:(Float32 *)audioData lengthOf:(UInt32)frameCount
@@ -404,5 +423,6 @@
     }
     
 }
+
 
 @end

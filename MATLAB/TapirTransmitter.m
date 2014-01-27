@@ -64,7 +64,7 @@ global Fs;
 global Fc;
 
 Fs = 44100;
-Fc = 20000;
+Fc = 19000;
 
 % UIWAIT makes TapirTransmitter wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -118,24 +118,26 @@ function btnPlay_Callback(hObject, eventdata, handles)
     
     saveFlag = get(handles.chkSave, 'Value');
     TapirConf;
-    
-    switch Fc
-        case 18000
-            txBpf = txBpf18k;
-        case 20000
-            txBpf = txBpf20k;
-        case 10000
-            txBpf = txBpf10k;
-    end
+%     
+%     switch Fc
+%         case 10000
+%             txBpf = txBpf10k;
+%         case 18000
+%             txBpf = txBpf18k;
+%         otherwise
+%             txBpf = txBpf20k;            
+%     end
     
     txLpf = txrxLpfRC;
     txLpfDelay = txLpf.order / 2;
-    
-    txBpfDelay = ceil(txBpf.order / 2);
+%     txBpfDelay = ceil(txBpf.order / 2);
+    txHpf = txrxHpf;
+    txHpfDelay = txHpf.order / 2;
+
     
     msg = get(handles.tbMsg,'String');
     if(length(msg) < maxBitLength)
-        msg = [msg, 3];
+        msg = [msg, 3]; %ETX Code
     elseif(length(msg) > maxBitLength)
         msg = msg(1:maxBitLength);
     end
@@ -171,11 +173,11 @@ function btnPlay_Callback(hObject, eventdata, handles)
 %     audiowrite('readTest.wav', testAudioData, Fs, 'BitsPerSample', 16);
     
     audioData = [upconvPreamble; zeros(preambleInterval,1); audioData];
-    audioData = [audioData; zeros(txBpfDelay*2,1)];
-    
-    
-    audioData = filter(txBpf, audioData);  % Filtering
+    if Fc > 17000
+    audioData = [audioData; zeros(txHpfDelay*2,1)];
+    audioData = filter(txHpf, audioData);  % Filtering
     audioData = [zeros(floor(Fs/5),1);audioData;zeros(floor(Fs/5),1)];
+    end
 
     figure();
     subplot(3,1,1); stem(reshape(binData,[],1));
@@ -245,9 +247,11 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
         case handles.radioFc10k
             Fc = 10000;
         case handles.radioFc18k
-            Fc = 18000;
+            Fc = 18500;
+        case handles.radioFc19k
+            Fc = 19000;
         case handles.radioFc20k
-            Fc = 20000;
+            Fc = 20000 + 3;            
     end
         
     

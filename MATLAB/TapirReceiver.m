@@ -64,7 +64,7 @@ global Fc;
 Fs = 44100;
 
 %init Value
-Fc = 20000;
+Fc = 19000;
 
 
 
@@ -389,6 +389,8 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
             Fc = 10000;
         case handles.radioFc18k
             Fc = 18000;
+        case handles.radioFc19k
+            Fc = 19000;            
         case handles.radioFc20k
             Fc = 20000;
     end

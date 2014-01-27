@@ -1,4 +1,5 @@
 function [ resultMat ] = analyzeAudioData( signal, Fc)
+    Fc
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
     TapirConf;
@@ -22,10 +23,11 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
     
     figure();
     
-    
+    cnt = 0;
     while pos < sigLength
         endPos = pos + symLength;
         curDataBlk = signal(pos + 1: endPos);
+       
         curDataBlk = freqDownConversion(curDataBlk, Fc, Fs);
 
         lpfCurDataBlk = curDataBlk;
@@ -88,6 +90,14 @@ function [ resultMat ] = analyzeAudioData( signal, Fc)
         scatter(real(chanEstData),imag(chanEstData),'*','r');        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%         subplot(1,1,1);
+%         plot(signal(pos + 1: endPos));
+%         cnt = cnt+1;
+%         if(cnt == 3)
+%             rd = signal(pos+1:endPos);
+%             save('SonyThird', 'rd');
+%         end
+%         
         blkIdx = blkIdx + 1;
         pos = endPos + guardInterval + cPreLength + cPostLength;
         

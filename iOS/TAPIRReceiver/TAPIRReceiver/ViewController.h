@@ -10,21 +10,25 @@
 #import "LKAudioInputAccessor.h"
 
 #import <TapirLib/TapirLib.h>
-#import "TapirConfig.h"
-#import "TapirSignalAnalyzer.h"
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
     LKAudioInputAccessor* aia;
     IBOutlet UITextField* windowTF;
     IBOutlet UITextField* bufferTF;
     IBOutlet UITextView* outTF;
-    IBOutlet UIButton* sendButton;
     IBOutlet UISegmentedControl* typeSC;
     IBOutlet UIWebView* webView;
+    IBOutlet UISwitch * rcvSwitch;
+    
     NSString* logString;
+    
     NSString* lastResultString;
+    
+    Tapir::SignalDetector * signalDetector;
+    Tapir::SignalAnalyzer * signalAnalyzer;
 }
 
--(IBAction)startTracking:(id)sender;
--(IBAction)trace:(id)sender;
+-(IBAction)statusChanged:(id)sender;
+-(void)signalDetected:(float *)result;
+
 @end

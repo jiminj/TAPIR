@@ -14,22 +14,23 @@
 		245AC68B18364DBE00AF31AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AC68A18364DBE00AF31AE /* UIKit.framework */; };
 		245AC69118364DBE00AF31AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 245AC68F18364DBE00AF31AE /* InfoPlist.strings */; };
 		245AC69318364DBE00AF31AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC69218364DBE00AF31AE /* main.m */; };
-		245AC69718364DBE00AF31AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC69618364DBE00AF31AE /* AppDelegate.m */; };
+		245AC69718364DBE00AF31AE /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC69618364DBE00AF31AE /* AppDelegate.mm */; };
 		245AC69A18364DBE00AF31AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 245AC69818364DBE00AF31AE /* Main.storyboard */; };
-		245AC69D18364DBE00AF31AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC69C18364DBE00AF31AE /* ViewController.m */; };
+		245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC69C18364DBE00AF31AE /* ViewController.mm */; };
 		245AC69F18364DBE00AF31AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 245AC69E18364DBE00AF31AE /* Images.xcassets */; };
 		245AC6A618364DBE00AF31AE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AC6A518364DBE00AF31AE /* XCTest.framework */; };
 		245AC6A718364DBE00AF31AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AC68618364DBE00AF31AE /* Foundation.framework */; };
 		245AC6A818364DBE00AF31AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245AC68A18364DBE00AF31AE /* UIKit.framework */; };
 		245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 245AC6AE18364DBE00AF31AE /* InfoPlist.strings */; };
-		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.m */; };
-		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */; };
-		245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */; };
+		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */; };
+		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */; };
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
-		EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */; };
-		EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */; };
+		EC31E9781892E2B700E8912B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
+		EC4F2277189130260059644E /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F2276189130260059644E /* libBitlyUrlShortener.a */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
-		EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFD0184E2BE200909C92 /* TapirConfig.m */; };
+		ECD96E9F18817A0300275F46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DA5E818486C430043EC2A /* AudioToolbox.framework */; };
+		ECD96EA018817A5B00275F46 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
+		ECD96EA2188180DE00275F46 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,27 +55,22 @@
 		245AC69218364DBE00AF31AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		245AC69418364DBE00AF31AE /* TAPIRReceiver-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TAPIRReceiver-Prefix.pch"; sourceTree = "<group>"; };
 		245AC69518364DBE00AF31AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		245AC69618364DBE00AF31AE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		245AC69618364DBE00AF31AE /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		245AC69918364DBE00AF31AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		245AC69B18364DBE00AF31AE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		245AC69C18364DBE00AF31AE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		245AC69C18364DBE00AF31AE /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		245AC69E18364DBE00AF31AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		245AC6A418364DBE00AF31AE /* TAPIRReceiverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TAPIRReceiverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		245AC6A518364DBE00AF31AE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		245AC6AD18364DBE00AF31AE /* TAPIRReceiverTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TAPIRReceiverTests-Info.plist"; sourceTree = "<group>"; };
 		245AC6AF18364DBE00AF31AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAPIRReceiverTests.m; sourceTree = "<group>"; };
+		245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TAPIRReceiverTests.mm; sourceTree = "<group>"; };
 		245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKAudioInputAccessor.h; sourceTree = "<group>"; };
-		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKAudioInputAccessor.m; sourceTree = "<group>"; };
-		245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCorrelationManager.h; sourceTree = "<group>"; };
-		245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCorrelationManager.m; sourceTree = "<group>"; };
+		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LKAudioInputAccessor.mm; sourceTree = "<group>"; };
 		248AB4F31854BF850063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirSignalAnalyzer.h; sourceTree = "<group>"; };
-		EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirSignalAnalyzer.m; sourceTree = "<group>"; };
-		EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = t_20k_puresymbol.wav; sourceTree = "<group>"; };
+		EC4F2276189130260059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
-		EC7DDFCF184E2BE200909C92 /* TapirConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirConfig.h; sourceTree = "<group>"; };
-		EC7DDFD0184E2BE200909C92 /* TapirConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirConfig.m; sourceTree = "<group>"; };
+		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +78,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC31E9781892E2B700E8912B /* Accelerate.framework in Frameworks */,
 				248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */,
 				EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */,
+				EC4F2277189130260059644E /* libBitlyUrlShortener.a in Frameworks */,
 				242DA5EB18486D9A0043EC2A /* AVFoundation.framework in Frameworks */,
 				242DA5E918486C430043EC2A /* AudioToolbox.framework in Frameworks */,
 				245AC68918364DBE00AF31AE /* CoreGraphics.framework in Frameworks */,
@@ -96,8 +94,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD96EA2188180DE00275F46 /* Accelerate.framework in Frameworks */,
+				ECD96E9F18817A0300275F46 /* AudioToolbox.framework in Frameworks */,
 				245AC6A618364DBE00AF31AE /* XCTest.framework in Frameworks */,
 				245AC6A818364DBE00AF31AE /* UIKit.framework in Frameworks */,
+				ECD96EA018817A5B00275F46 /* TapirLib.framework in Frameworks */,
 				245AC6A718364DBE00AF31AE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +128,8 @@
 		245AC68518364DBE00AF31AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC4F2276189130260059644E /* libBitlyUrlShortener.a */,
+				ECD96EA1188180DE00275F46 /* Accelerate.framework */,
 				248AB4F31854BF850063627C /* SystemConfiguration.framework */,
 				EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */,
 				242DA5EA18486D9A0043EC2A /* AVFoundation.framework */,
@@ -142,19 +145,13 @@
 		245AC68C18364DBE00AF31AE /* TAPIRReceiver */ = {
 			isa = PBXGroup;
 			children = (
-				EC7DDFCF184E2BE200909C92 /* TapirConfig.h */,
-				EC7DDFD0184E2BE200909C92 /* TapirConfig.m */,
-				EC5B384E184B308300EB4050 /* TapirSignalAnalyzer.h */,
-				EC5B384F184B308300EB4050 /* TapirSignalAnalyzer.m */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
-				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.m */,
-				245AC6BD18364DF100AF31AE /* LKCorrelationManager.h */,
-				245AC6BE18364DF100AF31AE /* LKCorrelationManager.m */,
+				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */,
 				245AC69518364DBE00AF31AE /* AppDelegate.h */,
-				245AC69618364DBE00AF31AE /* AppDelegate.m */,
+				245AC69618364DBE00AF31AE /* AppDelegate.mm */,
 				245AC69818364DBE00AF31AE /* Main.storyboard */,
 				245AC69B18364DBE00AF31AE /* ViewController.h */,
-				245AC69C18364DBE00AF31AE /* ViewController.m */,
+				245AC69C18364DBE00AF31AE /* ViewController.mm */,
 				245AC69E18364DBE00AF31AE /* Images.xcassets */,
 				245AC68D18364DBE00AF31AE /* Supporting Files */,
 			);
@@ -175,8 +172,7 @@
 		245AC6AB18364DBE00AF31AE /* TAPIRReceiverTests */ = {
 			isa = PBXGroup;
 			children = (
-				EC5B3851184B3B0400EB4050 /* t_20k_puresymbol.wav */,
-				245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.m */,
+				245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */,
 				245AC6AC18364DBE00AF31AE /* Supporting Files */,
 			);
 			path = TAPIRReceiverTests;
@@ -281,7 +277,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				245AC6B018364DBE00AF31AE /* InfoPlist.strings in Resources */,
-				EC5B3852184B3B0400EB4050 /* t_20k_puresymbol.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,13 +287,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				245AC6C418364DF100AF31AE /* LKCorrelationManager.m in Sources */,
-				245AC69D18364DBE00AF31AE /* ViewController.m in Sources */,
-				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.m in Sources */,
-				245AC69718364DBE00AF31AE /* AppDelegate.m in Sources */,
-				EC5B3850184B308300EB4050 /* TapirSignalAnalyzer.m in Sources */,
+				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
+				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
+				245AC69718364DBE00AF31AE /* AppDelegate.mm in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
-				EC7DDFD1184E2BE200909C92 /* TapirConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.m in Sources */,
+				245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +362,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -382,9 +374,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				New_Setting = "";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					TapirLib,
@@ -422,8 +420,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				New_Setting = "";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					TapirLib,
@@ -445,6 +450,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -463,6 +473,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -480,6 +495,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
@@ -508,6 +524,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";

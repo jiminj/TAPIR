@@ -9,19 +9,30 @@
 #ifndef TapirLib_TapirLib_h
 #define TapirLib_TapirLib_h
 
-#import "TapirDsp.h"
-#import "TapirPilotManager.h"
-#import "TapirEncoder.h"
-#import "TapirDecoder.h"
-#import "TapirTrellisCode.h"
-#import "TapirModulator.h"
-#import "TapirInterleaver.h"
-#import "TapirChannelEstimator.h"
-#import "LKRealSampleBuffer.h"
-#import "LKVirtualSampleBuffer.h"
-#import "TapirEncoder.h"
-#import "TapirDecoder.h"
-#import "LKBiquadHPF.h"
-#import "TapirMotherOfAllFilters.h"
-#import "LKSimpleBitlyMagic.h"
+#ifdef __OBJC__
+
+#import "TapirFreqOffset.h"
+#include "ObjcFuncBridge.h"
+
+#endif
+
+#include "Config.h"
+#include "PilotManager.h"
+#include "ChannelEstimator.h"
+#include "Interleaver.h"
+#include "Modulator.h"
+
+#include "Utilities.h"
+#include "Filter.h"
+#include "CircularQueue.h"
+#include "AutoCorrelator.h"
+#include "SignalDetector.h"
+#include "TrellisCode.h"
+#include "Encoder.h"
+#include "Decoder.h"
+
+#include "SignalAnalyzer.h"
+#include "SignalGenerator.h"
+
+
 #endif
