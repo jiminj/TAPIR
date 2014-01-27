@@ -9,8 +9,8 @@
 #include "SignalGenerator.h"
 
 namespace Tapir{
-    SignalGenerator::SignalGenerator(float freqOffset)
-    : m_carrier(Tapir::Config::CARRIER_FREQUENCY_BASE + freqOffset),
+    SignalGenerator::SignalGenerator(float carrierFreq)
+    : m_carrier(carrierFreq),
     m_input(new int[Tapir::Config::DATA_BIT_LENGTH]),
     m_encoded(new float[Tapir::Config::NO_DATA_SUBCARRIERS]),
     m_interleaved(new float[Tapir::Config::NO_DATA_SUBCARRIERS]),

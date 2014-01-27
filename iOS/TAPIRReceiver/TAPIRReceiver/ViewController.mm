@@ -30,7 +30,7 @@
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(signalDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
-    signalAnalyzer = new Tapir::SignalAnalyzer([TapirFreqOffset getReceiverFreqOffset]);
+    signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 

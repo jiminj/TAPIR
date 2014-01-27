@@ -23,7 +23,7 @@
 {
     [super viewDidLoad];
 
-    generator = new Tapir::SignalGenerator([TapirFreqOffset getTransmitterFreqOffset]);
+    generator = new Tapir::SignalGenerator(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getTransmitterFreqOffset]);
     sonifier = [[Sonifier alloc] initWithSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE channel:Tapir::Config::AUDIO_CHANNEL];
     [sonifier setDelegate:self];
     
