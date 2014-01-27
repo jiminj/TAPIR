@@ -9,8 +9,8 @@
 #include "SignalAnalyzer.h"
 
 namespace Tapir{
-    SignalAnalyzer::SignalAnalyzer(float freqOffset)
-    :m_carrier(Config::CARRIER_FREQUENCY_BASE + freqOffset),
+    SignalAnalyzer::SignalAnalyzer(float carrierFreq)
+    :m_carrier(carrierFreq),
     m_convertedSignal({.realp=new float[Config::SAMPLE_LENGTH_EACH_SYMBOL], .imagp=new float[Config::SAMPLE_LENGTH_EACH_SYMBOL] }),
     m_roiSignal({.realp =new float[Config::NO_TOTAL_SUBCARRIERS], .imagp=new float[Config::NO_TOTAL_SUBCARRIERS]}),
     m_estimatedSignal({.realp =new float[Config::NO_TOTAL_SUBCARRIERS], .imagp=new float[Config::NO_TOTAL_SUBCARRIERS]}),

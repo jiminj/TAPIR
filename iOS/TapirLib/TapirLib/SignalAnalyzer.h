@@ -21,7 +21,7 @@ namespace Tapir {
     class SignalAnalyzer
     {
     public:
-        SignalAnalyzer(float freqOffset = 0.f);
+        SignalAnalyzer(float carrierFreq);
         virtual ~SignalAnalyzer();
         char decodeBlock(const float * signal);
         std::string analyze(float * signal);
