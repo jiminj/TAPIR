@@ -36,7 +36,7 @@ namespace Tapir {
     };
     void FilterFIR::clearBuffer()
     {
-        std::memset(m_buffer, 0, m_bufferSize * sizeof(float));
+        std::fill(m_buffer, m_buffer + m_bufferSize, 0);
     };
     FilterFIR::~FilterFIR()
     {
@@ -110,7 +110,7 @@ namespace Tapir {
     };
     void FilterIIR::clearBuffer()
     {
-        std::memset(m_filtDelay, 0, (2 * m_numSection + 2) * sizeof(float));
+        std::fill(m_filtDelay, m_filtDelay + (2 * m_numSection + 2), 0);
     };
     FilterIIR::~FilterIIR()
     {
