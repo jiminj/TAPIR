@@ -18,7 +18,7 @@ maxBitLength = 8;
 
 noBlksPerSig = 8;
 
-symLength = 2048;
+symLength = 1024;
 cPreLength = symLength / 2 ;
 cPostLength = symLength / 4;
 
