@@ -33,7 +33,8 @@
     signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
-
+    
+    [aia startAudioInput];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,26 +56,18 @@
 }
 
 -(void)signalDetected:(float *)result{
-    
-    lastResultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
-                                          encoding:[NSString defaultCStringEncoding]];
-    NSLog(@"%@", lastResultString);
-    
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterNoStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    logString = [[NSString stringWithFormat:@"%@: %@\n", [formatter stringFromDate:[NSDate date]], lastResultString] stringByAppendingString:logString];
-    
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-        //Your code goes in here
-        outTF.text = logString;
-    }];
-    if(typeSC.selectedSegmentIndex==0){
-        [webView loadHTMLString:@"" baseURL:nil];
-    }else{
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bit.ly/%@", lastResultString]]]];
+    NSString* resultString;
+    if([resultString isEqualToString:@"1"]){
+        [self performSegueWithIdentifier:@"1" sender:self];
+    }else if([resultString isEqualToString:@"2"]){
+        [self performSegueWithIdentifier:@"2" sender:self];
+    }else if([resultString isEqualToString:@"3"]){
+        [self performSegueWithIdentifier:@"3" sender:self];
+    }else if([resultString isEqualToString:@"4"]){
+        [self performSegueWithIdentifier:@"4" sender:self];
+    }else if([resultString isEqualToString:@"5"]){
+        [self performSegueWithIdentifier:@"5" sender:self];
     }
-    
     
     signalDetector->clear();
 }
@@ -85,6 +78,22 @@
 {
     delete signalDetector;
     delete signalAnalyzer;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    HTMLViewController* vc = segue.destinationViewController;
+    
+    if([segue.identifier isEqualToString:@"1"]){
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/1.html"];
+    }else if([segue.identifier isEqualToString:@"2"]){
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/2.html"];
+    }else if([segue.identifier isEqualToString:@"3"]){
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/3.html"];
+    }else if([segue.identifier isEqualToString:@"4"]){
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/4.html"];
+    }else if([segue.identifier isEqualToString:@"5"]){
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/5.html"];
+    }
 }
 
 @end

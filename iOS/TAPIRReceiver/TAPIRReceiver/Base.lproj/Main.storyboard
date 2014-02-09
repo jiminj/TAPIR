@@ -69,7 +69,7 @@
         <!--View Controller-->
         <scene sceneID="41I-ZA-Qe9">
             <objects>
-                <viewController id="S4D-It-bb5" sceneMemberID="viewController">
+                <viewController id="S4D-It-bb5" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rWf-gS-60u"/>
                         <viewControllerLayoutGuide type="bottom" id="aJU-ae-aR1"/>
@@ -77,9 +77,29 @@
                     <view key="view" contentMode="scaleToFill" id="VMl-WN-Bj3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="전시장의 작품 중 스피커가 놓여진 작품 앞에 서서 아래와 같이 핸드폰의 마이크 부분을 스피커를 향하게 하세요. 자동으로 오디오 가이드가 재생됩니다." lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="265" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-jO-ZPi">
+                                <rect key="frame" x="28" y="128" width="265" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" fixedFrame="YES" image="abcde.png" translatesAutoresizingMaskIntoConstraints="NO" id="72i-gg-RKB">
+                                <rect key="frame" x="7" y="289" width="306" height="237"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="MT8-Qy-y1n"/>
+                    <connections>
+                        <segue destination="Vxf-cp-Sw3" kind="push" identifier="1" id="zSn-rv-wxh"/>
+                        <segue destination="Vxf-cp-Sw3" kind="push" identifier="2" id="KPU-T5-Kj5"/>
+                        <segue destination="Vxf-cp-Sw3" kind="push" identifier="3" id="kFI-pX-aYk"/>
+                        <segue destination="Vxf-cp-Sw3" kind="push" identifier="4" id="SLF-wZ-O3Y"/>
+                        <segue destination="Vxf-cp-Sw3" kind="push" identifier="5" id="aLJ-PA-xQO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcm-EN-FAH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -291,6 +311,7 @@ GSCT, KAIST</string>
         </scene>
     </scenes>
     <resources>
+        <image name="abcde.png" width="344" height="300"/>
         <image name="html/1.jpg" width="16" height="16"/>
         <image name="html/2.jpg" width="16" height="16"/>
         <image name="html/3.jpg" width="16" height="16"/>
@@ -304,6 +325,6 @@ GSCT, KAIST</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5JR-7G-PMe"/>
+        <segue reference="aLJ-PA-xQO"/>
     </inferredMetricsTieBreakers>
 </document>

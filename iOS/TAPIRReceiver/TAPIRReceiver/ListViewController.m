@@ -126,15 +126,15 @@
     HTMLViewController* vc = segue.destinationViewController;
     
     if([segue.identifier isEqualToString:@"1"]){
-        vc.htmlPageName = @"html/1.html";
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/1.html"];
     }else if([segue.identifier isEqualToString:@"2"]){
-        vc.htmlPageName = @"html/2.html";
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/2.html"];
     }else if([segue.identifier isEqualToString:@"3"]){
-        vc.htmlPageName = @"html/3.html";
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/3.html"];
     }else if([segue.identifier isEqualToString:@"4"]){
-        vc.htmlPageName = @"html/4.html";
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/4.html"];
     }else if([segue.identifier isEqualToString:@"5"]){
-        vc.htmlPageName = @"html/5.html";
+        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/5.html"];
     }
 }
 

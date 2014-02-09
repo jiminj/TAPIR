@@ -28,8 +28,7 @@
     [super viewDidLoad];
     webView.allowsInlineMediaPlayback = YES;
     webView.mediaPlaybackRequiresUserAction = NO;
-    //[webView loadRequest:[NSURLRequest requestWithURL:[NSURL file]]]
-    NSArray* fileName = [[NSBundle mainBundle] pathsForResourcesOfType:@"jpg" inDirectory:@"html"];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:htmlPageName]]];
     //NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     //[webView loadHTMLString:htmlString baseURL:nil];
 	// Do any additional setup after loading the view.
@@ -42,5 +41,8 @@
 }
 
 
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortraitUpsideDown;
+}
 
 @end

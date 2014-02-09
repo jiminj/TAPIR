@@ -30,6 +30,7 @@
 		24A5F9B218A7788300CAF974 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9B118A7788300CAF974 /* IntroViewController.m */; };
 		24A5F9B518A77BF200CAF974 /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9B418A77BF200CAF974 /* HTMLViewController.m */; };
 		24A5F9B818A7809800CAF974 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9B718A7809800CAF974 /* ListViewController.m */; };
+		24F6FCEE18A78F080048D532 /* abcde.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F6FCED18A78F080048D532 /* abcde.png */; };
 		EC31E9781892E2B700E8912B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
 		EC4F2277189130260059644E /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F2276189130260059644E /* libBitlyUrlShortener.a */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
@@ -82,6 +83,7 @@
 		24A5F9B418A77BF200CAF974 /* HTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLViewController.m; sourceTree = "<group>"; };
 		24A5F9B618A7809800CAF974 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		24A5F9B718A7809800CAF974 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		24F6FCED18A78F080048D532 /* abcde.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = abcde.png; sourceTree = "<group>"; };
 		EC4F2276189130260059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
 		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -175,6 +177,7 @@
 				24A5F9B118A7788300CAF974 /* IntroViewController.m */,
 				24A5F9B318A77BF200CAF974 /* HTMLViewController.h */,
 				24A5F9B418A77BF200CAF974 /* HTMLViewController.m */,
+				24F6FCED18A78F080048D532 /* abcde.png */,
 				24A5F9B618A7809800CAF974 /* ListViewController.h */,
 				24A5F9B718A7809800CAF974 /* ListViewController.m */,
 			);
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				245AC69F18364DBE00AF31AE /* Images.xcassets in Resources */,
+				24F6FCEE18A78F080048D532 /* abcde.png in Resources */,
 				24A5F9A918A7742300CAF974 /* html in Resources */,
 				245AC69118364DBE00AF31AE /* InfoPlist.strings in Resources */,
 				245AC69A18364DBE00AF31AE /* Main.storyboard in Resources */,

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LKAudioInputAccessor.h"
-
+#import "HTMLViewController.h"
 #import <TapirLib/TapirLib.h>
 
 @interface ViewController : UIViewController<UITextFieldDelegate>{
