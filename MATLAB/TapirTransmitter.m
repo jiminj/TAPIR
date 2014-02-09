@@ -194,7 +194,7 @@ function btnPlay_Callback(hObject, eventdata, handles)
         filename = [pwd, '/', filename]
 
         audioData = [audioData; zeros((symLength + guardInterval + cPreLength + cPostLength) * noBlksPerSig + preambleInterval,1)];
-        length(audioData)
+        audioData = [audioData; zeros(Fs,1)];
         audiowrite(filename, audioData, Fs, 'BitsPerSample', 16)
     end
     sound(audioData, Fs);
@@ -251,7 +251,7 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
         case handles.radioFc19k
             Fc = 19000;
         case handles.radioFc20k
-            Fc = 20000 + 3;            
+            Fc = 20000;            
     end
         
     

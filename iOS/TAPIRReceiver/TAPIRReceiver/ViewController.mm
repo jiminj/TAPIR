@@ -24,8 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    logString = @"";
+    NSLog(@"load");
 
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(signalDetected:));
@@ -33,8 +32,14 @@
     signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
-    
+}
+- (void) viewWillAppear:(BOOL)animated
+{
     [aia startAudioInput];
+}
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [aia stopAudioInput];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,27 +65,18 @@
                                                 encoding:[NSString defaultCStringEncoding]];
 
     resultString = [resultString substringToIndex:1];
+    char resultChar = [resultString characterAtIndex:0];
     NSLog(resultString);
-    dispatch_async(dispatch_get_main_queue(), ^{
-
-        if([resultString isEqualToString:@"1"]){
-            [self performSegueWithIdentifier:@"1" sender:self];
-        }else if([resultString isEqualToString:@"2"]){
-            [self performSegueWithIdentifier:@"2" sender:self];
-        }else if([resultString isEqualToString:@"3"]){
-            [self performSegueWithIdentifier:@"3" sender:self];
-        }else if([resultString isEqualToString:@"4"]){
-            [self performSegueWithIdentifier:@"4" sender:self];
-        }else if([resultString isEqualToString:@"5"]){
-            [self performSegueWithIdentifier:@"5" sender:self];
-        }
-    });
-
-    
     signalDetector->clear();
+//    
+    if(resultChar >= '1' && resultChar <= '5')
+    {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:resultString sender:self];
+        });
+    }
+    
 }
-
-
 
 -(void) dealloc
 {
