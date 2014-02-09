@@ -25,6 +25,11 @@
 		245AC6B218364DBE00AF31AE /* TAPIRReceiverTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6B118364DBE00AF31AE /* TAPIRReceiverTests.mm */; };
 		245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */; };
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
+		24A5F9A918A7742300CAF974 /* html in Resources */ = {isa = PBXBuildFile; fileRef = 24A5F9A818A7742300CAF974 /* html */; };
+		24A5F9AF18A777C800CAF974 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9AE18A777C800CAF974 /* MainViewController.m */; };
+		24A5F9B218A7788300CAF974 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9B118A7788300CAF974 /* IntroViewController.m */; };
+		24A5F9B518A77BF200CAF974 /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9B418A77BF200CAF974 /* HTMLViewController.m */; };
+		24A5F9B818A7809800CAF974 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A5F9B718A7809800CAF974 /* ListViewController.m */; };
 		EC31E9781892E2B700E8912B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
 		EC4F2277189130260059644E /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F2276189130260059644E /* libBitlyUrlShortener.a */; };
 		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
@@ -68,6 +73,15 @@
 		245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKAudioInputAccessor.h; sourceTree = "<group>"; };
 		245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LKAudioInputAccessor.mm; sourceTree = "<group>"; };
 		248AB4F31854BF850063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		24A5F9A818A7742300CAF974 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
+		24A5F9AD18A777C800CAF974 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		24A5F9AE18A777C800CAF974 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		24A5F9B018A7788300CAF974 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		24A5F9B118A7788300CAF974 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		24A5F9B318A77BF200CAF974 /* HTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLViewController.h; sourceTree = "<group>"; };
+		24A5F9B418A77BF200CAF974 /* HTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLViewController.m; sourceTree = "<group>"; };
+		24A5F9B618A7809800CAF974 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		24A5F9B718A7809800CAF974 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		EC4F2276189130260059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
 		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -145,6 +159,7 @@
 		245AC68C18364DBE00AF31AE /* TAPIRReceiver */ = {
 			isa = PBXGroup;
 			children = (
+				24A5F9A818A7742300CAF974 /* html */,
 				245AC6BB18364DF100AF31AE /* LKAudioInputAccessor.h */,
 				245AC6BC18364DF100AF31AE /* LKAudioInputAccessor.mm */,
 				245AC69518364DBE00AF31AE /* AppDelegate.h */,
@@ -154,6 +169,14 @@
 				245AC69C18364DBE00AF31AE /* ViewController.mm */,
 				245AC69E18364DBE00AF31AE /* Images.xcassets */,
 				245AC68D18364DBE00AF31AE /* Supporting Files */,
+				24A5F9AD18A777C800CAF974 /* MainViewController.h */,
+				24A5F9AE18A777C800CAF974 /* MainViewController.m */,
+				24A5F9B018A7788300CAF974 /* IntroViewController.h */,
+				24A5F9B118A7788300CAF974 /* IntroViewController.m */,
+				24A5F9B318A77BF200CAF974 /* HTMLViewController.h */,
+				24A5F9B418A77BF200CAF974 /* HTMLViewController.m */,
+				24A5F9B618A7809800CAF974 /* ListViewController.h */,
+				24A5F9B718A7809800CAF974 /* ListViewController.m */,
 			);
 			path = TAPIRReceiver;
 			sourceTree = "<group>";
@@ -267,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				245AC69F18364DBE00AF31AE /* Images.xcassets in Resources */,
+				24A5F9A918A7742300CAF974 /* html in Resources */,
 				245AC69118364DBE00AF31AE /* InfoPlist.strings in Resources */,
 				245AC69A18364DBE00AF31AE /* Main.storyboard in Resources */,
 			);
@@ -288,8 +312,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				245AC69D18364DBE00AF31AE /* ViewController.mm in Sources */,
+				24A5F9B218A7788300CAF974 /* IntroViewController.m in Sources */,
+				24A5F9B818A7809800CAF974 /* ListViewController.m in Sources */,
 				245AC6C318364DF100AF31AE /* LKAudioInputAccessor.mm in Sources */,
 				245AC69718364DBE00AF31AE /* AppDelegate.mm in Sources */,
+				24A5F9B518A77BF200CAF974 /* HTMLViewController.m in Sources */,
+				24A5F9AF18A777C800CAF974 /* MainViewController.m in Sources */,
 				245AC69318364DBE00AF31AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

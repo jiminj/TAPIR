@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+<head>
+    <meta charset = "utf-8" />
+    <style>
+    body
+    {
+        background-color:black;
+        margin:0;
+        padding:0;
+    }
+    #artwork
+    {
+        width:100%; 
+        margin:0; 
+        padding:0; 
+        display:none;
+    }
+    #audioPlayer
+    {
+        display:block;
+        width:100%;
+    }
+    </style>
+    <script src="jquery-2.0.3.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#artwork").fadeIn('slow'); 
+        });
+    </script>
+</head>
+<body>
+<div>
+    <img id="artwork" src="1_large.jpg" alt=""/>
+</div>
+<div>
+    <audio id="audioPlayer" preload="auto" autoplay="autoplay" controls="controls" >
+      <source src="1.mp3" type="audio/mp4">
+    </audio> 
+</div>
+</body>

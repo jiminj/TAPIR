@@ -79,6 +79,8 @@
     signalDetector->clear();
 }
 
+
+
 -(void) dealloc
 {
     delete signalDetector;
