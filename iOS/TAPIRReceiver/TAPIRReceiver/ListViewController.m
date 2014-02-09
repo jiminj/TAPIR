@@ -124,18 +124,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     HTMLViewController* vc = segue.destinationViewController;
-    
-    if([segue.identifier isEqualToString:@"1"]){
-        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=1"]];
-    }else if([segue.identifier isEqualToString:@"2"]){
-        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=2"]];
-    }else if([segue.identifier isEqualToString:@"3"]){
-        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=3"]];
-    }else if([segue.identifier isEqualToString:@"4"]){
-        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=4"]];
-    }else if([segue.identifier isEqualToString:@"5"]){
-        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=5"]];
-    }
+    vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:[NSString stringWithFormat:@"?id=%@",[segue identifier]]]];
 }
 
 @end
