@@ -56,18 +56,26 @@
 }
 
 -(void)signalDetected:(float *)result{
-    NSString* resultString;
-    if([resultString isEqualToString:@"1"]){
-        [self performSegueWithIdentifier:@"1" sender:self];
-    }else if([resultString isEqualToString:@"2"]){
-        [self performSegueWithIdentifier:@"2" sender:self];
-    }else if([resultString isEqualToString:@"3"]){
-        [self performSegueWithIdentifier:@"3" sender:self];
-    }else if([resultString isEqualToString:@"4"]){
-        [self performSegueWithIdentifier:@"4" sender:self];
-    }else if([resultString isEqualToString:@"5"]){
-        [self performSegueWithIdentifier:@"5" sender:self];
-    }
+    NSString* resultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
+                                                encoding:[NSString defaultCStringEncoding]];
+
+    resultString = [resultString substringToIndex:1];
+    NSLog(resultString);
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        if([resultString isEqualToString:@"1"]){
+            [self performSegueWithIdentifier:@"1" sender:self];
+        }else if([resultString isEqualToString:@"2"]){
+            [self performSegueWithIdentifier:@"2" sender:self];
+        }else if([resultString isEqualToString:@"3"]){
+            [self performSegueWithIdentifier:@"3" sender:self];
+        }else if([resultString isEqualToString:@"4"]){
+            [self performSegueWithIdentifier:@"4" sender:self];
+        }else if([resultString isEqualToString:@"5"]){
+            [self performSegueWithIdentifier:@"5" sender:self];
+        }
+    });
+
     
     signalDetector->clear();
 }
@@ -84,15 +92,15 @@
     HTMLViewController* vc = segue.destinationViewController;
     
     if([segue.identifier isEqualToString:@"1"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html?id=1"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=1"]];
     }else if([segue.identifier isEqualToString:@"2"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html?id=2"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=2"]];
     }else if([segue.identifier isEqualToString:@"3"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html?id=3"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=3"]];
     }else if([segue.identifier isEqualToString:@"4"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html?id=4"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=4"]];
     }else if([segue.identifier isEqualToString:@"5"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html?id=5"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=5"]];
     }
 }
 

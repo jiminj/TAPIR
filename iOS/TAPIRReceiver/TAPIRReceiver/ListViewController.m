@@ -126,15 +126,15 @@
     HTMLViewController* vc = segue.destinationViewController;
     
     if([segue.identifier isEqualToString:@"1"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/1.html"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=1"]];
     }else if([segue.identifier isEqualToString:@"2"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/2.html"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=2"]];
     }else if([segue.identifier isEqualToString:@"3"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/3.html"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=3"]];
     }else if([segue.identifier isEqualToString:@"4"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/4.html"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=4"]];
     }else if([segue.identifier isEqualToString:@"5"]){
-        vc.htmlPageName = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/5.html"];
+        vc.htmlPageName = [NSURL URLWithString:[[[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/html/loader.html"]] absoluteString] stringByAppendingString:@"?id=5"]];
     }
 }
 

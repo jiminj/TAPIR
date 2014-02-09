@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface HTMLViewController : UIViewController{
-    NSString* htmlPageName;
+    NSURL* htmlPageName;
     IBOutlet UIWebView* webView;
 }
-@property NSString* htmlPageName;
+@property NSURL* htmlPageName;
 @end
