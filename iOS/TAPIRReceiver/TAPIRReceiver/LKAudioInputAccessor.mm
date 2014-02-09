@@ -58,13 +58,6 @@ static void HandleInputBuffer (void                                *audioInput,
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
         
-        // prepare audio buffer
-        for (int i = 0; i < kNumBuffers; ++i) {
-            AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
-            AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
-        }
-
-        
     }
     return self;
 }
@@ -76,12 +69,17 @@ static void HandleInputBuffer (void                                *audioInput,
 
 
 -(void)startAudioInput{
-    NSLog(@"start Audio Input");
+    NSLog(@"Start Recording");
+    // prepare audio buffer
+    for (int i = 0; i < kNumBuffers; ++i) {
+        AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
+        AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
+    }
     AudioQueueStart(audioQueue, NULL);
 }
 
 -(void)stopAudioInput{
-    NSLog(@"stop Audio Input");    
+    NSLog(@"Stop Recording");
     AudioQueueStop(audioQueue, true);
 }
 
@@ -90,6 +88,7 @@ static void HandleInputBuffer (void                                *audioInput,
     vDSP_vflt16(inputBuffer, 1, floatBuf, 1, length);
     vDSP_vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
     //convert SInt16 array to float, and scale them (set max value to 1.0)
+
     detector->detect(floatBuf);
     
 }
