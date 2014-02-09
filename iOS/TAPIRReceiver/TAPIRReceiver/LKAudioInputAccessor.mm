@@ -58,13 +58,6 @@ static void HandleInputBuffer (void                                *audioInput,
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
         
-        // prepare audio buffer
-        for (int i = 0; i < kNumBuffers; ++i) {
-            AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
-            AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
-        }
-
-        
     }
     return self;
 }
@@ -76,10 +69,17 @@ static void HandleInputBuffer (void                                *audioInput,
 
 
 -(void)startAudioInput{
+    NSLog(@"Start Recording");
+    // prepare audio buffer
+    for (int i = 0; i < kNumBuffers; ++i) {
+        AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
+        AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
+    }
     AudioQueueStart(audioQueue, NULL);
 }
 
 -(void)stopAudioInput{
+    NSLog(@"Stop Recording");
     AudioQueueStop(audioQueue, true);
 }
 
