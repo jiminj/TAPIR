@@ -59,7 +59,7 @@ namespace Tapir{
     {
         const int &lenPreamble = Tapir::Config::PREAMBLE_SAMPLE_LENGTH;
         
-        DSPSplitComplex preamble;
+        TapirDSP::SplitComplex preamble;
         preamble.realp = new float[lenPreamble * 2];
         preamble.imagp = new float[lenPreamble * 2]();
         

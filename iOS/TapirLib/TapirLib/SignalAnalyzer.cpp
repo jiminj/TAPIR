@@ -46,7 +46,7 @@ namespace Tapir{
         delete m_decoder;
     };
     
-    void SignalAnalyzer::cutCentralRegion(const DSPSplitComplex *src, DSPSplitComplex *dest, const int signalLength, const int destLength, const int fHalfLength)
+    void SignalAnalyzer::cutCentralRegion(const TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, const int signalLength, const int destLength, const int fHalfLength)
     {
         int lastHalfCutLength = destLength - fHalfLength;
         int sigLastHalfStPoint = signalLength - lastHalfCutLength;

@@ -8,13 +8,15 @@
 
 #ifndef __TapirLib__ChannelEstimator__
 #define __TapirLib__ChannelEstimator__
-#include <Accelerate/Accelerate.h>
+
+#include "TapirDSP.h"
 #include "PilotManager.h"
+
 namespace Tapir {
     class ChannelEstimator
     {
     public:
-       virtual void estimateChannel(const DSPSplitComplex * src, DSPSplitComplex * dest) = 0;
+       virtual void estimateChannel(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest) = 0;
     };
     
     class LSChannelEstimator : public ChannelEstimator
@@ -22,18 +24,18 @@ namespace Tapir {
     public:
         LSChannelEstimator(PilotManager * pilot, const int chLength);
         ~LSChannelEstimator();
-        void estimateChannel(const DSPSplitComplex * src, DSPSplitComplex * dest);
+        void estimateChannel(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest);
     protected:
-        void generateChannel(const DSPSplitComplex * pilotChannel);
+        void generateChannel(const TapirDSP::SplitComplex * pilotChannel);
         
         PilotManager * m_pilotInfo;
         int m_chLength;
         float * m_pilotIdx;
         
-        DSPSplitComplex m_channel;
+        TapirDSP::SplitComplex m_channel;
         
-        DSPSplitComplex m_pilotRcvSignal;
-        DSPSplitComplex m_pilotChannel;
+        TapirDSP::SplitComplex m_pilotRcvSignal;
+        TapirDSP::SplitComplex m_pilotChannel;
     };
 };
 

@@ -32,10 +32,10 @@ namespace Tapir {
         delete [] m_pilotChannel.imagp;
     };
     
-    void LSChannelEstimator::estimateChannel(const DSPSplitComplex *src, DSPSplitComplex *dest)
+    void LSChannelEstimator::estimateChannel(const TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest)
     {
         //Save Pilot Value
-        const DSPSplitComplex * pilotData = m_pilotInfo->getPilotData();
+        const TapirDSP::SplitComplex * pilotData = m_pilotInfo->getPilotData();
         vDSP_vindex(src->realp, m_pilotIdx, 1, m_pilotRcvSignal.realp, 1, m_pilotInfo->getPilotLength() );
         vDSP_vindex(src->imagp, m_pilotIdx, 1, m_pilotRcvSignal.imagp, 1, m_pilotInfo->getPilotLength() );
         vDSP_zvdiv(pilotData, 1, &m_pilotRcvSignal, 1, &m_pilotChannel, 1, m_pilotInfo->getPilotLength());
@@ -47,7 +47,7 @@ namespace Tapir {
         vDSP_zvmul(src, 1, &m_channel, 1, dest, 1, m_chLength, 1 );
         
     };
-    void LSChannelEstimator::generateChannel(const DSPSplitComplex *pilotChannel)
+    void LSChannelEstimator::generateChannel(const TapirDSP::SplitComplex *pilotChannel)
     {
         bool isFirstElemAdded = false;
         bool isLastElemAdded = false;
@@ -68,7 +68,7 @@ namespace Tapir {
         
         
         float * extPilotIndex = new float[extLength];
-        DSPSplitComplex extPilotChannel;
+        TapirDSP::SplitComplex extPilotChannel;
         extPilotChannel.realp = new float[extLength];
         extPilotChannel.imagp = new float[extLength];
 
@@ -93,7 +93,7 @@ namespace Tapir {
             }
             else
             {
-                DSPComplex slope;
+                TapirDSP::Complex slope;
                 float sampleDist = extPilotIndex[2] - extPilotIndex[1];
                 slope.real = (extPilotChannel.realp[2] - extPilotChannel.realp[1]) / sampleDist;
                 slope.imag = (extPilotChannel.imagp[2] - extPilotChannel.imagp[1]) / sampleDist;
@@ -115,7 +115,7 @@ namespace Tapir {
             }
             else
             {
-                DSPComplex slope;
+                TapirDSP::Complex slope;
                 float sampleDist = extPilotIndex[extLength - 2] - extPilotIndex[extLength - 3];
                 slope.real = (extPilotChannel.realp[extLength - 2] - extPilotChannel.realp[extLength - 3]) / sampleDist;
                 slope.imag = (extPilotChannel.imagp[extLength - 2] - extPilotChannel.imagp[extLength - 3]) / sampleDist;

@@ -16,6 +16,7 @@
 
 #endif
 
+#include "TapirDSP.h"
 #include "Config.h"
 #include "PilotManager.h"
 #include "ChannelEstimator.h"

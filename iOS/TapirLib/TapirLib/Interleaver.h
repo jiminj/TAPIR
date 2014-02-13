@@ -9,7 +9,7 @@
 #ifndef __TapirLib__Interleaver__
 #define __TapirLib__Interleaver__
 
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 
 namespace Tapir{
 
@@ -17,8 +17,8 @@ namespace Tapir{
     {
         virtual void interleave(const float * src, float * dest) const = 0;
         virtual void deinterleave(const float * src, float * dest) const = 0;
-        virtual void interleave(const DSPSplitComplex * src, const DSPSplitComplex * dest) const = 0;
-        virtual void deinterleave(const DSPSplitComplex * src, const DSPSplitComplex * dest) const = 0;
+        virtual void interleave(const TapirDSP::SplitComplex * src, const TapirDSP::SplitComplex * dest) const = 0;
+        virtual void deinterleave(const TapirDSP::SplitComplex * src, const TapirDSP::SplitComplex * dest) const = 0;
     };
     
     class MatrixInterleaver : public Interleaver
@@ -26,10 +26,10 @@ namespace Tapir{
     public:
         MatrixInterleaver(const int nRows, const int nCols);
         void interleave(const float * src, float * dest) const;
-        void interleave(const DSPSplitComplex * src, const DSPSplitComplex * dest) const;
+        void interleave(const TapirDSP::SplitComplex * src, const TapirDSP::SplitComplex * dest) const;
         
         void deinterleave(const float * src, float * dest) const;
-        void deinterleave(const DSPSplitComplex * src, const DSPSplitComplex * dest) const;
+        void deinterleave(const TapirDSP::SplitComplex * src, const TapirDSP::SplitComplex * dest) const;
         
     protected:
         int m_nRows;

@@ -9,22 +9,22 @@
 #ifndef __TapirLib__Modulator__
 #define __TapirLib__Modulator__
 
-#import <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 
 namespace Tapir {
     
     class Modulator
     {
-        virtual void modulate(const float * src, DSPSplitComplex * dest, const int length) const = 0;
-        virtual void demodulate(const DSPSplitComplex * src, float * dest, const int length) const = 0;
+        virtual void modulate(const float * src, TapirDSP::SplitComplex * dest, const int length) const = 0;
+        virtual void demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const = 0;
     };
     
     class PskModulator : public Modulator
     {
     public:
         PskModulator(const int symbolRate, const float initPhase = 0.f, const float magnitude = 1.f);
-        virtual void modulate(const float * src, DSPSplitComplex * dest, const int length) const;
-        virtual void demodulate(const DSPSplitComplex * src, float * dest, const int length) const;
+        virtual void modulate(const float * src, TapirDSP::SplitComplex * dest, const int length) const;
+        virtual void demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const;
         
     protected:
         int m_symbolRate;
@@ -38,8 +38,8 @@ namespace Tapir {
         DpskModulator(const int symbolRate, const float initPhase = 0.f, const float magnitude = 1.f)
         :PskModulator(symbolRate, initPhase, magnitude) {};
         
-        void modulate(const float * src, DSPSplitComplex * dest, const int length) const;
-        void demodulate(const DSPSplitComplex * src, float * dest, const int length) const;
+        void modulate(const float * src, TapirDSP::SplitComplex * dest, const int length) const;
+        void demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const;
     };
 
     

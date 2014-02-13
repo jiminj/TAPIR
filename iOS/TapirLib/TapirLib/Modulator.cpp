@@ -18,7 +18,7 @@ namespace Tapir
     m_magnitude(magnitude)
     {};
     
-    void PskModulator::modulate(const float *src, DSPSplitComplex *dest, const int length) const
+    void PskModulator::modulate(const float *src, TapirDSP::SplitComplex *dest, const int length) const
     {
         float phaseDiv = TWO_PI / m_symbolRate;
 
@@ -33,7 +33,7 @@ namespace Tapir
         delete [] phase;
     };
     
-    void PskModulator::demodulate(const DSPSplitComplex * src, float * dest, const int length) const
+    void PskModulator::demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const
     {
         float * phase = new float[length];
         vDSP_zvphas(src, 1, phase, 1, length);
@@ -57,7 +57,7 @@ namespace Tapir
         
         delete []phase;
     };
-    void DpskModulator::modulate(const float *src, DSPSplitComplex *dest, const int length) const
+    void DpskModulator::modulate(const float *src, TapirDSP::SplitComplex *dest, const int length) const
     {
         float * diffMod = new float[length];
         int val = 0;
@@ -76,7 +76,7 @@ namespace Tapir
         delete [] diffMod;
     };
     
-    void DpskModulator::demodulate(const DSPSplitComplex * src, float * dest, const int length) const
+    void DpskModulator::demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const
     {
         if(length > 0)
         {

@@ -9,7 +9,7 @@
 #ifndef __TapirLib__AutoCorrelator__
 #define __TapirLib__AutoCorrelator__
 #include "CircularQueue.h"
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 #include <vector>
 #include <iostream>
 

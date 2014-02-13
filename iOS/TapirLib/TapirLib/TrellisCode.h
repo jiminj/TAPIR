@@ -8,6 +8,7 @@
 
 #ifndef __TapirLib__TrellisCode__
 #define __TapirLib__TrellisCode__
+#include <algorithm>
 
 namespace Tapir {
 

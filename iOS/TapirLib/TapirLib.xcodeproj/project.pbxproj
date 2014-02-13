@@ -48,6 +48,8 @@
 		EC5B9FB61893DE41005A79E1 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */; };
 		EC5B9FB71893DE41005A79E1 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */; };
 		EC5B9FB81893DE41005A79E1 /* SignalGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC66E9FE18ACBC3200159E0C /* TapirDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC66E9FC18ACBC3200159E0C /* TapirDSP.cpp */; };
+		EC66E9FF18ACBC3200159E0C /* TapirDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = EC66E9FD18ACBC3200159E0C /* TapirDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC7161211893F5C100BD8FB9 /* TapirFreqOffset.h in Headers */ = {isa = PBXBuildFile; fileRef = EC71611F1893F5C100BD8FB9 /* TapirFreqOffset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC7161221893F5C100BD8FB9 /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */; };
 		EC7161231893F5C100BD8FB9 /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */; };
@@ -112,6 +114,8 @@
 		EC4F212A189043410059644E /* ObjcFuncBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcFuncBridge.h; sourceTree = "<group>"; };
 		EC5B9FB41893DE41005A79E1 /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalGenerator.cpp; sourceTree = "<group>"; };
 		EC5B9FB51893DE41005A79E1 /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalGenerator.h; sourceTree = "<group>"; };
+		EC66E9FC18ACBC3200159E0C /* TapirDSP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TapirDSP.cpp; sourceTree = "<group>"; };
+		EC66E9FD18ACBC3200159E0C /* TapirDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirDSP.h; sourceTree = "<group>"; };
 		EC71611F1893F5C100BD8FB9 /* TapirFreqOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirFreqOffset.h; sourceTree = "<group>"; };
 		EC7161201893F5C100BD8FB9 /* TapirFreqOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirFreqOffset.m; sourceTree = "<group>"; };
 		ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = TapirLib.h; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			children = (
 				EC7161241893F6DD00BD8FB9 /* iOS */,
 				ECA7B56F183CD2D8009F9AD9 /* TapirLib.h */,
+				EC66E9FC18ACBC3200159E0C /* TapirDSP.cpp */,
+				EC66E9FD18ACBC3200159E0C /* TapirDSP.h */,
 				ECE0D2A5188E4913000C0CD2 /* Config.cpp */,
 				ECE0D2A6188E4913000C0CD2 /* Config.h */,
 				ECFD0DB518858C4500E43CC8 /* SignalDetector.cpp */,
@@ -267,6 +273,7 @@
 				EC7161211893F5C100BD8FB9 /* TapirFreqOffset.h in Headers */,
 				EC4F212B189043410059644E /* ObjcFuncBridge.h in Headers */,
 				ECA7B570183CD30D009F9AD9 /* TapirLib.h in Headers */,
+				EC66E9FF18ACBC3200159E0C /* TapirDSP.h in Headers */,
 				EC470175189147E000F740BD /* ChannelEstimator.h in Headers */,
 				EC47017A18915EC600F740BD /* Interleaver.h in Headers */,
 				EC47017F189163F300F740BD /* Modulator.h in Headers */,
@@ -403,6 +410,7 @@
 				EC47017818915EC600F740BD /* Interleaver.cpp in Sources */,
 				EC5B9FB61893DE41005A79E1 /* SignalGenerator.cpp in Sources */,
 				EC31E9751892B4B100E8912B /* Decoder.cpp in Sources */,
+				EC66E9FE18ACBC3200159E0C /* TapirDSP.cpp in Sources */,
 				ECFD0DB718858C4500E43CC8 /* SignalDetector.cpp in Sources */,
 				EC186DC6187EB9A800F71285 /* Filter.cpp in Sources */,
 				EC47017D189163F300F740BD /* Modulator.cpp in Sources */,

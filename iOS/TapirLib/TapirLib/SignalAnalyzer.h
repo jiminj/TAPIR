@@ -8,8 +8,10 @@
 
 #ifndef __TapirLib__SignalAnalyzer__
 #define __TapirLib__SignalAnalyzer__
-#include <Accelerate/Accelerate.h>
+
+
 #include <string>
+#include "TapirDSP.h"
 #include "Config.h"
 #include "ChannelEstimator.h"
 #include "Interleaver.h"
@@ -29,12 +31,12 @@ namespace Tapir {
         { m_carrier = Config::CARRIER_FREQUENCY_BASE + freqOffset;};
         
     private:
-        void cutCentralRegion(const DSPSplitComplex * src, DSPSplitComplex * dest, const int signalLength, const int destLength, const int fHalfLength);
+        void cutCentralRegion(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int signalLength, const int destLength, const int fHalfLength);
                               
-        DSPSplitComplex m_convertedSignal;
-        DSPSplitComplex m_roiSignal;
-        DSPSplitComplex m_estimatedSignal;
-        DSPSplitComplex m_pilotRemovedSignal;
+        TapirDSP::SplitComplex m_convertedSignal;
+        TapirDSP::SplitComplex m_roiSignal;
+        TapirDSP::SplitComplex m_estimatedSignal;
+        TapirDSP::SplitComplex m_pilotRemovedSignal;
         
         float m_carrier;
         float * m_demod;

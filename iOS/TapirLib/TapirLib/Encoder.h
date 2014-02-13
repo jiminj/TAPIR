@@ -10,7 +10,7 @@
 #define __TapirLib__Encoder__
 
 #include <vector>
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 #include "TrellisCode.h"
 
 namespace Tapir {

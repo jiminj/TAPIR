@@ -33,6 +33,7 @@
     signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffsetOfDevice]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
+    TapirDSP::test();
 
 }
 

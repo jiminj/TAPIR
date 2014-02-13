@@ -8,7 +8,7 @@
 
 #ifndef __TapirLib__Filter__
 #define __TapirLib__Filter__
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 
 namespace Tapir {
 

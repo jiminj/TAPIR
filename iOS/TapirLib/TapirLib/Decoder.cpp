@@ -170,7 +170,7 @@ namespace Tapir {
             backtrackResult[i] = selectionTable[minRouteIdx][i];
             minRouteIdx = trackInfoTable[minRouteIdx][i];
         }
-        memcpy(dest, backtrackResult, sizeof(int) * outputLength);
+        std::copy(backtrackResult, backtrackResult + outputLength, dest);
 
         
         //clean

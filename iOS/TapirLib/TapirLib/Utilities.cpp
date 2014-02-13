@@ -11,7 +11,7 @@
 //IQ Modulation
 namespace Tapir {
 
-static void generateCarrier(DSPSplitComplex * carrier, const int length, const float samplingFreq, const float carrierFreq)
+static void generateCarrier(TapirDSP::SplitComplex * carrier, const int length, const float samplingFreq, const float carrierFreq)
 {
     // MATLAB code
     // tC = (0:1/Fs:(length(signal)-1)/Fs);
@@ -31,7 +31,7 @@ void scaleFloatSignal(const float * source, float * dest, const int length, cons
 {
     vDSP_vsmul(source, 1, &scale, dest, 1, length);
 };
-void scaleCompSignal(const DSPSplitComplex * source, DSPSplitComplex * dest, const int length, const float scale)
+void scaleCompSignal(const TapirDSP::SplitComplex * source, TapirDSP::SplitComplex * dest, const int length, const float scale)
 {
     scaleFloatSignal(source->realp, dest->realp, length, scale);
     scaleFloatSignal(source->imagp, dest->imagp, length, scale);
@@ -45,14 +45,14 @@ void maximizeSignal(const float * source, float * dest, const int length, const 
 };
 
 
-void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int length, const float samplingFreq, const float carrierFreq)
+void iqDemodulate(const float * signal, TapirDSP::SplitComplex * destSignal, const int length, const float samplingFreq, const float carrierFreq)
 {
     //    MATLAB Code
     //    realRx = signal .* real(carrier);
     //    imagRx = signal .* imag(carrier);
     //    basebandSig = realRx + 1i*imagRx;
     
-    DSPSplitComplex carrier;
+    TapirDSP::SplitComplex carrier;
     carrier.realp = new float[length];
     carrier.imagp = new float[length];
     //    float scale = sqrt(2.f);
@@ -66,14 +66,14 @@ void iqDemodulate(const float * signal, DSPSplitComplex * destSignal, const int 
     delete [] carrier.imagp;
 };
 
-void iqModulate(const DSPSplitComplex * signal, float * destSignal, const int length, const float samplingFreq, const float carrierFreq)
+void iqModulate(const TapirDSP::SplitComplex * signal, float * destSignal, const int length, const float samplingFreq, const float carrierFreq)
 {
     //    MATLAB Code
     //    rePulse = real(signal) .* real(carrier);
     //    imPulse = imag(signal) .* imag(carrier);
     //    modulatedSig = rePulse + imPulse;
     
-    DSPSplitComplex carrier;
+    TapirDSP::SplitComplex carrier;
     carrier.realp = new float[length];
     carrier.imagp = new float[length];
 
@@ -103,7 +103,7 @@ static int calculateLogLength(int length)
     return count;
 };
 
-void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength)
+void fftComplexForward(const TapirDSP::SplitComplex * signal, TapirDSP::SplitComplex * dest, const int fftLength)
 {
     int logLen = calculateLogLength(fftLength);
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);
@@ -111,7 +111,7 @@ void fftComplexForward(const DSPSplitComplex * signal, DSPSplitComplex * dest, c
     vDSP_destroy_fftsetup(setup);
 };
 
-void fftComplexInverse(const DSPSplitComplex * signal, DSPSplitComplex * dest, const int fftLength)
+void fftComplexInverse(const TapirDSP::SplitComplex * signal, TapirDSP::SplitComplex * dest, const int fftLength)
 {
     int logLen = calculateLogLength(fftLength);
     FFTSetup setup = vDSP_create_fftsetup(logLen, FFT_RADIX2);

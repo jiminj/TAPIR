@@ -8,8 +8,9 @@
 
 #ifndef __TapirLib__Decoder__
 #define __TapirLib__Decoder__
+
 #include <vector>
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 #include "TrellisCode.h"
 
 namespace Tapir {
