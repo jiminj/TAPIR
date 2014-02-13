@@ -10,7 +10,7 @@
 
 @implementation TapirFreqOffset
 
-+ (float)getTransmitterFreqOffset
++ (float)getTransmitterFreqOffsetOfDevice
 {
     NSString * platform = [TapirFreqOffset getPlatform];
     float ret = 0.f;
@@ -24,7 +24,7 @@
     
     return ret;
 }
-+ (float) getReceiverFreqOffset
++ (float) getReceiverFreqOffsetOfDevice
 {
     NSString * platform = [TapirFreqOffset getPlatform];
     float ret = 0.f;

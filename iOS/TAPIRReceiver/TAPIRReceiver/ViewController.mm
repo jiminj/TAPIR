@@ -30,7 +30,7 @@
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(signalDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, callback);
-    signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffset]);
+    signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffsetOfDevice]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
@@ -68,13 +68,13 @@
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         //Your code goes in here
         outTF.text = logString;
+        
+        if(typeSC.selectedSegmentIndex==0){
+            [webView loadHTMLString:@"" baseURL:nil];
+        }else{
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bit.ly/%@", lastResultString]]]];
+        }
     }];
-    if(typeSC.selectedSegmentIndex==0){
-        [webView loadHTMLString:@"" baseURL:nil];
-    }else{
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bit.ly/%@", lastResultString]]]];
-    }
-    
     
     signalDetector->clear();
 }

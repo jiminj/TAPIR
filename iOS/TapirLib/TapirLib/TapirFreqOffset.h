@@ -14,8 +14,8 @@
 
 + (NSString *)getPlatform;
 + (NSString *)getPlatformInfo:(NSString *)platform;
-+ (float) getTransmitterFreqOffset;
++ (float) getTransmitterFreqOffsetOfDevice;
 + (float) getTransmitterFreqOffsetUsingBuiltInSpeaker;
-+ (float) getReceiverFreqOffset;
++ (float) getReceiverFreqOffsetOfDevice;
 
 @end
