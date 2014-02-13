@@ -46,17 +46,17 @@ namespace Tapir{
         delete m_decoder;
     };
     
-    void SignalAnalyzer::cutCentralRegion(const TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, const int signalLength, const int destLength, const int fHalfLength)
+    void SignalAnalyzer::cutCentralRegion(const TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, const int signalLength, const int destLength, const int firstHalfLength)
     {
-        int lastHalfCutLength = destLength - fHalfLength;
-        int sigLastHalfStPoint = signalLength - lastHalfCutLength;
-        int cpLHMemSize = lastHalfCutLength * sizeof(float);
-        int cpFHMemSize = fHalfLength * sizeof(float);
+        int lastHalfCutLength = destLength - firstHalfLength;
+        int sigLastHalfStIndex = signalLength - lastHalfCutLength;
+
         
-        memcpy(dest->realp, src->realp + sigLastHalfStPoint, cpLHMemSize);
-        memcpy(dest->imagp, src->imagp + sigLastHalfStPoint, cpLHMemSize);
-        memcpy(dest->realp + lastHalfCutLength, src->realp, cpFHMemSize);
-        memcpy(dest->imagp + lastHalfCutLength, src->imagp, cpFHMemSize);
+        TapirDSP::copy(src->realp + sigLastHalfStIndex, src->realp + sigLastHalfStIndex + lastHalfCutLength, dest->realp);
+        TapirDSP::copy(src->imagp + sigLastHalfStIndex, src->imagp + sigLastHalfStIndex + lastHalfCutLength, dest->imagp);
+        TapirDSP::copy(src->realp, src->realp + firstHalfLength, dest->realp + lastHalfCutLength);
+        TapirDSP::copy(src->imagp, src->imagp + firstHalfLength, dest->imagp + lastHalfCutLength);
+        
         
     };
     

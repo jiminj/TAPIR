@@ -24,11 +24,5 @@ namespace TapirDSP {
  //Platform without neon
  #endif
  */
-
-    
-    
-    void test()
-    {
-    }
     
 };

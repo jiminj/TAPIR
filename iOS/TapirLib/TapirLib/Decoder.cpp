@@ -170,7 +170,8 @@ namespace Tapir {
             backtrackResult[i] = selectionTable[minRouteIdx][i];
             minRouteIdx = trackInfoTable[minRouteIdx][i];
         }
-        std::copy(backtrackResult, backtrackResult + outputLength, dest);
+//        std::copy(backtrackResult, backtrackResult + outputLength, dest);
+        TapirDSP::copy(backtrackResult, backtrackResult + outputLength, dest);
 
         
         //clean

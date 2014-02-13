@@ -15,7 +15,7 @@ namespace Tapir {
     m_pilotIndex( new int[m_pilotLength] ),
     m_pilotData( { .realp = new float[m_pilotLength], .imagp = new float[m_pilotLength] } )
     {
-        memcpy(m_pilotIndex, index, sizeof(int) * m_pilotLength);
+        TapirDSP::copy(index, index + m_pilotLength, m_pilotIndex);
         vDSP_zvmov(pilotData, 1, &m_pilotData, 1, m_pilotLength);
     };
 

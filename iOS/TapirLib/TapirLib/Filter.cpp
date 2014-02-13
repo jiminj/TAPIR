@@ -17,21 +17,21 @@ namespace Tapir {
     m_bufferSize(filtOrder + maxBufferSize),
     m_buffer(new float[m_bufferSize]())
     {
-        memcpy(m_coeff, coeff, sizeof(float) * filtOrder);
+        TapirDSP::copy(coeff, coeff + filtOrder, m_coeff);
         vDSP_vrvrs(m_coeff, 1, m_order);
 
     };
     void FilterFIR::process(const float * src, float * dest, int length)
     {
         //copy data to buffer
-        memcpy(m_buffer + m_order, src, length * sizeof(float));
+        TapirDSP::copy(src, src + length, m_buffer + m_order);
         float * curBufferPos = m_buffer;
         for(int i=0; i<length; ++i)
         {
             vDSP_dotpr(curBufferPos++, 1, m_coeff, 1, dest++, m_order);
         }
         //copy result to buffer
-        memcpy(m_buffer, src + length - m_order, m_order * sizeof(float));
+        TapirDSP::copy(src + length - m_order, src + length, m_buffer);
         
     };
     void FilterFIR::clearBuffer()

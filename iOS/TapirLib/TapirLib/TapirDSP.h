@@ -20,7 +20,6 @@
 
 
 namespace TapirDSP {
-
     
 //typedef
 #ifdef __APPLE__
@@ -42,8 +41,13 @@ namespace TapirDSP {
     typedef struct DoubleSplitComplex {
         double *realp; double *imagp;
     } DoubleSplitComplex;
-
 #endif
+    
+//copy
+    template< class InputIt, class OutputIt >
+    OutputIt copy( InputIt first, InputIt last, OutputIt d_first )
+    { return std::copy(first, last, d_first); };
+
     
     
 };

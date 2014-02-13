@@ -72,7 +72,7 @@ namespace Tapir{
         
         Tapir::iqModulate(&preamble, dest, lenPreamble, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrier);
         Tapir::maximizeSignal(dest, dest, lenPreamble, Tapir::Config::AUDIO_MAX_VOLUME);
-        memcpy(dest + lenPreamble, dest, lenPreamble * sizeof(float));
+        TapirDSP::copy(dest, dest + lenPreamble, dest + lenPreamble);
         
         delete [] preamble.realp;
         delete [] preamble.imagp;
@@ -98,11 +98,11 @@ namespace Tapir{
         int firstHalfLength = (floor)(Tapir::Config::NO_TOTAL_SUBCARRIERS / 2);
         int lastHalfLength = Tapir::Config::NO_TOTAL_SUBCARRIERS - firstHalfLength;
         int lastHalfStPoint = Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL - lastHalfLength;
-        
-        memcpy(m_extended.realp + lastHalfStPoint, m_pilotAdded.realp, lastHalfLength * sizeof(float));
-        memcpy(m_extended.imagp + lastHalfStPoint, m_pilotAdded.imagp, lastHalfLength * sizeof(float));
-        memcpy(m_extended.realp , m_pilotAdded.realp + firstHalfLength, firstHalfLength * sizeof(float));
-        memcpy(m_extended.imagp , m_pilotAdded.imagp + firstHalfLength, firstHalfLength * sizeof(float));
+
+        TapirDSP::copy(m_pilotAdded.realp, m_pilotAdded.realp + lastHalfLength, m_extended.realp + lastHalfStPoint);
+        TapirDSP::copy(m_pilotAdded.imagp, m_pilotAdded.imagp + lastHalfLength, m_extended.imagp + lastHalfStPoint);
+        TapirDSP::copy(m_pilotAdded.realp + firstHalfLength, m_pilotAdded.realp + 2 * firstHalfLength, m_extended.realp);
+        TapirDSP::copy(m_pilotAdded.imagp + firstHalfLength, m_pilotAdded.imagp + 2 * firstHalfLength, m_extended.imagp);
         
         //ifft
         Tapir::fftComplexInverse(&m_extended, &m_ifftData, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL);
@@ -122,10 +122,11 @@ namespace Tapir{
         
         if( (dest + lenCyclicPrefix) != src)
         {
-            memcpy(dest + lenCyclicPrefix, src, lenEachSymbol * sizeof(float));
+            TapirDSP::copy(src, src + lenEachSymbol, dest + lenCyclicPrefix);
         }
-        memcpy(dest, src + lenEachSymbol - lenCyclicPrefix, lenCyclicPrefix * sizeof(float));
-        memcpy(dest + lenCyclicPrefix + lenEachSymbol, src, lenCyclicPostfix * sizeof(float));
+        
+        TapirDSP::copy(src + lenEachSymbol - lenCyclicPrefix, src + lenEachSymbol, dest);
+        TapirDSP::copy(src, src + lenCyclicPostfix, dest + lenCyclicPrefix + lenEachSymbol);
     };
     
     void SignalGenerator::generateSignal(const std::string &inputString, float *dest, int destLength)

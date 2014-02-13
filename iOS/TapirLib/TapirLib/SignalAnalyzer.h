@@ -31,7 +31,7 @@ namespace Tapir {
         { m_carrier = Config::CARRIER_FREQUENCY_BASE + freqOffset;};
         
     private:
-        void cutCentralRegion(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int signalLength, const int destLength, const int fHalfLength);
+        void cutCentralRegion(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int signalLength, const int destLength, const int firstHalfLength);
                               
         TapirDSP::SplitComplex m_convertedSignal;
         TapirDSP::SplitComplex m_roiSignal;
