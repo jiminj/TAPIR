@@ -8,8 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
-#import <TapirLib/TapirLib.h>
-
 
 @interface ViewController ()
 
@@ -112,7 +110,7 @@
     }
     std::string stdInputStr = std::string([inputStr UTF8String]);
 
-    int resultLength = generator->calResultLength([inputStr length]);
+    int resultLength = generator->calResultLength((int)[inputStr length]);
 
     encodedAudioData = new float[resultLength]();
     generator->generateSignal(stdInputStr, encodedAudioData, resultLength);

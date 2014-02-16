@@ -9,6 +9,7 @@
 #ifndef __TapirLib__CircularQueue__
 #define __TapirLib__CircularQueue__
 #include <algorithm>
+#include "TapirDSP.h"
 
 namespace Tapir {
     
@@ -92,7 +93,7 @@ namespace Tapir {
         int remainedQueueLength = m_queueSize - pushStIdx;
         if(remainedQueueLength >= pushSize)
         {
-            memcpy(pushStPos, pushData, sizeof(_T) * pushSize);
+            TapirDSP::copy(pushData, pushData + pushSize, pushStPos);
             m_lastIdx = pushStIdx + pushSize - 1;
             m_last = pushStPos + pushSize - 1;
             
@@ -112,8 +113,8 @@ namespace Tapir {
                     bufCopyStartIdx = m_bufferSavedStIdx;
                 }
                 int bufCopySize = m_lastIdx - bufCopyStartIdx + 1;
-                
-                memcpy(m_queue - (m_queueSize - bufCopyStartIdx), bufCopyStartPos, sizeof(_T) * bufCopySize);
+
+                TapirDSP::copy(bufCopyStartPos, bufCopyStartPos + bufCopySize, m_queue - (m_queueSize - bufCopyStartIdx));
             }
             
         }
@@ -129,8 +130,10 @@ namespace Tapir {
             }
 
             int firstHalfLength = pushSize - remainedQueueLength;
-            memcpy(m_queue + pushStIdx, pushData, sizeof(_T) * remainedQueueLength); //copy last half
-            memcpy(m_queue, pushData + remainedQueueLength, sizeof(_T) * firstHalfLength); //copy first half
+            const _T * firstHalfStPoint = pushData + remainedQueueLength;
+            TapirDSP::copy(pushData, firstHalfStPoint, m_queue + pushStIdx); //copy Last half
+            TapirDSP::copy(firstHalfStPoint, firstHalfStPoint + firstHalfLength, m_queue); //copy first half
+
 
             //copy for buffer
             int bufCopyStIdx;
@@ -147,7 +150,7 @@ namespace Tapir {
             }
             int bufCopySize = m_queueSize - bufCopyStIdx;
             
-            memcpy(m_queue - bufCopySize, pushStPos, sizeof(_T) * bufCopySize); //copy
+            TapirDSP::copy(pushStPos, pushStPos + bufCopySize, m_queue - bufCopySize); //copy
             
             m_last = m_queue + firstHalfLength - 1;
             m_lastIdx = firstHalfLength - 1;

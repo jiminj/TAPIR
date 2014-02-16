@@ -10,27 +10,27 @@
 #define __TapirLib__PilotManager__
 
 
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 namespace Tapir
 {
     class PilotManager
     {
     public:
-        PilotManager(const DSPSplitComplex * pilotData, const int * index , const int length);
+        PilotManager(const TapirDSP::SplitComplex * pilotData, const int * index , const int length);
         virtual ~PilotManager();
         
-        void addPilot(const DSPSplitComplex * src, DSPSplitComplex * dest, const int srcLength);
-        void removePilot(const DSPSplitComplex * src, DSPSplitComplex * dest, const int srcLength);
+        void addPilot(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int srcLength);
+        void removePilot(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int srcLength);
 
         const int * getPilotIndex(){ return m_pilotIndex; };
         const int getPilotLength(){ return m_pilotLength; };
-        const DSPSplitComplex * getPilotData() { return &m_pilotData; };
+        const TapirDSP::SplitComplex * getPilotData() { return &m_pilotData; };
 
     protected:
         int m_pilotLength;
         int * m_pilotIndex;
         
-        DSPSplitComplex m_pilotData;
+        TapirDSP::SplitComplex m_pilotData;
     };
 }
 

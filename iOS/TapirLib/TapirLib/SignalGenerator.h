@@ -9,8 +9,7 @@
 #ifndef __TapirLib__SignalGenerator__
 #define __TapirLib__SignalGenerator__
 
-#include <Accelerate/Accelerate.h>
-
+#include "TapirDSP.h"
 #include "Config.h"
 #include "PilotManager.h"
 #include "Modulator.h"
@@ -44,16 +43,17 @@ namespace Tapir {
         float * m_interleaved;
 
         
-        DSPSplitComplex m_modulated;
-        DSPSplitComplex m_pilotAdded;
-        DSPSplitComplex m_extended;
-        DSPSplitComplex m_ifftData;
+        TapirDSP::SplitComplex m_modulated;
+        TapirDSP::SplitComplex m_pilotAdded;
+        TapirDSP::SplitComplex m_extended;
+        TapirDSP::SplitComplex m_ifftData;
         
         PilotManager * m_pilotMgr;
         PskModulator * m_modulator;
         ConvEncoder * m_encoder;
         MatrixInterleaver * m_interleaver;
         FilterFIR * m_filter;
+        FFT * m_fft;
     };
 }
 

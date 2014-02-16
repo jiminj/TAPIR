@@ -49,7 +49,7 @@ namespace Tapir {
     :m_g(rhs.m_g), m_length(rhs.m_length),
     m_encodedCode(new float[m_length])
     {
-        memcpy(m_encodedCode, rhs.m_encodedCode, sizeof(float) * m_length);
+        TapirDSP::copy(rhs.m_encodedCode, rhs.m_encodedCode + m_length, m_encodedCode);
     };
     TrellisCode::~TrellisCode()
     {
@@ -62,7 +62,7 @@ namespace Tapir {
         if(ext > 0)
         {
             float * temp = new float[extLength];
-            memcpy((temp+ext), m_encodedCode, m_length * sizeof(float));
+            TapirDSP::copy(m_encodedCode, m_encodedCode + m_length, temp+ext);
             m_length = extLength;
             
             delete [] m_encodedCode;

@@ -9,8 +9,9 @@
 #ifndef __TapirLib__Config__
 #define __TapirLib__Config__
 
-#include <Accelerate/Accelerate.h>
+//#include <Accelerate/Accelerate.h>
 #include <vector>
+#include "TapirDSP.h"
 #include "TrellisCode.h"
 
 #define ASCII_ETX 0x03
@@ -51,7 +52,7 @@ namespace Tapir{
         static const int    NO_TOTAL_SUBCARRIERS;
         static const int    PILOT_LOCATIONS [];
         
-        static const DSPSplitComplex     PILOT_DATA;
+        static const TapirDSP::SplitComplex     PILOT_DATA;
         
         static const int    MODULATION_RATE;
         static const int    INTERLEAVER_ROWS;

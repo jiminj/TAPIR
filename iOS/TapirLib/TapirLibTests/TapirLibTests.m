@@ -152,20 +152,20 @@
     float pilotReal[4] = { 1.f, 1.f, 1.f, -1.f };
     float pilotImag[4] = { 0., 0., 0., 0.};
     int loc[4] = {3, 7, 11, 15};
-    DSPSplitComplex pilot;
+    TapirDSP::SplitComplex pilot;
     pilot.realp = pilotReal;
     pilot.imagp = pilotImag;
     
     
-    DSPSplitComplex origSignal;
+    TapirDSP::SplitComplex origSignal;
     origSignal.realp = malloc(sizeof(float) * 16);
     origSignal.imagp = malloc(sizeof(float) * 16);
     
-    DSPSplitComplex removedSignal;
+    TapirDSP::SplitComplex removedSignal;
     removedSignal.realp = malloc(sizeof(float) * 16);
     removedSignal.imagp = malloc(sizeof(float) * 16);
     
-    DSPSplitComplex destSignal;
+    TapirDSP::SplitComplex destSignal;
     destSignal.realp = malloc(sizeof(float) * 20);
     destSignal.imagp = malloc(sizeof(float) * 20);
     
@@ -213,7 +213,7 @@
     float pilotReal[4] = { 1.f, 1.f, 1.f, -1.f };
     float pilotImag[4] = { 0., 0., 0., 0.};
     
-    DSPSplitComplex pilot;
+    TapirDSP::SplitComplex pilot;
     pilot.realp = pilotReal;
     pilot.imagp = pilotImag;
 
@@ -230,7 +230,7 @@
     float lsEstReal[4] = {156.43f, 154.73f, 137.09f, 105.55f};
     float lsEstImag[4] = {-79.93f, -114.81f, -142.31f, -158.51f};
 
-    DSPSplitComplex lsEst;
+    TapirDSP::SplitComplex lsEst;
     lsEst.realp = lsEstReal;
     lsEst.imagp = lsEstImag;
     
@@ -243,9 +243,9 @@
 - (void)testInterleaver
 {
     /*
-    DSPSplitComplex src;
-    DSPSplitComplex interleaved;
-    DSPSplitComplex deinterleaved;
+    TapirDSP::SplitComplex src;
+    TapirDSP::SplitComplex interleaved;
+    TapirDSP::SplitComplex deinterleaved;
     int n = 15;
     
     src.realp = malloc(sizeof(float) * n);
@@ -282,7 +282,7 @@
     int n = 10;
     
     //Demodulation
-    DSPSplitComplex testDemodValue;
+    TapirDSP::SplitComplex testDemodValue;
     testDemodValue.realp = malloc(sizeof(float) * n);
     testDemodValue.imagp = malloc(sizeof(float) * n);
     
@@ -312,7 +312,7 @@
         testModValue[i] = (int)(arc4random() % symRate);
     }
 
-    DSPSplitComplex testModResult;
+    TapirDSP::SplitComplex testModResult;
     testModResult.realp = malloc(sizeof(float) * n);
     testModResult.imagp = malloc(sizeof(float) * n);
     
@@ -353,7 +353,7 @@
     float * audioData = malloc(length * sizeof(float));
     [self readWavDataFrom:filePath to:audioData lengthOf:length];
     
-    DSPSplitComplex convResult;
+    TapirDSP::SplitComplex convResult;
     convResult.realp = malloc(sizeof(float) * length);
     convResult.imagp = malloc(sizeof(float) * length);
     

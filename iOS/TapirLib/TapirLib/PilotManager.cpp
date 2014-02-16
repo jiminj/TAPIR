@@ -10,13 +10,13 @@
 
 namespace Tapir {
     
-    PilotManager::PilotManager(const DSPSplitComplex * pilotData, const int * index, const int length)
+    PilotManager::PilotManager(const TapirDSP::SplitComplex * pilotData, const int * index, const int length)
     :m_pilotLength(length),
     m_pilotIndex( new int[m_pilotLength] ),
     m_pilotData( { .realp = new float[m_pilotLength], .imagp = new float[m_pilotLength] } )
     {
-        memcpy(m_pilotIndex, index, sizeof(int) * m_pilotLength);
-        vDSP_zvmov(pilotData, 1, &m_pilotData, 1, m_pilotLength);
+        TapirDSP::copy(index, index + m_pilotLength, m_pilotIndex);
+        TapirDSP::zvmov(pilotData, 1, &m_pilotData, 1, m_pilotLength);
     };
 
     PilotManager::~PilotManager()
@@ -26,7 +26,7 @@ namespace Tapir {
         delete [] m_pilotData.imagp;
     };
     
-    void PilotManager::addPilot(const DSPSplitComplex * src, DSPSplitComplex * dest, const int srcLength)
+    void PilotManager::addPilot(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int srcLength)
     {
         //    int * curPilotIdx = pilotIndex;
         int curPilotIdx = 0;
@@ -48,7 +48,7 @@ namespace Tapir {
         }
     };
     
-    void PilotManager::removePilot(const DSPSplitComplex * src, DSPSplitComplex * dest, const int srcLength)
+    void PilotManager::removePilot(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, const int srcLength)
     {
         int *curPilot = m_pilotIndex;
         int destIdx = 0;

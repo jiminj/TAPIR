@@ -31,7 +31,7 @@ namespace Tapir {
             const float * foundDataFirstBlk = m_correlator.searchCorrelated(m_filtered, m_frameSize, firstBlkSize);
             if(foundDataFirstBlk != nullptr) //found!
             {
-                memcpy(m_result, foundDataFirstBlk, sizeof(float) * firstBlkSize);
+                TapirDSP::copy(foundDataFirstBlk, foundDataFirstBlk + firstBlkSize, m_result);
                 m_copyIdx = firstBlkSize;
                 m_isSignalFound = true;
             }
@@ -42,7 +42,7 @@ namespace Tapir {
             if(remained > 0)
             {
                 int cpSize = (remained > m_frameSize) ? m_frameSize : remained;
-                memcpy(m_result + m_copyIdx, frame, cpSize * sizeof(float));
+                TapirDSP::copy(frame, frame + cpSize, m_result + m_copyIdx);
                 m_copyIdx += cpSize;
             }
             else //copy end

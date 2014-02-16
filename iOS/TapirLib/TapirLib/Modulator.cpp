@@ -18,31 +18,31 @@ namespace Tapir
     m_magnitude(magnitude)
     {};
     
-    void PskModulator::modulate(const float *src, DSPSplitComplex *dest, const int length) const
+    void PskModulator::modulate(const float *src, TapirDSP::SplitComplex *dest, const int length) const
     {
         float phaseDiv = TWO_PI / m_symbolRate;
 
         float * phase = new float[length];
-        vDSP_vsmsa(src, 1, &phaseDiv, &m_initialPhase, phase, 1, length);
-        vvsincosf(dest->imagp, dest->realp, phase, &length);
+        TapirDSP::vsmsa(src, 1, &phaseDiv, &m_initialPhase, phase, 1, length);
+        TapirDSP::vsincosf(dest->imagp, dest->realp, phase, &length);
         
         float amp = sqrt(m_magnitude);
-        vDSP_vsmul(dest->realp, 1, &amp, dest->realp, 1, length);
-        vDSP_vsmul(dest->imagp, 1, &amp, dest->imagp, 1, length);
+        TapirDSP::vsmul(dest->realp, 1, &amp, dest->realp, 1, length);
+        TapirDSP::vsmul(dest->imagp, 1, &amp, dest->imagp, 1, length);
         
         delete [] phase;
     };
     
-    void PskModulator::demodulate(const DSPSplitComplex * src, float * dest, const int length) const
+    void PskModulator::demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const
     {
         float * phase = new float[length];
-        vDSP_zvphas(src, 1, phase, 1, length);
+        TapirDSP::zvphas(src, 1, phase, 1, length);
 
         float phaseDiv = TWO_PI / m_symbolRate;
         float startPhase = M_PI / m_symbolRate - m_initialPhase;
         
         // Set start point from 0 tO -pi/n, at n-psk, initPhase = 0;
-        vDSP_vsadd(phase, 1, &startPhase, phase, 1, length);
+        TapirDSP::vsadd(phase, 1, &startPhase, phase, 1, length);
         
         // [-pi : pi] => [ 0 : 2pi];
         for(int i=0; i<length; ++i)
@@ -57,7 +57,7 @@ namespace Tapir
         
         delete []phase;
     };
-    void DpskModulator::modulate(const float *src, DSPSplitComplex *dest, const int length) const
+    void DpskModulator::modulate(const float *src, TapirDSP::SplitComplex *dest, const int length) const
     {
         float * diffMod = new float[length];
         int val = 0;
@@ -76,7 +76,7 @@ namespace Tapir
         delete [] diffMod;
     };
     
-    void DpskModulator::demodulate(const DSPSplitComplex * src, float * dest, const int length) const
+    void DpskModulator::demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const
     {
         if(length > 0)
         {

@@ -8,7 +8,7 @@
 
 #ifndef __TapirLib__Filter__
 #define __TapirLib__Filter__
-#include <Accelerate/Accelerate.h>
+#include "TapirDSP.h"
 
 namespace Tapir {
 
@@ -40,7 +40,7 @@ namespace Tapir {
  
     };
     
-    
+#ifdef __APPLE__
     //IIR(Biquad) Filter
     class FilterIIR : public Filter
     {
@@ -57,6 +57,7 @@ namespace Tapir {
         vDSP_biquad_Setup m_filterSetup;
 
     };
+#endif
     
     class TapirFilters
     {

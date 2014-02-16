@@ -22,7 +22,8 @@ namespace Tapir{
     m_chanEstimator(new LSChannelEstimator(m_pilotMgr, Config::NO_TOTAL_SUBCARRIERS)),
     m_interleaver(new MatrixInterleaver(Config::INTERLEAVER_ROWS, Config::INTERLEAVER_COLS)),
     m_modulator(new PskModulator(Config::MODULATION_RATE)),
-    m_decoder(new ViterbiDecoder(Config::TRELLIS_ARRAY))
+    m_decoder(new ViterbiDecoder(Config::TRELLIS_ARRAY)),
+    m_fft(new Tapir::FFT(Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL))
     { };
     
     SignalAnalyzer::~SignalAnalyzer()
@@ -44,19 +45,20 @@ namespace Tapir{
         delete m_interleaver;
         delete m_modulator;
         delete m_decoder;
+        delete m_fft;
     };
     
-    void SignalAnalyzer::cutCentralRegion(const DSPSplitComplex *src, DSPSplitComplex *dest, const int signalLength, const int destLength, const int fHalfLength)
+    void SignalAnalyzer::cutCentralRegion(const TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, const int signalLength, const int destLength, const int firstHalfLength)
     {
-        int lastHalfCutLength = destLength - fHalfLength;
-        int sigLastHalfStPoint = signalLength - lastHalfCutLength;
-        int cpLHMemSize = lastHalfCutLength * sizeof(float);
-        int cpFHMemSize = fHalfLength * sizeof(float);
+        int lastHalfCutLength = destLength - firstHalfLength;
+        int sigLastHalfStIndex = signalLength - lastHalfCutLength;
+
         
-        memcpy(dest->realp, src->realp + sigLastHalfStPoint, cpLHMemSize);
-        memcpy(dest->imagp, src->imagp + sigLastHalfStPoint, cpLHMemSize);
-        memcpy(dest->realp + lastHalfCutLength, src->realp, cpFHMemSize);
-        memcpy(dest->imagp + lastHalfCutLength, src->imagp, cpFHMemSize);
+        TapirDSP::copy(src->realp + sigLastHalfStIndex, src->realp + sigLastHalfStIndex + lastHalfCutLength, dest->realp);
+        TapirDSP::copy(src->imagp + sigLastHalfStIndex, src->imagp + sigLastHalfStIndex + lastHalfCutLength, dest->imagp);
+        TapirDSP::copy(src->realp, src->realp + firstHalfLength, dest->realp + lastHalfCutLength);
+        TapirDSP::copy(src->imagp, src->imagp + firstHalfLength, dest->imagp + lastHalfCutLength);
+        
         
     };
     
@@ -67,7 +69,7 @@ namespace Tapir{
         // TODO: LPF (for real & imag both)
         
         //FFT
-        fftComplexForward(&m_convertedSignal, &m_convertedSignal, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL);
+        m_fft->transform(&m_convertedSignal, &m_convertedSignal, Tapir::FFT::FORWARD);
         cutCentralRegion(&m_convertedSignal, &m_roiSignal, Config::SAMPLE_LENGTH_EACH_SYMBOL, Config::NO_TOTAL_SUBCARRIERS, Config::NO_TOTAL_SUBCARRIERS/2);
 
         //Channel Estimation
