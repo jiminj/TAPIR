@@ -8,8 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
-#import <TapirLib/TapirLib.h>
-
 
 @interface ViewController ()
 

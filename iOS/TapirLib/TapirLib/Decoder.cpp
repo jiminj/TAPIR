@@ -81,7 +81,8 @@ namespace Tapir {
         
         //Make input blocks (bind m_noTrellis blocks to one block)
         int * intSrc = new int[srcLength];
-        vDSP_vfix32(src, 1, intSrc, 1, srcLength);
+
+        TapirDSP::vfix32(src, 1, intSrc, 1, srcLength);
         
         int outputLength = srcLength / m_noTrellis;
         int inputLength = outputLength + extLength;

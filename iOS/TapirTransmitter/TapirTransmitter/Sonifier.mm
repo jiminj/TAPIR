@@ -8,8 +8,6 @@
 
 #import "Sonifier.h"
 
-
-
 @implementation Sonifier
 
 @synthesize dataLength;
@@ -24,12 +22,9 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
 }
 
 
--(id)init{
-    return nil;
-}
-
-- (id)initWithSampleRate:(const float)sampleRate channel:(const int)ch
+-(id)initWithSampleRate:(const float)sampleRate channel:(const int)ch
 {
+
     if(self = [super init]) {
         audioDesc.mSampleRate = sampleRate;
 		audioDesc.mFormatID = kAudioFormatLinearPCM;
@@ -44,7 +39,6 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
         
         outputLock = [[NSLock alloc] init];
         
-//        OSStatus err = AudioQueueNewOutput(&audioDesc, aqCallBack, (__bridge void *)(self), CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &audioQueue); // CFRunLoopGetCurrent()
 
         OSStatus err = AudioQueueNewOutput(&audioDesc, aqCallBack, (__bridge void *)(self), nil, kCFRunLoopCommonModes, 0, &audioQueue); // make a new thread for audio output
 
@@ -113,8 +107,8 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             memset(bufferData+copyLen, 0, sizeof(SInt16) * (frameLength - dataLength));
             isDone = TRUE;
         }
-        vDSP_vsmul(audioData, 1, &kShortMax, audioData, 1, copyLen); //maximize volume
-        vDSP_vfix16(audioData, 1, bufferData, 1, copyLen); //float to SInt16
+        TapirDSP::vsmul(audioData, 1, &kShortMax, audioData, 1, copyLen); //maximize volume
+        TapirDSP::vfix16(audioData, 1, bufferData, 1, copyLen); //float to SInt16
 
         audioData += copyLen;
         dataLength = newDataLength;
@@ -125,6 +119,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
     }
     else
     {
+
         if(isDone)
         {
             [outputLock unlock];

@@ -40,7 +40,7 @@ namespace Tapir {
  
     };
     
-    
+#ifdef __APPLE__
     //IIR(Biquad) Filter
     class FilterIIR : public Filter
     {
@@ -57,6 +57,7 @@ namespace Tapir {
         vDSP_biquad_Setup m_filterSetup;
 
     };
+#endif
     
     class TapirFilters
     {

@@ -22,7 +22,8 @@ namespace Tapir{
     m_modulator(new Tapir::PskModulator(Tapir::Config::MODULATION_RATE)),
     m_encoder(new Tapir::ConvEncoder(Tapir::Config::TRELLIS_ARRAY)),
     m_interleaver(new Tapir::MatrixInterleaver(Tapir::Config::INTERLEAVER_ROWS, Tapir::Config::INTERLEAVER_COLS)),
-    m_filter(Tapir::TapirFilters::getTxRxHpf(calResultLength(Tapir::Config::MAX_SYMBOL_LENGTH)))
+    m_filter(Tapir::TapirFilters::getTxRxHpf(calResultLength(Tapir::Config::MAX_SYMBOL_LENGTH))),
+    m_fft(new Tapir::FFT(Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL))
     {};
 
     SignalGenerator::~SignalGenerator()
@@ -44,6 +45,7 @@ namespace Tapir{
         delete m_encoder;
         delete m_interleaver;
         delete m_filter;
+        delete m_fft;
     };
     
     int SignalGenerator::calResultLength(int strLength)
@@ -66,7 +68,7 @@ namespace Tapir{
         int lenForEachBit = (floor)(lenPreamble / Tapir::Config::PREAMBLE_BIT_LENGTH);
         for(int i=0; i<Tapir::Config::PREAMBLE_BIT_LENGTH ; ++i)
         {
-            vDSP_vfill(Tapir::Config::PREAMBLE_BITS + i, preamble.realp + (i * lenForEachBit), 1, lenForEachBit);
+            TapirDSP::vfill(Tapir::Config::PREAMBLE_BITS + i, preamble.realp + (i * lenForEachBit), 1, lenForEachBit);
         }
         // TODO: LPF (for real and imag both)
         
@@ -105,7 +107,7 @@ namespace Tapir{
         TapirDSP::copy(m_pilotAdded.imagp + firstHalfLength, m_pilotAdded.imagp + 2 * firstHalfLength, m_extended.imagp);
         
         //ifft
-        Tapir::fftComplexInverse(&m_extended, &m_ifftData, Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL);
+        m_fft->transform(&m_extended, &m_ifftData, Tapir::FFT::INVERSE);
         
         // TODO: LPF (for real and imag both)
 

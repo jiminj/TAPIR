@@ -40,14 +40,14 @@ namespace Tapir {
         int inputLength = (srcLength + m_trelCodeLength - 1);
         float * input = new float[inputLength]();
         
-        vDSP_vflt32(src, 1, input + (m_trelCodeLength-1), 1, srcLength);
+        TapirDSP::vflt32(src, 1, input + (m_trelCodeLength-1), 1, srcLength);
         
         int encodingRate = static_cast<int>(m_trelArray.size());
         
         for(int i=0; i<encodingRate; ++i)
         {
             const float * filter = (m_trelArray.at(i)).getEncodedCode() + m_trelCodeLength - 1; //set end of the array;
-            vDSP_conv(input, 1, filter, -1, dest + i, encodingRate, srcLength, m_trelCodeLength);
+            TapirDSP::conv(input, 1, filter, -1, dest + i, encodingRate, srcLength, m_trelCodeLength);
         }
         
         int destLength = srcLength * encodingRate;

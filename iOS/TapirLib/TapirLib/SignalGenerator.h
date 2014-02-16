@@ -53,6 +53,7 @@ namespace Tapir {
         ConvEncoder * m_encoder;
         MatrixInterleaver * m_interleaver;
         FilterFIR * m_filter;
+        FFT * m_fft;
     };
 }
 

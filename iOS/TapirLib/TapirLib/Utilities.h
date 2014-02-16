@@ -25,14 +25,29 @@ void scaleCompSignal(const TapirDSP::SplitComplex * source, TapirDSP::SplitCompl
 
 void maximizeSignal(const float * source, float * dest, const int length, const float maximum);
 
-
-//FFT
-void fftComplexForward(const TapirDSP::SplitComplex * signal, TapirDSP::SplitComplex * dest, const int fftLength);
-void fftComplexInverse(const TapirDSP::SplitComplex * signal, TapirDSP::SplitComplex * dest, const int fftLength);
-
 int mergeBitsToIntegerValue(const int * intArray, int arrLength);
 void divdeIntIntoBits(const int src, int * arr, int arrLength);
-      
+    
+    
+class FFT
+{
+public:
+    enum FftDirection
+    {
+        FORWARD = 0,
+        INVERSE
+    };
+
+    FFT(const int fftLength);
+    virtual ~FFT();
+    void transform(TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, FftDirection direction);
+    
+protected:
+    int calculateLogLength(int length);
+    int m_logLen;
+    FFTSetup m_fftSetup;
+};
+    
 
 }
 #endif /* defined(__TapirLib__Utils__) */

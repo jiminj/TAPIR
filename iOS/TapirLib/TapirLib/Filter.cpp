@@ -18,7 +18,7 @@ namespace Tapir {
     m_buffer(new float[m_bufferSize]())
     {
         TapirDSP::copy(coeff, coeff + filtOrder, m_coeff);
-        vDSP_vrvrs(m_coeff, 1, m_order);
+        TapirDSP::vrvrs(m_coeff, 1, m_order);
 
     };
     void FilterFIR::process(const float * src, float * dest, int length)
@@ -28,7 +28,7 @@ namespace Tapir {
         float * curBufferPos = m_buffer;
         for(int i=0; i<length; ++i)
         {
-            vDSP_dotpr(curBufferPos++, 1, m_coeff, 1, dest++, m_order);
+            TapirDSP::dotpr(curBufferPos++, 1, m_coeff, 1, dest++, m_order);
         }
         //copy result to buffer
         TapirDSP::copy(src + length - m_order, src + length, m_buffer);
@@ -46,6 +46,7 @@ namespace Tapir {
         { delete [] m_buffer; m_buffer = nullptr; }
     };
     
+#ifdef __APPLE__
     //****** IIR Filter ********
 //    FilterIIR::FilterIIR()
 //    : m_coeff(nullptr), m_section(0), m_filtDelay(nullptr), m_filterSetup(nullptr)
@@ -121,7 +122,8 @@ namespace Tapir {
         if(m_filtDelay != nullptr)
         { delete [] m_filtDelay; m_filtDelay = nullptr;}
     };
-    
+
+#endif
 
     //****** Filters For Tapir *******
     

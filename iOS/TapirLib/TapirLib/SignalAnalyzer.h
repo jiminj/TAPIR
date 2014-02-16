@@ -48,6 +48,7 @@ namespace Tapir {
         MatrixInterleaver * m_interleaver;
         PskModulator * m_modulator;
         ViterbiDecoder * m_decoder;
+        FFT * m_fft;
     };
 };
 
