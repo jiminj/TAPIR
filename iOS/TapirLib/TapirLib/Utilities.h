@@ -45,7 +45,9 @@ public:
 protected:
     int calculateLogLength(int length);
     int m_logLen;
+    #ifdef __APPLE__
     FFTSetup m_fftSetup;
+    #endif
 };
     
 
