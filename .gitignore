@@ -6,3 +6,9 @@ xcuserdata/
 *.swp
 *~.nib
 
+.metadata/
+.settings/
+bin/
+gen/
+obj/
+
