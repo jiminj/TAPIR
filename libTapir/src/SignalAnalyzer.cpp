@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "SignalAnalyzer.h"
+#include "../include/SignalAnalyzer.h"
 
 namespace Tapir{
     SignalAnalyzer::SignalAnalyzer(float carrierFreq)

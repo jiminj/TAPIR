@@ -9,6 +9,8 @@
 #ifndef __TapirLib__SignalGenerator__
 #define __TapirLib__SignalGenerator__
 
+#include <string>
+
 #include "TapirDSP.h"
 #include "Config.h"
 #include "PilotManager.h"
@@ -29,8 +31,8 @@ namespace Tapir {
         void generateSignal(const std::string& inputString, float * dest, int destLength);
 
         int calResultLength(int strLength);
-        int calResultLength(const std::string& string)
-        { return calResultLength(static_cast<int>( string.length() ) ); };
+        int calResultLength(const std::string& str)
+        { return calResultLength(static_cast<int>( str.length() ) ); };
         
     private:
         void generatePreamble(float * dest);

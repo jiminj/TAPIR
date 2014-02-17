@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "Config.h"
+#include "../include/Config.h"
 
 
 

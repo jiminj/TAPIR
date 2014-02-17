@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "AutoCorrelator.h"
+#include "../include/AutoCorrelator.h"
 
 namespace Tapir {
     AutoCorrelator::AutoCorrelator(const int bufferSize, const int maxInputLength, const int lag, const float threshold)

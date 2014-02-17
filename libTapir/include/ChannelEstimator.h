@@ -23,7 +23,7 @@ namespace Tapir {
     {
     public:
         LSChannelEstimator(PilotManager * pilot, const int chLength);
-        ~LSChannelEstimator();
+        virtual ~LSChannelEstimator();
         void estimateChannel(const TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest);
     protected:
         void generateChannel(const TapirDSP::SplitComplex * pilotChannel);

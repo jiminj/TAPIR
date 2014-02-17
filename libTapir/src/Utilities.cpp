@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
-#import "Utilities.h"
+#include "../include/Utilities.h"
 
 //IQ Modulation
 namespace Tapir {

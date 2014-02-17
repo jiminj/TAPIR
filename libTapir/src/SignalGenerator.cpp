@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "SignalGenerator.h"
+#include "../include/SignalGenerator.h"
 
 namespace Tapir{
+
     SignalGenerator::SignalGenerator(float carrierFreq)
     : m_carrier(carrierFreq),
     m_input(new int[Tapir::Config::DATA_BIT_LENGTH]),

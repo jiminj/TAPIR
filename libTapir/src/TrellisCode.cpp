@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "TrellisCode.h"
+#include "../include/TrellisCode.h"
 #include <cstring>
 
 namespace Tapir {

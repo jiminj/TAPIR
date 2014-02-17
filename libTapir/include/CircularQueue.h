@@ -8,7 +8,6 @@
 
 #ifndef __TapirLib__CircularQueue__
 #define __TapirLib__CircularQueue__
-#include <algorithm>
 #include "TapirDSP.h"
 
 namespace Tapir {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "Filter.h"
+#include "../include/Filter.h"
 
 namespace Tapir {
 

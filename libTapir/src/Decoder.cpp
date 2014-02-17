@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "Decoder.h"
+#include "../include/Decoder.h"
 
 namespace Tapir {
     ViterbiDecoder::ViterbiDecoder(const std::vector<TrellisCode>& trelArray)

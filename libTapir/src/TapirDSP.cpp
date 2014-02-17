@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "TapirDSP.h"
+#include "../include/TapirDSP.h"
 
 namespace TapirDSP {
     

@@ -16,41 +16,41 @@
 		EC0EEF90183A4A51001BC8DE /* TapirLibTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC0EEF8F183A4A51001BC8DE /* TapirLibTests.m */; };
 		EC0EEFA3183A4A6E001BC8DE /* t_20k_puresymbol.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC0EEFA1183A4A6E001BC8DE /* t_20k_puresymbol.wav */; };
 		EC0EEFE5183A5FA3001BC8DE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */; };
-		ECA9F20F18B224A700F84065 /* AutoCorrelator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1EF18B224A700F84065 /* AutoCorrelator.cpp */; };
-		ECA9F21018B224A700F84065 /* AutoCorrelator.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1F018B224A700F84065 /* AutoCorrelator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21118B224A700F84065 /* ChannelEstimator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1F118B224A700F84065 /* ChannelEstimator.cpp */; };
-		ECA9F21218B224A700F84065 /* ChannelEstimator.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1F218B224A700F84065 /* ChannelEstimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21318B224A700F84065 /* CircularQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1F318B224A700F84065 /* CircularQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21418B224A700F84065 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1F418B224A700F84065 /* Config.cpp */; };
-		ECA9F21518B224A700F84065 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1F518B224A700F84065 /* Config.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21618B224A700F84065 /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1F618B224A700F84065 /* Decoder.cpp */; };
-		ECA9F21718B224A700F84065 /* Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1F718B224A700F84065 /* Decoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21818B224A700F84065 /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1F818B224A700F84065 /* Encoder.cpp */; };
-		ECA9F21918B224A700F84065 /* Encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1F918B224A700F84065 /* Encoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21A18B224A700F84065 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1FA18B224A700F84065 /* Filter.cpp */; };
-		ECA9F21B18B224A700F84065 /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1FB18B224A700F84065 /* Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21C18B224A700F84065 /* Interleaver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1FC18B224A700F84065 /* Interleaver.cpp */; };
-		ECA9F21D18B224A700F84065 /* Interleaver.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1FD18B224A700F84065 /* Interleaver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F21E18B224A700F84065 /* Modulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F1FE18B224A700F84065 /* Modulator.cpp */; };
-		ECA9F21F18B224A700F84065 /* Modulator.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F1FF18B224A700F84065 /* Modulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22018B224A700F84065 /* PilotManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20018B224A700F84065 /* PilotManager.cpp */; };
-		ECA9F22118B224A700F84065 /* PilotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20118B224A700F84065 /* PilotManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22218B224A700F84065 /* SignalAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20218B224A700F84065 /* SignalAnalyzer.cpp */; };
-		ECA9F22318B224A700F84065 /* SignalAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20318B224A700F84065 /* SignalAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22418B224A700F84065 /* SignalDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20418B224A700F84065 /* SignalDetector.cpp */; };
-		ECA9F22518B224A700F84065 /* SignalDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20518B224A700F84065 /* SignalDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22618B224A700F84065 /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20618B224A700F84065 /* SignalGenerator.cpp */; };
-		ECA9F22718B224A700F84065 /* SignalGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20718B224A700F84065 /* SignalGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22818B224A700F84065 /* TapirDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20818B224A700F84065 /* TapirDSP.cpp */; };
-		ECA9F22918B224A700F84065 /* TapirDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20918B224A700F84065 /* TapirDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22A18B224A700F84065 /* TapirLib.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20A18B224A700F84065 /* TapirLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22B18B224A700F84065 /* TrellisCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20B18B224A700F84065 /* TrellisCode.cpp */; };
-		ECA9F22C18B224A700F84065 /* TrellisCode.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20C18B224A700F84065 /* TrellisCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F22D18B224A700F84065 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F20D18B224A700F84065 /* Utilities.cpp */; };
-		ECA9F22E18B224A700F84065 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F20E18B224A700F84065 /* Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F23218B224BA00F84065 /* ObjcFuncBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F22F18B224BA00F84065 /* ObjcFuncBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F23318B224BA00F84065 /* TapirFreqOffset.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA9F23018B224BA00F84065 /* TapirFreqOffset.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECA9F23418B224BA00F84065 /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA9F23118B224BA00F84065 /* TapirFreqOffset.m */; };
+		EC50C49F18B2952A005470FB /* AutoCorrelator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47918B2952A005470FB /* AutoCorrelator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A018B2952A005470FB /* ChannelEstimator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47A18B2952A005470FB /* ChannelEstimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A118B2952A005470FB /* CircularQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47B18B2952A005470FB /* CircularQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A218B2952A005470FB /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47C18B2952A005470FB /* Config.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A318B2952A005470FB /* Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47D18B2952A005470FB /* Decoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A418B2952A005470FB /* Encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47E18B2952A005470FB /* Encoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A518B2952A005470FB /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47F18B2952A005470FB /* Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A618B2952A005470FB /* Interleaver.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48018B2952A005470FB /* Interleaver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A718B2952A005470FB /* ObjcFuncBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48218B2952A005470FB /* ObjcFuncBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A818B2952A005470FB /* TapirFreqOffset.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48318B2952A005470FB /* TapirFreqOffset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A918B2952A005470FB /* Modulator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48418B2952A005470FB /* Modulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4AA18B2952A005470FB /* PilotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48518B2952A005470FB /* PilotManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4AB18B2952A005470FB /* SignalAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48618B2952A005470FB /* SignalAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4AC18B2952A005470FB /* SignalDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48718B2952A005470FB /* SignalDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4AD18B2952A005470FB /* SignalGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48818B2952A005470FB /* SignalGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4AE18B2952A005470FB /* TapirDSP.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48918B2952A005470FB /* TapirDSP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4AF18B2952A005470FB /* TapirLib.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48A18B2952A005470FB /* TapirLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4B018B2952A005470FB /* TrellisCode.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48B18B2952A005470FB /* TrellisCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4B118B2952A005470FB /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48C18B2952A005470FB /* Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4B218B2952A005470FB /* AutoCorrelator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C48E18B2952A005470FB /* AutoCorrelator.cpp */; };
+		EC50C4B318B2952A005470FB /* ChannelEstimator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C48F18B2952A005470FB /* ChannelEstimator.cpp */; };
+		EC50C4B418B2952A005470FB /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49018B2952A005470FB /* Config.cpp */; };
+		EC50C4B518B2952A005470FB /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49118B2952A005470FB /* Decoder.cpp */; };
+		EC50C4B618B2952A005470FB /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49218B2952A005470FB /* Encoder.cpp */; };
+		EC50C4B718B2952A005470FB /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49318B2952A005470FB /* Filter.cpp */; };
+		EC50C4B818B2952A005470FB /* Interleaver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49418B2952A005470FB /* Interleaver.cpp */; };
+		EC50C4B918B2952A005470FB /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49618B2952A005470FB /* TapirFreqOffset.m */; };
+		EC50C4BA18B2952A005470FB /* Modulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49718B2952A005470FB /* Modulator.cpp */; };
+		EC50C4BB18B2952A005470FB /* PilotManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49818B2952A005470FB /* PilotManager.cpp */; };
+		EC50C4BC18B2952A005470FB /* SignalAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49918B2952A005470FB /* SignalAnalyzer.cpp */; };
+		EC50C4BD18B2952A005470FB /* SignalDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49A18B2952A005470FB /* SignalDetector.cpp */; };
+		EC50C4BE18B2952A005470FB /* SignalGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49B18B2952A005470FB /* SignalGenerator.cpp */; };
+		EC50C4BF18B2952A005470FB /* TapirDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49C18B2952A005470FB /* TapirDSP.cpp */; };
+		EC50C4C018B2952A005470FB /* TrellisCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49D18B2952A005470FB /* TrellisCode.cpp */; };
+		EC50C4C118B2952A005470FB /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49E18B2952A005470FB /* Utilities.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,41 +80,41 @@
 		EC0EEFE0183A5F85001BC8DE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		EC0EEFE2183A5F98001BC8DE /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		EC0EEFE4183A5FA3001BC8DE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		ECA9F1EF18B224A700F84065 /* AutoCorrelator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoCorrelator.cpp; path = ../../../libTapirSrc/AutoCorrelator.cpp; sourceTree = "<group>"; };
-		ECA9F1F018B224A700F84065 /* AutoCorrelator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoCorrelator.h; path = ../../../libTapirSrc/AutoCorrelator.h; sourceTree = "<group>"; };
-		ECA9F1F118B224A700F84065 /* ChannelEstimator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChannelEstimator.cpp; path = ../../../libTapirSrc/ChannelEstimator.cpp; sourceTree = "<group>"; };
-		ECA9F1F218B224A700F84065 /* ChannelEstimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelEstimator.h; path = ../../../libTapirSrc/ChannelEstimator.h; sourceTree = "<group>"; };
-		ECA9F1F318B224A700F84065 /* CircularQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircularQueue.h; path = ../../../libTapirSrc/CircularQueue.h; sourceTree = "<group>"; };
-		ECA9F1F418B224A700F84065 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../../../libTapirSrc/Config.cpp; sourceTree = "<group>"; };
-		ECA9F1F518B224A700F84065 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../../../libTapirSrc/Config.h; sourceTree = "<group>"; };
-		ECA9F1F618B224A700F84065 /* Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Decoder.cpp; path = ../../../libTapirSrc/Decoder.cpp; sourceTree = "<group>"; };
-		ECA9F1F718B224A700F84065 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Decoder.h; path = ../../../libTapirSrc/Decoder.h; sourceTree = "<group>"; };
-		ECA9F1F818B224A700F84065 /* Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Encoder.cpp; path = ../../../libTapirSrc/Encoder.cpp; sourceTree = "<group>"; };
-		ECA9F1F918B224A700F84065 /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Encoder.h; path = ../../../libTapirSrc/Encoder.h; sourceTree = "<group>"; };
-		ECA9F1FA18B224A700F84065 /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Filter.cpp; path = ../../../libTapirSrc/Filter.cpp; sourceTree = "<group>"; };
-		ECA9F1FB18B224A700F84065 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Filter.h; path = ../../../libTapirSrc/Filter.h; sourceTree = "<group>"; };
-		ECA9F1FC18B224A700F84065 /* Interleaver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interleaver.cpp; path = ../../../libTapirSrc/Interleaver.cpp; sourceTree = "<group>"; };
-		ECA9F1FD18B224A700F84065 /* Interleaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interleaver.h; path = ../../../libTapirSrc/Interleaver.h; sourceTree = "<group>"; };
-		ECA9F1FE18B224A700F84065 /* Modulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Modulator.cpp; path = ../../../libTapirSrc/Modulator.cpp; sourceTree = "<group>"; };
-		ECA9F1FF18B224A700F84065 /* Modulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Modulator.h; path = ../../../libTapirSrc/Modulator.h; sourceTree = "<group>"; };
-		ECA9F20018B224A700F84065 /* PilotManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PilotManager.cpp; path = ../../../libTapirSrc/PilotManager.cpp; sourceTree = "<group>"; };
-		ECA9F20118B224A700F84065 /* PilotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PilotManager.h; path = ../../../libTapirSrc/PilotManager.h; sourceTree = "<group>"; };
-		ECA9F20218B224A700F84065 /* SignalAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SignalAnalyzer.cpp; path = ../../../libTapirSrc/SignalAnalyzer.cpp; sourceTree = "<group>"; };
-		ECA9F20318B224A700F84065 /* SignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignalAnalyzer.h; path = ../../../libTapirSrc/SignalAnalyzer.h; sourceTree = "<group>"; };
-		ECA9F20418B224A700F84065 /* SignalDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SignalDetector.cpp; path = ../../../libTapirSrc/SignalDetector.cpp; sourceTree = "<group>"; };
-		ECA9F20518B224A700F84065 /* SignalDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignalDetector.h; path = ../../../libTapirSrc/SignalDetector.h; sourceTree = "<group>"; };
-		ECA9F20618B224A700F84065 /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SignalGenerator.cpp; path = ../../../libTapirSrc/SignalGenerator.cpp; sourceTree = "<group>"; };
-		ECA9F20718B224A700F84065 /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignalGenerator.h; path = ../../../libTapirSrc/SignalGenerator.h; sourceTree = "<group>"; };
-		ECA9F20818B224A700F84065 /* TapirDSP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TapirDSP.cpp; path = ../../../libTapirSrc/TapirDSP.cpp; sourceTree = "<group>"; };
-		ECA9F20918B224A700F84065 /* TapirDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapirDSP.h; path = ../../../libTapirSrc/TapirDSP.h; sourceTree = "<group>"; };
-		ECA9F20A18B224A700F84065 /* TapirLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapirLib.h; path = ../../../libTapirSrc/TapirLib.h; sourceTree = "<group>"; };
-		ECA9F20B18B224A700F84065 /* TrellisCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TrellisCode.cpp; path = ../../../libTapirSrc/TrellisCode.cpp; sourceTree = "<group>"; };
-		ECA9F20C18B224A700F84065 /* TrellisCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrellisCode.h; path = ../../../libTapirSrc/TrellisCode.h; sourceTree = "<group>"; };
-		ECA9F20D18B224A700F84065 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utilities.cpp; path = ../../../libTapirSrc/Utilities.cpp; sourceTree = "<group>"; };
-		ECA9F20E18B224A700F84065 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = ../../../libTapirSrc/Utilities.h; sourceTree = "<group>"; };
-		ECA9F22F18B224BA00F84065 /* ObjcFuncBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjcFuncBridge.h; path = ../../libTapirSrc/iOS/ObjcFuncBridge.h; sourceTree = "<group>"; };
-		ECA9F23018B224BA00F84065 /* TapirFreqOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapirFreqOffset.h; path = ../../libTapirSrc/iOS/TapirFreqOffset.h; sourceTree = "<group>"; };
-		ECA9F23118B224BA00F84065 /* TapirFreqOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapirFreqOffset.m; path = ../../libTapirSrc/iOS/TapirFreqOffset.m; sourceTree = "<group>"; };
+		EC50C47918B2952A005470FB /* AutoCorrelator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCorrelator.h; sourceTree = "<group>"; };
+		EC50C47A18B2952A005470FB /* ChannelEstimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelEstimator.h; sourceTree = "<group>"; };
+		EC50C47B18B2952A005470FB /* CircularQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularQueue.h; sourceTree = "<group>"; };
+		EC50C47C18B2952A005470FB /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		EC50C47D18B2952A005470FB /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		EC50C47E18B2952A005470FB /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
+		EC50C47F18B2952A005470FB /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		EC50C48018B2952A005470FB /* Interleaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interleaver.h; sourceTree = "<group>"; };
+		EC50C48218B2952A005470FB /* ObjcFuncBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcFuncBridge.h; sourceTree = "<group>"; };
+		EC50C48318B2952A005470FB /* TapirFreqOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirFreqOffset.h; sourceTree = "<group>"; };
+		EC50C48418B2952A005470FB /* Modulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modulator.h; sourceTree = "<group>"; };
+		EC50C48518B2952A005470FB /* PilotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PilotManager.h; sourceTree = "<group>"; };
+		EC50C48618B2952A005470FB /* SignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalAnalyzer.h; sourceTree = "<group>"; };
+		EC50C48718B2952A005470FB /* SignalDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalDetector.h; sourceTree = "<group>"; };
+		EC50C48818B2952A005470FB /* SignalGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalGenerator.h; sourceTree = "<group>"; };
+		EC50C48918B2952A005470FB /* TapirDSP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirDSP.h; sourceTree = "<group>"; };
+		EC50C48A18B2952A005470FB /* TapirLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirLib.h; sourceTree = "<group>"; };
+		EC50C48B18B2952A005470FB /* TrellisCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrellisCode.h; sourceTree = "<group>"; };
+		EC50C48C18B2952A005470FB /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		EC50C48E18B2952A005470FB /* AutoCorrelator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoCorrelator.cpp; sourceTree = "<group>"; };
+		EC50C48F18B2952A005470FB /* ChannelEstimator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChannelEstimator.cpp; sourceTree = "<group>"; };
+		EC50C49018B2952A005470FB /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
+		EC50C49118B2952A005470FB /* Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decoder.cpp; sourceTree = "<group>"; };
+		EC50C49218B2952A005470FB /* Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Encoder.cpp; sourceTree = "<group>"; };
+		EC50C49318B2952A005470FB /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
+		EC50C49418B2952A005470FB /* Interleaver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interleaver.cpp; sourceTree = "<group>"; };
+		EC50C49618B2952A005470FB /* TapirFreqOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirFreqOffset.m; sourceTree = "<group>"; };
+		EC50C49718B2952A005470FB /* Modulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Modulator.cpp; sourceTree = "<group>"; };
+		EC50C49818B2952A005470FB /* PilotManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PilotManager.cpp; sourceTree = "<group>"; };
+		EC50C49918B2952A005470FB /* SignalAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalAnalyzer.cpp; sourceTree = "<group>"; };
+		EC50C49A18B2952A005470FB /* SignalDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalDetector.cpp; sourceTree = "<group>"; };
+		EC50C49B18B2952A005470FB /* SignalGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalGenerator.cpp; sourceTree = "<group>"; };
+		EC50C49C18B2952A005470FB /* TapirDSP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TapirDSP.cpp; sourceTree = "<group>"; };
+		EC50C49D18B2952A005470FB /* TrellisCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrellisCode.cpp; sourceTree = "<group>"; };
+		EC50C49E18B2952A005470FB /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,39 +161,8 @@
 		EC0EEF70183A4A51001BC8DE /* TapirLib */ = {
 			isa = PBXGroup;
 			children = (
-				ECA9F1EF18B224A700F84065 /* AutoCorrelator.cpp */,
-				ECA9F1F018B224A700F84065 /* AutoCorrelator.h */,
-				ECA9F1F118B224A700F84065 /* ChannelEstimator.cpp */,
-				ECA9F1F218B224A700F84065 /* ChannelEstimator.h */,
-				ECA9F1F318B224A700F84065 /* CircularQueue.h */,
-				ECA9F1F418B224A700F84065 /* Config.cpp */,
-				ECA9F1F518B224A700F84065 /* Config.h */,
-				ECA9F1F618B224A700F84065 /* Decoder.cpp */,
-				ECA9F1F718B224A700F84065 /* Decoder.h */,
-				ECA9F1F818B224A700F84065 /* Encoder.cpp */,
-				ECA9F1F918B224A700F84065 /* Encoder.h */,
-				ECA9F1FA18B224A700F84065 /* Filter.cpp */,
-				ECA9F1FB18B224A700F84065 /* Filter.h */,
-				ECA9F1FC18B224A700F84065 /* Interleaver.cpp */,
-				ECA9F1FD18B224A700F84065 /* Interleaver.h */,
-				ECA9F1FE18B224A700F84065 /* Modulator.cpp */,
-				ECA9F1FF18B224A700F84065 /* Modulator.h */,
-				ECA9F20018B224A700F84065 /* PilotManager.cpp */,
-				ECA9F20118B224A700F84065 /* PilotManager.h */,
-				ECA9F20218B224A700F84065 /* SignalAnalyzer.cpp */,
-				ECA9F20318B224A700F84065 /* SignalAnalyzer.h */,
-				ECA9F20418B224A700F84065 /* SignalDetector.cpp */,
-				ECA9F20518B224A700F84065 /* SignalDetector.h */,
-				ECA9F20618B224A700F84065 /* SignalGenerator.cpp */,
-				ECA9F20718B224A700F84065 /* SignalGenerator.h */,
-				ECA9F20818B224A700F84065 /* TapirDSP.cpp */,
-				ECA9F20918B224A700F84065 /* TapirDSP.h */,
-				ECA9F20A18B224A700F84065 /* TapirLib.h */,
-				ECA9F20B18B224A700F84065 /* TrellisCode.cpp */,
-				ECA9F20C18B224A700F84065 /* TrellisCode.h */,
-				ECA9F20D18B224A700F84065 /* Utilities.cpp */,
-				ECA9F20E18B224A700F84065 /* Utilities.h */,
-				EC8E340218B1E87000A2D0FF /* iOS */,
+				EC50C47818B2952A005470FB /* include */,
+				EC50C48D18B2952A005470FB /* src */,
 				EC0EEF71183A4A51001BC8DE /* Supporting Files */,
 			);
 			path = TapirLib;
@@ -242,15 +211,71 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EC8E340218B1E87000A2D0FF /* iOS */ = {
+		EC50C47818B2952A005470FB /* include */ = {
 			isa = PBXGroup;
 			children = (
-				ECA9F22F18B224BA00F84065 /* ObjcFuncBridge.h */,
-				ECA9F23018B224BA00F84065 /* TapirFreqOffset.h */,
-				ECA9F23118B224BA00F84065 /* TapirFreqOffset.m */,
+				EC50C48118B2952A005470FB /* iOS */,
+				EC50C47918B2952A005470FB /* AutoCorrelator.h */,
+				EC50C47A18B2952A005470FB /* ChannelEstimator.h */,
+				EC50C47B18B2952A005470FB /* CircularQueue.h */,
+				EC50C47C18B2952A005470FB /* Config.h */,
+				EC50C47D18B2952A005470FB /* Decoder.h */,
+				EC50C47E18B2952A005470FB /* Encoder.h */,
+				EC50C47F18B2952A005470FB /* Filter.h */,
+				EC50C48018B2952A005470FB /* Interleaver.h */,
+				EC50C48418B2952A005470FB /* Modulator.h */,
+				EC50C48518B2952A005470FB /* PilotManager.h */,
+				EC50C48618B2952A005470FB /* SignalAnalyzer.h */,
+				EC50C48718B2952A005470FB /* SignalDetector.h */,
+				EC50C48818B2952A005470FB /* SignalGenerator.h */,
+				EC50C48918B2952A005470FB /* TapirDSP.h */,
+				EC50C48A18B2952A005470FB /* TapirLib.h */,
+				EC50C48B18B2952A005470FB /* TrellisCode.h */,
+				EC50C48C18B2952A005470FB /* Utilities.h */,
 			);
-			name = iOS;
-			path = ../../../TapirLib/iOS;
+			name = include;
+			path = ../../../libTapir/include;
+			sourceTree = "<group>";
+		};
+		EC50C48118B2952A005470FB /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EC50C48218B2952A005470FB /* ObjcFuncBridge.h */,
+				EC50C48318B2952A005470FB /* TapirFreqOffset.h */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		EC50C48D18B2952A005470FB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				EC50C49518B2952A005470FB /* iOS */,
+				EC50C48E18B2952A005470FB /* AutoCorrelator.cpp */,
+				EC50C48F18B2952A005470FB /* ChannelEstimator.cpp */,
+				EC50C49018B2952A005470FB /* Config.cpp */,
+				EC50C49118B2952A005470FB /* Decoder.cpp */,
+				EC50C49218B2952A005470FB /* Encoder.cpp */,
+				EC50C49318B2952A005470FB /* Filter.cpp */,
+				EC50C49418B2952A005470FB /* Interleaver.cpp */,
+				EC50C49718B2952A005470FB /* Modulator.cpp */,
+				EC50C49818B2952A005470FB /* PilotManager.cpp */,
+				EC50C49918B2952A005470FB /* SignalAnalyzer.cpp */,
+				EC50C49A18B2952A005470FB /* SignalDetector.cpp */,
+				EC50C49B18B2952A005470FB /* SignalGenerator.cpp */,
+				EC50C49C18B2952A005470FB /* TapirDSP.cpp */,
+				EC50C49D18B2952A005470FB /* TrellisCode.cpp */,
+				EC50C49E18B2952A005470FB /* Utilities.cpp */,
+			);
+			name = src;
+			path = ../../../libTapir/src;
+			sourceTree = "<group>";
+		};
+		EC50C49518B2952A005470FB /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EC50C49618B2952A005470FB /* TapirFreqOffset.m */,
+			);
+			path = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,25 +285,25 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECA9F22E18B224A700F84065 /* Utilities.h in Headers */,
-				ECA9F21B18B224A700F84065 /* Filter.h in Headers */,
-				ECA9F21518B224A700F84065 /* Config.h in Headers */,
-				ECA9F22718B224A700F84065 /* SignalGenerator.h in Headers */,
-				ECA9F21718B224A700F84065 /* Decoder.h in Headers */,
-				ECA9F21218B224A700F84065 /* ChannelEstimator.h in Headers */,
-				ECA9F22918B224A700F84065 /* TapirDSP.h in Headers */,
-				ECA9F21F18B224A700F84065 /* Modulator.h in Headers */,
-				ECA9F22A18B224A700F84065 /* TapirLib.h in Headers */,
-				ECA9F22118B224A700F84065 /* PilotManager.h in Headers */,
-				ECA9F21D18B224A700F84065 /* Interleaver.h in Headers */,
-				ECA9F21318B224A700F84065 /* CircularQueue.h in Headers */,
-				ECA9F22518B224A700F84065 /* SignalDetector.h in Headers */,
-				ECA9F23318B224BA00F84065 /* TapirFreqOffset.h in Headers */,
-				ECA9F23218B224BA00F84065 /* ObjcFuncBridge.h in Headers */,
-				ECA9F21018B224A700F84065 /* AutoCorrelator.h in Headers */,
-				ECA9F22318B224A700F84065 /* SignalAnalyzer.h in Headers */,
-				ECA9F21918B224A700F84065 /* Encoder.h in Headers */,
-				ECA9F22C18B224A700F84065 /* TrellisCode.h in Headers */,
+				EC50C4B118B2952A005470FB /* Utilities.h in Headers */,
+				EC50C4A818B2952A005470FB /* TapirFreqOffset.h in Headers */,
+				EC50C4A218B2952A005470FB /* Config.h in Headers */,
+				EC50C4AD18B2952A005470FB /* SignalGenerator.h in Headers */,
+				EC50C49F18B2952A005470FB /* AutoCorrelator.h in Headers */,
+				EC50C4A318B2952A005470FB /* Decoder.h in Headers */,
+				EC50C4A418B2952A005470FB /* Encoder.h in Headers */,
+				EC50C4A718B2952A005470FB /* ObjcFuncBridge.h in Headers */,
+				EC50C4AE18B2952A005470FB /* TapirDSP.h in Headers */,
+				EC50C4A918B2952A005470FB /* Modulator.h in Headers */,
+				EC50C4AF18B2952A005470FB /* TapirLib.h in Headers */,
+				EC50C4AA18B2952A005470FB /* PilotManager.h in Headers */,
+				EC50C4A618B2952A005470FB /* Interleaver.h in Headers */,
+				EC50C4A518B2952A005470FB /* Filter.h in Headers */,
+				EC50C4AC18B2952A005470FB /* SignalDetector.h in Headers */,
+				EC50C4A018B2952A005470FB /* ChannelEstimator.h in Headers */,
+				EC50C4AB18B2952A005470FB /* SignalAnalyzer.h in Headers */,
+				EC50C4A118B2952A005470FB /* CircularQueue.h in Headers */,
+				EC50C4B018B2952A005470FB /* TrellisCode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,22 +421,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECA9F21E18B224A700F84065 /* Modulator.cpp in Sources */,
-				ECA9F23418B224BA00F84065 /* TapirFreqOffset.m in Sources */,
-				ECA9F21C18B224A700F84065 /* Interleaver.cpp in Sources */,
-				ECA9F21418B224A700F84065 /* Config.cpp in Sources */,
-				ECA9F21818B224A700F84065 /* Encoder.cpp in Sources */,
-				ECA9F21A18B224A700F84065 /* Filter.cpp in Sources */,
-				ECA9F22818B224A700F84065 /* TapirDSP.cpp in Sources */,
-				ECA9F22018B224A700F84065 /* PilotManager.cpp in Sources */,
-				ECA9F22418B224A700F84065 /* SignalDetector.cpp in Sources */,
-				ECA9F21118B224A700F84065 /* ChannelEstimator.cpp in Sources */,
-				ECA9F22D18B224A700F84065 /* Utilities.cpp in Sources */,
-				ECA9F20F18B224A700F84065 /* AutoCorrelator.cpp in Sources */,
-				ECA9F22218B224A700F84065 /* SignalAnalyzer.cpp in Sources */,
-				ECA9F21618B224A700F84065 /* Decoder.cpp in Sources */,
-				ECA9F22B18B224A700F84065 /* TrellisCode.cpp in Sources */,
-				ECA9F22618B224A700F84065 /* SignalGenerator.cpp in Sources */,
+				EC50C4BA18B2952A005470FB /* Modulator.cpp in Sources */,
+				EC50C4B818B2952A005470FB /* Interleaver.cpp in Sources */,
+				EC50C4B918B2952A005470FB /* TapirFreqOffset.m in Sources */,
+				EC50C4B418B2952A005470FB /* Config.cpp in Sources */,
+				EC50C4B718B2952A005470FB /* Filter.cpp in Sources */,
+				EC50C4B318B2952A005470FB /* ChannelEstimator.cpp in Sources */,
+				EC50C4BF18B2952A005470FB /* TapirDSP.cpp in Sources */,
+				EC50C4BB18B2952A005470FB /* PilotManager.cpp in Sources */,
+				EC50C4BD18B2952A005470FB /* SignalDetector.cpp in Sources */,
+				EC50C4B518B2952A005470FB /* Decoder.cpp in Sources */,
+				EC50C4C118B2952A005470FB /* Utilities.cpp in Sources */,
+				EC50C4B218B2952A005470FB /* AutoCorrelator.cpp in Sources */,
+				EC50C4BC18B2952A005470FB /* SignalAnalyzer.cpp in Sources */,
+				EC50C4B618B2952A005470FB /* Encoder.cpp in Sources */,
+				EC50C4C018B2952A005470FB /* TrellisCode.cpp in Sources */,
+				EC50C4BE18B2952A005470FB /* SignalGenerator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

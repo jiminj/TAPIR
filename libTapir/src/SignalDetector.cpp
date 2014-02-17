@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "SignalDetector.h"
+#include "../include/SignalDetector.h"
 
 namespace Tapir {
     SignalDetector::SignalDetector(const int frameSize, std::function<void(float *)> callback)

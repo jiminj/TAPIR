@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#include "Modulator.h"
+#include "../include/Modulator.h"
 
 namespace Tapir
 {

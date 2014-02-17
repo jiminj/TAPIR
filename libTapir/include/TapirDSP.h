@@ -18,6 +18,7 @@
 #include <arm_neon.h>
 #endif
 
+#include <algorithm>
 
 namespace TapirDSP {
     

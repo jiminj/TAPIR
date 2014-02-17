@@ -9,6 +9,7 @@
 #ifndef __TapirLib__Utilities__
 #define __TapirLib__Utilities__
 
+#include <cmath>
 #include "TapirDSP.h"
 
 namespace Tapir {
