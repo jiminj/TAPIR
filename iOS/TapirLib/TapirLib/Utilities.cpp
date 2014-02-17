@@ -114,13 +114,17 @@ void divdeIntIntoBits(const int src, int * arr, int arrLength)
 //FFT
     
 FFT::FFT(const int fftLength)
-:m_logLen(calculateLogLength(fftLength)),
-m_fftSetup(vDSP_create_fftsetup(m_logLen, FFT_RADIX2))
+:m_logLen(calculateLogLength(fftLength))
+#ifdef __APPLE__
+, m_fftSetup( vDSP_create_fftsetup(m_logLen, FFT_RADIX2) )
+#endif
 {};
 
 FFT::~FFT()
 {
+#ifdef __APPLE__
     vDSP_destroy_fftsetup(m_fftSetup);
+#endif
 };
 
 int FFT::calculateLogLength(int length)
@@ -137,8 +141,10 @@ int FFT::calculateLogLength(int length)
     
 void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FftDirection direction)
 {
+#ifdef __APPLE__
     int fftDirection = (direction == FORWARD) ? FFT_FORWARD : FFT_INVERSE;
     vDSP_fft_zop(m_fftSetup, src, 1, dest, 1, m_logLen, fftDirection);
+#endif
 };
     
     
