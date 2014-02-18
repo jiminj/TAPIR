@@ -6,9 +6,14 @@ xcuserdata/
 *.swp
 *~.nib
 
+#For Android
+
 .metadata/
 .settings/
+
 bin/
 gen/
 obj/
+libs/
+libtapir-build/
 
