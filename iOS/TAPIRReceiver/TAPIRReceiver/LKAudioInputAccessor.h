@@ -28,7 +28,7 @@ static const int kNumBuffers = 3;
 
     AVAudioSession *             audioSession;
     
-    Tapir::FilterFIR * filter;
+//    Tapir::FilterFIR * filter;
     float *floatBuf;
     Tapir::SignalDetector * detector;
 

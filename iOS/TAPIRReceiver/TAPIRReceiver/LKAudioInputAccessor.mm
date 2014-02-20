@@ -49,7 +49,7 @@ static void HandleInputBuffer (void                                *audioInput,
         audioDesc.mBytesPerPacket   = audioDesc.mBytesPerFrame * audioDesc.mFramesPerPacket;
         
         frameLength = length;
-        filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
+//        filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
         floatBuf = new float[frameLength];
         
         
@@ -99,7 +99,7 @@ static void HandleInputBuffer (void                                *audioInput,
     { AudioQueueFreeBuffer(audioQueue, buffer[i]); }
     AudioQueueDispose(audioQueue, true);
     delete [] floatBuf;
-    delete filter;
+//    delete filter;
 }
 
 
