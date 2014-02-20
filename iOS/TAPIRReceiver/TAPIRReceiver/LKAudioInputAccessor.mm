@@ -58,6 +58,19 @@ static void HandleInputBuffer (void                                *audioInput,
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
         
+        
+        //FileHandle
+        NSString * docFilePath =[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"rcvSignal.log"];
+        fileHandle = [NSFileHandle fileHandleForWritingAtPath:docFilePath];
+        if(fileHandle == NULL)
+        {
+            [[NSFileManager defaultManager] createFileAtPath:docFilePath contents:nil attributes:nil];
+            fileHandle = [NSFileHandle fileHandleForWritingAtPath:docFilePath];
+        }
+        
+        
+        
+        
     }
     return self;
 }
@@ -72,7 +85,7 @@ static void HandleInputBuffer (void                                *audioInput,
     NSLog(@"Start Recording");
     // prepare audio buffer
     for (int i = 0; i < kNumBuffers; ++i) {
-        AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
+        AudioQueueAllocateBuffer (audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
         AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
     }
     AudioQueueStart(audioQueue, NULL);
@@ -87,9 +100,15 @@ static void HandleInputBuffer (void                                *audioInput,
 {
     TapirDSP::vflt16(inputBuffer, 1, floatBuf, 1, length);
     TapirDSP::vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
-    
     //convert SInt16 array to float, and scale them (set max value to 1.0)
-
+    
+    NSMutableString * resultString = [[NSMutableString alloc] init];
+    for(int i=0; i<length; ++i)
+    {
+        [resultString appendFormat:@"%f\n", floatBuf[i]];
+    }
+    [fileHandle writeData:[resultString dataUsingEncoding:NSUTF8StringEncoding]];
+    
     detector->detect(floatBuf);
 }
 

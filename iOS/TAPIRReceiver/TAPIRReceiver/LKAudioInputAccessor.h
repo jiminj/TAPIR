@@ -32,6 +32,8 @@ static const int kNumBuffers = 3;
     float *floatBuf;
     Tapir::SignalDetector * detector;
 
+    NSFileHandle * fileHandle;
+    
 }
 
 - (id) initWithFrameSize:(int)length detector:(Tapir::SignalDetector *)_detector;

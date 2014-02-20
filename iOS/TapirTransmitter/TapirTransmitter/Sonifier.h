@@ -37,6 +37,7 @@ static const float kShortMax = (float)(SHRT_MAX);
     int doneCnt;
     NSLock * outputLock;
 
+
 }
 
 @property int dataLength;
