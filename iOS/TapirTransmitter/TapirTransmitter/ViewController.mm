@@ -114,7 +114,6 @@
 
     encodedAudioData = new float[resultLength]();
     generator->generateSignal(stdInputStr, encodedAudioData, resultLength);
-    
     [sonifier transmit:encodedAudioData length:resultLength];
 
     [sendBtn setEnabled:FALSE];

@@ -10,6 +10,7 @@
 #define __TapirLib__SignalGenerator__
 
 #include <string>
+#include <iostream>
 
 #include "TapirDSP.h"
 #include "Config.h"
@@ -54,7 +55,7 @@ namespace Tapir {
         PskModulator * m_modulator;
         ConvEncoder * m_encoder;
         MatrixInterleaver * m_interleaver;
-        FilterFIR * m_filter;
+        Filter * m_filter;
         FFT * m_fft;
     };
 }

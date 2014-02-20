@@ -19,9 +19,14 @@ namespace Tapir {
     const int   Config::PREAMBLE_BIT_LENGTH = 4;
     const float Config::PREAMBLE_BITS [] = {-1.f, -1.f, -1.f, 1.f};
     const float Config::PREAMBLE_BANDWIDTH = 441.f;
+
+//    const int   Config::PREAMBLE_BIT_LENGTH = 7;
+//    const float Config::PREAMBLE_BITS [] = {-1.f, -1.f, -1.f, 1.f, 1.f, -1.f, 1.f};
+//    const float Config::PREAMBLE_BANDWIDTH = 882.f;
+    
     const int   Config::PREAMBLE_SAMPLE_LENGTH = static_cast<int>(AUDIO_SAMPLE_RATE / PREAMBLE_BANDWIDTH * PREAMBLE_BIT_LENGTH);
     
-    const int   Config::MAX_SYMBOL_LENGTH = 8;
+    const int   Config::MAX_SYMBOL_LENGTH = 4;
 //    const int   Config::SAMPLE_LENGTH_EACH_SYMBOL = 2048;
     const int   Config::SAMPLE_LENGTH_EACH_SYMBOL = 1024;
     const int   Config::SAMPLE_LENGTH_CYCLIC_PREFIX = Config::SAMPLE_LENGTH_EACH_SYMBOL / 2;
@@ -58,7 +63,7 @@ namespace Tapir {
     const unsigned long Config::ENCODING_RATE = TRELLIS_ARRAY.size();
     const int   Config::DATA_BIT_LENGTH = NO_DATA_SUBCARRIERS / ENCODING_RATE;
     
-    const int   Config::FILTER_GUARD_LENGTH = 100;
+    const int   Config::FILTER_GUARD_LENGTH = 500;
     const float Config::CORRELATOR_THRESHOLD = 30.f;
     
     

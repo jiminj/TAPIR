@@ -23,7 +23,7 @@ namespace Tapir{
     m_modulator(new Tapir::PskModulator(Tapir::Config::MODULATION_RATE)),
     m_encoder(new Tapir::ConvEncoder(Tapir::Config::TRELLIS_ARRAY)),
     m_interleaver(new Tapir::MatrixInterleaver(Tapir::Config::INTERLEAVER_ROWS, Tapir::Config::INTERLEAVER_COLS)),
-    m_filter(Tapir::TapirFilters::getTxRxHpf(calResultLength(Tapir::Config::MAX_SYMBOL_LENGTH))),
+    m_filter(Tapir::FilterCreator::create(calResultLength(Tapir::Config::MAX_SYMBOL_LENGTH), Tapir::FilterCreator::EQUIRIPPLE_19k_250)),
     m_fft(new Tapir::FFT(Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL))
     {};
 
@@ -53,7 +53,7 @@ namespace Tapir{
     {
         int retVal = Tapir::Config::PREAMBLE_SAMPLE_LENGTH * 2 + Tapir::Config::SAMPLE_LENGTH_INTERVAL_AFTER_PREAMBLE
         + (Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL_WITH_EXTENSION + Tapir::Config::SAMPLE_LENGTH_GUARD_INTERVAL) * strLength
-        - Tapir::Config::SAMPLE_LENGTH_GUARD_INTERVAL + Tapir::Config::FILTER_GUARD_LENGTH;
+        - Tapir::Config::SAMPLE_LENGTH_GUARD_INTERVAL + Tapir::Config::FILTER_GUARD_LENGTH * 2;
         
         return retVal;
     };
@@ -74,8 +74,10 @@ namespace Tapir{
         // TODO: LPF (for real and imag both)
         
         Tapir::iqModulate(&preamble, dest, lenPreamble, Tapir::Config::AUDIO_SAMPLE_RATE, m_carrier);
+        
         Tapir::maximizeSignal(dest, dest, lenPreamble, Tapir::Config::AUDIO_MAX_VOLUME);
         TapirDSP::copy(dest, dest + lenPreamble, dest + lenPreamble);
+
         
         delete [] preamble.realp;
         delete [] preamble.imagp;
@@ -135,7 +137,7 @@ namespace Tapir{
     void SignalGenerator::generateSignal(const std::string &inputString, float *dest, int destLength)
     {
 
-        float * destPtr = dest;
+        float * destPtr = dest + Tapir::Config::FILTER_GUARD_LENGTH;
         
         //Generate preamble
         generatePreamble(destPtr);
@@ -164,6 +166,7 @@ namespace Tapir{
         m_filter->process(dest, dest, destLength);
         m_filter->clearBuffer();
         Tapir::maximizeSignal(dest, dest, destLength, Tapir::Config::AUDIO_MAX_VOLUME);
+
     }
     
     
