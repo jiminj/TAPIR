@@ -9,6 +9,9 @@
 #ifndef __TapirLib__Filter__
 #define __TapirLib__Filter__
 #include "TapirDSP.h"
+#include <vector>
+#include <functional>
+#include <cmath>
 
 namespace Tapir {
 
@@ -18,6 +21,7 @@ namespace Tapir {
         virtual ~Filter() {};
         virtual void clearBuffer() = 0;
         virtual void process(const float * src, float * dest, int length) = 0;
+        virtual int getGroupDelay() = 0;
     };
 
     
@@ -28,7 +32,7 @@ namespace Tapir {
         FilterFIR(const float * coeff, const int filtOrder, const int maxBufferSize);
         void process(const float * src, float * dest, int length) ;
         void clearBuffer();
-        int getFilterOrder() { return m_order;};
+        int getGroupDelay() { return ceil(m_order / 2);};
 
         virtual ~FilterFIR();
 
@@ -59,14 +63,35 @@ namespace Tapir {
     };
 #endif
     
-    class TapirFilters
+    class FilterCreator
     {
     public:
-        static FilterFIR * getTxRxHpf(int maxBufSize);
+
+        enum FilterType //should match order to static vector of functions, 'functions'
+        {
+            HAMMING_19k_50 = 0,
+            CHEVYSHEV_19k_150,
+            CHEVYSHEV_19k_250,
+            EQUIRIPPLE_19k_250
+        };
+
+        static Filter * create(const int maxBufSize, FilterType fType);
+        
     protected:
-        TapirFilters();
-        static FilterFIR * txrxHpf;
+        
+        FilterCreator() {};
+        
+        static Filter * createHamming19k50(const int maxBufSize);
+        static Filter * createChevyshev19k150(const int maxBufSize);
+        static Filter * createChevyshev19k250(const int maxBufSize);
+        static Filter * createEquiripple19k250(const int maxBufSize);
+        
+        static const std::vector<std::function<Filter *(const int)> > filterCreateFuncs;
+        
     };
+
+    
+    
     
 };
 

@@ -11,7 +11,7 @@
 
 #ifdef __OBJC__
 
-#import "TapirFreqOffset.h"
+#import "DevicesSpecifications.h"
 #include "ObjcFuncBridge.h"
 
 #endif

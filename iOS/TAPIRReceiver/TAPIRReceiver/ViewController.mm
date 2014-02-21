@@ -29,8 +29,10 @@
 
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(signalDetected:));
-    signalDetector = new Tapir::SignalDetector(frameSize, callback);
-    signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getReceiverFreqOffsetOfDevice]);
+    signalDetector = new Tapir::SignalDetector(frameSize, [DevicesSpecifications getThreshold],callback);
+    NSLog(@"%f", [DevicesSpecifications getThreshold]);
+    
+    signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [DevicesSpecifications getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
@@ -58,7 +60,10 @@
     
     lastResultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
                                           encoding:[NSString defaultCStringEncoding]];
-    NSLog(@"%@", lastResultString);
+    
+    const char * firstChar = [[lastResultString substringToIndex:1] UTF8String];
+    int asciiCodeOfFirstChar = (int)(*firstChar);
+    NSLog(@"%@ // firstChar : %c(%d)", lastResultString, *firstChar, asciiCodeOfFirstChar);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterNoStyle];

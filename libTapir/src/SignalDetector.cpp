@@ -9,14 +9,14 @@
 #include "../include/SignalDetector.h"
 
 namespace Tapir {
-    SignalDetector::SignalDetector(const int frameSize, std::function<void(float *)> callback)
+    SignalDetector::SignalDetector(const int frameSize, const float correlationThreshold, std::function<void(float *)> callback)
     : m_frameSize(frameSize),
     m_filtered( new float[m_frameSize]() ),
     m_copyIdx(0),
     m_resultLength(Config::LENGTH_INPUT_BUFFER),
     m_result( new float[m_resultLength]() ),
-    m_hpf(Tapir::TapirFilters::getTxRxHpf(frameSize)),
-    m_correlator(frameSize * 3, frameSize, Config::PREAMBLE_SAMPLE_LENGTH, Config::CORRELATOR_THRESHOLD),
+    m_hpf(Tapir::FilterCreator::create(frameSize, Tapir::FilterCreator::HAMMING_19k_50)),
+    m_correlator(frameSize * 3, frameSize, Config::PREAMBLE_SAMPLE_LENGTH, correlationThreshold),
     m_corrBufferLength(Config::PREAMBLE_SAMPLE_LENGTH),
     m_isSignalFound(false),
     m_callback(callback)

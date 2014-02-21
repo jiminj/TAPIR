@@ -251,7 +251,7 @@ function selCarrierFreq_SelectionChangeFcn(hObject, eventdata, handles)
         case handles.radioFc19k
             Fc = 19000;
         case handles.radioFc20k
-            Fc = 20000 + 3;            
+            Fc = 20000;            
     end
         
     

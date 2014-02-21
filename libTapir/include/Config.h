@@ -63,7 +63,7 @@ namespace Tapir{
         static const int    DATA_BIT_LENGTH;
         
         static const int    FILTER_GUARD_LENGTH;
-        static const float  CORRELATOR_THRESHOLD;
+//        static const float  CORRELATOR_THRESHOLD;
     private:
         
         static float pilotRealp [];
