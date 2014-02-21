@@ -25,7 +25,7 @@
 		EC50C4A518B2952A005470FB /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C47F18B2952A005470FB /* Filter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC50C4A618B2952A005470FB /* Interleaver.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48018B2952A005470FB /* Interleaver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC50C4A718B2952A005470FB /* ObjcFuncBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48218B2952A005470FB /* ObjcFuncBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC50C4A818B2952A005470FB /* TapirFreqOffset.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48318B2952A005470FB /* TapirFreqOffset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC50C4A818B2952A005470FB /* DevicesSpecifications.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48318B2952A005470FB /* DevicesSpecifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC50C4A918B2952A005470FB /* Modulator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48418B2952A005470FB /* Modulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC50C4AA18B2952A005470FB /* PilotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48518B2952A005470FB /* PilotManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC50C4AB18B2952A005470FB /* SignalAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = EC50C48618B2952A005470FB /* SignalAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,7 +42,7 @@
 		EC50C4B618B2952A005470FB /* Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49218B2952A005470FB /* Encoder.cpp */; };
 		EC50C4B718B2952A005470FB /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49318B2952A005470FB /* Filter.cpp */; };
 		EC50C4B818B2952A005470FB /* Interleaver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49418B2952A005470FB /* Interleaver.cpp */; };
-		EC50C4B918B2952A005470FB /* TapirFreqOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49618B2952A005470FB /* TapirFreqOffset.m */; };
+		EC50C4B918B2952A005470FB /* DevicesSpecifications.m in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49618B2952A005470FB /* DevicesSpecifications.m */; };
 		EC50C4BA18B2952A005470FB /* Modulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49718B2952A005470FB /* Modulator.cpp */; };
 		EC50C4BB18B2952A005470FB /* PilotManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49818B2952A005470FB /* PilotManager.cpp */; };
 		EC50C4BC18B2952A005470FB /* SignalAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC50C49918B2952A005470FB /* SignalAnalyzer.cpp */; };
@@ -89,7 +89,7 @@
 		EC50C47F18B2952A005470FB /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		EC50C48018B2952A005470FB /* Interleaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interleaver.h; sourceTree = "<group>"; };
 		EC50C48218B2952A005470FB /* ObjcFuncBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcFuncBridge.h; sourceTree = "<group>"; };
-		EC50C48318B2952A005470FB /* TapirFreqOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirFreqOffset.h; sourceTree = "<group>"; };
+		EC50C48318B2952A005470FB /* DevicesSpecifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesSpecifications.h; sourceTree = "<group>"; };
 		EC50C48418B2952A005470FB /* Modulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Modulator.h; sourceTree = "<group>"; };
 		EC50C48518B2952A005470FB /* PilotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PilotManager.h; sourceTree = "<group>"; };
 		EC50C48618B2952A005470FB /* SignalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalAnalyzer.h; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		EC50C49218B2952A005470FB /* Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Encoder.cpp; sourceTree = "<group>"; };
 		EC50C49318B2952A005470FB /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
 		EC50C49418B2952A005470FB /* Interleaver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interleaver.cpp; sourceTree = "<group>"; };
-		EC50C49618B2952A005470FB /* TapirFreqOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapirFreqOffset.m; sourceTree = "<group>"; };
+		EC50C49618B2952A005470FB /* DevicesSpecifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesSpecifications.m; sourceTree = "<group>"; };
 		EC50C49718B2952A005470FB /* Modulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Modulator.cpp; sourceTree = "<group>"; };
 		EC50C49818B2952A005470FB /* PilotManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PilotManager.cpp; sourceTree = "<group>"; };
 		EC50C49918B2952A005470FB /* SignalAnalyzer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SignalAnalyzer.cpp; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				EC50C48218B2952A005470FB /* ObjcFuncBridge.h */,
-				EC50C48318B2952A005470FB /* TapirFreqOffset.h */,
+				EC50C48318B2952A005470FB /* DevicesSpecifications.h */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 		EC50C49518B2952A005470FB /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				EC50C49618B2952A005470FB /* TapirFreqOffset.m */,
+				EC50C49618B2952A005470FB /* DevicesSpecifications.m */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -286,7 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC50C4B118B2952A005470FB /* Utilities.h in Headers */,
-				EC50C4A818B2952A005470FB /* TapirFreqOffset.h in Headers */,
+				EC50C4A818B2952A005470FB /* DevicesSpecifications.h in Headers */,
 				EC50C4A218B2952A005470FB /* Config.h in Headers */,
 				EC50C4AD18B2952A005470FB /* SignalGenerator.h in Headers */,
 				EC50C49F18B2952A005470FB /* AutoCorrelator.h in Headers */,
@@ -423,7 +423,7 @@
 			files = (
 				EC50C4BA18B2952A005470FB /* Modulator.cpp in Sources */,
 				EC50C4B818B2952A005470FB /* Interleaver.cpp in Sources */,
-				EC50C4B918B2952A005470FB /* TapirFreqOffset.m in Sources */,
+				EC50C4B918B2952A005470FB /* DevicesSpecifications.m in Sources */,
 				EC50C4B418B2952A005470FB /* Config.cpp in Sources */,
 				EC50C4B718B2952A005470FB /* Filter.cpp in Sources */,
 				EC50C4B318B2952A005470FB /* ChannelEstimator.cpp in Sources */,

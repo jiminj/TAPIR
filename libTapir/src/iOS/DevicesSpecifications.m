@@ -6,31 +6,41 @@
 //  Copyright (c) 2014 Jimin Jeon. All rights reserved.
 //
 
-#import "TapirFreqOffset.h"
+#import "../../include/iOS/DevicesSpecifications.h"
 
-@implementation TapirFreqOffset
+@implementation DevicesSpecifications
 
-+ (float)getTransmitterFreqOffsetOfDevice
++ (float)getTransmitterFreqOffset
 {
-    NSString * platform = [TapirFreqOffset getPlatform];
-    float ret = 0.f;
+    NSString * platform = [DevicesSpecifications getPlatform];
+    if([platform hasPrefix:@"iPod"]) // iPod Touch
+    { return (-8.f); }
     
-    return ret;
+    return 0.f;
 };
 + (float)getTransmitterFreqOffsetUsingBuiltInSpeaker
 {
-    NSString * platform = [TapirFreqOffset getPlatform];
-    float ret = 0.f;
-    
-    return ret;
+//    NSString * platform = [DevicesSpecifications getPlatform];
+    return 0.f;
 }
-+ (float) getReceiverFreqOffsetOfDevice
++ (float) getReceiverFreqOffset
 {
-    NSString * platform = [TapirFreqOffset getPlatform];
-    float ret = 0.f;
-
-    return ret;
+//    NSString * platform = [DevicesSpecifications getPlatform];
+    return 0.f;
 };
+
++ (float) getThreshold
+{
+    NSString * platform = [DevicesSpecifications getPlatform];
+    if([platform hasPrefix:@"iPhone5"]) // 5
+    { return 1.f; }
+    else if([platform hasPrefix:@"iPhone6"]) // 5s
+    { return 0.3f; }
+    else
+    { return 0.1f; }
+}
+
+
 + (NSString *) getPlatform
 {
     size_t size;

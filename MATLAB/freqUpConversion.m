@@ -14,7 +14,7 @@ function result = freqUpConversion( signal, Fc, Fs)
     modulatedSig = rePulse + imPulse;
 
     % Scaling
-    modulatedSig = modulatedSig * (0.95 / max(abs(modulatedSig)));
+    modulatedSig = modulatedSig * (0.85 / max(abs(modulatedSig)));
     result = modulatedSig;
 end
 

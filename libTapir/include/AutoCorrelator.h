@@ -11,7 +11,6 @@
 #include "CircularQueue.h"
 #include "TapirDSP.h"
 #include <vector>
-#include <iostream>
 #include <cmath>
 
 namespace Tapir {

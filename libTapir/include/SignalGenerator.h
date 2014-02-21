@@ -10,7 +10,6 @@
 #define __TapirLib__SignalGenerator__
 
 #include <string>
-#include <iostream>
 
 #include "TapirDSP.h"
 #include "Config.h"

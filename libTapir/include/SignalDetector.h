@@ -19,7 +19,7 @@ namespace Tapir {
     class SignalDetector
     {
     public:
-        SignalDetector(const int frameSize, std::function<void(float *)> callback);
+        SignalDetector(const int frameSize, const float correlationThreshold, std::function<void(float *)> callback);
         virtual ~SignalDetector();
         
         void detect(const float * frame);

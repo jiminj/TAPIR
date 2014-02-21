@@ -53,7 +53,7 @@ namespace Tapir {
             
             TapirDSP::dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
             TapirDSP::svemg(lastHalf, 1, &mag, m_lag);
-            corrResult /= (mag / m_lag);
+//            corrResult /= (mag / m_lag);
             corrResult = fabsf(corrResult);
 
             if((!m_isTracking) && (corrResult > m_threshold))

@@ -21,7 +21,8 @@
 {
     [super viewDidLoad];
 
-    generator = new Tapir::SignalGenerator(Tapir::Config::CARRIER_FREQUENCY_BASE + [TapirFreqOffset getTransmitterFreqOffsetOfDevice]);
+    generator = new Tapir::SignalGenerator(Tapir::Config::CARRIER_FREQUENCY_BASE +
+                                           [DevicesSpecifications getTransmitterFreqOffset]);
     sonifier = [[Sonifier alloc] initWithSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE channel:Tapir::Config::AUDIO_CHANNEL];
     [sonifier setDelegate:self];
     
@@ -67,7 +68,7 @@
         NSString * textToSend = [inputText text];
         if([textToSend length] >= 8)
         {
-            textToSend = [textToSend substringToIndex:8];
+            textToSend = [textToSend substringToIndex:Tapir::Config::MAX_SYMBOL_LENGTH];
         }
         if([sonifier isDone])
         { [self transmitString:textToSend through:LEFT]; }

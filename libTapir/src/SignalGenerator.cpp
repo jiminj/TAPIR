@@ -77,7 +77,6 @@ namespace Tapir{
         
         Tapir::maximizeSignal(dest, dest, lenPreamble, Tapir::Config::AUDIO_MAX_VOLUME);
         TapirDSP::copy(dest, dest + lenPreamble, dest + lenPreamble);
-
         
         delete [] preamble.realp;
         delete [] preamble.imagp;

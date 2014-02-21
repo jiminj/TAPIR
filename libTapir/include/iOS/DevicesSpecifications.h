@@ -10,12 +10,13 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
-@interface TapirFreqOffset : NSObject
+@interface DevicesSpecifications : NSObject
 
 + (NSString *)getPlatform;
 + (NSString *)getPlatformInfo:(NSString *)platform;
-+ (float) getTransmitterFreqOffsetOfDevice;
++ (float) getTransmitterFreqOffset;
 + (float) getTransmitterFreqOffsetUsingBuiltInSpeaker;
-+ (float) getReceiverFreqOffsetOfDevice;
++ (float) getReceiverFreqOffset;
++ (float) getThreshold;
 
 @end
