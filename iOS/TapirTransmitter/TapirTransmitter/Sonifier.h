@@ -1,14 +1,14 @@
 //
-//  SoundPlayer.h
-//  musiculesdev
+//  Sonifier.h
+//  TapirTransmitter
 //
-//  Created by Dylan on 1/17/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Jimin Jeon on 12/3/13.
+//  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import <Accelerate/Accelerate.h>
+#import <TapirLib/TapirLib.h>
 
 static const int kNumBuffers = 3;
 static const float kShortMax = (float)(SHRT_MAX);
@@ -36,6 +36,7 @@ static const float kShortMax = (float)(SHRT_MAX);
     BOOL isDone;
     int doneCnt;
     NSLock * outputLock;
+
 
 }
 

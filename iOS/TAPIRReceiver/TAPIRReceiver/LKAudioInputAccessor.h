@@ -28,10 +28,11 @@ static const int kNumBuffers = 3;
 
     AVAudioSession *             audioSession;
     
-    Tapir::FilterFIR * filter;
+
     float *floatBuf;
     Tapir::SignalDetector * detector;
 
+    
 }
 
 - (id) initWithFrameSize:(int)length detector:(Tapir::SignalDetector *)_detector;

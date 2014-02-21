@@ -49,7 +49,7 @@ static void HandleInputBuffer (void                                *audioInput,
         audioDesc.mBytesPerPacket   = audioDesc.mBytesPerFrame * audioDesc.mFramesPerPacket;
         
         frameLength = length;
-        filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
+//        filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
         floatBuf = new float[frameLength];
         
         
@@ -57,12 +57,6 @@ static void HandleInputBuffer (void                                *audioInput,
         
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
-        
-        // prepare audio buffer
-        for (int i = 0; i < kNumBuffers; ++i) {
-            AudioQueueAllocateBuffer ( audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
-            AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
-        }
 
         
     }
@@ -76,17 +70,24 @@ static void HandleInputBuffer (void                                *audioInput,
 
 
 -(void)startAudioInput{
+    NSLog(@"Start Recording");
+    // prepare audio buffer
+    for (int i = 0; i < kNumBuffers; ++i) {
+        AudioQueueAllocateBuffer (audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
+        AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
+    }
     AudioQueueStart(audioQueue, NULL);
 }
 
 -(void)stopAudioInput{
+    NSLog(@"Stop Recording");
     AudioQueueStop(audioQueue, true);
 }
 
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
 {
-    vDSP_vflt16(inputBuffer, 1, floatBuf, 1, length);
-    vDSP_vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
+    TapirDSP::vflt16(inputBuffer, 1, floatBuf, 1, length);
+    TapirDSP::vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
     //convert SInt16 array to float, and scale them (set max value to 1.0)
 
     detector->detect(floatBuf);
@@ -98,7 +99,7 @@ static void HandleInputBuffer (void                                *audioInput,
     { AudioQueueFreeBuffer(audioQueue, buffer[i]); }
     AudioQueueDispose(audioQueue, true);
     delete [] floatBuf;
-    delete filter;
+//    delete filter;
 }
 
 

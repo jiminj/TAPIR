@@ -8,8 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
-#import <TapirLib/TapirLib.h>
-
 
 @interface ViewController ()
 
@@ -23,7 +21,8 @@
 {
     [super viewDidLoad];
 
-    generator = new Tapir::SignalGenerator([TapirFreqOffset getTransmitterFreqOffset]);
+    generator = new Tapir::SignalGenerator(Tapir::Config::CARRIER_FREQUENCY_BASE +
+                                           [DevicesSpecifications getTransmitterFreqOffset]);
     sonifier = [[Sonifier alloc] initWithSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE channel:Tapir::Config::AUDIO_CHANNEL];
     [sonifier setDelegate:self];
     
@@ -69,7 +68,7 @@
         NSString * textToSend = [inputText text];
         if([textToSend length] >= 8)
         {
-            textToSend = [textToSend substringToIndex:8];
+            textToSend = [textToSend substringToIndex:Tapir::Config::MAX_SYMBOL_LENGTH];
         }
         if([sonifier isDone])
         { [self transmitString:textToSend through:LEFT]; }
@@ -112,11 +111,10 @@
     }
     std::string stdInputStr = std::string([inputStr UTF8String]);
 
-    int resultLength = generator->calResultLength([inputStr length]);
+    int resultLength = generator->calResultLength((int)[inputStr length]);
 
     encodedAudioData = new float[resultLength]();
     generator->generateSignal(stdInputStr, encodedAudioData, resultLength);
-    
     [sonifier transmit:encodedAudioData length:resultLength];
 
     [sendBtn setEnabled:FALSE];
