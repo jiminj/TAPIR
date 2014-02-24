@@ -32,8 +32,12 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	
 	LOCAL_C_INCLUDES += $(NDK_PATH)/sources/cpufeatures
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
-	LOCAL_LDLIBS := -llog
+	LOCAL_LDLIBS += -llog
 	
+	# for native audio
+	LOCAL_LDLIBS    += -lOpenSLES
+	# for native asset manager
+	LOCAL_LDLIBS    += -landroid
 	include $(BUILD_SHARED_LIBRARY)
 
 endif
