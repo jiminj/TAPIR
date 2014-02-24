@@ -9,6 +9,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	NDK_PATH := ~/Development/android/android-ndk-r9c
 	BUILD_PRODUCTS_DIR := $(JNI_PATH)/../obj/local/$(TARGET_ARCH_ABI)
  
+#load ne10
  	include $(CLEAR_VARS)
 	NE10_LIB_PATH := $(JNI_PATH)/../../Ne10
 	LOCAL_MODULE := libNE10
@@ -17,16 +18,17 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LOCAL_SRC_FILES := $(NE10_LIB_PATH)/lib/libNE10.a
 	include $(PREBUILT_STATIC_LIBRARY)
  
- 
+#build for static library
 	include $(CLEAR_VARS)
 	SRC_PATH := $(LIB_PATH)/src
 	INCLUDE_PATH := $(LIB_PATH)/include
 	
-	LOCAL_C_INCLUDES := sources/cxx-stl/gnu-libstdc++/include/
+	LOCAL_C_INCLUDES := \
+		sources/cxx-stl/gnu-libstdc++/include \
+		$(NDK_PATH)/sources/cpufeatures
 
 	LOCAL_MODULE    := tapir
-	LOCAL_C_INCLUDES := $(NDK_PATH)/sources/cpufeatures
-	LOCAL_STATIC_LIBRARIES  := neon_utils cpufeatures libNE10
+	LOCAL_STATIC_LIBRARIES  := libNE10 neon_utils cpufeatures
 	
 	LOCAL_ARM_NEON  := true
 
@@ -50,9 +52,11 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	include $(BUILD_STATIC_LIBRARY)
 	BUILT_RESULT := $(LOCAL_BUILT_MODULE)
 
+#build for dummy shared object
+
 	include $(CLEAR_VARS)
 	LOCAL_MODULE := dummy_libtapir
-	LOCAL_STATIC_LIBRARIES = libNE10 tapir
+	LOCAL_STATIC_LIBRARIES := tapir libNE10
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
 	include $(BUILD_SHARED_LIBRARY)
 
@@ -60,14 +64,14 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 
 	include $(CLEAR_VARS)
 
-	#copy files
+#copy files
 	COPY_DEST = $(JNI_PATH)/../../libtapir-build
 
 all : 
 	mkdir -p $(COPY_DEST)/lib $(COPY_DEST)/include/android
 	cp $(BUILT_RESULT) $(COPY_DEST)/lib/
 	cp $(INCLUDE_PATH)/*.h $(COPY_DEST)/include/
-	cp $(INCLUDE_PATH)/android/*.h $(COPY_DEST)/include/android
+	#cp $(INCLUDE_PATH)/android/*.h $(COPY_DEST)/include/android
 
 endif
 

@@ -27,10 +27,10 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LOCAL_STATIC_LIBRARIES := libTapir libNE10 neon_utils cpufeatures 
 	LOCAL_ARM_NEON  := true
 	
-	LOCAL_MODULE    := TapirTest
+	LOCAL_MODULE    := TapirTransmitter
+	LOCAL_SRC_FILES := TapirTransmitter.cpp
 	
 	LOCAL_C_INCLUDES += $(NDK_PATH)/sources/cpufeatures
-	LOCAL_SRC_FILES := TapirTest.cpp
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
 	LOCAL_LDLIBS := -llog
 	
