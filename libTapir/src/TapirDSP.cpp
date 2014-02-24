@@ -9,8 +9,84 @@
 #include "../include/TapirDSP.h"
 
 namespace TapirDSP {
-    
-    
+
+    void init() {
+    #ifdef ARM_ANDROID
+    	 ne10_init();
+    #endif
+    };
+
+    //new
+    void vadd(const float *src1, const float *src2, float *dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        ne10_add_float(dest, const_cast<float *>(src1), const_cast<float *>(src2), length);
+    #else
+        ::vDSP_vadd(src1, 1, src2, 1,dest, 1, length);
+    #endif
+    };
+
+    void vmul(const float *src1, const float *src2, float *dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        ne10_mul_float(dest, const_cast<float *>(src1), const_cast<float *>(src2), length);
+    #else
+        ::vDSP_vmul(src1, 1, src2, 1, dest, 1, length);
+    #endif
+    };
+
+    void vsadd(const float * src, const float * scalSrc, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        ne10_addc_float(dest, const_cast<float *>(src), *scalSrc, length);
+    #else
+        ::vDSP_vsadd(src, 1, scalSrc, dest, 1, length);
+    #endif
+    };
+
+    void vsmul(const float * src, const float * scalSrc, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        ne10_mulc_float(dest, const_cast<float *>(src), *scalSrc, length);
+    #else
+        ::vDSP_vsmul(src, 1, scalSrc, dest, 1, length);
+    #endif
+    };
+
+    void vsdiv(const float * src, const float * scalSrc, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        ne10_divc_float(dest, const_cast<float *>(src), *scalSrc, length);
+    #else
+        ::vDSP_vsdiv(src, 1, scalSrc, dest, 1, length);
+    #endif
+    };
+    void vsmsa(const float * src, const float * scalSrcMul, const float *scalSrcAdd, float * dest, VecLength length)
+    {
+    //FIX LATER
+    #ifdef ARM_ANDROID
+        vsmul(src, scalSrcMul, dest, length);
+        vsadd(dest, scalSrcAdd, dest, length);
+    #else
+        ::vDSP_vsmsa(src, 1, scalSrcMul, scalSrcAdd, dest, 1, length);
+    #endif
+    };
+
+    void vfix16(const float * src, short * dest, VecLength length)
+    {
+    };
+    void vfix32(const float * src, int * dest, VecLength length)
+    {
+    };
+    void vflt16(const short * src, float * dest, VecLength length)
+    {
+    };
+    void vflt32(const int * src, float * dest, VecLength length)
+    {
+    };
+
+
+    //old
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N)
     {
     #ifdef __APPLE__
@@ -24,7 +100,7 @@ namespace TapirDSP {
         ::vDSP_vmul(__vDSP_A, __vDSP_IA, __vDSP_B, __vDSP_IB,__vDSP_C, __vDSP_IC, __vDSP_N);
     #endif
     };
-    
+   
     void vsadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N)
     {
     #ifdef __APPLE__

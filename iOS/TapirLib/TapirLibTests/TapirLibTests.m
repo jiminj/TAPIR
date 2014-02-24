@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
-//#include "CircularQueue.h"
 #include "TapirLib.h"
 #import <XCTest/XCTest.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -422,7 +421,6 @@
         audioData[i] = ((SInt16 *)readBuffer)[i] / 32768.0f;
     }
     
-}
-
+};
 
 @end

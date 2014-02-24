@@ -16,7 +16,8 @@ namespace Tapir {
     m_isTracking(false),
     m_tracked(new float[m_lag]),
     m_trackedIdx(0),
-    m_resultData(nullptr)
+//    m_resultData(nullptr)
+    m_resultData(NULL)
     {
     };
     AutoCorrelator::~AutoCorrelator()
@@ -29,7 +30,8 @@ namespace Tapir {
         m_inBuffer->clear();
         std::fill(m_tracked, m_tracked+m_lag, 0);
         m_trackedIdx = 0;
-        m_resultData = nullptr;
+//        m_resultData = nullptr;
+        m_resultData = NULL;
         m_isTracking = false;
     };
 
@@ -68,7 +70,7 @@ namespace Tapir {
                 { m_tracked[m_trackedIdx] = corrResult; }
                 else //tracking done
                 {
-                    unsigned long maxIdx;
+                    TapirDSP::VecLength maxIdx;
                     float maxVal;
                     TapirDSP::maxvi(m_tracked, 1, &maxVal, &maxIdx, m_lag);
                     m_resultData += maxIdx;
@@ -81,7 +83,7 @@ namespace Tapir {
                 }
             }
         }
-        return nullptr;
+        return NULL;
     };
 
  }
