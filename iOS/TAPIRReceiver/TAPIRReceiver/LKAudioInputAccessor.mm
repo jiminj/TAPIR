@@ -87,7 +87,7 @@ static void HandleInputBuffer (void                                *audioInput,
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
 {
     TapirDSP::vflt16(inputBuffer, 1, floatBuf, 1, length);
-    TapirDSP::vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
+    TapirDSP::vsdiv(floatBuf, &kShortMax, floatBuf, length);
     //convert SInt16 array to float, and scale them (set max value to 1.0)
 
     detector->detect(floatBuf);

@@ -7,7 +7,6 @@
 //
 
 #include <mach/mach_time.h>
-#include <TapirLib/Filter.h>
 
 #import <XCTest/XCTest.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -94,6 +93,30 @@
         audioData[i] = ((SInt16 *)readBuffer)[i] / 32768.0f;
     }
 }
+
+- (void)testPlatform
+{
+    int cnt = 10;
+    float src[cnt];
+    float dest[cnt];
+    srand((unsigned int)time(NULL));
+    for(int i=0; i<cnt; ++i)
+    {
+        src[i] = (float) rand() / RAND_MAX * 5.0f;
+    }
+    float test = 0.5;
+    TapirDSP::vsadd(src, &test, dest, cnt);
+    NSMutableString * srcString = [NSMutableString stringWithString:@""];
+    NSMutableString * destString = [NSMutableString stringWithString:@""];
+    for(int i=0; i<cnt; ++i)
+    {
+        [srcString appendFormat:@"%f\t",src[i]];
+        [destString appendFormat:@"%f\t",dest[i]];
+    }
+    NSLog(srcString);
+    NSLog(destString);
+};
+
 
 /*
 - (void)testUse

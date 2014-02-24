@@ -29,8 +29,9 @@ static void generateCarrier(TapirDSP::SplitComplex * carrier, const int length, 
 
 void scaleFloatSignal(const float * source, float * dest, const int length, const float scale)
 {
-    TapirDSP::vsmul(source, 1, &scale, dest, 1, length);
+    TapirDSP::vsmul(source, &scale, dest, length);
 };
+
 void scaleCompSignal(const TapirDSP::SplitComplex * source, TapirDSP::SplitComplex * dest, const int length, const float scale)
 {
     scaleFloatSignal(source->realp, dest->realp, length, scale);
@@ -79,10 +80,10 @@ void iqModulate(const TapirDSP::SplitComplex * signal, float * destSignal, const
 
     generateCarrier(&carrier, length, samplingFreq, carrierFreq);
     
-    TapirDSP::vmul(signal->realp, 1, carrier.realp, 1, signal->realp, 1, length);
-    TapirDSP::vmul(signal->imagp, 1, carrier.imagp, 1, signal->imagp, 1, length);
+    TapirDSP::vmul(signal->realp, carrier.realp, signal->realp, length);
+    TapirDSP::vmul(signal->imagp, carrier.imagp, signal->imagp, length);
 
-    TapirDSP::vadd(signal->realp, 1, signal->imagp,1 , destSignal, 1, length);
+    TapirDSP::vadd(signal->realp, signal->imagp, destSignal, length);
     scaleFloatSignal(destSignal, destSignal, length, 2.0f);
     
     delete [] carrier.realp;

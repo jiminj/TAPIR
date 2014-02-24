@@ -24,7 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     logString = @"";
 
     int frameSize = 1024;

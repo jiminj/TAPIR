@@ -9,11 +9,14 @@
 #ifndef __TapirLib__TapirDSP__
 #define __TapirLib__TapirDSP__
 
+
 #ifdef __APPLE__
 #include "TargetConditionals.h"
 #include <Accelerate/Accelerate.h>
+#elif defined(__arm__) && defined(__ANDROID__)
+#define ARM_ANDROID 1
+#include <NE10.h>
 #endif
-
 #if __ARM_NEON__
 #include <arm_neon.h>
 #endif
@@ -23,13 +26,7 @@
 namespace TapirDSP {
     
 //typedef
-#ifdef __APPLE__
-    typedef DSPComplex Complex;
-    typedef DSPDoubleComplex DoubleComplex;
-    typedef DSPSplitComplex SplitComplex;
-    typedef DSPDoubleSplitComplex DoubleSplitComplex;
-
-#else
+#ifdef ARM_ANDROID
     typedef struct Complex {
         float  real; float  imag;
     } Complex;
@@ -43,24 +40,52 @@ namespace TapirDSP {
     typedef struct DoubleSplitComplex {
         double *realp; double *imagp;
     } DoubleSplitComplex;
-#endif
-    typedef unsigned long VecLength;
+    
+    typedef ne10_uint32_t VecLength;
     typedef long          VecStride;
     
+#else
+    //using vDSP
+    typedef DSPComplex Complex;
+    typedef DSPDoubleComplex DoubleComplex;
+    typedef DSPSplitComplex SplitComplex;
+    typedef DSPDoubleSplitComplex DoubleSplitComplex;
+    typedef vDSP_Length VecLength;
+    typedef vDSP_Stride VecStride;
+#endif
+
     
+
 //copy
     template< class InputIt, class OutputIt >
     OutputIt copy( InputIt first, InputIt last, OutputIt d_first )
     { return std::copy(first, last, d_first); };
 
+    //new
+    void init();
+    
+    //***** new ******
+    void vadd(const float *src1, const float *src2, float *dest, VecLength length);
+    void vmul(const float *src1, const float *src2, float *dest, VecLength length);
+    //scalar operation
+    void vsadd(const float * src, const float * scalSrc, float * dest, VecLength length);
+    void vsmul(const float * src, const float * scalSrc, float * dest, VecLength length); 
+    void vsdiv(const float * src, const float * scalSrc, float * dest, VecLength length); 
+    void vsmsa(const float * src, const float * scalSrcMul, const float *scalSrcAdd, float * dest, VecLength length); //multiply and add  
+
+    //conversion
+    void vfix16(const float * src, short * dest, VecLength length);
+    void vfix32(const float * src, int * dest, VecLength length);
+    void vflt16(const short * src, float * dest, VecLength length);
+    void vflt32(const int * src, float* dest, VecLength length);
+
+    //old
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vmul(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
-    
-    
+
     void vsadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vsmul(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //mul. with scalar
     void vsdiv(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //div by scalar
-    
     void vsmsa(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, const float *__vDSP_C, float *__vDSP_D, VecStride __vDSP_ID, VecLength __vDSP_N);
     
     void vfix16(const float *__vDSP_A, VecStride __vDSP_IA, short *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //float -> short
