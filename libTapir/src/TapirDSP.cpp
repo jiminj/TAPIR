@@ -74,6 +74,11 @@ namespace TapirDSP {
 
     void vfix16(const float * src, short * dest, VecLength length)
     {
+	#ifdef
+
+	#else
+    	::vDSP_vfix16(src, 1, dest, 1, length);
+	#endif
     };
     void vfix32(const float * src, int * dest, VecLength length)
     {

@@ -43,8 +43,6 @@ void test_vstest()
     float multiplier = 2.0;
     float divider = 2.0;
 
-
-//    ne10_init();
     TapirDSP::init();
 
     TapirDSP::vsadd(src, &adder, addDest, cnt);

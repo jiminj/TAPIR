@@ -25,7 +25,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	include $(CLEAR_VARS)	
 	
 	LOCAL_C_INCLUDES := $(NDK_PATH)/sources/cpufeatures
-	LOCAL_STATIC_LIBRARIES := cpufeatures neon_utils libNE10 libTapir
+	LOCAL_STATIC_LIBRARIES := libTapir libNE10 neon_utils cpufeatures 
 	LOCAL_ARM_NEON  := true
 	
 	LOCAL_MODULE    := TapirTest
