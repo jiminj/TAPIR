@@ -13,6 +13,7 @@
 #include "Filter.h"
 #include "AutoCorrelator.h"
 #include <tr1/functional>
+#include <iostream>
 
 namespace Tapir {
     

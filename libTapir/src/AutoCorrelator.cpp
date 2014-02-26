@@ -18,6 +18,7 @@ namespace Tapir {
     m_trackedIdx(0),
     m_resultData(nullptr)
     {
+        
     };
     AutoCorrelator::~AutoCorrelator()
     {
@@ -37,7 +38,6 @@ namespace Tapir {
     {
         m_inBuffer->push(newInput, inputLength);
         
-        
         int backTrackLength;
         const float * lastHalf;
         const float * firstHalf;
@@ -55,7 +55,7 @@ namespace Tapir {
             TapirDSP::svemg(lastHalf, 1, &mag, m_lag);
 //            corrResult /= (mag / m_lag);
             corrResult = fabsf(corrResult);
-
+            
             if((!m_isTracking) && (corrResult > m_threshold))
             {
                 m_isTracking = true;
@@ -79,7 +79,9 @@ namespace Tapir {
                     resultLength = static_cast<int>(m_inBuffer->getLast() - m_resultData + 1);
                     return m_resultData;
                 }
+                
             }
+            
         }
         return nullptr;
     };

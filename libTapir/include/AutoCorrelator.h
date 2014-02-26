@@ -12,6 +12,7 @@
 #include "TapirDSP.h"
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 namespace Tapir {
 
