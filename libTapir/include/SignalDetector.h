@@ -12,14 +12,14 @@
 #include "Config.h"
 #include "Filter.h"
 #include "AutoCorrelator.h"
-#include <functional>
+#include <tr1/functional>
 
 namespace Tapir {
     
     class SignalDetector
     {
     public:
-        SignalDetector(const int frameSize, const float correlationThreshold, std::function<void(float *)> callback);
+        SignalDetector(const int frameSize, const float correlationThreshold, std::tr1::function<void(float *)> callback);
         virtual ~SignalDetector();
         
         void detect(const float * frame);
@@ -44,7 +44,7 @@ namespace Tapir {
         bool m_isSignalFound;
 
 
-        std::function<void(float *)> m_callback;
+        std::tr1::function<void(float *)> m_callback;
     };
 }
 #endif /* defined(__TapirLib__SignalDetector__) */

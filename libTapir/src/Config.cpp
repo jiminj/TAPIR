@@ -50,7 +50,7 @@ namespace Tapir {
 
     float Config::pilotRealp[] = {1.f, 1.f, 1.f, -1.f};
     float Config::pilotImagp[] = {0.f, 0.f, 0.f, 0.f};
-    
+
     const TapirDSP::SplitComplex Config::PILOT_DATA = { .realp=Config::pilotRealp, .imagp=Config::pilotImagp };
     
     const int   Config::PILOT_LOCATIONS [] = {3, 7, 11, 15};
@@ -58,9 +58,10 @@ namespace Tapir {
     const int   Config::INTERLEAVER_ROWS = 4;
     const int   Config::INTERLEAVER_COLS = Config::NO_DATA_SUBCARRIERS / Config::INTERLEAVER_ROWS;
     
-    
-    const std::vector<TrellisCode> Config::TRELLIS_ARRAY = { TrellisCode(171), TrellisCode(133) };
-    const unsigned long Config::ENCODING_RATE = TRELLIS_ARRAY.size();
+    const static TrellisCode trelArr[2] = {TrellisCode(171), TrellisCode(133)};
+//    const std::vector<TrellisCode> Config::TRELLIS_ARRAY = (trelArr, trelArr + sizeof(trelArr) / sizeof(trelArr[0]) );
+//    const unsigned long Config::ENCODING_RATE = TRELLIS_ARRAY.size();
+    const unsigned long Config::ENCODING_RATE = 2;
     const int   Config::DATA_BIT_LENGTH = NO_DATA_SUBCARRIERS / ENCODING_RATE;
     
     const int   Config::FILTER_GUARD_LENGTH = 250;

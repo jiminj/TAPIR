@@ -10,7 +10,7 @@
 #define __TapirLib__Filter__
 #include "TapirDSP.h"
 #include <vector>
-#include <functional>
+#include <tr1/functional>
 #include <cmath>
 
 namespace Tapir {
@@ -86,7 +86,7 @@ namespace Tapir {
         static Filter * createChevyshev19k250(const int maxBufSize);
         static Filter * createEquiripple19k250(const int maxBufSize);
         
-        static const std::vector<std::function<Filter *(const int)> > filterCreateFuncs;
+//        static std::vector<std::tr1::function<Filter *(const int)> > filterCreateFuncs;
         
     };
 

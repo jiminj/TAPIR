@@ -126,16 +126,28 @@ namespace Tapir {
 #endif
 
     //****** Filters For Tapir *******
+
     
-    const std::vector<std::function<Filter *(const int)> > FilterCreator::filterCreateFuncs({
-        createHamming19k50,
-        createChevyshev19k150,
-        createChevyshev19k250,
-        createEquiripple19k250
-    });
+//    const std::vector<std::tr1::function<Filter *(const int)> > FilterCreator::filterCreateFuncs({
+//        createHamming19k50,
+//        createChevyshev19k150,
+//        createChevyshev19k250,
+//        createEquiripple19k250
+//    });
     Filter * FilterCreator::create(int maxBufSize, Tapir::FilterCreator::FilterType fType)
     {
-        return(filterCreateFuncs[fType](maxBufSize));
+        switch(fType)
+        {
+            case(HAMMING_19k_50):
+                return createHamming19k50(maxBufSize);
+            case(CHEVYSHEV_19k_150):
+                return createChevyshev19k150(maxBufSize);
+            case(CHEVYSHEV_19k_250):
+                return createChevyshev19k250(maxBufSize);
+            case(EQUIRIPPLE_19k_250):
+                return createEquiripple19k250(maxBufSize);
+        }
+//        return(filterCreateFuncs[fType](maxBufSize));
     };
 
     Filter * FilterCreator::createHamming19k50(int maxBufSize)

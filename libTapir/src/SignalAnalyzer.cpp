@@ -22,9 +22,15 @@ namespace Tapir{
     m_chanEstimator(new LSChannelEstimator(m_pilotMgr, Config::NO_TOTAL_SUBCARRIERS)),
     m_interleaver(new MatrixInterleaver(Config::INTERLEAVER_ROWS, Config::INTERLEAVER_COLS)),
     m_modulator(new PskModulator(Config::MODULATION_RATE)),
-    m_decoder(new ViterbiDecoder(Config::TRELLIS_ARRAY)),
+    m_decoder(),
     m_fft(new Tapir::FFT(Tapir::Config::SAMPLE_LENGTH_EACH_SYMBOL))
-    { };
+    {
+        std::vector<TrellisCode> TrelArray;
+        TrelArray.push_back(TrellisCode(171));
+        TrelArray.push_back(TrellisCode(133));
+        
+        m_decoder = new Tapir::ViterbiDecoder(TrelArray);
+    };
     
     SignalAnalyzer::~SignalAnalyzer()
     {

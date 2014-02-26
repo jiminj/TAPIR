@@ -7,9 +7,10 @@
 //
 
 #include "../include/SignalDetector.h"
+#include <tr1/functional>
 
 namespace Tapir {
-    SignalDetector::SignalDetector(const int frameSize, const float correlationThreshold, std::function<void(float *)> callback)
+    SignalDetector::SignalDetector(const int frameSize, const float correlationThreshold, std::tr1::function<void(float *)> callback)
     : m_frameSize(frameSize),
     m_filtered( new float[m_frameSize]() ),
     m_copyIdx(0),
