@@ -38,6 +38,7 @@ static int currentBufferIndex;
 static unsigned recorderSize = 0;
 static SLmilliHertz recorderSR;
 
+static JavaVm *qJavaVM;
 static JNIEnv* environment;
 static jobject theObject;
 static jclass parentClass;
@@ -46,16 +47,26 @@ static jmethodID parentCallback;
 static int RECORDER_FRAMES = 4410;
 
 void callParentCallback(char* ch){
-	//a sample function to call JAVA method
-	//parentClass = (*environment)->FindClass(environment, "com/example/tapir/MainActivity");
-	//parentCallback = (*environment)->GetStaticMethodID(environment,parentClass,"tc", "(Ljava/lang/String;)Ljava/lang/String;");
-	//(*environment)->CallStaticVoidMethod(environment, parentClass, parentCallback, (*environment)->NewStringUTF(environment, "decoded string"));
 
-
-	jstring jstr = (*environment)->NewStringUTF(environment, ch);
-	    jclass clazz = (*environment)->FindClass(environment, "com/example/tapirreceiver/MainActivity");
-	    jmethodID messageMe = (*environment)->GetMethodID(environment, clazz, "tc", "(Ljava/lang/String;)Ljava/lang/String;");
-	    jobject rrr	 = (*environment)->CallObjectMethod(environment, theObject, messageMe, jstr);
+    int status;
+    bool isAttached = false;
+    status = qJavaVM->GetEnv((void **) &environment, JNI_VERSION_1_4);
+    //not sure for the jni version parameter, try 1_6 when this fails
+    if(status<0){
+        LOGE("JNI callback is called from a native method");
+        status = qJavaVM->AttachCurrentThread(&environment, NULL);
+        if(status<0){
+            LOGE("failed to attach current thread");
+        }
+        isAttached = true;
+    }
+	jstring jstr = environment->NewStringUTF(ch);
+    jclass clazz = environment->FindClass( "com/example/tapirreceiver/MainActivity");
+    jmethodID messageMe = environment->GetMethodID( clazz, "tc", "(Ljava/lang/String;)Ljava/lang/String;");
+    jobject rrr	 = environment->CallObjectMethod( theObject, messageMe, jstr);
+    if(isAttached){
+        qJavaVM->DetachCurrentThread();
+    }
 }
 
 // this callback handler is called every time a buffer finishes recording
@@ -84,7 +95,8 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 void Java_com_example_tapirreceiver_MainActivity_startTapir( JNIEnv* env,
                                                   jobject thiz )
 {
-	environment = env;
+	qJavaVM = android::AndroidRuntime::getJavaVM();
+    environment = env;
 	theObject = thiz;
 
 	TapirDSP::init();
