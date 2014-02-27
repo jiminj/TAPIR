@@ -21,6 +21,7 @@
 #include <TapirLib.h>
 //#include <Ne10.h>
 #include <cmath>
+#include <time.h>
 
 extern "C"
 {
@@ -28,7 +29,7 @@ extern "C"
 //
 void test_vstest()
 {
-    int cnt = 5;
+    int cnt = 400;
     float * src = new float[cnt];
     float * addDest = new float[cnt];
     float * mulDest = new float[cnt];
@@ -44,19 +45,23 @@ void test_vstest()
     float divider = 2.0;
 
     TapirDSP::init();
+    clock_t stTime, edTime;
+
+    stTime = clock();
 
     TapirDSP::vsadd(src, &adder, addDest, cnt);
     TapirDSP::vsmul(src, &multiplier, mulDest, cnt);
     TapirDSP::vsdiv(src, &divider, divDest, cnt);
     TapirDSP::vsmsa(src, &multiplier, &adder, mulAccDest, cnt);
-    for(int i=0; i<cnt; ++i)
-    {
-        LOGD("src[%d] : %f", i, src[i]);
-        LOGD("add[%d] : %f", i, addDest[i]);
-        LOGD("mul[%d] : %f", i, mulDest[i]);
-        LOGD("div[%d] : %f", i, divDest[i]);
-        LOGD("multiply and add[%d] : %f", i, mulAccDest[i]);
-    }
+
+//    for(int i=0; i<cnt; ++i)
+//    {
+//        LOGD("src[%d] : %f", i, src[i]);
+//        LOGD("add[%d] : %f", i, addDest[i]);
+//        LOGD("mul[%d] : %f", i, mulDest[i]);
+//        LOGD("div[%d] : %f", i, divDest[i]);
+//        LOGD("multiply and add[%d] : %f", i, mulAccDest[i]);
+//    }
 
     delete [] src;
     delete [] addDest;
@@ -67,36 +72,44 @@ void test_vstest()
 
 void test_conv()
 {
-	int cnt=4;
+	int cnt=20;
 	float * fsrc = new float[cnt];
 	short * ssrc = new short[cnt];
 	int * isrc = new int[cnt];
 
-	short * sdest = new short[cnt];
-	int * idest = new int[cnt];
-	float * fdest1 = new float[cnt];
-	float * fdest2 = new float[cnt];
+	short * sdest = new short[cnt]();
+	int * idest = new int[cnt]();
+	float * fdest1 = new float[cnt]();
+	float * fdest2 = new float[cnt]();
 
 	for(int i=0; i<cnt; ++i)
 	{
-		fsrc[i] = (float) rand() / RAND_MAX * 5.0f;
+		fsrc[i] = (float) rand() / RAND_MAX * 40000.0f;
 		ssrc[i] = (short) (rand() % 10);
 		isrc[i] = rand();
 	}
 
+	TapirDSP::vfix16(fsrc, sdest, cnt);
+	TapirDSP::vfix32(fsrc, idest, cnt);
+	TapirDSP::vflt16(ssrc, fdest1, cnt);
+	TapirDSP::vflt32(isrc, fdest2, cnt);
     for(int i=0; i<cnt; ++i)
     {
         LOGD("float src[%d] : %f", i, fsrc[i]);
         LOGD("toShort[%d] : %d", i, sdest[i]);
         LOGD("toInt[%d] : %d", i, idest[i]);
+//
 
-        LOGD("short src[%d] : %d", i, ssrc[i]);
-		LOGD("toFloat[%d] : %f", i, fdest1[i]);
 
-		LOGD("int src[%d] : %d", i, isrc[i]);
-		LOGD("toFloat[%d] : %f", i, fdest2[i]);
-//        LOGD("div[%d] : %f", i, divDest[i]);
-//        LOGD("multiply and add[%d] : %f", i, mulAccDest[i]);
+    }
+    for(int i=0; i<cnt; ++i)
+    {
+    	LOGD("short src[%d] : %d", i, ssrc[i]);
+    	LOGD("toFloat[%d] : %f", i, fdest1[i]);
+
+    	//
+    	LOGD("int src[%d] : %d", i, isrc[i]);
+    	LOGD("toFloat[%d] : %f", i, fdest2[i]);
     }
 
 	delete [] fsrc;
@@ -130,7 +143,8 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
    #define ABI "unknown"
 #endif
 
-	test_vstest();
+//	test_vstest();
+	test_conv();
 
 //	ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
 	Tapir::SignalAnalyzer test(20000.f);

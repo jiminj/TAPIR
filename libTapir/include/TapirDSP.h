@@ -79,6 +79,12 @@ namespace TapirDSP {
     void vflt16(const short * src, float * dest, VecLength length);
     void vflt32(const int * src, float* dest, VecLength length);
 
+    void vrvrs(float * src, VecLength length); //reverse
+    void vfill(const float * src, float * dest, VecLength length); //fill
+    void vramp(const float * src1, const float * src2, float * dest, VecLength length);
+    void vindex(const float * src1, const float * idx, float * dest, VecLength length);
+    void vgenp(const float * src1, const float * src2, float * dest, VecLength destLength, VecLength srcLength);
+
     //old
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vmul(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
@@ -93,12 +99,9 @@ namespace TapirDSP {
     void vflt16(const short *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //short -> float
     void vflt32(const int *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //int -> float
 
+    void vrvrs(float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //reverse
     void vfill(const float *__vDSP_A, float *__vDSP_C, VecStride __vDSP_IA, VecLength __vDSP_N); //fill
-
     void vramp(const float *__vDSP_A, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
-    
-    void vrvrs(float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
-    
     void vindex(const float *__vDSP_A, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
 
     void vgenp(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_M);

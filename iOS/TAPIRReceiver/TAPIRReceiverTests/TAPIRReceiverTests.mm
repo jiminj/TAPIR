@@ -42,6 +42,63 @@
     XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
+- (void)testConvData
+{
+    int cnt=4;
+    float * fsrc = new float[cnt];
+    short * ssrc = new short[cnt];
+    int * isrc = new int[cnt];
+    
+    short * sdest = new short[cnt];
+    int * idest = new int[cnt];
+    float * fdest1 = new float[cnt];
+    float * fdest2 = new float[cnt];
+    
+    for(int i=0; i<cnt; ++i)
+    {
+        fsrc[i] = (float) rand() / RAND_MAX * 5.0f;
+        ssrc[i] = (short) (rand() % 10);
+        isrc[i] = rand();
+    }
+    TapirDSP::vfix16(fsrc, 1, sdest, 1, cnt);
+    
+    NSMutableString *fsrcStr = [NSMutableString new];
+    NSMutableString *sdestStr = [NSMutableString new];
+    for(int i=0; i<cnt; ++i)
+    {
+        [fsrcStr appendFormat:@"%f\t", fsrc[i]];
+        [sdestStr appendFormat:@"%d\t", sdest[i]];
+    }
+    
+    NSLog(@"%@", fsrcStr);
+    NSLog(@"%@", sdestStr);
+    
+    //    for(int i=0; i<cnt; ++i)
+    //    {
+    //        LOGD("float src[%d] : %f", i, fsrc[i]);
+    //        LOGD("toShort[%d] : %d", i, sdest[i]);
+    //        LOGD("toInt[%d] : %d", i, idest[i]);
+    //
+    //        LOGD("short src[%d] : %d", i, ssrc[i]);
+    //        LOGD("toFloat[%d] : %f", i, fdest1[i]);
+    //
+    //        LOGD("int src[%d] : %d", i, isrc[i]);
+    //        LOGD("toFloat[%d] : %f", i, fdest2[i]);
+    //        //        LOGD("div[%d] : %f", i, divDest[i]);
+    //        //        LOGD("multiply and add[%d] : %f", i, mulAccDest[i]);
+    //    }
+    
+    delete [] fsrc;
+    delete [] ssrc;
+    delete [] isrc;
+    
+    delete [] sdest;
+    delete [] idest;
+    delete [] fdest1;
+    delete [] fdest2;
+    
+}
+
 - (void)writeData:(const float *)data toFile:(NSString *)filePath lengthOf:(UInt32)length
 {
     // File write

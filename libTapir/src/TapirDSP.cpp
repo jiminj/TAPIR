@@ -74,14 +74,208 @@ namespace TapirDSP {
 
     void vfix16(const float * src, short * dest, VecLength length)
     {
+    #ifdef ARM_ANDROID
+        #if __ARM_NEON__
+            float32x4_t src_f32x4;
+            int32x4_t   src_s32x4;
+            int16x4_t   src_s16x4_0, src_s16x4_1;
+            int16x8_t   result_s16x8;
+
+            int remainedLength = length % 8;
+            length -= remainedLength;
+            if(length > 0)
+            {
+                for(; length != 0; length -= 8 )
+                {
+                    src_f32x4 = vld1q_f32(src);
+                    src_s32x4 = vcvtq_s32_f32(src_f32x4);
+                    src_s16x4_0 = vqmovn_s32(src_s32x4);
+                    src += 4;
+
+                    src_f32x4 = vld1q_f32(src);
+                    src_s32x4 = vcvtq_s32_f32(src_f32x4);
+                    src_s16x4_1 = vqmovn_s32(src_s32x4);
+
+                    result_s16x8 = vcombine_s16(src_s16x4_0, src_s16x4_1);
+                    vst1q_s16(dest, result_s16x8);
+                    dest += 8;
+                    src += 4;
+                }
+            }
+            if(remainedLength != 0)
+            {
+                if(remainedLength > 4)
+                {
+                    src_f32x4 = vld1q_f32(src);
+                    src_s32x4 = vcvtq_s32_f32(src_f32x4);
+                    src_s16x4_0 = vqmovn_s32(src_s32x4);
+                    vst1_s16(dest, src_s16x4_0);
+                    remainedLength -= 4;
+                    src += 4;
+                    dest += 4;
+                }
+                for(; remainedLength != 0; --remainedLength)
+                { *(dest++) = static_cast<short>(*(src++)); }
+            }
+        #else
+            for(int i=0; i<length; ++i)
+            { dest[i] = static_cast<short>(src[i]); }
+        #endif
+    #else
+        ::vDSP_vfix16(src, 1, dest, 1, length);
+    #endif
     };
     void vfix32(const float * src, int * dest, VecLength length)
     {
+    #ifdef ARM_ANDROID
+        #if __ARM_NEON__
+            float32x4_t src_f32x4;
+            int32x4_t   result_s32x4;
+
+            int remainedLength = length % 4;
+            length -= remainedLength;
+            if(length > 0)
+            {
+                for(; length != 0; length -= 4 )
+                {
+                    src_f32x4 = vld1q_f32(src);
+                    result_s32x4 = vcvtq_s32_f32(src_f32x4);
+                    vst1q_s32(dest, result_s32x4);
+                    src += 4;
+                    dest += 4;
+                }
+            }
+            if(remainedLength != 0)
+            {
+                for(; remainedLength != 0; --remainedLength)
+                { *(dest++) = static_cast<int>(*(src++)); }
+            }
+        #else
+            for(int i=0; i<length; ++i)
+            { dest[i] = static_cast<int>(src[i]); }
+        #endif
+    #else
+        ::vDSP_vfix32(src, 1, dest, 1, length);
+    #endif
     };
     void vflt16(const short * src, float * dest, VecLength length)
     {
+    #ifdef ARM_ANDROID
+        #if __ARM_NEON__
+            int16x8_t   src_s16x8;
+            int16x4_t   src_s16x4_0, src_s16x4_1;
+            int32x4_t   src_s32x4;
+            float32x4_t result_f32x4;
+
+            int remainedLength = length % 8;
+            length -= remainedLength;
+            if(length > 0)
+            {
+                for(; length != 0; length -= 8 )
+                {
+                    src_s16x8 = vld1q_s16(src);
+                    src_s16x4_0 = vget_low_s16(src_s16x8);
+                    src_s16x4_1 = vget_high_s16(src_s16x8);
+                    
+                    src_s32x4 = vmovl_s16(src_s16x4_0);
+                    result_f32x4 = vcvtq_f32_s32(src_s32x4);
+                    vst1q_f32(dest, result_f32x4);
+                    src += 4;
+                    dest += 4;
+
+                    src_s32x4 = vmovl_s16(src_s16x4_1);
+                    result_f32x4 = vcvtq_f32_s32(src_s32x4);
+                    vst1q_f32(dest, result_f32x4);
+                    src += 4;
+                    dest += 4;
+
+                }
+            }
+            if(remainedLength != 0)
+            {
+                if(remainedLength > 4)
+                {
+                    src_s16x4_0 = vld1_s16(src);
+                    src_s32x4 = vmovl_s16(src_s16x4_0);
+                    result_f32x4 = vcvtq_f32_s32(src_s32x4);
+                    vst1q_f32(dest, result_f32x4);
+                    remainedLength -= 4;
+                    src += 4;
+                    dest += 4;
+                }
+                for(; remainedLength != 0; --remainedLength)
+                { *(dest++) = static_cast<float>(*(src++)); }
+            }
+
+        #else
+            for(int i=0; i<length; ++i)
+            { dest[i] = static_cast<float>(src[i]); }
+        #endif
+    #else
+        ::vDSP_vflt16(src, 1, dest, 1, length);
+    #endif
+
     };
     void vflt32(const int * src, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        #if __ARM_NEON__
+            int32x4_t   src_s32x4;
+            float32x4_t result_f32x4;
+
+            int remainedLength = length % 4;
+            length -= remainedLength;
+            if(length > 0)
+            {
+                for(; length != 0; length -= 4 )
+                {
+                    src_s32x4 = vld1q_s32(src);
+                    result_f32x4 = vcvtq_f32_s32(src_s32x4);
+                    vst1q_f32(dest, result_f32x4);
+                    src += 4;
+                    dest += 4;
+                }
+            }
+            if(remainedLength != 0)
+            {
+                for(; remainedLength != 0; --remainedLength)
+                { *(dest++) = static_cast<float>(*(src++)); }
+            }
+
+        #else
+            for(int i=0; i<length; ++i)
+            { dest[i] = static_cast<float>(src[i]); }
+        #endif
+    #else
+        ::vDSP_vflt32(src, 1, dest, 1, length);
+    #endif
+    };
+
+    //reverse
+    void vrvrs(float * src, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+    #else
+        ::vDSP_vrvrs(src, 1, length);
+    #endif
+    };
+
+    void vfill(const float * src, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+    #else
+        ::vDSP_vfill(src, dest, 1, length);
+    #endif
+    };
+
+    void vramp(const float * src1, const float * src2, float * dest, VecLength length)
+    {
+
+    };
+    void vindex(const float * src1, const float * idx, float * dest, VecLength length)
+    {
+    };
+    void vgenp(const float * src1, const float * src2, float * dest, VecLength destLength, VecLength srcLength)
     {
     };
 
