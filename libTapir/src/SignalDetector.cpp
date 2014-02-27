@@ -30,6 +30,8 @@ namespace Tapir {
     void SignalDetector::detect(const float * frame)
     {
         m_hpf->process(frame, m_filtered, m_frameSize);
+        m_filtered = const_cast<float *>(frame);
+        
         if(!m_isSignalFound) //not yet found
         {
             int firstBlkSize = 0;

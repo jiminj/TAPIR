@@ -42,8 +42,10 @@ namespace Tapir {
         const float * lastHalf;
         const float * firstHalf;
         float corrResult;
-        float mag;
+        float origCorrResult = 0;
+//        float mag;
         resultLength = 0;
+        
         
         for(int i=0; i<inputLength; ++i)
         {
@@ -52,9 +54,11 @@ namespace Tapir {
             firstHalf = m_inBuffer->getLast( backTrackLength + 2 * m_lag);
             
             TapirDSP::dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
-            TapirDSP::svemg(lastHalf, 1, &mag, m_lag);
+//            TapirDSP::svemg(lastHalf, 1, &mag, m_lag);
 //            corrResult /= (mag / m_lag);
+            origCorrResult = corrResult;
             corrResult = fabsf(corrResult);
+
             
             if((!m_isTracking) && (corrResult > m_threshold))
             {
@@ -72,6 +76,8 @@ namespace Tapir {
                     float maxVal;
                     TapirDSP::maxvi(m_tracked, 1, &maxVal, &maxIdx, m_lag);
                     m_resultData += maxIdx;
+                    std::cout<<"Found From Correlator"<<std::endl;
+//                    std::cout<<"Found From Correlator - Max Correlation Value Found : "<< maxVal<<std::endl;
                     if(m_resultData > m_inBuffer->getLast())
                     {
                         m_resultData -= m_inBuffer->getQueueSize();
@@ -79,9 +85,7 @@ namespace Tapir {
                     resultLength = static_cast<int>(m_inBuffer->getLast() - m_resultData + 1);
                     return m_resultData;
                 }
-                
             }
-            
         }
         return nullptr;
     };

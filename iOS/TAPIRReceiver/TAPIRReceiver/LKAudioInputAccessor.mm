@@ -33,7 +33,8 @@ static void HandleInputBuffer (void                                *audioInput,
         //setup audioSession to force to use built-in microphone.
         audioSession = [AVAudioSession sharedInstance]; //get an audioSession instance
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil]; // set cagtegory
-        [audioSession setPreferredInput:[audioSession.availableInputs objectAtIndex:0] error:nil];
+        [audioSession setPreferredInput:[audioSession.availableInputs objectAtIndex:0] error:nil]; //set input
+        [audioSession setPreferredSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE error:nil]; //set sample rate
         
         //get notified when route changes (ex. earphone unplugged)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionRouteChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
@@ -41,7 +42,7 @@ static void HandleInputBuffer (void                                *audioInput,
         // set audio format for recording
         audioDesc.mSampleRate       = Tapir::Config::AUDIO_SAMPLE_RATE;
         audioDesc.mFormatID         = kAudioFormatLinearPCM;
-        audioDesc.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+        audioDesc.mFormatFlags      = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
         audioDesc.mBitsPerChannel   = 8 * sizeof (SInt16);
         audioDesc.mChannelsPerFrame = 1;
         audioDesc.mBytesPerFrame    = audioDesc.mChannelsPerFrame * audioDesc.mBitsPerChannel / 8;
@@ -51,13 +52,13 @@ static void HandleInputBuffer (void                                *audioInput,
         frameLength = length;
 //        filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
         floatBuf = new float[frameLength];
-        
-        
+
         detector = _detector;
         
         // create audio input
         AudioQueueNewInput ( &audioDesc, HandleInputBuffer, (__bridge void *)(self), NULL, kCFRunLoopCommonModes, 0, &audioQueue);
 
+        
         
     }
     return self;
