@@ -34,6 +34,8 @@ static void HandleInputBuffer (void                                *audioInput,
         audioSession = [AVAudioSession sharedInstance]; //get an audioSession instance
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil]; // set cagtegory
         [audioSession setPreferredInput:[audioSession.availableInputs objectAtIndex:0] error:nil];
+        [audioSession setInputGain:1.f error:nil];
+        [audioSession setPreferredSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE error:nil];
         
         //get notified when route changes (ex. earphone unplugged)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionRouteChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
