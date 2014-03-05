@@ -81,7 +81,7 @@ namespace TapirDSP {
             int16x4_t   src_s16x4_0, src_s16x4_1;
             int16x8_t   result_s16x8;
 
-            int remainedLength = length % 8;
+            VecLength remainedLength = length % 8;
             length -= remainedLength;
             if(length > 0)
             {
@@ -118,7 +118,7 @@ namespace TapirDSP {
                 { *(dest++) = static_cast<short>(*(src++)); }
             }
         #else
-            for(int i=0; i<length; ++i)
+            for(VecLength i=0; i<length; ++i)
             { dest[i] = static_cast<short>(src[i]); }
         #endif
     #else
@@ -132,7 +132,7 @@ namespace TapirDSP {
             float32x4_t src_f32x4;
             int32x4_t   result_s32x4;
 
-            int remainedLength = length % 4;
+            VecLength remainedLength = length % 4;
             length -= remainedLength;
             if(length > 0)
             {
@@ -151,7 +151,7 @@ namespace TapirDSP {
                 { *(dest++) = static_cast<int>(*(src++)); }
             }
         #else
-            for(int i=0; i<length; ++i)
+            for(VecLength i=0; i<length; ++i)
             { dest[i] = static_cast<int>(src[i]); }
         #endif
     #else
@@ -167,7 +167,7 @@ namespace TapirDSP {
             int32x4_t   src_s32x4;
             float32x4_t result_f32x4;
 
-            int remainedLength = length % 8;
+            VecLength remainedLength = length % 8;
             length -= remainedLength;
             if(length > 0)
             {
@@ -188,7 +188,6 @@ namespace TapirDSP {
                     vst1q_f32(dest, result_f32x4);
                     src += 4;
                     dest += 4;
-
                 }
             }
             if(remainedLength != 0)
@@ -208,7 +207,7 @@ namespace TapirDSP {
             }
 
         #else
-            for(int i=0; i<length; ++i)
+            for(VecLength i=0; i<length; ++i)
             { dest[i] = static_cast<float>(src[i]); }
         #endif
     #else
@@ -223,7 +222,7 @@ namespace TapirDSP {
             int32x4_t   src_s32x4;
             float32x4_t result_f32x4;
 
-            int remainedLength = length % 4;
+            VecLength remainedLength = length % 4;
             length -= remainedLength;
             if(length > 0)
             {
@@ -243,7 +242,7 @@ namespace TapirDSP {
             }
 
         #else
-            for(int i=0; i<length; ++i)
+            for(VecLength i=0; i<length; ++i)
             { dest[i] = static_cast<float>(src[i]); }
         #endif
     #else
@@ -255,6 +254,67 @@ namespace TapirDSP {
     void vrvrs(float * src, VecLength length)
     {
     #ifdef ARM_ANDROID
+        #ifdef __ARM_NEON__
+
+            float * srcBackward;
+            float32x2_t src_f32x2, srcBackward_f32x2;
+            float32x2_t dest1_f32x2, dest2_f32x2, destBackward1_f32x2, destBackward2_f32x2;
+
+            float32x4_t dest_f32x4, destBackward_f32x4;
+            float32x4_t temp_f32x4;
+
+            srcBackward = src + length - 4;
+            VecLength remainedLength = length;
+
+            if(length >= 8)
+            {
+                remainedLength = length % 8;
+                length -= remainedLength;
+
+                for(; length != 0; length -= 8) 
+                {
+                    src_f32x2 = vld1_f32(src);
+                    srcBackward_f32x2 = vld1_f32(srcBackward + 2);
+                    dest1_f32x2 = vrev64_f32(srcBackward_f32x2);
+                    destBackward2_f32x2 = vrev64_f32(src_f32x2);
+
+                    src_f32x2 = vld1_f32(src + 2);
+                    srcBackward_f32x2 = vld1_f32(srcBackward);
+                    dest2_f32x2 = vrev64_f32(srcBackward_f32x2);
+                    destBackward1_f32x2 = vrev64_f32(src_f32x2);
+
+                    dest_f32x4 = vcombine_f32(dest1_f32x2, dest2_f32x2);
+                    destBackward_f32x4 = vcombine_f32(destBackward1_f32x2, destBackward2_f32x2);
+
+                    vst1q_f32(src, dest_f32x4);
+                    vst1q_f32(srcBackward, destBackward_f32x4);
+
+                    src += 4;
+                    srcBackward -= 4;
+                }
+            }
+            if(remainedLength != 0)
+            {
+                float temp;
+                srcBackward = src + remainedLength - 1;
+
+                while(src < srcBackward)
+                {
+                    temp = *src;
+                    *(src++) = *srcBackward;
+                    *(srcBackward--) = temp;
+                }
+            }
+        #else
+            float temp;
+            float * srcBackward = src + length - 1;
+            while(src < srcBackward)
+            {
+                temp = *src;
+                *(src++) = *srcBackward;
+                *(srcBackward--) = temp;
+            }
+        #endif
     #else
         ::vDSP_vrvrs(src, 1, length);
     #endif
@@ -263,20 +323,245 @@ namespace TapirDSP {
     void vfill(const float * src, float * dest, VecLength length)
     {
     #ifdef ARM_ANDROID
+        #ifdef __ARM_NEON__
+            VecLength remainedLength = length % 4;
+            length -= remainedLength;
+
+            float32x4_t dest_f32x4;
+            
+            if(length > 0)
+            {
+                float32_t src_f32x1 = *(src);
+                for(; length != 0; length -= 4)
+                {
+                    dest_f32x4 = vdupq_n_f32(src_f32x1);
+                    vst1q_f32(dest, dest_f32x4);
+                    dest += 4;
+                }
+            }
+            if(remainedLength != 0)
+            {
+                for(; remainedLength != 0; --remainedLength)
+                { *(dest++) = *src; }
+            }
+        #else
+            for(VecLength i = 0; i < length; ++i)
+            { *(dest++) = *src; }
+        #endif
     #else
         ::vDSP_vfill(src, dest, 1, length);
     #endif
     };
 
-    void vramp(const float * src1, const float * src2, float * dest, VecLength length)
+    void vramp(const float * scalInit, const float * scalInc, float * dest, VecLength length)
     {
+    #ifdef ARM_ANDROID
+        #if __ARM_NEON__
+            float * origDest = dest;
+            VecLength remainedLength = length % 4;
+            length -= remainedLength;
+
+            float32x4_t inc_f32x4, incStep_f32x4;
+            float32x4_t src_f32x4;
+            float32x4_t dest_f32x4;
+            if(length > 0)
+            {
+                src_f32x4 = vdupq_n_f32(*(scalInit));
+                incStep_f32x4 = vdupq_n_f32(*(scalInc));
+                inc_f32x4 = {0.f, 1.f, 2.f, 3.f};
+                inc_f32x4 = vmulq_f32(inc_f32x4, incStep_f32x4);
+
+                for(; length != 0; length -= 4)
+                {
+                    dest_f32x4 = vaddq_f32(src_f32x4, inc_f32x4);
+                    inc_f32x4 = vaddq_f32(inc_f32x4, incStep_f32x4);
+                    vst1q_f32(dest, dest_f32x4);
+                    dest += 4;
+                }
+            }
+            if(remainedLength != 0)
+            {
+                VecLength i = dest - origDest;
+                for(; remainedLength != 0; --remainedLength)
+                {
+                    *(origDest+i) = (*scalInit) + (*scalInc) * i;
+                    i++;
+                }
+            }
+        #else
+            for(VecLength i = 0; i< length; ++i)
+            { dest[i] = (*scalInit) + (*scalInc) * i; }
+        #endif
+    #else
+        ::vDSP_vramp(scalInit, scalInc, dest, 1, length);
+    #endif
 
     };
-    void vindex(const float * src1, const float * idx, float * dest, VecLength length)
+    void vindex(const float * src, const float * idx, float * dest, VecLength length)
     {
+    #ifdef ARM_ANDROID
+    #else
+        ::vDSP_vindex(src, idx, 1, dest, 1, length);
+    #endif
     };
+
     void vgenp(const float * src1, const float * src2, float * dest, VecLength destLength, VecLength srcLength)
     {
+    #ifdef ARM_ANDROID
+    #else
+        ::vDSP_vgenp(src1, 1, src2, 1, dest, 1, destLength, srcLength);
+    #endif
+    };
+
+
+    void maxv_neon(const float * src, float * dest, VecLength length)
+    {
+        VecLength remainedLength = length % 4;
+        length -= remainedLength;
+
+        float32x4_t src_f32x4, max_f32x4;
+        float32x2_t max_f32x2;
+
+        if(length > 0)
+        {
+            max_f32x4 = vld1q_f32(src);
+            for(; length != 0; length -= 4)
+            {
+                src_f32x4 = vld1q_f32(src);
+                max_f32x4 = vmaxq_f32(src_f32x4, max_f32x4);
+                src += 4;
+            }
+            max_f32x2 = vmax_f32(vget_low_f32(max_f32x4), vget_high_f32(max_f32x4));
+            *dest = (max_f32x2[0] > max_f32x2[1]) ? max_f32x2[0] : max_f32x2[1];
+        }
+        if(remainedLength != 0)
+        {
+            for(; remainedLength != 0; --remainedLength)
+            {
+                if((*src) > (*dest))
+                { *dest = *src; }
+                ++src;
+            }
+        }
+    };
+
+    void maxv_cpp(const float * src, float * dest, VecLength length)
+    {
+        float * noConstSrc = const_cast<float *>(src);
+        float * maxVal = noConstSrc;
+
+        float * cur;
+        for(VecLength i=1; i<length; ++i)
+        {
+            cur = noConstSrc + i;
+            if( (*cur) > (*maxVal) )
+            { maxVal = cur; }
+        }
+        *(dest) = *(maxVal);
+    };
+
+    void maxmgv_neon(const float * src, float * dest, VecLength length)
+    {
+        VecLength remainedLength = length % 4;
+        length -= remainedLength;
+
+        float32x4_t src_f32x4, max_f32x4;
+        float32x2_t max_f32x2;
+
+        if(length > 0)
+        {
+            max_f32x4 = vdupq_n_f32(0.f);
+            for(; length != 0; length -= 4)
+            {
+                src_f32x4 = vabsq_f32(vld1q_f32(src));
+                max_f32x4 = vmaxq_f32(src_f32x4, max_f32x4);
+                src += 4;
+            }
+            max_f32x2 = vmax_f32(vget_low_f32(max_f32x4), vget_high_f32(max_f32x4));
+            *dest = (max_f32x2[0] > max_f32x2[1]) ? max_f32x2[0] : max_f32x2[1];
+        }
+        if(remainedLength != 0)
+        {
+            float absSrc;
+            for(; remainedLength != 0; --remainedLength)
+            {
+                absSrc = fabsf(*src);
+                if(absSrc > (*dest))
+                { *dest = absSrc; }
+                ++src;
+            }
+        }
+    };
+    void maxmgv_cpp(const float * src, float * dest, VecLength length)
+    {
+        float * noConstSrc = const_cast<float *>(src);
+        float maxVal = 0;
+
+        float absCur;
+        for(VecLength i=1; i<length; ++i)
+        {
+            absCur = fabsf( *(noConstSrc + i) );
+
+            if( absCur > maxVal )
+            { maxVal = absCur; }
+        }
+        *(dest) = maxVal;
+    };
+    
+    void svemg_cpp(const float * src, float * dest, VecLength length)
+    {
+        (*dest) = 0;
+        for(VecLength i = 0; i<length; ++i)
+        {
+            *dest += fabsf(*(src+i));
+        }
+    };
+
+    
+    void svemg_neon(const float * src, float * dest, VecLength length)
+    {
+        VecLength remainedLength = length % 4;
+        length -= remainedLength;
+        
+        float32x4_t src_f32x4;
+        float32x4_t sum_f32x4;
+        float32x2_t sum_f32x2;
+        
+        if(length > 0)
+        {
+            sum_f32x4 = vdupq_n_f32(0.f);
+            for(; length != 0; length -= 4)
+            {
+                src_f32x4 = vabsq_f32(vld1q_f32(src));
+                sum_f32x4 = vaddq_f32(sum_f32x4, src_f32x4);
+                src += 4;
+            }
+            sum_f32x2 = vadd_f32(vget_low_f32(sum_f32x4), vget_high_f32(sum_f32x4));
+            *dest = sum_f32x2[0] + sum_f32x2[1];
+        }
+        if(remainedLength != 0)
+        {
+            for(; remainedLength != 0; --remainedLength)
+            {
+                *dest += fabsf(*src);
+                ++src;
+            }
+        }
+
+    };
+    
+    void maxvi_cpp(const float * src, float * maxVal, VecLength * maxIdx, VecLength length)
+    {
+        maxv(src, maxVal, length);
+        *maxIdx = 0;
+        for(int i=0; i<length; ++i)
+        {
+            if(*(maxVal) == *(src + i))
+            {
+                *maxIdx = i;
+                break;
+            }
+        }
     };
 
 
@@ -417,7 +702,12 @@ namespace TapirDSP {
         ::vDSP_svemg(__vDSP_A, __vDSP_IA, __vDSP_C, __vDSP_N);
     #endif
     };
-    
+    void maxv (float *__vDSP_A, VecStride __vDSP_I, float *__vDSP_C, VecLength __vDSP_N)
+    {
+    #ifdef __APPLE__
+        ::vDSP_maxv(__vDSP_A, __vDSP_I, __vDSP_C, __vDSP_N);
+    #endif
+    };
     void maxvi(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength *__vDSP_I, VecLength __vDSP_N)
     {
     #ifdef __APPLE__

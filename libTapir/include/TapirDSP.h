@@ -22,6 +22,7 @@
 #endif
 
 #include <algorithm>
+#include <iostream>
 
 namespace TapirDSP {
     
@@ -65,6 +66,7 @@ namespace TapirDSP {
     void init();
     
     //***** new ******
+
     void vadd(const float *src1, const float *src2, float *dest, VecLength length);
     void vmul(const float *src1, const float *src2, float *dest, VecLength length);
     //scalar operation
@@ -81,9 +83,71 @@ namespace TapirDSP {
 
     void vrvrs(float * src, VecLength length); //reverse
     void vfill(const float * src, float * dest, VecLength length); //fill
-    void vramp(const float * src1, const float * src2, float * dest, VecLength length);
-    void vindex(const float * src1, const float * idx, float * dest, VecLength length);
-    void vgenp(const float * src1, const float * src2, float * dest, VecLength destLength, VecLength srcLength);
+
+    void vramp(const float * scalInit, const float * scalInc, float * dest, VecLength length);
+
+    void vindex(const float * src, const float * idx, float * dest, VecLength length); //skip
+    void vgenp(const float * src1, const float * src2, float * dest, VecLength destLength, VecLength srcLength); //skip
+
+    void maxv_neon(const float * src, float * dest, VecLength length);
+    void maxv_cpp(const float * src, float * dest, VecLength length);
+    
+    void maxmgv_neon(const float * src, float * dest, VecLength length);
+    void maxmgv_cpp(const float * src, float * dest, VecLength length);
+
+    void svemg_cpp(const float *src, float * dest, VecLength length);
+    void svemg_neon(const float *src, float * dest, VecLength length);
+    
+    void maxvi_cpp(const float *src, float * maxVal, VecLength * maxIdx, VecLength length);
+    
+    inline void maxv(const float * src, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        #ifdef __ARM_NEON__
+            maxv_neon(src,dest,length);
+        #else
+            maxv_cpp(src,dest,length);
+        #endif
+    #else
+        ::vDSP_maxv(src, 1, dest, length);
+    #endif
+    };
+    inline void maxmgv(const float * src, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        #ifdef __ARM_NEON__
+            maxmgv_neon(src,dest,length);
+        #else
+            maxmgv_cpp(src,dest,length);
+        #endif
+    #else
+        ::vDSP_maxmgv(src, 1, dest, length);
+    #endif
+    };
+    inline void svemg(const float *src, float * dest, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        #ifdef __ARM_NEON__
+            svemg_neon(src,dest,length);
+        #else
+            svemg_cpp(src,dest,length);
+        #endif
+    #else
+         ::vDSP_svemg(src, 1, dest, length);
+    #endif
+    };
+    inline void maxvi(const float *src, float * maxVal, VecLength * maxIdx, VecLength length)
+    {
+    #ifdef ARM_ANDROID
+        maxvi_cpp(src, maxVal, maxIdx, length);
+    #else
+       ::vDSP_maxvi(src, 1, maxVal, maxIdx, length);
+    #endif
+    };
+
+ 
+
+    /***************************************/
 
     //old
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
@@ -99,23 +163,23 @@ namespace TapirDSP {
     void vflt16(const short *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //short -> float
     void vflt32(const int *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //int -> float
 
-    void vrvrs(float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //reverse
+    void vrvrs(float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N); //reverse => vDSP Filter Only
     void vfill(const float *__vDSP_A, float *__vDSP_C, VecStride __vDSP_IA, VecLength __vDSP_N); //fill
+
     void vramp(const float *__vDSP_A, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vindex(const float *__vDSP_A, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
-
     void vgenp(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_M);
     
+
     void maxmgv(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength __vDSP_N);
-    
-    void conv(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_F, VecStride __vDSP_IF, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_P); //convolution
-    void dotpr(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecLength __vDSP_N);
-    
     void svemg(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength __vDSP_N);
-    
+    void maxv (float *__vDSP_A, VecStride __vDSP_I, float *__vDSP_C, VecLength __vDSP_N);
     void maxvi(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength *__vDSP_I, VecLength __vDSP_N);
     
     void mtrans(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_M, VecLength __vDSP_N);
+
+    void conv(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_F, VecStride __vDSP_IF, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_P); //convolution
+    void dotpr(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecLength __vDSP_N);
     
     void zvmov(const SplitComplex *__vDSP_A, VecStride __vDSP_IA, const SplitComplex *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     

@@ -122,6 +122,111 @@ void test_conv()
 	delete [] fdest2;
 }
 
+void test_etc()
+{
+	int cnt = 10;
+	float * src = new float[cnt]();
+	float * dest = new float[cnt]();
+    float constantSrc;
+    clock_t stTime, edTime;
+
+	for(int i=0; i<cnt; ++i)
+	{ src[i] = (float) rand() / RAND_MAX * 40000.0f; }
+	constantSrc = src[0];
+
+//    for(int i=0; i<10; ++i)
+//    { LOGD("before[%d] : %f", i, src[i]); }
+
+    float * srcRvrs = new float[cnt * 10000];
+    int rvrsCnt = cnt * 10000;
+    for(int i=0; i< rvrsCnt; ++i)
+    { srcRvrs[i] = (float) rand() / RAND_MAX * 40000.0f; }
+
+    stTime = clock();
+    for(int i=0; i< 10; ++i)
+    {
+        float temp;
+        float * srcRvrsLoop = srcRvrs;
+
+        float * srcBackward = srcRvrsLoop + rvrsCnt - 1;
+        while(srcRvrsLoop < srcBackward)
+        {
+            temp = *srcRvrsLoop;
+            *(srcRvrsLoop++) = *srcBackward;
+            *(srcBackward--) = temp;
+        }
+    }
+	edTime = clock();
+
+	LOGD("loop: %f", ((float)(edTime - stTime)) / CLOCKS_PER_SEC);
+
+    stTime = clock();
+    for(int i=0; i<10; ++i)
+    { TapirDSP::vrvrs(srcRvrs, rvrsCnt); }
+	edTime = clock();
+
+	LOGD("vrvrs : %f", ((float)(edTime - stTime)) / CLOCKS_PER_SEC);
+
+
+
+//	for(int i=0; i<10; ++i)
+//    {LOGD("after[%d] : %f", i, src[i]);}
+
+    TapirDSP::vfill(&constantSrc, dest, cnt);
+    LOGD("*****************************");
+    LOGD("constant : %f", constantSrc);
+    for(int i=0; i<10; ++i)
+    {
+
+    	LOGD("fill[%d] : %f",i, dest[i]);
+    }
+
+    float srcInit = 0.5;
+    float srcInc = 1.1;
+
+    int rampcnt = 103;
+	float * destramp = new float[rampcnt]();
+
+    stTime = clock();
+    for(int j=0; j<10000; ++j)
+    {
+        for(int i = 0; i< rampcnt; ++i)
+        { destramp[i] = srcInc * i + srcInit; }
+    }
+    edTime = clock();
+
+    LOGD("fill : %f", ((float)edTime-stTime)/CLOCKS_PER_SEC);
+
+    stTime = clock();
+    for(int j=0; j<10000; ++j)
+    {
+    	TapirDSP::vramp(&srcInit, &srcInc, destramp, rampcnt);
+    }
+    edTime = clock();
+    LOGD("VRAMP : %f", ((float)edTime-stTime)/CLOCKS_PER_SEC);
+
+
+
+    LOGD("*****************************");
+    for(int i=0; i<10; ++i)
+    {
+    	LOGD("ramp[%d] : %f",i, destramp[i]);
+    }
+    for(int i=rampcnt-10; i<rampcnt; ++i)
+    {
+    	LOGD("ramp[%d] : %f",i, destramp[i]);
+    }
+
+    delete [] destramp;
+	delete [] dest;
+	delete [] src;
+};
+
+void test_maxval()
+{
+
+};
+
 jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
                                                   jobject thiz )
 {
@@ -144,7 +249,7 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
 #endif
 
 //	test_vstest();
-	test_conv();
+	test_maxval();
 
 //	ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
 	Tapir::SignalAnalyzer test(20000.f);

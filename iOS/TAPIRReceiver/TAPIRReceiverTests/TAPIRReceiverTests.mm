@@ -7,12 +7,13 @@
 //
 
 #include <mach/mach_time.h>
-
+#include <assert.h>
 #import <XCTest/XCTest.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TapirLib/TapirLib.h>
 #import <Accelerate/Accelerate.h>
-
+#include <mach/mach.h>
+#include <unistd.h>
 
 @interface TAPIRReceiverTests : XCTestCase
 
@@ -173,7 +174,44 @@
     NSLog(srcString);
     NSLog(destString);
 };
+- (void)testMaxvi
+{
+    int cnt = 100;
+    int loop = 10000;
+    
+    float * src = new float[cnt];
+    float * dest = new float;
 
+    uint64_t stTime, edTime;
+    TapirDSP::VecLength maxIdx;
+    srand((unsigned int)time(NULL));
+    for(int i=0; i<cnt; ++i)
+    { src[i] = (float) rand() / RAND_MAX * 5.0f; }
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::maxvi(src, dest, &maxIdx, cnt);
+    }
+    edTime = mach_absolute_time();
+    
+    NSLog(@"RESULT : %f // %d", *dest, maxIdx);
+    NSLog(@"elapsed : %d", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::maxvi(src, 1, dest, &maxIdx, cnt);
+    }
+    edTime = mach_absolute_time();
+    
+    NSLog(@"RESULT : %f // %d", *dest, maxIdx);
+    NSLog(@"elapsed : %d", edTime - stTime);
+    
+    delete [] src;
+    delete dest;
+    
+}
 
 /*
 - (void)testUse
