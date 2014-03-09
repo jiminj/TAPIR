@@ -107,7 +107,7 @@ namespace Tapir {
         
         if(isLastElemAdded)
         {
-            extPilotIndex[extLength - 1] = static_cast<float>(m_chLength);
+            extPilotIndex[extLength - 1] = static_cast<float>(m_chLength - 1);
             if(pilotLength < 2)
             {
                 extPilotChannel.realp[extLength - 1] = pilotChannel->realp[0];
