@@ -18,7 +18,7 @@ namespace Tapir {
     m_buffer(new float[m_bufferSize]())
     {
         TapirDSP::copy(coeff, coeff + filtOrder, m_coeff);
-        TapirDSP::vrvrs(m_coeff, 1, m_order);
+        TapirDSP::vrvrs(m_coeff, m_order);
 
     };
     void FilterFIR::process(const float * src, float * dest, int length)

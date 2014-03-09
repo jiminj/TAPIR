@@ -24,7 +24,7 @@ namespace Tapir
 
         float * phase = new float[length];
         TapirDSP::vsmsa(src, &phaseDiv, &m_initialPhase, phase, length);
-        TapirDSP::vsincosf(dest->imagp, dest->realp, phase, &length);
+        TapirDSP::vvsincosf(dest->imagp, dest->realp, phase, length);
         
         float amp = sqrt(m_magnitude);
         TapirDSP::vsmul(dest->realp, &amp, dest->realp, length);
@@ -42,7 +42,6 @@ namespace Tapir
         float startPhase = M_PI / m_symbolRate - m_initialPhase;
         
         // Set start point from 0 tO -pi/n, at n-psk, initPhase = 0;
-//        TapirDSP::vsadd(phase, 1, &startPhase, phase, 1, length);
         TapirDSP::vsadd(phase, &startPhase, phase, length);
         
         // [-pi : pi] => [ 0 : 2pi];

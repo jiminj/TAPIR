@@ -21,8 +21,8 @@ static void generateCarrier(TapirDSP::SplitComplex * carrier, const int length, 
     float inc = 2 * M_PI * carrierFreq/(float)samplingFreq;
     float * carrierIndex = new float[length];
     
-    TapirDSP::vramp(&initState, &inc, carrierIndex, 1, length);
-    TapirDSP::vsincosf(carrier->imagp, carrier->realp, carrierIndex, &length);
+    TapirDSP::vramp(&initState, &inc, carrierIndex, length);
+    TapirDSP::vvsincosf(carrier->imagp, carrier->realp, carrierIndex, length);
 
     delete [] carrierIndex;
 };
@@ -41,7 +41,7 @@ void scaleCompSignal(const TapirDSP::SplitComplex * source, TapirDSP::SplitCompl
 void maximizeSignal(const float * source, float * dest, const int length, const float maximum)
 {
     float maxVal;
-    TapirDSP::maxmgv(source, 1, &maxVal, length);
+    TapirDSP::maxmgv(source, &maxVal, length);
     scaleFloatSignal(source, dest, length, maximum / maxVal);
 };
 

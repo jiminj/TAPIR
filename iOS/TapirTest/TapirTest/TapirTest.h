@@ -10,9 +10,23 @@
 
 @interface TapirTest : NSObject {}
 
-+ (void)testRamp;
-+ (void)testRvrs;
++ (void)testVramp;
++ (void)testVrvrs;
 + (void)testSvemg;
-+ (void)testMaxVal;
++ (void)testMaxv;
++ (void)testMaxmgv;
 + (void)testMaxvi;
++ (void)testZvmov;
++ (void)testZvmul;
++ (void)testZvdiv;
++ (void)testZvconj;
++ (void)testZvphas;
+
++ (void)testVvsincosf;
++ (void)testVindex;
++ (void)testMtrans;
++ (void)testVgenp;
++ (void)testOps;
++ (void)testConv;
+
 @end
