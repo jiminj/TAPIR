@@ -27,6 +27,9 @@
 + (void)testMtrans;
 + (void)testVgenp;
 + (void)testOps;
-+ (void)testConv;
++ (void)testConvert;
 
++ (void)testDotpr;
++ (void)testConvolution;
++ (void)testConvolution2;
 @end

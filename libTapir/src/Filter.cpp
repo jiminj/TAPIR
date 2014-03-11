@@ -28,7 +28,7 @@ namespace Tapir {
         float * curBufferPos = m_buffer;
         for(int i=0; i<length; ++i)
         {
-            TapirDSP::dotpr(curBufferPos++, 1, m_coeff, 1, dest++, m_order);
+            TapirDSP::dotpr(curBufferPos++, m_coeff, dest++, m_order);
         }
         //copy result to buffer
         TapirDSP::copy(src + length - m_order, src + length, m_buffer);

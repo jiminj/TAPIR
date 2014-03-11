@@ -36,7 +36,7 @@ namespace Tapir
     void PskModulator::demodulate(const TapirDSP::SplitComplex * src, float * dest, const int length) const
     {
         float * phase = new float[length];
-        TapirDSP::zvphas(src, 1, phase, 1, length);
+        TapirDSP::zvphas(src, phase, length);
 
         float phaseDiv = TWO_PI / m_symbolRate;
         float startPhase = M_PI / m_symbolRate - m_initialPhase;

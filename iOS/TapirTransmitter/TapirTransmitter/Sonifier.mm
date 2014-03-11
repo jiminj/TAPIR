@@ -108,7 +108,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             isDone = TRUE;
         }
         TapirDSP::vsmul(audioData, &kShortMax, audioData, copyLen); //maximize volume
-        TapirDSP::vfix16(audioData, 1, bufferData, 1, copyLen); //float to SInt16
+        TapirDSP::vfix16(audioData, bufferData, copyLen); //float to SInt16
 
         audioData += copyLen;
         dataLength = newDataLength;

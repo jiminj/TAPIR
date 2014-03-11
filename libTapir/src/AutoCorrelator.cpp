@@ -53,7 +53,7 @@ namespace Tapir {
             lastHalf = m_inBuffer->getLast( backTrackLength + m_lag);
             firstHalf = m_inBuffer->getLast( backTrackLength + 2 * m_lag);
             
-            TapirDSP::dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
+            TapirDSP::dotpr(firstHalf, lastHalf, &corrResult, m_lag);
             TapirDSP::svemg(lastHalf, &mag, m_lag);
 //            corrResult /= (mag / m_lag);
             corrResult = fabsf(corrResult);

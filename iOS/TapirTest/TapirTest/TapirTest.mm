@@ -879,9 +879,9 @@
 + (void)testMtrans
 {
     int loop = 10000;
-    int cnt = 2048;
-    int m = 64;
-    int n = 32;
+    int cnt = 16;
+    int m = 8;
+    int n = 2;
     float * src = new float[cnt];
     float * dest = new float[cnt]();
     srand((unsigned int)time(NULL));
@@ -897,10 +897,12 @@
         TapirDSP::mtrans_cpp(src, dest, m, n);
     }
     edTime = mach_absolute_time();
+    NSLog(@" ======== CPP ======== ");
     for(int i=0; i<5; ++i)
     { NSLog(@"SRC[%d] : %f // DEST[%d] : %f", i, src[i], i, dest[i]); }
     for(int i=cnt - 5; i<cnt; ++i)
     { NSLog(@"SRC[%d] : %f // DEST[%d] : %f", i, src[i], i, dest[i]); }
+
     NSLog(@"CPP elapsed : %llu", edTime - stTime);
     delete [] dest;
     dest = new float[cnt]();
@@ -915,6 +917,7 @@
     { NSLog(@"SRC[%d] : %f // DEST[%d] : %f", i, src[i], i, dest[i]); }
     for(int i=cnt - 5; i<cnt; ++i)
     { NSLog(@"SRC[%d] : %f // DEST[%d] : %f", i, src[i], i, dest[i]); }
+
     NSLog(@"vDSP elapsed : %llu", edTime - stTime);
     delete [] src;
     delete [] dest;
@@ -1226,7 +1229,7 @@
 }
 
 
-+ (void) testConv
++ (void) testConvert
 {
     int cnt = 2048;
     int loop = 10000;
@@ -1401,8 +1404,215 @@
     delete [] dest16_cpp; delete [] dest16_neon; delete [] dest16_vdsp;
     delete [] dest32_cpp; delete [] dest32_neon; delete [] dest32_vdsp;
     delete [] destF_cpp; delete [] destF_neon; delete [] destF_vdsp;
+
+};
+
++ (void)testDotpr
+{
+    int cnt = 2048;
+    int loop = 10000;
+    
+    float * src1 = new float[cnt];
+    float * src2 = new float[cnt];
+    
+    float destCpp, destNeon, destVdsp;
+    
+    uint64_t stTime, edTime;
+    srand((unsigned int)time(NULL));
+    for(int i=0; i<cnt; ++i)
+    {
+        src1[i] = (float) rand() / RAND_MAX * 5.0f - 2.5f;
+        src2[i] = (float) rand() / RAND_MAX * 5.0f - 2.5f;
+    }
+    
+    NSLog(@"======= DOTPR =============");
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::dotpr_cpp(src1, src2, &destCpp, cnt);
+
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"CPP elapsed : %llu", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::dotpr_neon(src1, src2, &destNeon, cnt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"NEON elapsed : %llu", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::dotpr(src1, src2, &destVdsp, cnt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"vDSP elapsed : %llu", edTime - stTime);
+    
+    NSLog(@"DEST CPP : %f \t NEON : %f \t VDSP : %f ", destCpp, destNeon, destVdsp);
+    
+    delete [] src1;
+    delete [] src2;
+};
+
++ (void)testConvolution
+{
+    int cntDest = 2048;
+    int cntFilt = 256;
+    int cntSrc = cntDest + cntFilt - 1;
+    int loop = 1;
+    
+    float * src = new float[cntSrc];
+    float * filt = new float[cntFilt];
+    float * destCpp = new float[cntDest]();
+    float * destNeon = new float[cntDest]();
+    float * destVdsp = new float[cntDest]();
+    
+    uint64_t stTime, edTime;
+    srand((unsigned int)time(NULL));
+    for(int i=0; i<cntSrc; ++i)
+    {
+        src[i] = (float) rand() / RAND_MAX * 5.0f - 2.5f;
+    }
+    for(int i=0; i<cntFilt; ++i)
+    {
+        filt[i] = (float) rand() / RAND_MAX * 5.0f - 2.5f;
+    }
+    
+    NSLog(@"======= CONV =============");
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::conv_cpp(src, filt, destCpp, cntDest, cntFilt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"CPP elapsed : %llu", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::conv_neon(src, filt, destNeon, cntDest, cntFilt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"NEON elapsed : %llu", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::conv(src, filt, destVdsp, cntDest, cntFilt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"vDSP elapsed : %llu", edTime - stTime);
+    
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"DEST[%d] CPP : %f \t NEON : %f \t VDSP : %f ", i, destCpp[i], destNeon[i], destVdsp[i]);
+    }
+    for(int i=cntDest-5; i < cntDest; ++i)
+    {
+        NSLog(@"DEST[%d] CPP : %f \t NEON : %f \t VDSP : %f ", i, destCpp[i], destNeon[i], destVdsp[i]);
+    }
+    
+    delete [] destCpp; destCpp = new float[cntDest]();
+    delete [] destNeon; destNeon = new float[cntDest]();
+    delete [] destVdsp; destVdsp = new float[cntDest]();
+    
+    NSLog(@"======= CORR =============");
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::corr_cpp(src, filt, destCpp, cntDest, cntFilt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"CPP elapsed : %llu", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::corr_neon(src, filt, destNeon, cntDest, cntFilt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"NEON elapsed : %llu", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::corr(src, filt, destVdsp, cntDest, cntFilt);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"vDSP elapsed : %llu", edTime - stTime);
+    
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"DEST[%d] CPP : %f \t NEON : %f \t VDSP : %f ", i, destCpp[i], destNeon[i], destVdsp[i]);
+    }
+    for(int i=cntDest-5; i < cntDest; ++i)
+    {
+        NSLog(@"DEST[%d] CPP : %f \t NEON : %f \t VDSP : %f ", i, destCpp[i], destNeon[i], destVdsp[i]);
+    }
     
     
-}
+    
+    delete [] src;
+    delete [] filt;
+    delete [] destCpp;
+    delete [] destNeon;
+    delete [] destVdsp;
+};
+
++ (void) testConvolution2
+{
+    int srcLength = 8;
+    int trelCodeLength = 7;
+    int destLength = 16;
+    std::vector<Tapir::TrellisCode> trelCode = Tapir::Config::TRELLIS_ARRAY;
+    int encodingRate = static_cast<int>(trelCode.size());
+    int inputLength = (srcLength + trelCodeLength - 1);
+    
+    float * input = new float[inputLength]();
+    input[7] = 1; input[8] = 1; input[9] = 1; input[11] = 1;
+    float * destOrig = new float[destLength]();
+    float * destNew = new float[destLength]();
+    float * destNewTrans = new float[destLength]();
+
+    uint64_t stTime, edTime;
+    srand((unsigned int)time(NULL));
+//    for(int i=0; i<inputLength; ++i)
+//    {
+//        NSLog(@"SRC[%d] : %f", i, input[i]);
+//    }
+    stTime = mach_absolute_time();
+    for(int i=0; i<encodingRate; ++i)
+    {
+        const float * filter = (trelCode.at(i)).getEncodedCode() + trelCodeLength - 1; //set end of the array;
+        TapirDSP::conv(input, 1, filter, -1, destOrig + i, encodingRate, srcLength, trelCodeLength);
+    }
+    edTime = mach_absolute_time();
+    NSLog(@"elapsed Old : %llu", edTime - stTime);
+    stTime = mach_absolute_time();
+    
+    
+    for(int i=0; i<encodingRate; ++i)
+    {
+        const float * filter = (trelCode.at(i)).getEncodedCode();
+        TapirDSP::conv(input, filter, destNew + (i * srcLength), srcLength, trelCodeLength);
+    }
+    TapirDSP::mtrans(destNew, destNewTrans, srcLength, encodingRate);
+    
+    edTime = mach_absolute_time();
+    NSLog(@"elapsed New: %llu", edTime - stTime);
+
+    for(int i=0; i< destLength; ++i)
+    {
+        NSLog(@"Result[%d] : %f // %f", i, destOrig[i], destNew[i]);
+    }
+
+    
+    delete [] input;
+    delete [] destOrig;
+    delete [] destNew;
+};
 
 @end

@@ -18,7 +18,7 @@ namespace Tapir {
     m_pilotRcvSignal({.realp = new float[m_pilotInfo->getPilotLength()], .imagp = new float[m_pilotInfo->getPilotLength()]}),
     m_pilotChannel({.realp = new float[m_pilotInfo->getPilotLength()], .imagp = new float[m_pilotInfo->getPilotLength()]})
     {
-        TapirDSP::vflt32(m_pilotInfo->getPilotIndex(), 1, m_pilotIdx, 1, m_pilotInfo->getPilotLength());
+        TapirDSP::vflt32(m_pilotInfo->getPilotIndex(), m_pilotIdx, m_pilotInfo->getPilotLength());
     };
 
     LSChannelEstimator::~LSChannelEstimator()
@@ -36,15 +36,15 @@ namespace Tapir {
     {
         //Save Pilot Value
         const TapirDSP::SplitComplex * pilotData = m_pilotInfo->getPilotData();
-        TapirDSP::vindex(src->realp, m_pilotIdx, 1, m_pilotRcvSignal.realp, 1, m_pilotInfo->getPilotLength() );
-        TapirDSP::vindex(src->imagp, m_pilotIdx, 1, m_pilotRcvSignal.imagp, 1, m_pilotInfo->getPilotLength() );
-        TapirDSP::zvdiv(pilotData, 1, &m_pilotRcvSignal, 1, &m_pilotChannel, 1, m_pilotInfo->getPilotLength());
+        TapirDSP::vindex(src->realp, m_pilotIdx, m_pilotRcvSignal.realp, m_pilotInfo->getPilotLength() );
+        TapirDSP::vindex(src->imagp, m_pilotIdx, m_pilotRcvSignal.imagp, m_pilotInfo->getPilotLength() );
+        TapirDSP::zvdiv(pilotData, &m_pilotRcvSignal, &m_pilotChannel, m_pilotInfo->getPilotLength());
         
         generateChannel(&m_pilotChannel);
 
         //Conjugate and multiply
-        TapirDSP::zvconj(&m_channel, 1, &m_channel, 1, m_chLength);
-        TapirDSP::zvmul(src, 1, &m_channel, 1, dest, 1, m_chLength, 1 );
+        TapirDSP::zvconj(&m_channel, &m_channel, m_chLength);
+        TapirDSP::zvmul(src, &m_channel, dest, m_chLength, 1 );
         
     };
     void LSChannelEstimator::generateChannel(const TapirDSP::SplitComplex *pilotChannel)
@@ -127,8 +127,8 @@ namespace Tapir {
         }
         
         //Generate Channel
-        TapirDSP::vgenp(extPilotChannel.realp, 1, extPilotIndex, 1, m_channel.realp, 1, m_chLength, extLength);
-        TapirDSP::vgenp(extPilotChannel.imagp, 1, extPilotIndex, 1, m_channel.imagp, 1, m_chLength, extLength);
+        TapirDSP::vgenp(extPilotChannel.realp, extPilotIndex, m_channel.realp, m_chLength, extLength);
+        TapirDSP::vgenp(extPilotChannel.imagp, extPilotIndex, m_channel.imagp, m_chLength, extLength);
    
         delete [] extPilotIndex;
         delete [] extPilotChannel.realp;

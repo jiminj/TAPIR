@@ -61,7 +61,7 @@ void iqDemodulate(const float * signal, TapirDSP::SplitComplex * destSignal, con
     
     generateCarrier(&carrier, length, samplingFreq, carrierFreq);
     scaleCompSignal(&carrier, &carrier, length, scale);
-    TapirDSP::zrvmul(&carrier, 1, signal, 1, destSignal, 1, length);
+    TapirDSP::zrvmul(&carrier, signal, destSignal, length);
     
     delete [] carrier.realp;
     delete [] carrier.imagp;

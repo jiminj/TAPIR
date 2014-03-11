@@ -13,9 +13,9 @@
 #ifdef __APPLE__
 #include "TargetConditionals.h"
 #include <Accelerate/Accelerate.h>
+#define ARM_ANDROID 0
 #elif defined(__arm__) && defined(__ANDROID__)
 #define ARM_ANDROID 1
-#include <NE10.h>
 #endif
 #if __ARM_NEON__
 #include <arm_neon.h>
@@ -27,7 +27,7 @@
 namespace TapirDSP {
     
 //typedef
-#ifdef ARM_ANDROID
+#if ARM_ANDROID
     typedef struct Complex {
         float  real; float  imag;
     } Complex;
@@ -61,9 +61,6 @@ namespace TapirDSP {
     template< class InputIt, class OutputIt >
     OutputIt copy( InputIt first, InputIt last, OutputIt d_first )
     { return std::copy(first, last, d_first); };
-
-    //new
-    void init();
     
     //***** new ******
 
@@ -107,6 +104,12 @@ namespace TapirDSP {
     inline void zvphas_cpp(const SplitComplex * src, float * dest, VecLength length)
     { vvatan2f_cpp(dest, src->imagp, src->realp, length); }
 
+    void dotpr_cpp(const float * src1, const float * src2, float * dest, VecLength length);
+    void conv_cpp(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
+    void corr_cpp(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
+    
+
+#ifdef __ARM_NEON__
     //neon implementation
     void vadd_neon(const float *src1, const float *src2, float *dest, VecLength length);
     void vmul_neon(const float *src1, const float *src2, float *dest, VecLength length);
@@ -151,15 +154,146 @@ namespace TapirDSP {
     inline void zvphas_neon(const SplitComplex * src, float * dest, VecLength length)
     { vvatan2f_neon(dest, src->imagp, src->realp, length); }
 
-    //skipped ****
-    void conv(const float * src1, const float * src2, float * dest, VecLength lengthSrc1, VecLength lengthSrc2); //convolution
-    void corr(const float * src1, const float * src2, float * dest, VecLength lengthSrc1, VecLength lengthSrc2); //correlation
-    void dotpr(const float * src1, const float * src2, float * dest, VecLength length);
+    void dotpr_neon(const float * src1, const float * src2, float * dest, VecLength length);
+    void conv_neon(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
+    void corr_neon(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
+#endif
+    void vadd_neon(const float *src1, const float *src2, float *dest, VecLength length);
+    void vmul_neon(const float *src1, const float *src2, float *dest, VecLength length);
+
+    void vsadd_neon(const float * src, const float * scalSrc, float * dest, VecLength length);
+    void vsmul_neon(const float * src, const float * scalSrc, float * dest, VecLength length);
+    void vsdiv_neon(const float * src, const float * scalSrc, float * dest, VecLength length);
+    void vsmsa_neon(const float * src, const float * scalSrcMul, const float *scalSrcAdd, float * dest, VecLength length); //multiply and add
+
+    void vfix16_neon(const float * src, short * dest, VecLength length);
+    void vfix32_neon(const float * src, int * dest, VecLength length);
+    void vflt16_neon(const short * src, float * dest, VecLength length);
+    void vflt32_neon(const int * src, float* dest, VecLength length);
+
+    void vrvrs_neon(float * src, VecLength length); //reverse
+    void vfill_neon(const float * src, float * dest, VecLength length); //fill
+    void vramp_neon(const float * scalInit, const float * scalInc, float * dest, VecLength length);
+
+// for test
+    /*
+    inline void vadd(const float *src1, const float *src2, float *dest, VecLength length)
+    { vadd_neon(src1, src2, dest, length); }
+    inline void vmul(const float *src1, const float *src2, float *dest, VecLength length)
+    { vmul_neon(src1, src2, dest, length); }
+
+    inline void vsadd(const float * src, const float * scalSrc, float * dest, VecLength length)
+    { vsadd_neon(src, scalSrc, dest, length); }
+    inline void vsmul(const float * src, const float * scalSrc, float * dest, VecLength length)
+    { vsmul_neon(src, scalSrc, dest, length); }
+    inline void vsdiv(const float * src, const float * scalSrc, float * dest, VecLength length)
+    { vsdiv_neon(src, scalSrc, dest, length); }
+    inline void vsmsa(const float * src, const float * scalSrcMul, const float *scalSrcAdd, float * dest, VecLength length) //multiply and add
+    { vsmsa_neon(src, scalSrcMul, scalSrcAdd, dest, length); }
+
+    inline void vfix16(const float * src, short * dest, VecLength length)
+    { vfix16_neon(src, dest, length); }
+    inline void vfix32(const float * src, int * dest, VecLength length)
+    { vfix32_neon(src,dest, length); }
+    inline void vflt16(const short * src, float * dest, VecLength length)
+    { vflt16_neon(src, dest, length); }
+    inline void vflt32(const int * src, float* dest, VecLength length)
+    { vflt32_neon(src, dest, length); }
+
+    inline void vrvrs(float * src, VecLength length) //reverse
+    { vrvrs_neon(src, length); }
+    inline void vfill(const float * src, float * dest, VecLength length) //fill
+    { vfill_neon(src, dest, length); }
+    inline void vramp(const float * scalInit, const float * scalInc, float * dest, VecLength length)
+    { vramp_neon(scalInit, scalInc, dest, length); }
+    
+    //skipped; limitedly used for small numbers (no big performance enhancement)
+    inline void vindex(const float * src, const float * idx, float * dest, VecLength length)
+    { vindex_neon(src, idx, dest, length); };
+    inline void mtrans(const float * src, float * dest, VecLength lengthM, VecLength lengthN)
+    { mtrans_neon(src, dest, lengthM, lengthN); }
+    inline void vgenp(const float * src, const float * idx, float * dest, VecLength destLength, VecLength srcLength)
+    { vgenp_neon(src, idx, dest, destLength, srcLength); }
+    
+    inline void vvsincosf(float * z, float * y, const float * x, VecLength length)
+    { vvsincosf_neon(z, y, x, length); }
+    inline void vvatan2f(float * z, const float * y, const float * x, VecLength length)
+    { vvatan2f_neon(z,y,x,length); }
+    inline void maxv(const float * src, float * dest, VecLength length)
+    { maxv_neon(src, dest, length); }
+    inline void maxmgv(const float * src, float * dest, VecLength length)
+    { maxmgv_neon(src, dest, length); }
+    inline void maxvi(const float * src, float * maxVal, VecLength * maxIdx, VecLength length)
+    { maxvi_neon(src, maxVal, maxIdx, length); }
+    inline void svemg(const float * src, float * dest, VecLength length)
+    { svemg_neon(src, dest, length); }
+
+    inline void zvconj(const SplitComplex * src, const SplitComplex * dest, VecLength length)
+    { zvconj_neon(src, dest, length); }
+    inline void zvmov(const SplitComplex * src, const SplitComplex * dest, VecLength length)
+    { zvmov_neon(src, dest, length);}
+    inline void zvmul(const SplitComplex * src1, const SplitComplex * src2, const SplitComplex * dest, VecLength length, int conjFlag)
+    { zvmul_neon(src1, src2, dest, length, conjFlag); }
+    inline void zvdiv(const SplitComplex * srcDen, const SplitComplex * srcNum, const SplitComplex * dest, VecLength length)
+    { zvdiv_neon(srcDen, srcNum, dest, length); }
+    inline void zvphas(const SplitComplex * src, float * dest, VecLength length)
+    { vvatan2f_neon(dest, src->imagp, src->realp, length); }
+
+    inline void conv(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter)
+    { conv_neon(src,filter,dest,lengthDest, lengthFilter);}
+    inline void corr(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter)
+    { corr_neon(src,filter,dest,lengthDest, lengthFilter);}
+    inline void dotpr(const float * src1, const float * src2, float * dest, VecLength length)
+    { dotpr_neon(src1, src2, dest, length); }
+    
+    inline void zrvmul(const SplitComplex * srcCom, const float * srcReal, const SplitComplex * dest, VecLength length)
+    {
+        vmul(srcCom->realp, srcReal, dest->realp, length);
+        vmul(srcCom->imagp, srcReal, dest->imagp, length);
+    };
+     */
+    
+    inline void conv(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter) //convolution
+    {
+    #if ARM_ANDROID
+        #ifdef __ARM_NEON__
+            conv_neon(src, filter, dest, lengthDest, lengthFilter);
+        #else
+            conv_cpp(src, filter, dest, lengthDest, lengthFilter);
+        #endif
+    #else
+        ::vDSP_conv(src, 1, filter + lengthFilter - 1, -1, dest, 1,  lengthDest, lengthFilter);
+    #endif
+    };
+    inline void corr(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter) //correlation
+    {
+    #if ARM_ANDROID
+        #ifdef __ARM_NEON__
+            corr_neon(src, filter, dest, lengthDest, lengthFilter);
+        #else
+            corr_cpp(src, filter, dest, lengthDest, lengthFilter);
+        #endif
+    #else
+        ::vDSP_conv(src, 1, filter, 1, dest, 1, lengthDest, lengthFilter);
+    #endif
+    };
+    inline void dotpr(const float * src1, const float * src2, float * dest, VecLength length)
+    {
+    #if ARM_ANDROID
+        #ifdef __ARM_NEON__
+            dotpr_neon(src1, src2, dest, length);
+        #else
+            dotpr_cpp(src1, src2, dest, length);
+        #endif
+    #else
+        ::vDSP_dotpr(src1, 1, src2, 1, dest, length);
+    #endif
+    };
     //***** skipped
  
     inline void vadd(const float *src1, const float *src2, float *dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vadd_neon(src1, src2, dest, length);
         #else
@@ -172,7 +306,7 @@ namespace TapirDSP {
     
     inline void vmul(const float *src1, const float *src2, float *dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vmul_neon(src1, src2, dest, length);
         #else
@@ -185,7 +319,7 @@ namespace TapirDSP {
     
     inline void vsadd(const float * src, const float * scalSrc, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vsadd_neon(src, scalSrc, dest, length);
         #else
@@ -198,7 +332,7 @@ namespace TapirDSP {
     };
     inline void vsmul(const float * src, const float * scalSrc, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vsmul_neon(src, scalSrc, dest, length);
         #else
@@ -211,7 +345,7 @@ namespace TapirDSP {
     };
     inline void vsdiv(const float * src, const float * scalSrc, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vsdiv_neon(src, scalSrc, dest, length);
         #else
@@ -224,7 +358,7 @@ namespace TapirDSP {
     };
     inline void vsmsa(const float * src, const float * scalSrcMul, const float *scalSrcAdd, float * dest, VecLength length) //multiply and add
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vsmsa_neon(src, scalSrcMul, scalSrcAdd, dest, length);
         #else
@@ -240,7 +374,7 @@ namespace TapirDSP {
     //conversion
     inline void vfix16(const float * src, short * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vfix16_neon(src, dest, length);
         #else
@@ -252,7 +386,7 @@ namespace TapirDSP {
     };
     inline void vfix32(const float * src, int * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vfix32_neon(src, dest, length);
         #else
@@ -264,7 +398,7 @@ namespace TapirDSP {
     };
     inline void vflt16(const short * src, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vflt16_neon(src, dest, length);
         #else
@@ -277,7 +411,7 @@ namespace TapirDSP {
     };
     inline void vflt32(const int * src, float* dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vflt32_neon(src, dest, length);
         #else
@@ -290,7 +424,7 @@ namespace TapirDSP {
  
     inline void vrvrs(float * src, VecLength length) //reverse
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vrvrs_neon(src, length);
         #else
@@ -302,7 +436,7 @@ namespace TapirDSP {
     }
     inline void vfill(const float * src, float * dest, VecLength length) //fill
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vfill_neon(src, dest, length);
         #else
@@ -314,7 +448,7 @@ namespace TapirDSP {
     }
     inline void vramp(const float * scalInit, const float * scalInc, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vramp_neon(scalInit, scalInc, dest, length);
         #else
@@ -327,7 +461,7 @@ namespace TapirDSP {
     
     inline void vindex(const float * src, const float * idx, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         vindex_cpp(src, idx, dest, length);
     #else
         ::vDSP_vindex(src, idx, 1, dest, 1, length);
@@ -337,7 +471,7 @@ namespace TapirDSP {
     
     inline void vgenp(const float * src, const float * idx, float * dest, VecLength destLength, VecLength srcLength)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         vgenp_cpp(src, idx, dest, destLength, srcLength);
     #else
         ::vDSP_vgenp(src, 1, idx, 1, dest, 1, destLength, srcLength);
@@ -346,7 +480,8 @@ namespace TapirDSP {
     
     inline void mtrans(const float * src, float * dest, VecLength lengthM, VecLength lengthN)
     {
-    #ifdef ARM_ANDROID
+        std::cout<<"Mtrans"<<std::endl;
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             mtrans_neon(src, dest, lengthM, lengthN);
         #else
@@ -359,7 +494,7 @@ namespace TapirDSP {
     
     inline void vvsincosf(float * z, float * y, const float * x , VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vvsincosf_neon(z,y,x,length);
         #else
@@ -372,7 +507,7 @@ namespace TapirDSP {
     };
     inline void vvatan2f(float * z, const float * y, const float * x, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             vvtan2f_neon(z,y,x, length);
         #else
@@ -386,7 +521,7 @@ namespace TapirDSP {
     
     inline void maxv(const float * src, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             maxv_neon(src,dest,length);
         #else
@@ -398,7 +533,7 @@ namespace TapirDSP {
     };
     inline void maxmgv(const float * src, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             maxmgv_neon(src,dest,length);
         #else
@@ -410,7 +545,7 @@ namespace TapirDSP {
     };
     inline void svemg(const float * src, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             svemg_neon(src,dest,length);
         #else
@@ -422,7 +557,7 @@ namespace TapirDSP {
     };
     inline void maxvi(const float * src, float * maxVal, VecLength * maxIdx, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         maxvi_cpp(src, maxVal, maxIdx, length);
     #else
         ::vDSP_maxvi(src, 1, maxVal, maxIdx, length);
@@ -431,7 +566,7 @@ namespace TapirDSP {
     
     inline void zvmov(const SplitComplex * src, const SplitComplex * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         zvmov_cpp(src,dest,length);
     #else
         ::vDSP_zvmov(src, 1, dest, 1, length);
@@ -439,7 +574,7 @@ namespace TapirDSP {
     };
     inline void zvmul(const SplitComplex * src1, const SplitComplex * src2, const SplitComplex * dest, VecLength length, int conjFlag)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             zvmul_neon(src1,src2,dest,length, conjFlag);
         #else
@@ -451,7 +586,7 @@ namespace TapirDSP {
     };
     inline void zvconj(const SplitComplex * src, const SplitComplex * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             zvconj_neon(src, dest, length);
         #else
@@ -463,7 +598,7 @@ namespace TapirDSP {
     };
     inline void zvdiv(const SplitComplex * srcDen, const SplitComplex * srcNum, const SplitComplex * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         #ifdef __ARM_NEON__
             zvdiv_neon(srcDen, srcNum, dest, length);
         #else
@@ -475,7 +610,7 @@ namespace TapirDSP {
     }
     inline void zrvmul(const SplitComplex * srcCom, const float * srcReal, const SplitComplex * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         vmul(srcCom->realp, srcReal, dest->realp, length);
         vmul(srcCom->imagp, srcReal, dest->imagp, length);
     #else
@@ -485,7 +620,7 @@ namespace TapirDSP {
 
     inline void zvphas(const SplitComplex * src, float * dest, VecLength length)
     {
-    #ifdef ARM_ANDROID
+    #if ARM_ANDROID
         vvatan2f(dest, src->imagp, src->realp, length);
     #else
         ::vDSP_zvphas(src, 1, dest, 1, length);
@@ -496,7 +631,8 @@ namespace TapirDSP {
     
     /***************************************/
 
-    //old
+    //deprecated
+    /*
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vmul(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
 
@@ -516,14 +652,12 @@ namespace TapirDSP {
     void vramp(const float *__vDSP_A, const float *__vDSP_B, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vindex(const float *__vDSP_A, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     void vgenp(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_M);
-    
 
     void maxmgv(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength __vDSP_N);
     void svemg(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength __vDSP_N);
     void maxv (float *__vDSP_A, VecStride __vDSP_I, float *__vDSP_C, VecLength __vDSP_N);
     void maxvi(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecLength *__vDSP_I, VecLength __vDSP_N);
     void mtrans(const float *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_M, VecLength __vDSP_N);
-
     void conv(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_F, VecStride __vDSP_IF, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_P); //convolution
     void dotpr(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecLength __vDSP_N);
     
@@ -539,7 +673,7 @@ namespace TapirDSP {
     
     void zvphas(const SplitComplex *__vDSP_A, VecStride __vDSP_IA, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N);
     
-        
+    */
 };
 
 

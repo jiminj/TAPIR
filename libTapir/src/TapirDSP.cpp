@@ -10,15 +10,9 @@
 
 namespace TapirDSP {
 
-    void init() {
-    #ifdef ARM_ANDROID
-    	 ne10_init();
-    #endif
-    };
 
     //new
-    
-    
+
     float vsinf(float x)
     {
         union {
@@ -343,7 +337,46 @@ namespace TapirDSP {
             *(destImag++) = ((*srcNumImag++) * (*srcDenReal++) - (*srcNumReal++) * (*srcDenImag++)) / den;
         }
     };
+
     
+    
+    void dotpr_cpp(const float * src1, const float * src2, float * dest, VecLength length)
+    {
+        *dest = 0;
+        for(VecLength i=0; i<length; ++i)
+        {
+            (*dest) += (*src1++) * (*src2++);
+        }
+    };
+    void conv_cpp(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter)
+    {
+        std::fill(dest, dest + lengthDest, 0.f);
+        
+        for(VecLength i = 0; i < lengthDest; ++i)
+        {
+            for(VecLength j = 0; j < lengthFilter; ++j)
+            {
+                *(dest) += (*(src + j)) * (*(filter + lengthFilter - 1 - j));
+            }
+            src += 1; dest += 1;
+        }
+    };
+    
+    void corr_cpp(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter)
+    {
+        std::fill(dest, dest + lengthDest, 0.f);
+        
+        for(VecLength i = 0; i < lengthDest; ++i)
+        {
+            for(VecLength j = 0; j < lengthFilter; ++j)
+            {
+                *(dest) += (*(src + j)) * (*(filter + j));
+            }
+            ++src; ++dest;
+        }
+    };
+    
+#ifdef __ARM_NEON__
     
     void vadd_neon(const float *src1, const float *src2, float *dest, VecLength length)
     {
@@ -1088,10 +1121,121 @@ namespace TapirDSP {
         }
     };
 
+ 
+    void dotpr_neon(const float * src1, const float * src2, float * dest, VecLength length)
+    {
+        VecLength remainedLength = length % 4;
+        length -= remainedLength;
+        *dest = 0;
+        float32x4_t srcMul_f32x4;
+        float32x4_t sum_f32x4;
+        float32x2_t sum_f32x2;
+        
+        if(length > 0)
+        {
+            sum_f32x4 = vdupq_n_f32(0.f);
+            for(; length != 0; length -= 4)
+            {
+                srcMul_f32x4 = vmulq_f32(vld1q_f32(src1), vld1q_f32(src2));
+                sum_f32x4 = vaddq_f32(sum_f32x4, srcMul_f32x4);
+                src1 += 4; src2 += 4;
+            }
+            sum_f32x2 = vadd_f32(vget_low_f32(sum_f32x4), vget_high_f32(sum_f32x4));
+            *dest = sum_f32x2[0] + sum_f32x2[1];
+        }
+        if(remainedLength != 0)
+        {
+            for(; remainedLength != 0; --remainedLength)
+            {
+                (*dest) += (*src1++) * (*src2++);
+            }
+        }
+
+        
+    };
+
+    void conv_neon(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter)
+    {
+        VecLength remainedFilterLength = lengthFilter % 4;
+        lengthFilter -= remainedFilterLength;
+        
+        float32x4_t src_f32x4, filter_f32x4, filterReversed_f32x4, dest_f32x4;
+        float32x2_t destSum_f32x2;
+        
+        
+        if(lengthFilter != 0)
+        {
+            for(VecLength i = 0; i < lengthDest; ++i)
+            {
+                dest_f32x4 = vdupq_n_f32(0.f);
+                for(VecLength j = 0; j < lengthFilter; j += 4)
+                {
+                    src_f32x4 = vld1q_f32(src + j);
+                    filter_f32x4 = vld1q_f32(filter + remainedFilterLength + lengthFilter - j - 4);
+                    filterReversed_f32x4 =vcombine_f32(vrev64_f32(vget_high_f32(filter_f32x4)), vrev64_f32(vget_low_f32(filter_f32x4)));
+                    dest_f32x4 = vmlaq_f32(dest_f32x4, src_f32x4, filterReversed_f32x4 );
+                }
+                destSum_f32x2 = vadd_f32(vget_low_f32(dest_f32x4), vget_high_f32(dest_f32x4));
+                *dest = destSum_f32x2[0] + destSum_f32x2[1];
+                ++src; ++dest;
+            }
+        }
+        if(remainedFilterLength != 0)
+        {
+            src -= lengthDest;
+            dest -= lengthDest;
+            for(VecLength i = 0; i < lengthDest; ++i)
+            {
+                for(VecLength j = 0; j < remainedFilterLength; ++j)
+                {
+                    *(dest) += (*(src + lengthFilter + j)) * (*(filter + remainedFilterLength - 1 - j));
+                }
+                ++src; ++dest;
+            }
+        }
+    };
+
+    void corr_neon(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter)
+    {
+        VecLength remainedFilterLength = lengthFilter % 4;
+        lengthFilter -= remainedFilterLength;
+
+        float32x4_t dest_f32x4;
+        float32x2_t destSum_f32x2;
+        if(lengthFilter != 0)
+        {
+            for(VecLength i = 0; i < lengthDest; ++i)
+            {
+                dest_f32x4 = vdupq_n_f32(0.f);
+                for(VecLength j = 0; j < lengthFilter; j += 4)
+                {
+                    dest_f32x4 = vmlaq_f32(dest_f32x4, vld1q_f32(src + j), vld1q_f32(filter + j) );
+                }
+                destSum_f32x2 = vadd_f32(vget_low_f32(dest_f32x4), vget_high_f32(dest_f32x4));
+                *dest = destSum_f32x2[0] + destSum_f32x2[1];
+                ++src; ++dest;
+            }
+        }
+        if(remainedFilterLength != 0)
+        {
+            src -= lengthDest;
+            dest -= lengthDest;
+            VecLength origFilterLength = lengthFilter + remainedFilterLength;
+            for(VecLength i = 0; i < lengthDest; ++i)
+            {
+                for(VecLength j = lengthFilter; j < origFilterLength; ++j)
+                {
+                    *(dest) += (*(src + j)) * (*(filter + j));
+                }
+                ++src; ++dest;
+            }
+        }
+
+    }
+#endif
     
-    
-    
-    //************* old *******************
+    //************* deprecated *******************
+    /*
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N)
     {
     #ifdef __APPLE__
@@ -1207,7 +1351,7 @@ namespace TapirDSP {
         ::vDSP_maxmgv(__vDSP_A, __vDSP_IA, __vDSP_C, __vDSP_N);
     #endif
     }
-    
+
     void conv(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_F, VecStride __vDSP_IF, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N, VecLength __vDSP_P)
     {
     #ifdef __APPLE__
@@ -1292,7 +1436,7 @@ namespace TapirDSP {
         ::vDSP_zvphas(__vDSP_A, __vDSP_IA, __vDSP_C, __vDSP_IC, __vDSP_N);
     #endif
     };
-    
+     */    
     
     
 };
