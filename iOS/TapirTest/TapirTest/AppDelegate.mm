@@ -17,7 +17,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
-    [TapirTest testFft];
+    [TapirTest testFilter];
 
     return YES;
 }

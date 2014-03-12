@@ -53,15 +53,6 @@ void test_vstest()
     TapirDSP::vsdiv(src, &divider, divDest, cnt);
     TapirDSP::vsmsa(src, &multiplier, &adder, mulAccDest, cnt);
 
-//    for(int i=0; i<cnt; ++i)
-//    {
-//        LOGD("src[%d] : %f", i, src[i]);
-//        LOGD("add[%d] : %f", i, addDest[i]);
-//        LOGD("mul[%d] : %f", i, mulDest[i]);
-//        LOGD("div[%d] : %f", i, divDest[i]);
-//        LOGD("multiply and add[%d] : %f", i, mulAccDest[i]);
-//    }
-
     delete [] src;
     delete [] addDest;
     delete [] mulDest;
@@ -265,6 +256,34 @@ void test_fft()
 
 };
 
+void test_fir()
+{
+    int cnt = 2048;
+    float * src = new float[cnt];
+    float * dest = new float[cnt]();
+    float realInit = (float)(-cnt/2);
+    float realInc = 1.f;
+
+    TapirDSP::vramp(&realInit, &realInc, src, cnt);
+    Tapir::Filter * filter = Tapir::FilterCreator::create(4096, Tapir::FilterCreator::EQUIRIPPLE_19k_250);
+    filter->process(src, dest, cnt);
+    filter->clearBuffer();
+
+    for(int i=0; i<5; ++i)
+    { LOGD("SRC[%d] %f", i, src[i]);}
+    for(int i=cnt-5; i<cnt; ++i)
+    { LOGD("SRC[%d] %f", i, src[i]);}
+
+    for(int i=0; i<5; ++i)
+    { LOGD("DEST[%d] %f", i, dest[i]);}
+    for(int i=cnt-5; i<cnt; ++i)
+    { LOGD("DEST[%d] %f", i, dest[i]);}
+
+    delete [] dest;
+    delete [] src;
+};
+
+
 jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
                                                   jobject thiz )
 {
@@ -287,7 +306,7 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
 #endif
 
 //	test_vstest();
-	test_fft();
+	test_fir();
 
 //	ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
 	Tapir::SignalAnalyzer test(20000.f);

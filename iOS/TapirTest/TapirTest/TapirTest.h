@@ -35,5 +35,6 @@
 
 + (void)testFft;
 + (void)testZtocCtoz;
++ (void)testFilter;
 
 @end

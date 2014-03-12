@@ -973,7 +973,6 @@
     delete [] destVdsp;
 };
 
-
 + (void)testOps
 {
     int cnt = 2048;
@@ -1227,7 +1226,6 @@
     delete [] destNeon;
     delete [] destVdsp;
 }
-
 
 + (void)testConvert
 {
@@ -1620,9 +1618,9 @@
     int cnt = 128;
     TapirDSP::SplitComplex src = {new float[cnt], new float[cnt]};
     TapirDSP::SplitComplex dest = {new float[cnt], new float[cnt]};
-    float realInit = 0.f;
+    float realInit = (float)(-cnt/2);
     float realInc = 1.f;
-    float imagInit = 64.f;
+    float imagInit = (float)(cnt/2);
     float imagInc = -1.f;
     
     TapirDSP::vramp(&realInit, &realInc, src.realp, cnt);
@@ -1640,6 +1638,10 @@
     for(int i=cnt-5; i<cnt; ++i)
     { NSLog(@"[%d] %f + %f", i, dest.realp[i], dest.imagp[i]);}
 
+    delete [] src.realp;
+    delete [] src.imagp;
+    delete [] dest.realp;
+    delete [] dest.imagp;
 };
 
 + (void)testZtocCtoz
@@ -1742,6 +1744,33 @@
 //    dest.realp = new float[cnt]();
 //    dest.imagp = new float[cnt]();
     
+};
+
++ (void)testFilter
+{
+    int cnt = 2048;
+    float * src = new float[cnt];
+    float * dest = new float[cnt]();
+    float realInit = (float)(-cnt/2);
+    float realInc = 1.f;
+    
+    TapirDSP::vramp(&realInit, &realInc, src, cnt);
+    Tapir::Filter * filter = Tapir::FilterCreator::create(4096, Tapir::FilterCreator::EQUIRIPPLE_19k_250);
+    filter->process(src, dest, cnt);
+    
+    for(int i=0; i<5; ++i)
+    { NSLog(@"SRC[%d] %f", i, src[i]);}
+    for(int i=cnt-5; i<cnt; ++i)
+    { NSLog(@"SRC[%d] %f", i, src[i]);}
+
+    for(int i=0; i<5; ++i)
+    { NSLog(@"DEST[%d] %f", i, dest[i]);}
+    for(int i=cnt-5; i<cnt; ++i)
+    { NSLog(@"DEST[%d] %f", i, dest[i]);}
+
+    
+    delete [] dest;
+    delete [] src;
 };
 
 @end
