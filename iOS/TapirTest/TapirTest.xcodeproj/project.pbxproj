@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECAAA89D18C7864A006776FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA89C18C7864A006776FD /* Foundation.framework */; };
+		ECAAA89F18C7864A006776FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA89E18C7864A006776FD /* CoreGraphics.framework */; };
+		ECAAA8A118C7864A006776FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA8A018C7864A006776FD /* UIKit.framework */; };
+		ECAAA8A718C7864A006776FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECAAA8A518C7864A006776FD /* InfoPlist.strings */; };
+		ECAAA8A918C7864A006776FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAAA8A818C7864A006776FD /* main.m */; };
+		ECAAA8AD18C7864A006776FD /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = ECAAA8AC18C7864A006776FD /* AppDelegate.mm */; };
+		ECAAA8AF18C7864A006776FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECAAA8AE18C7864A006776FD /* Images.xcassets */; };
+		ECAAA8B618C7864A006776FD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA8B518C7864A006776FD /* XCTest.framework */; };
+		ECAAA8B718C7864A006776FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA89C18C7864A006776FD /* Foundation.framework */; };
+		ECAAA8B818C7864A006776FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA8A018C7864A006776FD /* UIKit.framework */; };
+		ECAAA8C018C7864A006776FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECAAA8BE18C7864A006776FD /* InfoPlist.strings */; };
+		ECAAA8C218C7864A006776FD /* TapirTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAAA8C118C7864A006776FD /* TapirTestTests.m */; };
+		ECAAA8CC18C7879F006776FD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA8CB18C7879F006776FD /* Accelerate.framework */; };
+		ECAAA8CE18C787C7006776FD /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAAA8CD18C787C7006776FD /* TapirLib.framework */; };
+		ECAAA8D518C7885B006776FD /* TapirTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = ECAAA8D418C7885B006776FD /* TapirTest.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECAAA8B918C7864A006776FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECAAA89118C7864A006776FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECAAA89818C7864A006776FD;
+			remoteInfo = TapirTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ECAAA89918C7864A006776FD /* TapirTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapirTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECAAA89C18C7864A006776FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		ECAAA89E18C7864A006776FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		ECAAA8A018C7864A006776FD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		ECAAA8A418C7864A006776FD /* TapirTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirTest-Info.plist"; sourceTree = "<group>"; };
+		ECAAA8A618C7864A006776FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ECAAA8A818C7864A006776FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		ECAAA8AA18C7864A006776FD /* TapirTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TapirTest-Prefix.pch"; sourceTree = "<group>"; };
+		ECAAA8AB18C7864A006776FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		ECAAA8AC18C7864A006776FD /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		ECAAA8AE18C7864A006776FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		ECAAA8B418C7864A006776FD /* TapirTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TapirTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECAAA8B518C7864A006776FD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		ECAAA8BD18C7864A006776FD /* TapirTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirTestTests-Info.plist"; sourceTree = "<group>"; };
+		ECAAA8BF18C7864A006776FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ECAAA8C118C7864A006776FD /* TapirTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirTestTests.m; sourceTree = "<group>"; };
+		ECAAA8CB18C7879F006776FD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		ECAAA8CD18C787C7006776FD /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
+		ECAAA8D318C7885B006776FD /* TapirTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapirTest.h; sourceTree = "<group>"; };
+		ECAAA8D418C7885B006776FD /* TapirTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapirTest.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECAAA89618C7864A006776FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECAAA8CC18C7879F006776FD /* Accelerate.framework in Frameworks */,
+				ECAAA89F18C7864A006776FD /* CoreGraphics.framework in Frameworks */,
+				ECAAA8CE18C787C7006776FD /* TapirLib.framework in Frameworks */,
+				ECAAA8A118C7864A006776FD /* UIKit.framework in Frameworks */,
+				ECAAA89D18C7864A006776FD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECAAA8B118C7864A006776FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECAAA8B618C7864A006776FD /* XCTest.framework in Frameworks */,
+				ECAAA8B818C7864A006776FD /* UIKit.framework in Frameworks */,
+				ECAAA8B718C7864A006776FD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECAAA89018C7864A006776FD = {
+			isa = PBXGroup;
+			children = (
+				ECAAA8A218C7864A006776FD /* TapirTest */,
+				ECAAA8BB18C7864A006776FD /* TapirTestTests */,
+				ECAAA89B18C7864A006776FD /* Frameworks */,
+				ECAAA89A18C7864A006776FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECAAA89A18C7864A006776FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECAAA89918C7864A006776FD /* TapirTest.app */,
+				ECAAA8B418C7864A006776FD /* TapirTestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECAAA89B18C7864A006776FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ECAAA8CD18C787C7006776FD /* TapirLib.framework */,
+				ECAAA8CB18C7879F006776FD /* Accelerate.framework */,
+				ECAAA89C18C7864A006776FD /* Foundation.framework */,
+				ECAAA89E18C7864A006776FD /* CoreGraphics.framework */,
+				ECAAA8A018C7864A006776FD /* UIKit.framework */,
+				ECAAA8B518C7864A006776FD /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECAAA8A218C7864A006776FD /* TapirTest */ = {
+			isa = PBXGroup;
+			children = (
+				ECAAA8D318C7885B006776FD /* TapirTest.h */,
+				ECAAA8D418C7885B006776FD /* TapirTest.mm */,
+				ECAAA8AB18C7864A006776FD /* AppDelegate.h */,
+				ECAAA8AC18C7864A006776FD /* AppDelegate.mm */,
+				ECAAA8AE18C7864A006776FD /* Images.xcassets */,
+				ECAAA8A318C7864A006776FD /* Supporting Files */,
+			);
+			path = TapirTest;
+			sourceTree = "<group>";
+		};
+		ECAAA8A318C7864A006776FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ECAAA8A418C7864A006776FD /* TapirTest-Info.plist */,
+				ECAAA8A518C7864A006776FD /* InfoPlist.strings */,
+				ECAAA8A818C7864A006776FD /* main.m */,
+				ECAAA8AA18C7864A006776FD /* TapirTest-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ECAAA8BB18C7864A006776FD /* TapirTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				ECAAA8C118C7864A006776FD /* TapirTestTests.m */,
+				ECAAA8BC18C7864A006776FD /* Supporting Files */,
+			);
+			path = TapirTestTests;
+			sourceTree = "<group>";
+		};
+		ECAAA8BC18C7864A006776FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ECAAA8BD18C7864A006776FD /* TapirTestTests-Info.plist */,
+				ECAAA8BE18C7864A006776FD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECAAA89818C7864A006776FD /* TapirTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECAAA8C518C7864A006776FD /* Build configuration list for PBXNativeTarget "TapirTest" */;
+			buildPhases = (
+				ECAAA89518C7864A006776FD /* Sources */,
+				ECAAA89618C7864A006776FD /* Frameworks */,
+				ECAAA89718C7864A006776FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TapirTest;
+			productName = TapirTest;
+			productReference = ECAAA89918C7864A006776FD /* TapirTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ECAAA8B318C7864A006776FD /* TapirTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECAAA8C818C7864A006776FD /* Build configuration list for PBXNativeTarget "TapirTestTests" */;
+			buildPhases = (
+				ECAAA8B018C7864A006776FD /* Sources */,
+				ECAAA8B118C7864A006776FD /* Frameworks */,
+				ECAAA8B218C7864A006776FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECAAA8BA18C7864A006776FD /* PBXTargetDependency */,
+			);
+			name = TapirTestTests;
+			productName = TapirTestTests;
+			productReference = ECAAA8B418C7864A006776FD /* TapirTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECAAA89118C7864A006776FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = AIMIA;
+				TargetAttributes = {
+					ECAAA8B318C7864A006776FD = {
+						TestTargetID = ECAAA89818C7864A006776FD;
+					};
+				};
+			};
+			buildConfigurationList = ECAAA89418C7864A006776FD /* Build configuration list for PBXProject "TapirTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECAAA89018C7864A006776FD;
+			productRefGroup = ECAAA89A18C7864A006776FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECAAA89818C7864A006776FD /* TapirTest */,
+				ECAAA8B318C7864A006776FD /* TapirTestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ECAAA89718C7864A006776FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECAAA8A718C7864A006776FD /* InfoPlist.strings in Resources */,
+				ECAAA8AF18C7864A006776FD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECAAA8B218C7864A006776FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECAAA8C018C7864A006776FD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECAAA89518C7864A006776FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECAAA8AD18C7864A006776FD /* AppDelegate.mm in Sources */,
+				ECAAA8D518C7885B006776FD /* TapirTest.mm in Sources */,
+				ECAAA8A918C7864A006776FD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECAAA8B018C7864A006776FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECAAA8C218C7864A006776FD /* TapirTestTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ECAAA8BA18C7864A006776FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECAAA89818C7864A006776FD /* TapirTest */;
+			targetProxy = ECAAA8B918C7864A006776FD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ECAAA8A518C7864A006776FD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ECAAA8A618C7864A006776FD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		ECAAA8BE18C7864A006776FD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ECAAA8BF18C7864A006776FD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ECAAA8C318C7864A006776FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					TapirLib,
+				);
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECAAA8C418C7864A006776FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					TapirLib,
+				);
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECAAA8C618C7864A006776FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirTest/TapirTest-Prefix.pch";
+				INFOPLIST_FILE = "TapirTest/TapirTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		ECAAA8C718C7864A006776FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Jimin/Development/Projects/TAPIR/iOS/TapirLib/build/Debug-iphoneos",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirTest/TapirTest-Prefix.pch";
+				INFOPLIST_FILE = "TapirTest/TapirTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		ECAAA8C918C7864A006776FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TapirTest.app/TapirTest";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirTest/TapirTest-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TapirTestTests/TapirTestTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		ECAAA8CA18C7864A006776FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TapirTest.app/TapirTest";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirTest/TapirTest-Prefix.pch";
+				INFOPLIST_FILE = "TapirTestTests/TapirTestTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECAAA89418C7864A006776FD /* Build configuration list for PBXProject "TapirTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECAAA8C318C7864A006776FD /* Debug */,
+				ECAAA8C418C7864A006776FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECAAA8C518C7864A006776FD /* Build configuration list for PBXNativeTarget "TapirTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECAAA8C618C7864A006776FD /* Debug */,
+				ECAAA8C718C7864A006776FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ECAAA8C818C7864A006776FD /* Build configuration list for PBXNativeTarget "TapirTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECAAA8C918C7864A006776FD /* Debug */,
+				ECAAA8CA18C7864A006776FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECAAA89118C7864A006776FD /* Project object */;
+}

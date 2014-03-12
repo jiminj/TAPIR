@@ -7,12 +7,13 @@
 //
 
 #include <mach/mach_time.h>
-
+#include <assert.h>
 #import <XCTest/XCTest.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <TapirLib/TapirLib.h>
 #import <Accelerate/Accelerate.h>
-
+#include <mach/mach.h>
+#include <unistd.h>
 
 @interface TAPIRReceiverTests : XCTestCase
 
@@ -40,6 +41,63 @@
 - (void)testExample
 {
     XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+}
+
+- (void)testConvData
+{
+    int cnt=4;
+    float * fsrc = new float[cnt];
+    short * ssrc = new short[cnt];
+    int * isrc = new int[cnt];
+    
+    short * sdest = new short[cnt];
+    int * idest = new int[cnt];
+    float * fdest1 = new float[cnt];
+    float * fdest2 = new float[cnt];
+    
+    for(int i=0; i<cnt; ++i)
+    {
+        fsrc[i] = (float) rand() / RAND_MAX * 5.0f;
+        ssrc[i] = (short) (rand() % 10);
+        isrc[i] = rand();
+    }
+    TapirDSP::vfix16(fsrc, 1, sdest, 1, cnt);
+    
+    NSMutableString *fsrcStr = [NSMutableString new];
+    NSMutableString *sdestStr = [NSMutableString new];
+    for(int i=0; i<cnt; ++i)
+    {
+        [fsrcStr appendFormat:@"%f\t", fsrc[i]];
+        [sdestStr appendFormat:@"%d\t", sdest[i]];
+    }
+    
+    NSLog(@"%@", fsrcStr);
+    NSLog(@"%@", sdestStr);
+    
+    //    for(int i=0; i<cnt; ++i)
+    //    {
+    //        LOGD("float src[%d] : %f", i, fsrc[i]);
+    //        LOGD("toShort[%d] : %d", i, sdest[i]);
+    //        LOGD("toInt[%d] : %d", i, idest[i]);
+    //
+    //        LOGD("short src[%d] : %d", i, ssrc[i]);
+    //        LOGD("toFloat[%d] : %f", i, fdest1[i]);
+    //
+    //        LOGD("int src[%d] : %d", i, isrc[i]);
+    //        LOGD("toFloat[%d] : %f", i, fdest2[i]);
+    //        //        LOGD("div[%d] : %f", i, divDest[i]);
+    //        //        LOGD("multiply and add[%d] : %f", i, mulAccDest[i]);
+    //    }
+    
+    delete [] fsrc;
+    delete [] ssrc;
+    delete [] isrc;
+    
+    delete [] sdest;
+    delete [] idest;
+    delete [] fdest1;
+    delete [] fdest2;
+    
 }
 
 - (void)writeData:(const float *)data toFile:(NSString *)filePath lengthOf:(UInt32)length
@@ -116,7 +174,44 @@
     NSLog(srcString);
     NSLog(destString);
 };
+- (void)testMaxvi
+{
+    int cnt = 100;
+    int loop = 10000;
+    
+    float * src = new float[cnt];
+    float * dest = new float;
 
+    uint64_t stTime, edTime;
+    TapirDSP::VecLength maxIdx;
+    srand((unsigned int)time(NULL));
+    for(int i=0; i<cnt; ++i)
+    { src[i] = (float) rand() / RAND_MAX * 5.0f; }
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::maxvi(src, dest, &maxIdx, cnt);
+    }
+    edTime = mach_absolute_time();
+    
+    NSLog(@"RESULT : %f // %d", *dest, maxIdx);
+    NSLog(@"elapsed : %d", edTime - stTime);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::maxvi(src, 1, dest, &maxIdx, cnt);
+    }
+    edTime = mach_absolute_time();
+    
+    NSLog(@"RESULT : %f // %d", *dest, maxIdx);
+    NSLog(@"elapsed : %d", edTime - stTime);
+    
+    delete [] src;
+    delete dest;
+    
+}
 
 /*
 - (void)testUse

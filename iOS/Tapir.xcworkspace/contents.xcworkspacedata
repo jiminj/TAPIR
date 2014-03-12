@@ -11,6 +11,9 @@
       location = "group:TAPIRReceiver/TAPIRReceiver.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:TapirTest/TapirTest.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TapirLib/TapirLib.xcodeproj">
    </FileRef>
 </Workspace>

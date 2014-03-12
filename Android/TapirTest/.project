@@ -3,6 +3,7 @@
 	<name>TapirTest</name>
 	<comment></comment>
 	<projects>
+		<project>TapirLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

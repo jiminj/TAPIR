@@ -16,22 +16,22 @@ namespace Tapir {
     
     void MatrixInterleaver::interleave(const float *src, float *dest) const
     {
-        TapirDSP::mtrans(src, 1, dest, 1, m_nCols, m_nRows);
+        TapirDSP::mtrans(src, dest, m_nCols, m_nRows);
     };
     void MatrixInterleaver::deinterleave(const float *src, float *dest) const
     {
-        TapirDSP::mtrans(src, 1, dest, 1, m_nRows, m_nCols);
+        TapirDSP::mtrans(src, dest, m_nRows, m_nCols);
     };
     
     void MatrixInterleaver::interleave(const TapirDSP::SplitComplex * src, const TapirDSP::SplitComplex * dest) const
     {
-        TapirDSP::mtrans(src->realp, 1, dest->realp, 1, m_nCols, m_nRows);
-        TapirDSP::mtrans(src->imagp, 1, dest->imagp, 1, m_nCols, m_nRows);
+        TapirDSP::mtrans(src->realp, dest->realp, m_nCols, m_nRows);
+        TapirDSP::mtrans(src->imagp, dest->imagp, m_nCols, m_nRows);
     }
     void MatrixInterleaver::deinterleave(const TapirDSP::SplitComplex * src, const TapirDSP::SplitComplex * dest) const
     {
-        TapirDSP::mtrans(src->realp, 1, dest->realp, 1, m_nRows, m_nCols);
-        TapirDSP::mtrans(src->imagp, 1, dest->imagp, 1, m_nRows, m_nCols);
+        TapirDSP::mtrans(src->realp, dest->realp, m_nRows, m_nCols);
+        TapirDSP::mtrans(src->imagp, dest->imagp, m_nRows, m_nCols);
     }
     
 }
