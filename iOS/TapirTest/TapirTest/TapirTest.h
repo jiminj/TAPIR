@@ -36,5 +36,6 @@
 + (void)testFft;
 + (void)testZtocCtoz;
 + (void)testFilter;
-
++ (void)testComplete;
+- (void)signalDetected : (float *)result;
 @end

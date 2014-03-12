@@ -22,6 +22,7 @@
 //#include <Ne10.h>
 #include <cmath>
 #include <time.h>
+#include <functional>
 
 extern "C"
 {
@@ -283,6 +284,54 @@ void test_fir()
     delete [] src;
 };
 
+void signalDetected(float * result)
+{
+    Tapir::SignalAnalyzer * signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE);
+    std::string resultStr = (signalAnalyzer->analyze(result));
+
+    const char * resultCStr = resultStr.c_str();
+//    std::cout<<resultStr<<std::endl;
+    LOGD("%s", resultCStr);
+}
+
+
+void test_complete()
+{
+    Tapir::SignalGenerator * generator = new Tapir::SignalGenerator(Tapir::Config::CARRIER_FREQUENCY_BASE);
+    std::string stdInputStr("t");
+    int resultLength = generator->calResultLength(stdInputStr.length());
+
+    float * encodedAudioData = new float[resultLength]();
+    generator->generateSignal(stdInputStr, encodedAudioData, resultLength);
+    LOGD("resultLength : %d",resultLength);
+    for(int i=0; i<10; ++i)
+    { LOGD("[%d] %f", i, encodedAudioData[i]);}
+    for(int i=resultLength-10; i<resultLength; ++i)
+    { LOGD("[%d] %f", i, encodedAudioData[i]);}
+
+
+    float * floatBuf = new float[40960]();
+    TapirDSP::copy(encodedAudioData, encodedAudioData + resultLength, floatBuf + 3000);
+
+    float maxValue;
+    TapirDSP::maxv(floatBuf, &maxValue, resultLength);
+    LOGD("MAXVALUE : %f", maxValue);
+
+//
+//    TapirTest * forCallback = [TapirTest new];
+//    auto callback = Tapir::ObjcFuncBridge<void(float *)>(forCallback, @selector(signalDetected:));
+    std::function<void(float *)> callback = signalDetected;
+
+
+    Tapir::SignalDetector * detector = new Tapir::SignalDetector(1024, 1.0f, callback);
+
+    for(int i=0; i< 40960; i += 1024)
+    {
+        float * curBuffer = (floatBuf + i);
+        detector->detect(curBuffer);
+    }
+};
+
 
 jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
                                                   jobject thiz )
@@ -306,7 +355,7 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
 #endif
 
 //	test_vstest();
-	test_fir();
+	test_complete();
 
 //	ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
 	Tapir::SignalAnalyzer test(20000.f);

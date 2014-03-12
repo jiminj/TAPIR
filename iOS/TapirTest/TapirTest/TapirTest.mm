@@ -1773,4 +1773,45 @@
     delete [] src;
 };
 
++ (void)testComplete
+{
+    Tapir::SignalGenerator * generator = new Tapir::SignalGenerator(Tapir::Config::CARRIER_FREQUENCY_BASE);
+    std::string stdInputStr("t");
+    int resultLength = generator->calResultLength(stdInputStr.length());
+    
+    float * encodedAudioData = new float[resultLength]();
+    generator->generateSignal(stdInputStr, encodedAudioData, resultLength);
+    NSLog(@"resultLength : %d",resultLength);
+    for(int i=0; i<10; ++i)
+    { NSLog(@"[%d] %f", i, encodedAudioData[i]);}
+    for(int i=resultLength-10; i<resultLength; ++i)
+    { NSLog(@"[%d] %f", i, encodedAudioData[i]);}
+
+
+    float * floatBuf = new float[40960]();
+    TapirDSP::copy(encodedAudioData, encodedAudioData + resultLength, floatBuf + 3000);
+
+    float maxValue;
+    TapirDSP::maxv(floatBuf, &maxValue, resultLength);
+    NSLog(@"MAXVALUE : %f", maxValue);
+    
+    
+    TapirTest * forCallback = [TapirTest new];
+    auto callback = Tapir::ObjcFuncBridge<void(float *)>(forCallback, @selector(signalDetected:));
+    
+    Tapir::SignalDetector * detector = new Tapir::SignalDetector(1024, 1.0f, callback);
+
+    for(int i=0; i< 40960; i += 1024)
+    {
+        float * curBuffer = (floatBuf + i);
+        detector->detect(curBuffer);
+    }
+    
+};
+-(void)signalDetected:(float *)result
+{
+    Tapir::SignalAnalyzer * signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE);
+    std::string resultStr = (signalAnalyzer->analyze(result));
+    std::cout<<resultStr<<std::endl;
+}
 @end
