@@ -376,6 +376,32 @@ namespace TapirDSP {
         }
     };
     
+    void ztoc_cpp(const SplitComplex * src, Complex * dest, VecLength length)
+    {
+        float * srcReal = src->realp;
+        float * srcImag = src->imagp;
+        
+        for(int i=0; i<length; ++i)
+        {
+            dest->real = (*srcReal++);
+            dest->imag = (*srcImag++);
+            ++dest;
+        }
+    };
+    
+    void ctoz_cpp ( const Complex * src, SplitComplex * dest, VecLength length)
+    {
+        float * destReal = dest->realp;
+        float * destImag = dest->imagp;
+        for(int i=0; i<length; ++i)
+        {
+            (*destReal++) = src->real;
+            (*destImag++) = src->imag;
+            ++src;
+        }
+    };
+    
+    
 #ifdef __ARM_NEON__
     
     void vadd_neon(const float *src1, const float *src2, float *dest, VecLength length)
@@ -1233,7 +1259,7 @@ namespace TapirDSP {
 
     }
 #endif
-    
+
     //************* deprecated *******************
     /*
     void vadd(const float *__vDSP_A, VecStride __vDSP_IA, const float *__vDSP_B, VecStride __vDSP_IB, float *__vDSP_C, VecStride __vDSP_IC, VecLength __vDSP_N)

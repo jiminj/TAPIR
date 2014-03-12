@@ -32,4 +32,8 @@
 + (void)testDotpr;
 + (void)testConvolution;
 + (void)testConvolution2;
+
++ (void)testFft;
++ (void)testZtocCtoz;
+
 @end

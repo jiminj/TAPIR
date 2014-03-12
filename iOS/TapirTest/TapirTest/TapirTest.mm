@@ -1229,7 +1229,7 @@
 }
 
 
-+ (void) testConvert
++ (void)testConvert
 {
     int cnt = 2048;
     int loop = 10000;
@@ -1562,7 +1562,7 @@
     delete [] destVdsp;
 };
 
-+ (void) testConvolution2
++ (void)testConvolution2
 {
     int srcLength = 8;
     int trelCodeLength = 7;
@@ -1577,42 +1577,171 @@
     float * destNew = new float[destLength]();
     float * destNewTrans = new float[destLength]();
 
-    uint64_t stTime, edTime;
-    srand((unsigned int)time(NULL));
+//    uint64_t stTime, edTime;
+//    srand((unsigned int)time(NULL));
 //    for(int i=0; i<inputLength; ++i)
 //    {
 //        NSLog(@"SRC[%d] : %f", i, input[i]);
 //    }
-    stTime = mach_absolute_time();
-    for(int i=0; i<encodingRate; ++i)
-    {
-        const float * filter = (trelCode.at(i)).getEncodedCode() + trelCodeLength - 1; //set end of the array;
-        TapirDSP::conv(input, 1, filter, -1, destOrig + i, encodingRate, srcLength, trelCodeLength);
-    }
-    edTime = mach_absolute_time();
-    NSLog(@"elapsed Old : %llu", edTime - stTime);
-    stTime = mach_absolute_time();
-    
-    
-    for(int i=0; i<encodingRate; ++i)
-    {
-        const float * filter = (trelCode.at(i)).getEncodedCode();
-        TapirDSP::conv(input, filter, destNew + (i * srcLength), srcLength, trelCodeLength);
-    }
-    TapirDSP::mtrans(destNew, destNewTrans, srcLength, encodingRate);
-    
-    edTime = mach_absolute_time();
-    NSLog(@"elapsed New: %llu", edTime - stTime);
-
-    for(int i=0; i< destLength; ++i)
-    {
-        NSLog(@"Result[%d] : %f // %f", i, destOrig[i], destNew[i]);
-    }
+//    stTime = mach_absolute_time();
+//    for(int i=0; i<encodingRate; ++i)
+//    {
+//        const float * filter = (trelCode.at(i)).getEncodedCode() + trelCodeLength - 1; //set end of the array;
+//        TapirDSP::conv(input, 1, filter, -1, destOrig + i, encodingRate, srcLength, trelCodeLength);
+//    }
+//    edTime = mach_absolute_time();
+//    NSLog(@"elapsed Old : %llu", edTime - stTime);
+//    stTime = mach_absolute_time();
+//
+//    
+//    for(int i=0; i<encodingRate; ++i)
+//    {
+//        const float * filter = (trelCode.at(i)).getEncodedCode();
+//        TapirDSP::conv(input, filter, destNew + (i * srcLength), srcLength, trelCodeLength);
+//    }
+//    TapirDSP::mtrans(destNew, destNewTrans, srcLength, encodingRate);
+//    
+//    edTime = mach_absolute_time();
+//    NSLog(@"elapsed New: %llu", edTime - stTime);
+//
+//    for(int i=0; i< destLength; ++i)
+//    {
+//        NSLog(@"Result[%d] : %f // %f", i, destOrig[i], destNew[i]);
+//    }
 
     
     delete [] input;
     delete [] destOrig;
     delete [] destNew;
+};
+
++ (void)testFft
+{
+    int cnt = 128;
+    TapirDSP::SplitComplex src = {new float[cnt], new float[cnt]};
+    TapirDSP::SplitComplex dest = {new float[cnt], new float[cnt]};
+    float realInit = 0.f;
+    float realInc = 1.f;
+    float imagInit = 64.f;
+    float imagInc = -1.f;
+    
+    TapirDSP::vramp(&realInit, &realInc, src.realp, cnt);
+    TapirDSP::vramp(&imagInit, &imagInc, src.imagp, cnt);
+    Tapir::FFT fft(128);
+    fft.transform(&src, &dest, Tapir::FFT::FORWARD);
+    
+    for(int i=0; i<5; ++i)
+    { NSLog(@"[%d] %f + %f", i, src.realp[i], src.imagp[i]);}
+    for(int i=cnt-5; i<cnt; ++i)
+    { NSLog(@"[%d] %f + %f", i, src.realp[i], src.imagp[i]);}
+
+    for(int i=0; i<5; ++i)
+    { NSLog(@"[%d] %f + %f", i, dest.realp[i], dest.imagp[i]);}
+    for(int i=cnt-5; i<cnt; ++i)
+    { NSLog(@"[%d] %f + %f", i, dest.realp[i], dest.imagp[i]);}
+
+};
+
++ (void)testZtocCtoz
+{
+    
+    int cnt = 2048;
+    int loop = 1000;
+    
+    TapirDSP::SplitComplex src = {new float[cnt], new float[cnt]};
+    TapirDSP::Complex * compArray = new TapirDSP::Complex[cnt];
+    TapirDSP::SplitComplex dest = {new float[cnt](), new float[cnt]()};
+    
+    uint64_t stTime, edTime;
+    srand((unsigned int)time(NULL));
+    for(int i=0; i<cnt; ++i)
+    {
+        src.realp[i] = (float) rand() / RAND_MAX * 5.0f - 2.5f;
+        src.imagp[i] = (float) rand() / RAND_MAX * 5.0f - 2.5f;
+    }
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"SRC[%d]%f + %f",i, src.realp[i], src.imagp[i]);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        NSLog(@"SRC[%d]%f + %f",i, src.realp[i], src.imagp[i]);
+    }
+
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::ztoc_cpp(&src, compArray, cnt);
+    }
+    edTime = mach_absolute_time();
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, compArray[i].real, (compArray[i]).imag);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, compArray[i].real, (compArray[i]).imag);
+    }
+    NSLog(@"ZTOC - CPP elapsed : %llu", (edTime - stTime) / loop);
+
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::ctoz_cpp(compArray, &dest, cnt);
+    }
+    edTime = mach_absolute_time();
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
+    }
+    NSLog(@"CTOZ - CPP elapsed : %llu", (edTime - stTime) / loop);
+    
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::ztoc(&src, compArray, cnt);
+    }
+    edTime = mach_absolute_time();
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, compArray[i].real, (compArray[i]).imag);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, compArray[i].real, (compArray[i]).imag);
+    }
+    NSLog(@"ZTOC - vDSP elapsed : %llu", (edTime - stTime) / loop);
+    
+    stTime = mach_absolute_time();
+    for(int i=0; i<loop; ++i)
+    {
+        TapirDSP::ctoz(compArray, &dest, cnt);
+    }
+    edTime = mach_absolute_time();
+    for(int i=0; i<5; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        NSLog(@"DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
+    }
+    NSLog(@"CTOZ - vDSP elapsed : %llu", (edTime - stTime) / loop);
+    
+    
+    //
+    
+    //
+//    delete [] dest.realp;
+//    delete [] dest.imagp;
+//    dest.realp = new float[cnt]();
+//    dest.imagp = new float[cnt]();
+    
 };
 
 @end

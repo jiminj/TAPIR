@@ -17,12 +17,13 @@
 #elif defined(__arm__) && defined(__ANDROID__)
 #define ARM_ANDROID 1
 #endif
+
 #if __ARM_NEON__
 #include <arm_neon.h>
 #endif
 
+#include <cmath>
 #include <algorithm>
-#include <iostream>
 
 namespace TapirDSP {
     
@@ -107,7 +108,9 @@ namespace TapirDSP {
     void dotpr_cpp(const float * src1, const float * src2, float * dest, VecLength length);
     void conv_cpp(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
     void corr_cpp(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
-    
+
+    void ztoc_cpp(const SplitComplex * src, Complex * dest, VecLength length);
+    void ctoz_cpp(const Complex * src, SplitComplex * dest, VecLength length);
 
 #ifdef __ARM_NEON__
     //neon implementation
@@ -157,25 +160,15 @@ namespace TapirDSP {
     void dotpr_neon(const float * src1, const float * src2, float * dest, VecLength length);
     void conv_neon(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
     void corr_neon(const float * src, const float * filter, float * dest, VecLength lengthDest, VecLength lengthFilter);
+
+    inline void ztoc_neon(const SplitComplex * src, Complex * dest, VecLength length)
+    { ztoc_cpp(src, dest, length); }
+    inline void ctoz_neon(const Complex * src, SplitComplex * dest, VecLength length)
+    { ctoz_cpp(src, dest, length); }
+    
 #endif
-    void vadd_neon(const float *src1, const float *src2, float *dest, VecLength length);
-    void vmul_neon(const float *src1, const float *src2, float *dest, VecLength length);
 
-    void vsadd_neon(const float * src, const float * scalSrc, float * dest, VecLength length);
-    void vsmul_neon(const float * src, const float * scalSrc, float * dest, VecLength length);
-    void vsdiv_neon(const float * src, const float * scalSrc, float * dest, VecLength length);
-    void vsmsa_neon(const float * src, const float * scalSrcMul, const float *scalSrcAdd, float * dest, VecLength length); //multiply and add
-
-    void vfix16_neon(const float * src, short * dest, VecLength length);
-    void vfix32_neon(const float * src, int * dest, VecLength length);
-    void vflt16_neon(const short * src, float * dest, VecLength length);
-    void vflt32_neon(const int * src, float* dest, VecLength length);
-
-    void vrvrs_neon(float * src, VecLength length); //reverse
-    void vfill_neon(const float * src, float * dest, VecLength length); //fill
-    void vramp_neon(const float * scalInit, const float * scalInc, float * dest, VecLength length);
-
-// for test
+    // for test
     /*
     inline void vadd(const float *src1, const float *src2, float *dest, VecLength length)
     { vadd_neon(src1, src2, dest, length); }
@@ -480,7 +473,6 @@ namespace TapirDSP {
     
     inline void mtrans(const float * src, float * dest, VecLength lengthM, VecLength lengthN)
     {
-        std::cout<<"Mtrans"<<std::endl;
     #if ARM_ANDROID
         #ifdef __ARM_NEON__
             mtrans_neon(src, dest, lengthM, lengthN);
@@ -509,9 +501,9 @@ namespace TapirDSP {
     {
     #if ARM_ANDROID
         #ifdef __ARM_NEON__
-            vvtan2f_neon(z,y,x, length);
+            vvatan2f_neon(z,y,x, length);
         #else
-            vvtan2f_cpp(z,y,x,n, length);
+            vvatan2f_cpp(z,y,x,n, length);
         #endif
     #else
         int n = static_cast<int>(length);
@@ -627,8 +619,31 @@ namespace TapirDSP {
     #endif
 
     };
-
+    inline void ctoz ( const Complex * src, SplitComplex * dest, VecLength length)
+    {
+    #if ARM_ANDROID
+        #ifdef __ARM_NEON__
+            ctoz_neon(src, dest, length);
+        #else
+            ctoz_cpp(src, dest, length);
+        #endif
+    #else
+        ::vDSP_ctoz(src, 1, dest, 1, length);
+    #endif
+    };
     
+    inline void ztoc (const SplitComplex * src, Complex * dest, VecLength length)
+    {
+    #if ARM_ANDROID
+        #ifdef __ARM_NEON__
+            ztoc_neon(src, dest, length);
+        #else
+            ztoc_cpp(src, dest, length);
+        #endif
+    #else
+        ::vDSP_ztoc(src, 1, dest, 2, length);
+    #endif
+    };   
     /***************************************/
 
     //deprecated

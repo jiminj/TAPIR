@@ -115,18 +115,45 @@ void divdeIntIntoBits(const int src, int * arr, int arrLength)
 //FFT
     
 FFT::FFT(const int fftLength)
-:m_logLen(calculateLogLength(fftLength))
+: 
 #ifdef __APPLE__
+m_logLen(calculateLogLength(fftLength))
 , m_fftSetup( vDSP_create_fftsetup(m_logLen, FFT_RADIX2) )
+#elif ARM_ANDROID
+m_length(fftLength)
+, m_srcSeperated(new TapirDSP::Complex[fftLength])
+, m_destSeperated(new TapirDSP::Complex[fftLength])
+, m_fftSetup(ne10_fft_alloc_c2c_float32(fftLength))
 #endif
-{};
+{ 
+#if ARM_ANDROID
+    ne10_init(); 
+#endif
+};
 
 FFT::~FFT()
 {
 #ifdef __APPLE__
     vDSP_destroy_fftsetup(m_fftSetup);
+#elif ARM_ANDROID
+    delete [] m_srcSeperated;
+    delete [] m_destSeperated;
+    NE10_FREE(m_fftSetup);
 #endif
 };
+    
+void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FftDirection direction)
+{
+#ifdef __APPLE__
+    int fftDirection = (direction == FORWARD) ? FFT_FORWARD : FFT_INVERSE;
+    vDSP_fft_zop(m_fftSetup, src, 1, dest, 1, m_logLen, fftDirection);
+#elif ARM_ANDROID
+    TapirDSP::ztoc(src, m_srcSeperated, m_length);
+    ne10_fft_c2c_1d_float32((ne10_fft_cpx_float32_t *)(m_destSeperated), (ne10_fft_cpx_float32_t *)(m_srcSeperated), m_fftSetup->twiddles, m_fftSetup->factors, m_length, (int)direction);
+    TapirDSP::ctoz(m_destSeperated, dest, m_length);
+#endif
+};
+ 
 
 int FFT::calculateLogLength(int length)
 {
@@ -139,15 +166,7 @@ int FFT::calculateLogLength(int length)
     --count;
     return count;
 };
-    
-void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FftDirection direction)
-{
-#ifdef __APPLE__
-    int fftDirection = (direction == FORWARD) ? FFT_FORWARD : FFT_INVERSE;
-    vDSP_fft_zop(m_fftSetup, src, 1, dest, 1, m_logLen, fftDirection);
-#endif
-};
-    
+   
     
 };
 

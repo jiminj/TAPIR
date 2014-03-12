@@ -44,7 +44,6 @@ void test_vstest()
     float multiplier = 2.0;
     float divider = 2.0;
 
-    TapirDSP::init();
     clock_t stTime, edTime;
 
     stTime = clock();
@@ -222,8 +221,47 @@ void test_etc()
 	delete [] src;
 };
 
-void test_maxval()
+void test_fft()
 {
+    int cnt = 128;
+    TapirDSP::SplitComplex src = {new float[cnt], new float[cnt]};
+    TapirDSP::SplitComplex dest = {new float[cnt], new float[cnt]};
+    TapirDSP::Complex * srcSeperated = new TapirDSP::Complex[cnt];
+    TapirDSP::Complex * destSeperated = new TapirDSP::Complex[cnt];
+    float realInit = 0.f;
+    float realInc = 1.f;
+    float imagInit = (float)cnt/2;
+    float imagInc = -1.f;
+
+    TapirDSP::vramp(&realInit, &realInc, src.realp, cnt);
+    TapirDSP::vramp(&imagInit, &imagInc, src.imagp, cnt);
+
+    Tapir::FFT fft(128);
+    fft.transform(&src, &dest, Tapir::FFT::FORWARD);
+
+    for(int i=0; i<5; ++i)
+    {
+        LOGD("SRC[%d]%f + %f",i, src.realp[i], src.imagp[i]);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        LOGD("SRC[%d]%f + %f",i, src.realp[i], src.imagp[i]);
+    }
+
+    for(int i=0; i<5; ++i)
+    {
+        LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
+    }
+    for(int i=cnt-5; i<cnt; ++i)
+    {
+        LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
+    }
+
+//    for(int i=0; i<5; ++i)
+//    { LOGD("[%d] %f + %f", i, destNe10[i].r, destNe10[i].i);}
+//    for(int i=cnt-5; i<cnt; ++i)
+//    { LOGD("[%d] %f + %f", i, destNe10[i].r, destNe10[i].i);}
+
 
 };
 
@@ -249,7 +287,7 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
 #endif
 
 //	test_vstest();
-	test_maxval();
+	test_fft();
 
 //	ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
 	Tapir::SignalAnalyzer test(20000.f);
