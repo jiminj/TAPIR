@@ -15,9 +15,12 @@ public class TapirReceiver extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //startTapir();
         
         ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton1);
+        
+        initTapir();
+        
+        
         tb.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				if(((ToggleButton) view).isChecked()){
@@ -39,7 +42,7 @@ public class TapirReceiver extends Activity {
         return true;
     }
     
-
+    public	native void initTapir();
     public  native void startTapir();
     public  native void stopTapir();
     

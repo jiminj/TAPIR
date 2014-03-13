@@ -4,7 +4,7 @@
 
 
 #include <android/log.h>
-#define  LOG_TAG    "TAPIRTEST"
+#define  LOG_TAG    "TAPIR_RECEIVER"
 #define  LOGUNK(...)  __android_log_print(ANDROID_LOG_UNKNOWN,LOG_TAG,__VA_ARGS__)
 #define  LOGDEF(...)  __android_log_print(ANDROID_LOG_DEFAULT,LOG_TAG,__VA_ARGS__)
 #define  LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE,LOG_TAG,__VA_ARGS__)
@@ -18,12 +18,12 @@
 
 void recorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context);
 
-class AudioAccessor
+class AudioInputAccessor
 {
 
 public:
-	AudioAccessor(int frameSize, Tapir::SignalDetector * detector);
-	virtual ~AudioAccessor();
+	AudioInputAccessor(int frameSize, Tapir::SignalDetector * detector);
+	virtual ~AudioInputAccessor();
 
 	void startAudioInput();
 	void stopAudioInput();
@@ -46,5 +46,6 @@ protected:
 	int m_curBufferIdx;
 	int m_noBuffer;
 	short ** m_buffer;
+//	short * m_buffer[3];
 
 };

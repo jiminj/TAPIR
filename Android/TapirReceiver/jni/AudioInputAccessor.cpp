@@ -1,18 +1,18 @@
 /*
- * AudioAccessor.cpp
+ * AudioInputAccessor.cpp
  *
  *  Created on: Mar 13, 2014
  *      Author: Jimin
  */
 
-#include "AudioAccessor.h" 
+#include "AudioInputAccessor.h" 
  
 void recorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 {
-	((AudioAccessor *)context)->newInputBuffer();
+	((AudioInputAccessor *)context)->newInputBuffer();
 };
 
-AudioAccessor::AudioAccessor(int frameSize, Tapir::SignalDetector * detector)
+AudioInputAccessor::AudioInputAccessor(int frameSize, Tapir::SignalDetector * detector)
 :m_frameSize(frameSize),
 m_detector(detector),
 m_objEngine(nullptr),
@@ -44,7 +44,7 @@ m_buffer(nullptr)
 	SLDataSource audioSrc = {&loc_dev, NULL};
 
 	// configure audio sink
-	SLDataLocator_AndroidSimpleBufferQueue loc_bq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 2};
+	SLDataLocator_AndroidSimpleBufferQueue loc_bq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, static_cast<unsigned int>(m_noBuffer)};
 	SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, 1, SL_SAMPLINGRATE_44_1,
 		SL_PCMSAMPLEFORMAT_FIXED_16, SL_PCMSAMPLEFORMAT_FIXED_16,
 		SL_SPEAKER_FRONT_CENTER, SL_BYTEORDER_LITTLEENDIAN};
@@ -77,7 +77,7 @@ m_buffer(nullptr)
 
 };
 
-AudioAccessor::~AudioAccessor()
+AudioInputAccessor::~AudioInputAccessor()
 {
 	// destroy audio recorder object, and invalidate all associated interfaces
 	if (m_objRecorder != nullptr) {
@@ -98,18 +98,22 @@ AudioAccessor::~AudioAccessor()
 	delete [] m_buffer;
 };
 
-void AudioAccessor::startAudioInput()
+void AudioInputAccessor::startAudioInput()
 {
 	(*m_recorder)->SetRecordState(m_recorder, SL_RECORDSTATE_RECORDING);
 };
-void AudioAccessor::stopAudioInput()
+void AudioInputAccessor::stopAudioInput()
 {
 	(*m_recorder)->SetRecordState(m_recorder, SL_RECORDSTATE_STOPPED);
 };
 
-void AudioAccessor::newInputBuffer()
+void AudioInputAccessor::newInputBuffer()
 {
-	(*m_bufferQueue)->Enqueue(m_bufferQueue, m_bufferQueue[m_curBufferIdx], m_frameSize * sizeof(short));	
+	//recorderBuffer[currentbuffer] contains (the lastly filled) buffer data
+	//do correlation check, decoding, or whatsoever with this array BEFORE enqueueing
+
+
+	(*m_bufferQueue)->Enqueue(m_bufferQueue, m_buffer[m_curBufferIdx], m_frameSize * sizeof(short));
 	if((++m_curBufferIdx) >= m_noBuffer) { m_curBufferIdx = 0;}
-	LOGD("Recording!");
+
 };

@@ -7,7 +7,7 @@
 
 #if DEBUG
 #include <android/log.h>
-#define  LOG_TAG    "TAPIRTEST"
+#define  LOG_TAG    "TAPIR_RECEIVER"
 #define  LOGUNK(...)  __android_log_print(ANDROID_LOG_UNKNOWN,LOG_TAG,__VA_ARGS__)
 #define  LOGDEF(...)  __android_log_print(ANDROID_LOG_DEFAULT,LOG_TAG,__VA_ARGS__)
 #define  LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE,LOG_TAG,__VA_ARGS__)
@@ -29,24 +29,15 @@
 #include <android/asset_manager_jni.h>
 #include <TapirLib.h>
 
+#include "AudioInputAccessor.h"
 
 extern "C"
 {
 
-// engine interfaces
-static SLObjectItf engineObject = NULL;
-static SLEngineItf engineEngine;
-
-// recorder interfaces
-static SLObjectItf recorderObject = NULL;
-static SLRecordItf recorderRecord;
-static SLAndroidSimpleBufferQueueItf recorderBufferQueue;
-
-static short* recorderBuffer[2];
-static int currentBuffer;
-static int currentBufferIndex;
-static unsigned recorderSize = 0;
-static SLmilliHertz recorderSR;
+static const int frameSize = 1024;
+static Tapir::SignalDetector * signalDetector = nullptr;
+static Tapir::SignalAnalyzer * signalAnalyzer = nullptr;
+static AudioInputAccessor * aia = nullptr;
 
 static JavaVM *qJavaVM;
 static JNIEnv* environment;
@@ -54,10 +45,9 @@ static jobject theObject;
 static jclass parentClass;
 static jmethodID parentCallback;
 
-static int RECORDER_FRAMES = 4410;
 
 void callParentCallback(char* ch){
-
+	/*
     int status;
     bool isAttached = false;
     status = qJavaVM->GetEnv((void **) &environment, JNI_VERSION_1_4);
@@ -77,28 +67,18 @@ void callParentCallback(char* ch){
     if(isAttached){
         qJavaVM->DetachCurrentThread();
     }
-}
+    */
 
-// this callback handler is called every time a buffer finishes recording
-void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
+};
+
+void Java_com_example_tapirreceiver_TapirReceiver_initTapir( JNIEnv* env, jobject thiz )
 {
-	//recorderBuffer[currentbuffer] contains (the lastly filled) buffer data
-	//do correlation check, decoding, or whatsoever with this array BEFORE enqueueing
+    // signalDetector = new Tapir::SignalDetector(frameSize, 1.0 ,callback);
+    // signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE);
+    aia = new AudioInputAccessor(frameSize, nullptr);
+    // aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
-    SLresult result;
-	result = (*recorderBufferQueue)->Enqueue(recorderBufferQueue, recorderBuffer[currentBuffer],
-			RECORDER_FRAMES * sizeof(short));
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	currentBuffer= (currentBuffer==0?1:0);
-
-	LOGE("recording...");
-
-    //callParentCallback("recording ");
-}
-
-
+};
 void Java_com_example_tapirreceiver_TapirReceiver_startTapir( JNIEnv* env, jobject thiz )
 {
 
@@ -109,124 +89,15 @@ void Java_com_example_tapirreceiver_TapirReceiver_startTapir( JNIEnv* env, jobje
 	theObject = thiz;
 
 //	callParentCallback("recording initiated");
+	LOGD("START Tapir");
+	aia->startAudioInput();
+};
 
-	currentBuffer = 0;
-	currentBufferIndex =0;
-	recorderBuffer[0] = (short*)calloc(RECORDER_FRAMES, sizeof(short));
-	recorderBuffer[1] = (short*)calloc(RECORDER_FRAMES, sizeof(short));
-
-	SLresult result;
-
-	// create engine
-	result = slCreateEngine(&engineObject, 0, NULL, 0, NULL, NULL);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// realize the engine
-	result = (*engineObject)->Realize(engineObject, SL_BOOLEAN_FALSE);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// get the engine interface, which is needed in order to create other objects
-	result = (*engineObject)->GetInterface(engineObject, SL_IID_ENGINE, &engineEngine);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// configure audio source
-	SLDataLocator_IODevice loc_dev = {SL_DATALOCATOR_IODEVICE, SL_IODEVICE_AUDIOINPUT,
-			SL_DEFAULTDEVICEID_AUDIOINPUT, NULL};
-	SLDataSource audioSrc = {&loc_dev, NULL};
-
-	// configure audio sink
-	SLDataLocator_AndroidSimpleBufferQueue loc_bq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 2};
-	SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, 1, SL_SAMPLINGRATE_44_1,
-		SL_PCMSAMPLEFORMAT_FIXED_16, SL_PCMSAMPLEFORMAT_FIXED_16,
-		SL_SPEAKER_FRONT_CENTER, SL_BYTEORDER_LITTLEENDIAN};
-	SLDataSink audioSnk = {&loc_bq, &format_pcm};
-
-	// create audio recorder
-	// (requires the RECORD_AUDIO permission)
-	const SLInterfaceID id[1] = {SL_IID_ANDROIDSIMPLEBUFFERQUEUE};
-	const SLboolean req[1] = {SL_BOOLEAN_TRUE};
-	result = (*engineEngine)->CreateAudioRecorder(engineEngine, &recorderObject, &audioSrc,
-			&audioSnk, 1, id, req);
-	if (SL_RESULT_SUCCESS != result) {
-		//return JNI_FALSE;
-	}
-
-	// realize the audio recorder
-	result = (*recorderObject)->Realize(recorderObject, SL_BOOLEAN_FALSE);
-	if (SL_RESULT_SUCCESS != result) {
-		//return JNI_FALSE;
-	}
-
-	// get the record interface
-	result = (*recorderObject)->GetInterface(recorderObject, SL_IID_RECORD, &recorderRecord);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// get the buffer queue interface
-	result = (*recorderObject)->GetInterface(recorderObject, SL_IID_ANDROIDSIMPLEBUFFERQUEUE,
-			&recorderBufferQueue);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// register callback on the buffer queue
-	result = (*recorderBufferQueue)->RegisterCallback(recorderBufferQueue, bqRecorderCallback,
-			NULL);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// the buffer is not valid for playback yet
-	recorderSize = 0;
-
-	// enqueue two empty buffers to be filled by the recorder
-
-	result = (*recorderBufferQueue)->Enqueue(recorderBufferQueue, recorderBuffer[0],
-			RECORDER_FRAMES * sizeof(short));
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-	result = (*recorderBufferQueue)->Enqueue(recorderBufferQueue, recorderBuffer[1],
-			RECORDER_FRAMES * sizeof(short));
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-	// start recording
-	result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_RECORDING);
-	assert(SL_RESULT_SUCCESS == result);
-	(void)result;
-
-}
-
-void Java_com_example_tapir_TapirReceiver_stopTapir( JNIEnv* env, jobject thiz )
+void Java_com_example_tapirreceiver_TapirReceiver_stopTapir( JNIEnv* env, jobject thiz )
 {
-
-	SLresult result;
-	result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
-	if (SL_RESULT_SUCCESS == result) {
-		recorderSize = RECORDER_FRAMES * sizeof(short);
-		recorderSR = SL_SAMPLINGRATE_16;
-	}
-
-	// destroy audio recorder object, and invalidate all associated interfaces
-	if (recorderObject != NULL) {
-		(*recorderObject)->Destroy(recorderObject);
-		recorderObject = NULL;
-		recorderRecord = NULL;
-		recorderBufferQueue = NULL;
-	}
-
-	// destroy engine object, and invalidate all associated interfaces
-	if (engineObject != NULL) {
-		(*engineObject)->Destroy(engineObject);
-		engineObject = NULL;
-		engineEngine = NULL;
-	}
-
-	free(recorderBuffer[0]);
-	free(recorderBuffer[1]);
-
-}
+	LOGD("STOP Tapir");
+	aia->stopAudioInput();
+};
 
 
 }
