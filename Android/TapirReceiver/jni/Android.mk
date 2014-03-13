@@ -29,7 +29,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LOCAL_ARM_NEON  := true
 	
 	LOCAL_MODULE    := TapirReceiver
-	LOCAL_SRC_FILES := TapirReceiver.cpp
+	LOCAL_SRC_FILES := TapirReceiver.cpp AudioAccessor.cpp
 	
 	LOCAL_C_INCLUDES += $(NDK_PATH)/sources/cpufeatures
 	
