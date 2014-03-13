@@ -7,6 +7,8 @@
 
 #include "AudioInputAccessor.h" 
  
+static const float kShortMax = (float)(SHRT_MAX);
+ 
 void recorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 {
 	((AudioInputAccessor *)context)->newInputBuffer();
@@ -14,6 +16,7 @@ void recorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 
 AudioInputAccessor::AudioInputAccessor(int frameSize, Tapir::SignalDetector * detector)
 :m_frameSize(frameSize),
+m_frameByteSize(m_frameSize * sizeof(short)),
 m_detector(detector),
 m_objEngine(nullptr),
 m_engine(nullptr),
@@ -22,7 +25,8 @@ m_recorder(nullptr),
 m_bufferQueue(nullptr),
 m_curBufferIdx(0),
 m_noBuffer(3),
-m_buffer(nullptr)
+m_buffer(nullptr),
+m_floatBuffer(new float[m_frameSize])
 { 
 
 	//Allocate Buffer
@@ -69,12 +73,11 @@ m_buffer(nullptr)
 	// register callback on the buffer queue
 	(*m_bufferQueue)->RegisterCallback(m_bufferQueue, recorderCallback, this);
 
-	//Enque Buffer
+	//Enqueue Buffer
 	for(int i=0; i<m_noBuffer; ++i)
 	{
-		(*m_bufferQueue)->Enqueue(m_bufferQueue, m_buffer[i], m_frameSize * sizeof(short));
+		(*m_bufferQueue)->Enqueue(m_bufferQueue, m_buffer[i], m_frameByteSize);
 	}
-
 };
 
 AudioInputAccessor::~AudioInputAccessor()
@@ -96,6 +99,7 @@ AudioInputAccessor::~AudioInputAccessor()
 	for(int i=0; i<m_noBuffer; ++i)
 	{ delete [] m_buffer[i]; }
 	delete [] m_buffer;
+	delete [] m_floatBuffer;
 };
 
 void AudioInputAccessor::startAudioInput()
@@ -111,9 +115,11 @@ void AudioInputAccessor::newInputBuffer()
 {
 	//recorderBuffer[currentbuffer] contains (the lastly filled) buffer data
 	//do correlation check, decoding, or whatsoever with this array BEFORE enqueueing
+    TapirDSP::vflt16(m_buffer[m_curBufferIdx], m_floatBuffer, m_frameSize);
+    TapirDSP::vsdiv(m_floatBuffer, &kShortMax, m_floatBuffer, m_frameSize);
+    m_detector->detect(m_floatBuffer);
 
-
-	(*m_bufferQueue)->Enqueue(m_bufferQueue, m_buffer[m_curBufferIdx], m_frameSize * sizeof(short));
+	(*m_bufferQueue)->Enqueue(m_bufferQueue, m_buffer[m_curBufferIdx], m_frameByteSize);
 	if((++m_curBufferIdx) >= m_noBuffer) { m_curBufferIdx = 0;}
 
 };
