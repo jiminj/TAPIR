@@ -27,6 +27,7 @@
 #include <sys/types.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
+#include <functional>
 #include <TapirLib.h>
 
 #include "AudioInputAccessor.h"
@@ -71,11 +72,22 @@ void callParentCallback(char* ch){
 
 };
 
+void signalDetected(float * result)
+{
+	LOGD("DETECTED!!!");
+    std::string resultStr = (signalAnalyzer->analyze(result));
+    const char * resultCStr = resultStr.c_str();
+    LOGD("%s", resultCStr);
+    signalDetector->clear();
+
+};
+
 void Java_com_example_tapirreceiver_TapirReceiver_initTapir( JNIEnv* env, jobject thiz )
 {
-    // signalDetector = new Tapir::SignalDetector(frameSize, 1.0 ,callback);
-    // signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE);
-    aia = new AudioInputAccessor(frameSize, nullptr);
+	std::function<void(float *)> callback = signalDetected;
+	signalDetector = new Tapir::SignalDetector(frameSize, 1.0 ,callback);
+	signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE);
+	aia = new AudioInputAccessor(frameSize, signalDetector);
     // aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
 };
