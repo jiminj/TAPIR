@@ -61,6 +61,8 @@ public class TapirReceiver extends Activity {
     }
     
     static {
+    	System.load("/system/lib/libandroid_runtime.so");
+        System.loadLibrary("android_runtime");
         System.loadLibrary("TapirReceiver");
    }
 }

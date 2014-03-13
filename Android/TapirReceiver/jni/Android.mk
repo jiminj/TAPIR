@@ -35,7 +35,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
 	
-	LOCAL_LDLIBS    += -lOpenSLES -llog -landroid
+	LOCAL_LDLIBS    += -lOpenSLES -llog -landroid 
 	
 	include $(BUILD_SHARED_LIBRARY)
 endif
