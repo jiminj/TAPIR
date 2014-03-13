@@ -1,11 +1,23 @@
 #include <jni.h>
 
 #include <assert.h>
-#include <jni.h>
 #include <string.h>
+//#include <android_runtime/AndroidRuntime.h>
+#define DEBUG 1
 
-// for __android_log_print(ANDROID_LOG_INFO, "YourApp", "formatted message");
-// #include <android/log.h>
+#if DEBUG
+#include <android/log.h>
+#define  LOG_TAG    "TAPIRTEST"
+#define  LOGUNK(...)  __android_log_print(ANDROID_LOG_UNKNOWN,LOG_TAG,__VA_ARGS__)
+#define  LOGDEF(...)  __android_log_print(ANDROID_LOG_DEFAULT,LOG_TAG,__VA_ARGS__)
+#define  LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE,LOG_TAG,__VA_ARGS__)
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+#define  LOGF(...)  __android_log_print(ANDROID_FATAL_ERROR,LOG_TAG,__VA_ARGS__)
+#define  LOGS(...)  __android_log_print(ANDROID_SILENT_ERROR,LOG_TAG,__VA_ARGS__)
+#endif
 
 // for native audio
 #include <SLES/OpenSLES.h>
@@ -15,13 +27,11 @@
 #include <sys/types.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-#include <android/log.h>
+#include <TapirLib.h>
 
-#define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, "JNI_DEBUGGING", __VA_ARGS__)
-#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG,   "JNI_DEBUGGING", __VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO,    "JNI_DEBUGGING", __VA_ARGS__)
-#define LOGW(...) __android_log_print(ANDROID_LOG_WARN,    "JNI_DEBUGGING", __VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,   "JNI_DEBUGGING", __VA_ARGS__)
+
+extern "C"
+{
 
 // engine interfaces
 static SLObjectItf engineObject = NULL;
@@ -38,7 +48,7 @@ static int currentBufferIndex;
 static unsigned recorderSize = 0;
 static SLmilliHertz recorderSR;
 
-static JavaVm *qJavaVM;
+static JavaVM *qJavaVM;
 static JNIEnv* environment;
 static jobject theObject;
 static jclass parentClass;
@@ -83,25 +93,22 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 
 	currentBuffer= (currentBuffer==0?1:0);
 
-	//LOGE("recording...");
+	LOGE("recording...");
 
     //callParentCallback("recording ");
 }
 
 
-
-
-
-void Java_com_example_tapirreceiver_MainActivity_startTapir( JNIEnv* env,
-                                                  jobject thiz )
+void Java_com_example_tapirreceiver_TapirReceiver_startTapir( JNIEnv* env, jobject thiz )
 {
-	qJavaVM = android::AndroidRuntime::getJavaVM();
+
+//	qJavaVM = android::AndroidRuntime::getJavaVM();
+	env->GetJavaVM(&qJavaVM);
+
     environment = env;
 	theObject = thiz;
 
-	TapirDSP::init();
-
-	callParentCallback("recording initiated");
+//	callParentCallback("recording initiated");
 
 	currentBuffer = 0;
 	currentBufferIndex =0;
@@ -110,13 +117,10 @@ void Java_com_example_tapirreceiver_MainActivity_startTapir( JNIEnv* env,
 
 	SLresult result;
 
-
 	// create engine
 	result = slCreateEngine(&engineObject, 0, NULL, 0, NULL, NULL);
 	assert(SL_RESULT_SUCCESS == result);
 	(void)result;
-
-
 
 	// realize the engine
 	result = (*engineObject)->Realize(engineObject, SL_BOOLEAN_FALSE);
@@ -191,11 +195,12 @@ void Java_com_example_tapirreceiver_MainActivity_startTapir( JNIEnv* env,
 	result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_RECORDING);
 	assert(SL_RESULT_SUCCESS == result);
 	(void)result;
+
 }
 
-void Java_com_example_tapir_MainActivity_stopTapir( JNIEnv* env,
-                                                  jobject thiz )
+void Java_com_example_tapir_TapirReceiver_stopTapir( JNIEnv* env, jobject thiz )
 {
+
 	SLresult result;
 	result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
 	if (SL_RESULT_SUCCESS == result) {
@@ -220,4 +225,8 @@ void Java_com_example_tapir_MainActivity_stopTapir( JNIEnv* env,
 
 	free(recorderBuffer[0]);
 	free(recorderBuffer[1]);
+
+}
+
+
 }
