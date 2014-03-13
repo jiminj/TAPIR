@@ -32,16 +32,10 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LOCAL_SRC_FILES := TapirReceiver.cpp
 	
 	LOCAL_C_INCLUDES += $(NDK_PATH)/sources/cpufeatures
+	
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
 	
-	# for native audio
-	LOCAL_LDLIBS    += -lOpenSLES
-	# for logging
-	LOCAL_LDLIBS    += -llog
-	# for native asset manager
-	LOCAL_LDLIBS    += -landroid
+	LOCAL_LDLIBS    += -lOpenSLES -llog -landroid
 	
 	include $(BUILD_SHARED_LIBRARY)
-
-=======
 endif
