@@ -1,9 +1,13 @@
 package com.example.tapirreceiver;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class TapirReceiver extends Activity {
 
@@ -11,7 +15,20 @@ public class TapirReceiver extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startTapir();
+        //startTapir();
+        
+        ToggleButton tb = (ToggleButton) findViewById(R.id.toggleButton1);
+        tb.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				if(((ToggleButton) view).isChecked()){
+					startTapir();
+				}else{
+					stopTapir();
+				}
+			}
+		});
+        
+
     }
 
 
@@ -30,7 +47,8 @@ public class TapirReceiver extends Activity {
     	System.out.println(message);
     	TextView tv = (TextView) findViewById(R.id.tv);
     	tv.setText(message);
-    	
+    	WebView wv = (WebView) findViewById(R.id.webView1);
+    	wv.loadUrl(message);
     }
     
     public String tc(String message){
