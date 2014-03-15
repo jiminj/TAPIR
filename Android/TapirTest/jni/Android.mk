@@ -23,7 +23,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	
 	
 	include $(CLEAR_VARS)	
-	
+	LOCAL_SHARED_LIBRARIES := libandroid_runtime
 	LOCAL_STATIC_LIBRARIES := libTapir libNE10 neon_utils cpufeatures 
 	LOCAL_ARM_NEON  := true
 	

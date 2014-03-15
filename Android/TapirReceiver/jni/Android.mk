@@ -27,7 +27,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	
 	LOCAL_STATIC_LIBRARIES := libTapir libNE10 neon_utils cpufeatures 
 	LOCAL_ARM_NEON  := true
-	
+
 	LOCAL_MODULE    := TapirReceiver
 	LOCAL_SRC_FILES := TapirReceiver.cpp AudioInputAccessor.cpp
 	

@@ -2,7 +2,6 @@
 
 #include <assert.h>
 #include <string.h>
-//#include <android_runtime/AndroidRuntime.h>
 #define DEBUG 1
 
 #if DEBUG
@@ -34,42 +33,35 @@
 
 extern "C"
 {
+static JavaVM *gJavaVM;
+static jmethodID gCallbackId;
+static jobject gObjTapirInterface;
 
-static const int frameSize = 1024;
-static Tapir::SignalDetector * signalDetector = nullptr;
-static Tapir::SignalAnalyzer * signalAnalyzer = nullptr;
-static AudioInputAccessor * aia = nullptr;
+Tapir::SignalDetector * signalDetector = nullptr;
+Tapir::SignalAnalyzer * signalAnalyzer = nullptr;
+AudioInputAccessor * aia = nullptr;
 
-static JavaVM *qJavaVM;
-static JNIEnv* environment;
-static jobject theObject;
-static jclass parentClass;
-static jmethodID parentCallback;
+const int frameSize = 1024;
+const char * kInterfacePath = "com/example/tapirreceiver/TapirReceiver";
+const char * kCallbackMethodName = "callBack";
 
-
-void callParentCallback(char* ch){
-	/*
-    int status;
+void callParentCallback(std::string& str){
     bool isAttached = false;
-    status = qJavaVM->GetEnv((void **) &environment, JNI_VERSION_1_4);
-    //not sure for the jni version parameter, try 1_6 when this fails
-    if(status<0){
-        LOGE("JNI callback is called from a native method");
-        status = qJavaVM->AttachCurrentThread(&environment, NULL);
+    JNIEnv* env;
+
+    int status = gJavaVM->GetEnv((void **) &env, JNI_VERSION_1_6);
+    if(status<0)
+    {
+        LOGD("JNI callback is called from a native method");
+        status = gJavaVM->AttachCurrentThread(&env, NULL);
         if(status<0){
-            LOGE("failed to attach current thread");
+            LOGD("failed to attach current thread");
         }
         isAttached = true;
     }
-	jstring jstr = environment->NewStringUTF(ch);
-    jclass clazz = environment->FindClass( "com/example/tapirreceiver/MainActivity");
-    jmethodID messageMe = environment->GetMethodID( clazz, "tc", "(Ljava/lang/String;)Ljava/lang/String;");
-    jobject rrr	 = environment->CallObjectMethod( theObject, messageMe, jstr);
-    if(isAttached){
-        qJavaVM->DetachCurrentThread();
-    }
-    */
-
+	jstring jResultString = env->NewStringUTF(str.c_str());
+	env->CallVoidMethod(gObjTapirInterface, gCallbackId, jResultString);
+    if(isAttached) {gJavaVM->DetachCurrentThread(); }
 };
 
 void signalDetected(float * result)
@@ -79,28 +71,24 @@ void signalDetected(float * result)
     const char * resultCStr = resultStr.c_str();
     LOGD("%s", resultCStr);
     signalDetector->clear();
-
+    callParentCallback(resultStr);
 };
 
 void Java_com_example_tapirreceiver_TapirReceiver_initTapir( JNIEnv* env, jobject thiz )
 {
-	std::function<void(float *)> callback = signalDetected;
-	signalDetector = new Tapir::SignalDetector(frameSize, 1.0 ,callback);
+
+	env->GetJavaVM(&gJavaVM);
+	gObjTapirInterface = env->NewGlobalRef(thiz);
+	jclass clazz = env->GetObjectClass(gObjTapirInterface);
+	gCallbackId = env->GetMethodID(clazz, kCallbackMethodName, "(Ljava/lang/String;)V" );
+
+	signalDetector = new Tapir::SignalDetector(frameSize, 1.0 ,std::function<void(float *)>(signalDetected));
 	signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE);
 	aia = new AudioInputAccessor(frameSize, signalDetector);
-    // aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
 
 };
 void Java_com_example_tapirreceiver_TapirReceiver_startTapir( JNIEnv* env, jobject thiz )
 {
-
-//	qJavaVM = android::AndroidRuntime::getJavaVM();
-	env->GetJavaVM(&qJavaVM);
-
-    environment = env;
-	theObject = thiz;
-
-//	callParentCallback("recording initiated");
 	LOGD("START Tapir");
 	aia->startAudioInput();
 };
@@ -111,5 +99,13 @@ void Java_com_example_tapirreceiver_TapirReceiver_stopTapir( JNIEnv* env, jobjec
 	aia->stopAudioInput();
 };
 
+void Java_com_example_tapirreceiver_TapirReceiver_destroyTapir( JNIEnv* env, jobject thiz )
+{
+	LOGD("Destroy TAPIR");
+	delete aia;
+	delete signalDetector;
+	delete signalAnalyzer;
+
+};
 
 }
