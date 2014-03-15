@@ -16,7 +16,7 @@ namespace Tapir {
     m_pilotData( { .realp = new float[m_pilotLength], .imagp = new float[m_pilotLength] } )
     {
         TapirDSP::copy(index, index + m_pilotLength, m_pilotIndex);
-        TapirDSP::zvmov(pilotData, 1, &m_pilotData, 1, m_pilotLength);
+        TapirDSP::zvmov(pilotData, &m_pilotData, m_pilotLength);
     };
 
     PilotManager::~PilotManager()

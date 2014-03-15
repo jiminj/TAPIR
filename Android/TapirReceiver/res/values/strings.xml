@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">TapirReceiver</string>
+    <string name="tapirDecodedString">decoded string here</string>
+    <string name="action_settings">Settings</string>
+    <string name="tapirDeveloperName">AIM Lab. GSCT, KAIST</string>
+</resources>

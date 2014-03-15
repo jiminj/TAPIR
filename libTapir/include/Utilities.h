@@ -9,6 +9,16 @@
 #ifndef __TapirLib__Utilities__
 #define __TapirLib__Utilities__
 
+#ifdef __APPLE__
+#define ARM_ANDROID 0
+#elif defined(__arm__) && defined(__ANDROID__)
+#define ARM_ANDROID 1
+#endif
+
+#if ARM_ANDROID
+#include <Ne10.h>
+#endif
+
 #include <cmath>
 #include "TapirDSP.h"
 
@@ -45,9 +55,14 @@ public:
     
 protected:
     int calculateLogLength(int length);
-    int m_logLen;
     #ifdef __APPLE__
+    int m_logLen;
     FFTSetup m_fftSetup;
+    #elif ARM_ANDROID
+    int m_length;
+    TapirDSP::Complex * m_srcSeperated;
+    TapirDSP::Complex * m_destSeperated;
+    ne10_fft_cfg_float32_t m_fftSetup;
     #endif
 };
     

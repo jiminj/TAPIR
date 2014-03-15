@@ -39,18 +39,19 @@ namespace Tapir {
         //Convolutional Encoding
         int inputLength = (srcLength + m_trelCodeLength - 1);
         float * input = new float[inputLength]();
-        
-        TapirDSP::vflt32(src, 1, input + (m_trelCodeLength-1), 1, srcLength);
-        
+        TapirDSP::vflt32(src, input + (m_trelCodeLength-1), srcLength);
         int encodingRate = static_cast<int>(m_trelArray.size());
+        int destLength = srcLength * encodingRate;
+
+        float * resultConvolution = new float[destLength];
         
         for(int i=0; i<encodingRate; ++i)
         {
-            const float * filter = (m_trelArray.at(i)).getEncodedCode() + m_trelCodeLength - 1; //set end of the array;
-            TapirDSP::conv(input, 1, filter, -1, dest + i, encodingRate, srcLength, m_trelCodeLength);
+            const float * filter = (m_trelArray.at(i)).getEncodedCode();
+            TapirDSP::conv(input, filter, resultConvolution + (i * srcLength), srcLength, m_trelCodeLength);
         }
-        
-        int destLength = srcLength * encodingRate;
+        TapirDSP::mtrans(resultConvolution, dest, srcLength, encodingRate);
+
         for(int i=0; i<destLength; ++i)
         {
             dest[i] = fmodf(dest[i], 2.0f);

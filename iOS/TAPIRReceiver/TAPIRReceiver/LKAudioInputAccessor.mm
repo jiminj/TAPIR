@@ -34,7 +34,8 @@ static void HandleInputBuffer (void                                *audioInput,
         audioSession = [AVAudioSession sharedInstance]; //get an audioSession instance
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil]; // set cagtegory
         [audioSession setPreferredInput:[audioSession.availableInputs objectAtIndex:0] error:nil]; //set input
-        [audioSession setPreferredSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE error:nil]; //set sample rate
+        [audioSession setInputGain:1.f error:nil];
+        [audioSession setPreferredSampleRate:Tapir::Config::AUDIO_SAMPLE_RATE error:nil];
         
         //get notified when route changes (ex. earphone unplugged)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionRouteChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
@@ -87,8 +88,8 @@ static void HandleInputBuffer (void                                *audioInput,
 
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
 {
-    TapirDSP::vflt16(inputBuffer, 1, floatBuf, 1, length);
-    TapirDSP::vsdiv(floatBuf, 1, &kShortMax, floatBuf, 1, length);
+    TapirDSP::vflt16(inputBuffer, floatBuf, length);
+    TapirDSP::vsdiv(floatBuf, &kShortMax, floatBuf, length);
     //convert SInt16 array to float, and scale them (set max value to 1.0)
 
     detector->detect(floatBuf);

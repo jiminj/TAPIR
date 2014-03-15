@@ -76,7 +76,7 @@ namespace Tapir{
         int lenForEachBit = (floor)(lenPreamble / Tapir::Config::PREAMBLE_BIT_LENGTH);
         for(int i=0; i<Tapir::Config::PREAMBLE_BIT_LENGTH ; ++i)
         {
-            TapirDSP::vfill(Tapir::Config::PREAMBLE_BITS + i, preamble.realp + (i * lenForEachBit), 1, lenForEachBit);
+            TapirDSP::vfill(Tapir::Config::PREAMBLE_BITS + i, preamble.realp + (i * lenForEachBit), lenForEachBit);
         }
         // TODO: LPF (for real and imag both)
         

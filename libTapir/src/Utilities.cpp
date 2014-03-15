@@ -21,16 +21,17 @@ static void generateCarrier(TapirDSP::SplitComplex * carrier, const int length, 
     float inc = 2 * M_PI * carrierFreq/(float)samplingFreq;
     float * carrierIndex = new float[length];
     
-    TapirDSP::vramp(&initState, &inc, carrierIndex, 1, length);
-    TapirDSP::vsincosf(carrier->imagp, carrier->realp, carrierIndex, &length);
+    TapirDSP::vramp(&initState, &inc, carrierIndex, length);
+    TapirDSP::vvsincosf(carrier->imagp, carrier->realp, carrierIndex, length);
 
     delete [] carrierIndex;
 };
 
 void scaleFloatSignal(const float * source, float * dest, const int length, const float scale)
 {
-    TapirDSP::vsmul(source, 1, &scale, dest, 1, length);
+    TapirDSP::vsmul(source, &scale, dest, length);
 };
+
 void scaleCompSignal(const TapirDSP::SplitComplex * source, TapirDSP::SplitComplex * dest, const int length, const float scale)
 {
     scaleFloatSignal(source->realp, dest->realp, length, scale);
@@ -40,7 +41,7 @@ void scaleCompSignal(const TapirDSP::SplitComplex * source, TapirDSP::SplitCompl
 void maximizeSignal(const float * source, float * dest, const int length, const float maximum)
 {
     float maxVal;
-    TapirDSP::maxmgv(source, 1, &maxVal, length);
+    TapirDSP::maxmgv(source, &maxVal, length);
     scaleFloatSignal(source, dest, length, maximum / maxVal);
 };
 
@@ -60,7 +61,7 @@ void iqDemodulate(const float * signal, TapirDSP::SplitComplex * destSignal, con
     
     generateCarrier(&carrier, length, samplingFreq, carrierFreq);
     scaleCompSignal(&carrier, &carrier, length, scale);
-    TapirDSP::zrvmul(&carrier, 1, signal, 1, destSignal, 1, length);
+    TapirDSP::zrvmul(&carrier, signal, destSignal, length);
     
     delete [] carrier.realp;
     delete [] carrier.imagp;
@@ -79,10 +80,10 @@ void iqModulate(const TapirDSP::SplitComplex * signal, float * destSignal, const
 
     generateCarrier(&carrier, length, samplingFreq, carrierFreq);
     
-    TapirDSP::vmul(signal->realp, 1, carrier.realp, 1, signal->realp, 1, length);
-    TapirDSP::vmul(signal->imagp, 1, carrier.imagp, 1, signal->imagp, 1, length);
+    TapirDSP::vmul(signal->realp, carrier.realp, signal->realp, length);
+    TapirDSP::vmul(signal->imagp, carrier.imagp, signal->imagp, length);
 
-    TapirDSP::vadd(signal->realp, 1, signal->imagp,1 , destSignal, 1, length);
+    TapirDSP::vadd(signal->realp, signal->imagp, destSignal, length);
     scaleFloatSignal(destSignal, destSignal, length, 2.0f);
     
     delete [] carrier.realp;
@@ -114,18 +115,45 @@ void divdeIntIntoBits(const int src, int * arr, int arrLength)
 //FFT
     
 FFT::FFT(const int fftLength)
-:m_logLen(calculateLogLength(fftLength))
+: 
 #ifdef __APPLE__
+m_logLen(calculateLogLength(fftLength))
 , m_fftSetup( vDSP_create_fftsetup(m_logLen, FFT_RADIX2) )
+#elif ARM_ANDROID
+m_length(fftLength)
+, m_srcSeperated(new TapirDSP::Complex[fftLength])
+, m_destSeperated(new TapirDSP::Complex[fftLength])
+, m_fftSetup(ne10_fft_alloc_c2c_float32(fftLength))
 #endif
-{};
+{ 
+#if ARM_ANDROID
+    ne10_init(); 
+#endif
+};
 
 FFT::~FFT()
 {
 #ifdef __APPLE__
     vDSP_destroy_fftsetup(m_fftSetup);
+#elif ARM_ANDROID
+    delete [] m_srcSeperated;
+    delete [] m_destSeperated;
+    NE10_FREE(m_fftSetup);
 #endif
 };
+    
+void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FftDirection direction)
+{
+#ifdef __APPLE__
+    int fftDirection = (direction == FORWARD) ? FFT_FORWARD : FFT_INVERSE;
+    vDSP_fft_zop(m_fftSetup, src, 1, dest, 1, m_logLen, fftDirection);
+#elif ARM_ANDROID
+    TapirDSP::ztoc(src, m_srcSeperated, m_length);
+    ne10_fft_c2c_1d_float32((ne10_fft_cpx_float32_t *)(m_destSeperated), (ne10_fft_cpx_float32_t *)(m_srcSeperated), m_fftSetup->twiddles, m_fftSetup->factors, m_length, (int)direction);
+    TapirDSP::ctoz(m_destSeperated, dest, m_length);
+#endif
+};
+ 
 
 int FFT::calculateLogLength(int length)
 {
@@ -138,15 +166,7 @@ int FFT::calculateLogLength(int length)
     --count;
     return count;
 };
-    
-void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FftDirection direction)
-{
-#ifdef __APPLE__
-    int fftDirection = (direction == FORWARD) ? FFT_FORWARD : FFT_INVERSE;
-    vDSP_fft_zop(m_fftSetup, src, 1, dest, 1, m_logLen, fftDirection);
-#endif
-};
-    
+   
     
 };
 
