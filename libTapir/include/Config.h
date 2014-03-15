@@ -11,6 +11,7 @@
 
 //#include <Accelerate/Accelerate.h>
 #include <vector>
+#include <tr1/array>
 #include "TapirDSP.h"
 #include "TrellisCode.h"
 
@@ -58,7 +59,7 @@ namespace Tapir{
         static const int    INTERLEAVER_ROWS;
         static const int    INTERLEAVER_COLS;
         
-//        static const std::vector<TrellisCode> TRELLIS_ARRAY;
+        static const std::vector<TrellisCode> TRELLIS_ARRAY;
         static const unsigned long ENCODING_RATE;
         static const int    DATA_BIT_LENGTH;
         

@@ -21,11 +21,7 @@ namespace Tapir {
     m_corrBufferLength(Config::PREAMBLE_SAMPLE_LENGTH),
     m_isSignalFound(false),
     m_callback(callback)
-    {
-        std::cout<<"Result Length : " <<m_resultLength<<std::endl;
-        std::cout<<"FrameSize :" <<m_frameSize<<std::endl;
-        std::cout<<"Correlation Buffer Length : "<<m_corrBufferLength<<std::endl;
-    };
+    {};
     
     void SignalDetector::detect(const float * frame)
     {

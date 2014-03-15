@@ -455,7 +455,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					/Users/Jimin/Development/Projects/TAPIR/iOS/Ne10/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -480,7 +479,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					/Users/Jimin/Development/Projects/TAPIR/iOS/Ne10/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

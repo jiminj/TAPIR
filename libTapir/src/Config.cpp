@@ -9,7 +9,6 @@
 #include "../include/Config.h"
 
 
-
 namespace Tapir {
 
     const float Config::AUDIO_SAMPLE_RATE = 44100.f;
@@ -59,8 +58,9 @@ namespace Tapir {
     const int   Config::INTERLEAVER_COLS = Config::NO_DATA_SUBCARRIERS / Config::INTERLEAVER_ROWS;
     
     const static TrellisCode trelArr[2] = {TrellisCode(171), TrellisCode(133)};
-//    const std::vector<TrellisCode> Config::TRELLIS_ARRAY = (trelArr, trelArr + sizeof(trelArr) / sizeof(trelArr[0]) );
+    const std::vector<TrellisCode> Config::TRELLIS_ARRAY(trelArr, trelArr + sizeof(trelArr) / sizeof(trelArr[0]) );
 //    const unsigned long Config::ENCODING_RATE = TRELLIS_ARRAY.size();
+
     const unsigned long Config::ENCODING_RATE = 2;
     const int   Config::DATA_BIT_LENGTH = NO_DATA_SUBCARRIERS / ENCODING_RATE;
     
