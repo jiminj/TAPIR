@@ -48,7 +48,7 @@ void testVramp()
     { LOGD("[%d] %f", i, dest[i]);}
     for(int i=cnt-5; i<cnt; ++i)
     { LOGD("[%d] %f", i, dest[i]);}
-    LOGD("CPP elapsed: %llu", edTime - stTime);
+    LOGD("CPP elapsed: %lu", edTime - stTime);
     delete [] dest;
     dest = new float[cnt]();
     
@@ -63,7 +63,7 @@ void testVramp()
     { LOGD("[%d] %f", i, dest[i]);}
     for(int i=cnt-5; i<cnt; ++i)
     { LOGD("[%d] %f", i, dest[i]);}
-    LOGD("NEON elapsed: %llu", edTime - stTime);
+    LOGD("NEON elapsed: %lu", edTime - stTime);
     delete [] dest;
     dest = new float[cnt]();
     
@@ -77,7 +77,7 @@ void testVramp()
     { LOGD("[%d] %f", i, dest[i]);}
     for(int i=cnt-5; i<cnt; ++i)
     { LOGD("[%d] %f", i, dest[i]);}
-    LOGD("vDSP elapsed: %llu", edTime - stTime);
+    LOGD("vDSP elapsed: %lu", edTime - stTime);
     delete [] dest;
     
 };
@@ -103,7 +103,7 @@ void testMaxv()
     edTime = clock();
 
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -112,7 +112,7 @@ void testMaxv()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -121,7 +121,7 @@ void testMaxv()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     delete [] src;
     delete dest;
@@ -148,7 +148,7 @@ void testMaxmgv()
     edTime = clock();
     
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -157,7 +157,7 @@ void testMaxmgv()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -166,7 +166,7 @@ void testMaxmgv()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     delete [] src;
     delete dest;
@@ -199,7 +199,7 @@ void testVrvrs()
     { LOGD("[%d] %f", i, dest[i]);}
     for(int i=cnt-5; i<cnt; ++i)
     { LOGD("[%d] %f", i, dest[i]);}
-    LOGD("CPP elapsed: %llu", edTime - stTime);
+    LOGD("CPP elapsed: %lu", edTime - stTime);
     TapirDSP::copy(src, src+cnt, dest);
     
     stTime = clock();
@@ -212,7 +212,7 @@ void testVrvrs()
     { LOGD("[%d] %f", i, dest[i]);}
     for(int i=cnt-5; i<cnt; ++i)
     { LOGD("[%d] %f", i, dest[i]);}
-    LOGD("NEON elapsed: %llu", edTime - stTime);
+    LOGD("NEON elapsed: %lu", edTime - stTime);
     TapirDSP::copy(src, src+cnt, dest);
     
     stTime = clock();
@@ -225,7 +225,7 @@ void testVrvrs()
     { LOGD("[%d] %f", i, dest[i]);}
     for(int i=cnt-5; i<cnt; ++i)
     { LOGD("[%d] %f", i, dest[i]);}
-    LOGD("NEON elapsed: %llu", edTime - stTime);
+    LOGD("NEON elapsed: %lu", edTime - stTime);
 
     delete [] src;
     delete [] dest;
@@ -253,7 +253,7 @@ void testSvemg()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("Loop : elapsed : %llu", edTime - stTime);
+    LOGD("Loop : elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -263,7 +263,7 @@ void testSvemg()
     edTime = clock();
     
     LOGD("RESULT : %f", *dest);
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -273,7 +273,7 @@ void testSvemg()
     edTime = clock();
     
     LOGD("RESULT : %f", *dest);
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     delete [] src;
     delete dest;
@@ -303,7 +303,7 @@ void testMaxvi()
     edTime = clock();
     
     LOGD("RESULT : %f // %lu", *dest, maxIdx);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     
     stTime = clock();
@@ -315,7 +315,7 @@ void testMaxvi()
     edTime = clock();
     
     LOGD("RESULT : %f // %lu", *dest, maxIdx);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -326,7 +326,7 @@ void testMaxvi()
     edTime = clock();
     
     LOGD("RESULT : %f // %lu", *dest, maxIdx);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     delete [] src;
     delete dest;
@@ -370,7 +370,7 @@ void testZvmov()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -391,7 +391,7 @@ void testZvmov()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("VDSP elapsed : %llu", edTime - stTime);
+    LOGD("VDSP elapsed : %lu", edTime - stTime);
     
     delete [] src.realp;
     delete [] src.imagp;
@@ -431,7 +431,7 @@ void testZvmul()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -452,7 +452,7 @@ void testZvmul()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -473,7 +473,7 @@ void testZvmul()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("VDSP elapsed : %llu", edTime - stTime);
+    LOGD("VDSP elapsed : %lu", edTime - stTime);
     
     delete [] src1.realp;
     delete [] src1.imagp;
@@ -515,7 +515,7 @@ void testZvdiv()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -536,7 +536,7 @@ void testZvdiv()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -557,7 +557,7 @@ void testZvdiv()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("VDSP elapsed : %llu", edTime - stTime);
+    LOGD("VDSP elapsed : %lu", edTime - stTime);
     
     delete [] src1.realp;
     delete [] src1.imagp;
@@ -604,7 +604,7 @@ void testZvconj()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -624,7 +624,7 @@ void testZvconj()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     delete [] dest.realp;
     delete [] dest.imagp;
@@ -645,7 +645,7 @@ void testZvconj()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("VDSP elapsed : %llu", edTime - stTime);
+    LOGD("VDSP elapsed : %lu", edTime - stTime);
     
     delete [] src.realp;
     delete [] src.imagp;
@@ -692,7 +692,7 @@ void testZvphas()
     {
         LOGD("DEST[%d]%f",i, dest[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     delete [] dest;
     dest = new float[cnt]();
@@ -712,7 +712,7 @@ void testZvphas()
         LOGD("DEST[%d]%f",i, dest[i]);
     }
 
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
 
     delete [] dest;
     dest = new float[cnt]();
@@ -731,7 +731,7 @@ void testZvphas()
     {
         LOGD("DEST[%d]%f",i, dest[i]);
     }
-    LOGD("VDSP elapsed : %llu", edTime - stTime);
+    LOGD("VDSP elapsed : %lu", edTime - stTime);
     
     delete [] src.realp;
     delete [] src.imagp;
@@ -777,7 +777,7 @@ void testVvsincosf()
     {
         LOGD("DEST[%d]%f // %f",i, destSin[i], destCos[i]);
     }
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
 
     delete [] destCos; destCos = new float[cnt]();
     delete [] destSin; destSin = new float[cnt]();
@@ -796,7 +796,7 @@ void testVvsincosf()
     {
         LOGD("DEST[%d]%f // %f",i, destSin[i], destCos[i]);
     }
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     delete [] destCos; destCos = new float[cnt]();
     delete [] destSin; destSin = new float[cnt]();
     
@@ -814,7 +814,7 @@ void testVvsincosf()
     {
         LOGD("DEST[%d]%f // %f",i, destSin[i], destCos[i]);
     }
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     delete [] destCos; destCos = new float[cnt]();
     delete [] destSin; destSin = new float[cnt]();
     
@@ -863,7 +863,7 @@ void testVindex()
     { LOGD("DEST[%d] %f", i, dest[i]); }
     for(int i=cntIdx - 5; i<cntIdx; ++i)
     { LOGD("DEST[%d] %f", i, dest[i]); }
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     delete [] dest;
     dest = new float[cntIdx]();
 
@@ -879,7 +879,7 @@ void testVindex()
     { LOGD("DEST[%d] %f", i, dest[i]); }
     for(int i=cntIdx - 5; i<cntIdx; ++i)
     { LOGD("DEST[%d] %f", i, dest[i]); }
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     delete [] src;
     delete [] dest;
     delete [] idx;
@@ -913,7 +913,7 @@ void testMtrans()
     for(int i=cnt - 5; i<cnt; ++i)
     { LOGD("SRC[%d] : %f // DEST[%d] : %f", i, src[i], i, dest[i]); }
 
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     delete [] dest;
     dest = new float[cnt]();
     stTime = clock();
@@ -928,7 +928,7 @@ void testMtrans()
     for(int i=cnt - 5; i<cnt; ++i)
     { LOGD("SRC[%d] : %f // DEST[%d] : %f", i, src[i], i, dest[i]); }
 
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     delete [] src;
     delete [] dest;
 };
@@ -966,14 +966,14 @@ void testVgenp()
         TapirDSP::vgenp_cpp(src, idx, destCpp, destCnt, srcCnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     stTime = clock();
     for(int i=0; i<loop; ++i)
     {
         TapirDSP::vgenp(src, idx, destVdsp, destCnt, srcCnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     for(int i=0; i<20; ++i)
     {
         LOGD("Result[%d] = %f // %f",i, destVdsp[i], destCpp[i]);
@@ -1012,7 +1012,7 @@ void testOps()
         TapirDSP::vadd_cpp(src1, src2, destCpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1020,7 +1020,7 @@ void testOps()
         TapirDSP::vadd_neon(src1, src2, destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1028,7 +1028,7 @@ void testOps()
         TapirDSP::vadd(src1, src2, destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1050,7 +1050,7 @@ void testOps()
         TapirDSP::vmul_cpp(src1, src2, destCpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1058,7 +1058,7 @@ void testOps()
         TapirDSP::vmul_neon(src1, src2, destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1066,7 +1066,7 @@ void testOps()
         TapirDSP::vmul(src1, src2, destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1088,7 +1088,7 @@ void testOps()
         TapirDSP::vsadd_cpp(src1, &srcScal, destCpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1096,7 +1096,7 @@ void testOps()
         TapirDSP::vsadd_neon(src1, &srcScal, destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1104,7 +1104,7 @@ void testOps()
         TapirDSP::vsadd(src1, &srcScal, destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1126,7 +1126,7 @@ void testOps()
         TapirDSP::vsmul_cpp(src1, &srcScal, destCpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1134,7 +1134,7 @@ void testOps()
         TapirDSP::vsmul_neon(src1, &srcScal, destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1142,7 +1142,7 @@ void testOps()
         TapirDSP::vsmul(src1, &srcScal, destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1164,7 +1164,7 @@ void testOps()
         TapirDSP::vsdiv_cpp(src1, &srcScal, destCpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1172,7 +1172,7 @@ void testOps()
         TapirDSP::vsdiv_neon(src1, &srcScal, destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1180,7 +1180,7 @@ void testOps()
         TapirDSP::vsdiv(src1, &srcScal, destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1202,7 +1202,7 @@ void testOps()
         TapirDSP::vsmsa_cpp(src1, &srcScal, &srcScal2, destCpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1210,7 +1210,7 @@ void testOps()
         TapirDSP::vsmsa_neon(src1, &srcScal, &srcScal2, destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1218,7 +1218,7 @@ void testOps()
         TapirDSP::vsmsa(src1, &srcScal, &srcScal2, destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1274,7 +1274,7 @@ void testConvert()
         TapirDSP::vfix16_cpp(srcF, dest16_cpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1282,7 +1282,7 @@ void testConvert()
         TapirDSP::vfix16_neon(srcF, dest16_neon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1290,7 +1290,7 @@ void testConvert()
         TapirDSP::vfix16(srcF, dest16_vdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1309,7 +1309,7 @@ void testConvert()
         TapirDSP::vfix32_cpp(srcF, dest32_cpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1317,7 +1317,7 @@ void testConvert()
         TapirDSP::vfix32_neon(srcF, dest32_neon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1325,7 +1325,7 @@ void testConvert()
         TapirDSP::vfix32(srcF, dest32_vdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1343,7 +1343,7 @@ void testConvert()
         TapirDSP::vflt16_cpp(src16, destF_cpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1351,7 +1351,7 @@ void testConvert()
         TapirDSP::vflt16_neon(src16, destF_neon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1359,7 +1359,7 @@ void testConvert()
         TapirDSP::vflt16(src16, destF_vdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1381,7 +1381,7 @@ void testConvert()
         TapirDSP::vflt32_cpp(src32, destF_cpp, cnt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1389,7 +1389,7 @@ void testConvert()
         TapirDSP::vflt32_neon(src32, destF_neon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1397,7 +1397,7 @@ void testConvert()
         TapirDSP::vflt32(src32, destF_vdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1441,7 +1441,7 @@ void testDotpr()
 
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1449,7 +1449,7 @@ void testDotpr()
         TapirDSP::dotpr_neon(src1, src2, &destNeon, cnt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1457,7 +1457,7 @@ void testDotpr()
         TapirDSP::dotpr(src1, src2, &destVdsp, cnt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     LOGD("DEST CPP : %f \t NEON : %f \t VDSP : %f ", destCpp, destNeon, destVdsp);
     
@@ -1496,7 +1496,7 @@ void testConvolution()
         TapirDSP::conv_cpp(src, filt, destCpp, cntDest, cntFilt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1504,7 +1504,7 @@ void testConvolution()
         TapirDSP::conv_neon(src, filt, destNeon, cntDest, cntFilt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1512,7 +1512,7 @@ void testConvolution()
         TapirDSP::conv(src, filt, destVdsp, cntDest, cntFilt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1534,7 +1534,7 @@ void testConvolution()
         TapirDSP::corr_cpp(src, filt, destCpp, cntDest, cntFilt);
     }
     edTime = clock();
-    LOGD("CPP elapsed : %llu", edTime - stTime);
+    LOGD("CPP elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1542,7 +1542,7 @@ void testConvolution()
         TapirDSP::corr_neon(src, filt, destNeon, cntDest, cntFilt);
     }
     edTime = clock();
-    LOGD("NEON elapsed : %llu", edTime - stTime);
+    LOGD("NEON elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1550,7 +1550,7 @@ void testConvolution()
         TapirDSP::corr(src, filt, destVdsp, cntDest, cntFilt);
     }
     edTime = clock();
-    LOGD("vDSP elapsed : %llu", edTime - stTime);
+    LOGD("vDSP elapsed : %lu", edTime - stTime);
     
     for(int i=0; i<5; ++i)
     {
@@ -1598,7 +1598,7 @@ void testConvolution2()
 //        TapirDSP::conv(input, 1, filter, -1, destOrig + i, encodingRate, srcLength, trelCodeLength);
 //    }
 //    edTime = clock();
-//    LOGD("elapsed Old : %llu", edTime - stTime);
+//    LOGD("elapsed Old : %lu", edTime - stTime);
 //    stTime = clock();
 //
 //    
@@ -1610,7 +1610,7 @@ void testConvolution2()
 //    TapirDSP::mtrans(destNew, destNewTrans, srcLength, encodingRate);
 //    
 //    edTime = clock();
-//    LOGD("elapsed New: %llu", edTime - stTime);
+//    LOGD("elapsed New: %lu", edTime - stTime);
 //
 //    for(int i=0; i< destLength; ++i)
 //    {
@@ -1694,7 +1694,7 @@ void testZtocCtoz()
     {
         LOGD("DEST[%d]%f + %f",i, compArray[i].real, (compArray[i]).imag);
     }
-    LOGD("ZTOC - CPP elapsed : %llu", (edTime - stTime) / loop);
+    LOGD("ZTOC - CPP elapsed : %lu", (edTime - stTime) / loop);
 
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1710,7 +1710,7 @@ void testZtocCtoz()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CTOZ - CPP elapsed : %llu", (edTime - stTime) / loop);
+    LOGD("CTOZ - CPP elapsed : %lu", (edTime - stTime) / loop);
     
     
     stTime = clock();
@@ -1727,7 +1727,7 @@ void testZtocCtoz()
     {
         LOGD("DEST[%d]%f + %f",i, compArray[i].real, (compArray[i]).imag);
     }
-    LOGD("ZTOC - vDSP elapsed : %llu", (edTime - stTime) / loop);
+    LOGD("ZTOC - vDSP elapsed : %lu", (edTime - stTime) / loop);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -1743,7 +1743,7 @@ void testZtocCtoz()
     {
         LOGD("DEST[%d]%f + %f",i, dest.realp[i], dest.imagp[i]);
     }
-    LOGD("CTOZ - vDSP elapsed : %llu", (edTime - stTime) / loop);
+    LOGD("CTOZ - vDSP elapsed : %lu", (edTime - stTime) / loop);
     
     
     //
