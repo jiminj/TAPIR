@@ -22,7 +22,7 @@
 #include <Ne10.h>
 #include <cmath>
 #include <time.h>
-#include <tr1/functional>
+#include <functional>
 
 extern "C"
 {
@@ -1847,6 +1847,7 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
    #define ABI "unknown"
 #endif
 
+	/*
     LOGD("VRAMP");
     testVramp();
     LOGD("MAXV");
@@ -1889,6 +1890,12 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
     testZtocCtoz();
     LOGD("FILTER");
     testFilter();
+    */
+    LOGD("ZVPHAS");
+    testZvphas();
+    LOGD("VVSINCOSF");
+    testVvsincosf();
+
 
 
 //  ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
