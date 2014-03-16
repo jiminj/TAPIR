@@ -42,7 +42,7 @@ namespace Tapir {
         const float * lastHalf;
         const float * firstHalf;
         float corrResult;
-        float mag;
+//        float mag;
         resultLength = 0;
         
         for(int i=0; i<inputLength; ++i)
@@ -51,8 +51,8 @@ namespace Tapir {
             lastHalf = m_inBuffer->getLast( backTrackLength + m_lag);
             firstHalf = m_inBuffer->getLast( backTrackLength + 2 * m_lag);
             
-            TapirDSP::dotpr(firstHalf, 1, lastHalf, 1, &corrResult, m_lag);
-            TapirDSP::svemg(lastHalf, 1, &mag, m_lag);
+            TapirDSP::dotpr(firstHalf, lastHalf, &corrResult, m_lag);
+//            TapirDSP::svemg(lastHalf, &mag, m_lag);
 //            corrResult /= (mag / m_lag);
             corrResult = fabsf(corrResult);
 
@@ -68,9 +68,9 @@ namespace Tapir {
                 { m_tracked[m_trackedIdx] = corrResult; }
                 else //tracking done
                 {
-                    unsigned long maxIdx;
+                    TapirDSP::VecLength maxIdx;
                     float maxVal;
-                    TapirDSP::maxvi(m_tracked, 1, &maxVal, &maxIdx, m_lag);
+                    TapirDSP::maxvi(m_tracked, &maxVal, &maxIdx, m_lag);
                     m_resultData += maxIdx;
                     if(m_resultData > m_inBuffer->getLast())
                     {
@@ -81,7 +81,7 @@ namespace Tapir {
                 }
             }
         }
-        return nullptr;
+        return NULL;
     };
 
  }

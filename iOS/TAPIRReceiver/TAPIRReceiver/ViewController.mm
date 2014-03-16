@@ -24,14 +24,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     logString = @"";
 
     int frameSize = 1024;
     auto callback = Tapir::ObjcFuncBridge<void(float *)>(self, @selector(signalDetected:));
     signalDetector = new Tapir::SignalDetector(frameSize, [DevicesSpecifications getThreshold],callback);
-    NSLog(@"%f", [DevicesSpecifications getThreshold]);
-    
     signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [DevicesSpecifications getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
