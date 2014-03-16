@@ -810,14 +810,14 @@ namespace TapirDSP {
                 sinReduced_f32x4 = vmlsq_f32(sinReduced_f32x4, vcvtq_f32_s32(nSin_s32x4), mPi_2Const_f32x4);
                 nSin_s32x4 = veorq_s32(nSin_s32x4, vshrq_n_s32(mSin_s32x4, 1));
                 nSin_s32x4 = vshlq_n_s32(veorq_s32(nSin_s32x4, vcltq_f32(sinSrc_f32x4, zero_f32x4)) , 31);
-                sinReduced_f32x4 = veorq_s32(vreinterpretq_s32_f32(sinReduced_f32x4), nSin_s32x4);
+                sinReduced_f32x4 = vreinterpretq_f32_s32(veorq_s32(vreinterpretq_s32_f32(sinReduced_f32x4), nSin_s32x4));
                 
                 //http://devmaster.net/posts/9648/fast-and-accurate-sine-cosine
                 nCos_s32x4 = vandq_s32(mCos_s32x4, one_s32x4);
                 cosReduced_f32x4 = vmlsq_f32(cosReduced_f32x4, vcvtq_f32_s32(nCos_s32x4), mPi_2Const_f32x4);
                 nCos_s32x4 = veorq_s32(nCos_s32x4, vshrq_n_s32(mCos_s32x4, 1));
                 nCos_s32x4 = vshlq_n_s32(veorq_s32(nCos_s32x4, vcltq_f32(cosSrc_f32x4, zero_f32x4)), 31) ;
-                cosReduced_f32x4 = veorq_s32(vreinterpretq_s32_f32(cosReduced_f32x4), nCos_s32x4);
+                cosReduced_f32x4 = vreinterpretq_f32_s32(veorq_s32(vreinterpretq_s32_f32(cosReduced_f32x4), nCos_s32x4));
                 
                 sinResult_f32x4 = vmlsq_f32(vmulq_f32(approxConstA, sinReduced_f32x4), approxConstB, vmulq_f32(sinReduced_f32x4, vabsq_f32(sinReduced_f32x4)));
                 cosResult_f32x4 = vmlsq_f32(vmulq_f32(approxConstA, cosReduced_f32x4), approxConstB, vmulq_f32(cosReduced_f32x4, vabsq_f32(cosReduced_f32x4)));
@@ -892,12 +892,12 @@ namespace TapirDSP {
                 
                 //if(dest > M_PI) { dest -= M_PI; }
                 compResult_u32x4 = vcgtq_f32(dest_f32x4, mPiConst_f32x4);
-                subtrahend_f32x4 = vandq_u32(vreinterpretq_u32_f32(mPiConst_f32x4), compResult_u32x4);
+                subtrahend_f32x4 = vreinterpretq_f32_u32(vandq_u32(vreinterpretq_u32_f32(mPiConst_f32x4), compResult_u32x4));
                 dest_f32x4 = vsubq_f32(dest_f32x4, subtrahend_f32x4);
                 
                 //if(dest > 0 && y < 0) { dest -= M_PI; }
                 compResult_u32x4 = vandq_u32(vcgtq_f32(dest_f32x4, mZero_f32x4), vcleq_f32(y_f32x4, mZero_f32x4));
-                subtrahend_f32x4 = vandq_u32(vreinterpretq_u32_f32(mPiConst_f32x4), compResult_u32x4);
+                subtrahend_f32x4 = vreinterpretq_f32_u32(vandq_u32(vreinterpretq_u32_f32(mPiConst_f32x4), compResult_u32x4));
                 dest_f32x4 = vsubq_f32(dest_f32x4, subtrahend_f32x4);
                 
                 vst1q_f32(z, dest_f32x4);
