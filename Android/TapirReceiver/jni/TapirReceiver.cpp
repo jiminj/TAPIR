@@ -26,7 +26,7 @@
 #include <sys/types.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-#include <functional>
+#include <tr1/functional>
 #include <TapirLib.h>
 
 #include "AudioInputAccessor.h"
@@ -68,10 +68,8 @@ void signalDetected(float * result)
 {
 	LOGD("DETECTED!!!");
     std::string resultStr = (signalAnalyzer->analyze(result));
-    const char * resultCStr = resultStr.c_str();
-    LOGD("%s", resultCStr);
-    signalDetector->clear();
     callParentCallback(resultStr);
+    signalDetector->clear();
 };
 
 void Java_com_example_tapirreceiver_TapirReceiver_initTapir( JNIEnv* env, jobject thiz )

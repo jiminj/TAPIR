@@ -34,7 +34,6 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LOCAL_C_INCLUDES += $(NDK_PATH)/sources/cpufeatures
 	
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
-	
 	LOCAL_LDLIBS    += -lOpenSLES -llog -landroid 
 	
 	include $(BUILD_SHARED_LIBRARY)

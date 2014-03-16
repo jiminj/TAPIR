@@ -11,7 +11,6 @@
 
 //#include <Accelerate/Accelerate.h>
 #include <vector>
-#include <tr1/array>
 #include "TapirDSP.h"
 #include "TrellisCode.h"
 
