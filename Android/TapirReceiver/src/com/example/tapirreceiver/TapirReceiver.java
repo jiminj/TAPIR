@@ -16,9 +16,10 @@ public class TapirReceiver {
     public	native void initTapir();
     public  native void startTapir();
     public  native void stopTapir();
+    public  native void destroyTapir();
+    
     public  void callBack(String str)
     {
-    	
     	Bundle bdle = new Bundle();
     	bdle.putString("Result", str); 
     	Message msg = Message.obtain();

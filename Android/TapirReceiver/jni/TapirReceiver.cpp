@@ -74,6 +74,7 @@ void signalDetected(float * result)
 
 void Java_com_example_tapirreceiver_TapirReceiver_initTapir( JNIEnv* env, jobject thiz )
 {
+	LOGD("INIT Tapir");
 
 	env->GetJavaVM(&gJavaVM);
 	gObjTapirInterface = env->NewGlobalRef(thiz);
