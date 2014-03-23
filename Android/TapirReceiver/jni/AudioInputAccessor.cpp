@@ -56,9 +56,14 @@ m_floatBuffer(new float[m_frameSize])
 
 	// create audio recorder
 	// (requires the RECORD_AUDIO permission)
-	const SLInterfaceID id[1] = {SL_IID_ANDROIDSIMPLEBUFFERQUEUE};
-	const SLboolean req[1] = {SL_BOOLEAN_TRUE};
-	(*m_engine)->CreateAudioRecorder(m_engine, &m_objRecorder, &audioSrc, &audioSnk, 1, id, req);
+	const SLInterfaceID id[2] = {SL_IID_ANDROIDSIMPLEBUFFERQUEUE, SL_IID_ANDROIDCONFIGURATION};
+	const SLboolean req[2] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
+	(*m_engine)->CreateAudioRecorder(m_engine, &m_objRecorder, &audioSrc, &audioSnk, 2, id, req);
+
+	SLAndroidConfigurationItf recorderConfig;
+	SLint32 streamType = SL_ANDROID_RECORDING_PRESET_CAMCORDER;
+	(*m_objRecorder)->GetInterface(m_objRecorder, SL_IID_ANDROIDCONFIGURATION, &recorderConfig);
+	(*recorderConfig)->SetConfiguration(recorderConfig, SL_ANDROID_KEY_RECORDING_PRESET, &streamType, sizeof(SLint32));
 
 	// realize the audio recorder
 	(*m_objRecorder)->Realize(m_objRecorder, SL_BOOLEAN_FALSE);
