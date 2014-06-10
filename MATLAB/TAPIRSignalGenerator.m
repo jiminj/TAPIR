@@ -5,11 +5,9 @@ clear;
 TapirConf;
 Fc = 20000;
 
-src = [];
 
-for idx = 1:21
-    src = [src, 5*idx + 69];
-end
+fileIdx = [12:19]
+src = [fileIdx * 5 - 26]
 
 pwd = './result/'
 filenamePrefix = 'Paris';
@@ -26,20 +24,20 @@ txHpfDelay = txHpf.order / 2;
 
 figure(11);
 
-for fIdx = 1:length(src)
+for loopIdx = 1:length(src)
 
-    msg = repmat(src(fIdx), 1, srcRepeat);
+    msg = repmat(src(loopIdx), 1, srcRepeat);
     msg = [msg, 3]; %ETX Code
 
     binData = dec2bin(msg, 8)' - 48;
     genAudioData = generateAudioData(binData);
     extendedAudioData = zeros(size(genAudioData,1) + cPreLength + cPostLength, size(genAudioData,2));
   
-    for idx=1:size(extendedAudioData, 2)
+    for i=1:size(extendedAudioData, 2)
 
-        upconvAudioData = freqUpConversion(genAudioData(:,idx), Fc, Fs);    
+        upconvAudioData = freqUpConversion(genAudioData(:,i), Fc, Fs);    
         % Add Cyclic prefix&postfix
-        extendedAudioData(1:length(extendedAudioData),idx) = [upconvAudioData(end - cPreLength + 1 : end); upconvAudioData; upconvAudioData(1:cPostLength)];
+        extendedAudioData(1:length(extendedAudioData),i) = [upconvAudioData(end - cPreLength + 1 : end); upconvAudioData; upconvAudioData(1:cPostLength)];
     end
     extendedAudioData = [extendedAudioData; zeros(guardInterval, size(extendedAudioData,2))];
     audioData = reshape(extendedAudioData, [], 1);
@@ -68,12 +66,12 @@ for fIdx = 1:length(src)
     
     audioData = repmat(audioData, resultRepeat, 1);
     figure(11);
-    subplot(length(src),2,fIdx * 2 - 1); plot(real(audioData));
-    subplot(length(src),2,fIdx * 2); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
+    subplot(length(src),2,loopIdx * 2 - 1); plot(real(audioData));
+    subplot(length(src),2,loopIdx * 2); pwelch(audioData, hamming(1024),[],[],Fs,'centered');
 
     
     %write
-    filename = [filenamePrefix, '_', int2str(fIdx), '_', int2str(src(fIdx))];
+    filename = [filenamePrefix, '_', int2str(fileIdx(loopIdx)), '_', int2str(src(loopIdx))];
     filename = [pwd, filename, '.wav'];
     audiowrite(filename, audioData, Fs, 'BitsPerSample', 16);
     
