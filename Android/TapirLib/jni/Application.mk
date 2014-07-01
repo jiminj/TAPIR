@@ -12,3 +12,10 @@ APP_CPPFLAGS += -std=c++11 -flax-vector-conversions
 
 
 	 
+
+
+LOCAL_CPPFLAGS := -std=gnu++11 -O2 -verbose
+
+
+
+ 

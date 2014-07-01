@@ -1848,7 +1848,6 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
 #endif
 
 	/*
-
     LOGD("VRAMP");
     testVramp();
     LOGD("MAXV");
@@ -1891,12 +1890,13 @@ jstring Java_com_example_tapirtest_TapirTest_stringFromJNI( JNIEnv* env,
     testZtocCtoz();
     LOGD("FILTER");
     testFilter();
+    */
+    LOGD("ZVPHAS");
+    testZvphas();
+    LOGD("VVSINCOSF");
+    testVvsincosf();
 
-*/
-	LOGD("ZVPHAS");
-	testZvphas();
-	LOGD("VVSINCOSF");
-	testVvsincosf();
+
 
 //  ne10_addc_float(dest, const_cast<float *>(src), *constScalar, length);
     Tapir::SignalAnalyzer test(20000.f);

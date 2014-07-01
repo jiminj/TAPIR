@@ -26,8 +26,8 @@ namespace Tapir {
     const int   Config::PREAMBLE_SAMPLE_LENGTH = static_cast<int>(AUDIO_SAMPLE_RATE / PREAMBLE_BANDWIDTH * PREAMBLE_BIT_LENGTH);
     
     const int   Config::MAX_SYMBOL_LENGTH = 8;
-    const int   Config::SAMPLE_LENGTH_EACH_SYMBOL = 2048;
-//    const int   Config::SAMPLE_LENGTH_EACH_SYMBOL = 1024;
+//    const int   Config::SAMPLE_LENGTH_EACH_SYMBOL = 2048;
+    const int   Config::SAMPLE_LENGTH_EACH_SYMBOL = 1024;
     const int   Config::SAMPLE_LENGTH_CYCLIC_PREFIX = Config::SAMPLE_LENGTH_EACH_SYMBOL / 2;
     const int   Config::SAMPLE_LENGTH_CYCLIC_POSTFIX = Config::SAMPLE_LENGTH_EACH_SYMBOL / 4;
     const int   Config::SAMPLE_LENGTH_GUARD_INTERVAL = 0;

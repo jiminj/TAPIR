@@ -32,7 +32,7 @@
     signalAnalyzer = new Tapir::SignalAnalyzer(Tapir::Config::CARRIER_FREQUENCY_BASE + [DevicesSpecifications getReceiverFreqOffset]);
     
     aia = [[LKAudioInputAccessor alloc] initWithFrameSize:frameSize detector:signalDetector];
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,14 +58,35 @@
     lastResultString = [NSString stringWithCString:(signalAnalyzer->analyze(result)).c_str()
                                           encoding:[NSString defaultCStringEncoding]];
     
-    const char * firstChar = [[lastResultString substringToIndex:1] UTF8String];
-    int asciiCodeOfFirstChar = (int)(*firstChar);
-    NSLog(@"%@ // firstChar : %c(%d)", lastResultString, *firstChar, asciiCodeOfFirstChar);
+    const unsigned char firstChar = [lastResultString characterAtIndex:0];
+    const unsigned char secondChar = [lastResultString characterAtIndex:1];
+    unsigned int asciiCodeOfFirstChar = (unsigned int)(firstChar);
+    
+    int detectedCode = -1;
+    if( (firstChar == secondChar) && (firstChar <= 124) && (firstChar >= 34))
+    {
+        if(firstChar > 69) // for 1 to 11
+        {
+            detectedCode = (asciiCodeOfFirstChar - 69) / 5;
+        }
+        else //for 12 to 19
+        {
+            detectedCode = (asciiCodeOfFirstChar + 26 ) / 5;
+        }
+    }
+    if(detectedCode > 0)
+    {
+        //do something
+    }
+    NSLog(@"%@ // firstChar : %c(%u)", lastResultString, firstChar, asciiCodeOfFirstChar);
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterNoStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    logString = [[NSString stringWithFormat:@"%@: %@\n", [formatter stringFromDate:[NSDate date]], lastResultString] stringByAppendingString:logString];
+    [formatter setTimeStyle:NSDateFormatterMediumStyle];
+
+    
+    logString = [[NSString stringWithFormat:@"%@: %@ \t(FirstChar : %u)\n", [formatter stringFromDate:[NSDate date]], lastResultString, asciiCodeOfFirstChar] stringByAppendingString:logString];
+    
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         //Your code goes in here

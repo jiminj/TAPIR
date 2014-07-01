@@ -58,7 +58,6 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LOCAL_MODULE := dummy_libtapir
 	LOCAL_STATIC_LIBRARIES := tapir libNE10
 	LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
-	
 	include $(BUILD_SHARED_LIBRARY)
 
 	include $(NDK_PATH)/sources/android/cpufeatures/Android.mk 

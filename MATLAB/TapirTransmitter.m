@@ -131,7 +131,7 @@ function btnPlay_Callback(hObject, eventdata, handles)
     txLpf = txrxLpfRC;
     txLpfDelay = txLpf.order / 2;
 %     txBpfDelay = ceil(txBpf.order / 2);
-    txHpf = hpfchev19k150;
+    txHpf = bpfchev19k21k250;
     txHpfDelay = txHpf.order / 2;
 
     
