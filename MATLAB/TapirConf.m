@@ -1,5 +1,6 @@
 
 Fs = 44100; % Sampling Frequency
+% Fs = 48000;
 % Fc = 18000; % Carrier Frequency
 
 noDataFrame = 8; % FrameSize
@@ -18,7 +19,8 @@ maxBitLength = 8;
 
 noBlksPerSig = 8;
 
-symLength = 2048;
+% symLength = 2048;
+symLength = 1024;
 cPreLength = symLength / 2 ;
 cPostLength = symLength / 4;
 
