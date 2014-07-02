@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:TapirColor/TapirColor.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:BitlyUrlShortener/BitlyUrlShortener.xcodeproj">
    </FileRef>
    <FileRef
