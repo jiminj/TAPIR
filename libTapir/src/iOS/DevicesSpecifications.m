@@ -33,11 +33,11 @@
 {
     NSString * platform = [DevicesSpecifications getPlatform];
     if([platform hasPrefix:@"iPhone5"]) // 5
-    { return 1.f; }
-    else if([platform hasPrefix:@"iPhone6"]) // 5s
     { return 0.3f; }
-    else
+    else if([platform hasPrefix:@"iPhone6"]) // 5s
     { return 0.1f; }
+    else
+    { return 0.05f; }
 }
 
 
