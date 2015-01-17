@@ -56,8 +56,6 @@ namespace TapirDSP {
     typedef vDSP_Stride VecStride;
 #endif
 
-    
-
 //copy
     template< class InputIt, class OutputIt >
     OutputIt copy( InputIt first, InputIt last, OutputIt d_first )

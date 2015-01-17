@@ -19,8 +19,8 @@ maxBitLength = 8;
 
 noBlksPerSig = 8;
 
-% symLength = 2048;
-symLength = 1024;
+symLength = 2048; % for LeeUngno
+% symLength = 1024; % for Petit Palais
 cPreLength = symLength / 2 ;
 cPostLength = symLength / 4;
 
