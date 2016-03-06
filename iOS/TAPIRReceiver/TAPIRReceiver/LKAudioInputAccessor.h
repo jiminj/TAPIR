@@ -14,8 +14,8 @@
 #import <TapirLib/TapirLib.h>
 //#import "Sonifier.h"
 //
-//static const float kShortMax = (float)(SHRT_MAX);
-//static const int kNumBuffers = 3;
+static const float kShortMax = (float)(SHRT_MAX);
+static const int kNumBuffers = 3;
 
 @interface LKAudioInputAccessor : NSObject{
 
