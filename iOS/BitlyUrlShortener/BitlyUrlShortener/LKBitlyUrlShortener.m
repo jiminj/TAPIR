@@ -30,32 +30,33 @@
 }
 
 -(void)shortenUrl:(NSString *)original{
-    AFHTTPRequestOperationManager* operationManager = [AFHTTPRequestOperationManager manager] ;
-    [operationManager GET:[NSString stringWithFormat:@"https://api-ssl.bitly.com/v3/shorten?access_token=%@&longUrl=%@", [self kBitlyAccessToken], original]
-               parameters:nil
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPSessionManager * sessionManager = [AFHTTPSessionManager manager] ;
+    [sessionManager GET:[NSString stringWithFormat:@"https://api-ssl.bitly.com/v3/shorten?access_token=%@&longUrl=%@", [self kBitlyAccessToken], original]
+             parameters:nil
+               progress:nil
+                success:^(NSURLSessionTask *task, id responseObject) {
                       NSDictionary* responseData = [(NSDictionary*)responseObject objectForKey:@"data"];
                       [delegate didFinishBitlyConvertFrom:[responseData objectForKey:@"long_url"] to:[responseData objectForKey:@"url"] by:self];
         
-                  }
-                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                }
+                failure:^(NSURLSessionTask *operation, NSError *error) {
                       [delegate didFinishBitlyConvertFrom:original to:@"" by:self];
-                  }];
-
+                }];
 
 }
 
 -(void)getOriginalUrl:(NSString *)original{
-    AFHTTPRequestOperationManager* operationManager = [[AFHTTPRequestOperationManager alloc] init];
-    [operationManager GET:[NSString stringWithFormat:@"https://api-ssl.bitly.com/v3/expand?access_token=%@&shortUrl=%@", [self kBitlyAccessToken], original]
-               parameters:nil
-                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPSessionManager* sessionManager = [[AFHTTPSessionManager alloc] init];
+    [sessionManager GET:[NSString stringWithFormat:@"https://api-ssl.bitly.com/v3/expand?access_token=%@&shortUrl=%@", [self kBitlyAccessToken], original]
+             parameters:nil
+               progress:nil
+                success:^(NSURLSessionTask *task, id responseObject) {
                       NSDictionary* responseData = [(NSDictionary*)responseObject objectForKey:@"data"];
                       [delegate didFinishBitlyConvertFrom:[responseData objectForKey:@"short_url"] to:[responseData objectForKey:@"long_url"] by:self];
-                  }
-                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                }
+                failure:^(NSURLSessionTask *task, NSError *error) {
                       [delegate didFinishBitlyConvertFrom:original to:@""  by:self];
-                  }];
+                }];
 }
 
 @end
