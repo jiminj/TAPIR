@@ -1,9 +1,9 @@
 //
-//  SoundPlayer.m
-//  musiculesdev
+//  Sonifier.mm
+//  TapirTransmitter
 //
-//  Created by Dylan on 1/17/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Jimin Jeon on 12/3/13.
+//  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
 #import "Sonifier.h"
