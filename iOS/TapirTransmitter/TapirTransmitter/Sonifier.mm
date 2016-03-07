@@ -1,9 +1,9 @@
 //
-//  SoundPlayer.m
-//  musiculesdev
+//  Sonifier.mm
+//  TapirTransmitter
 //
-//  Created by Dylan on 1/17/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Jimin Jeon on 12/3/13.
+//  Copyright (c) 2013 Jimin Jeon. All rights reserved.
 //
 
 #import "Sonifier.h"
@@ -36,6 +36,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
 		audioDesc.mBytesPerPacket = audioDesc.mBytesPerFrame * audioDesc.mFramesPerPacket;
         frameLength = 1024;
         isDone = TRUE;
+        outputScalingFactor = (float)(SHRT_MAX);
         
         outputLock = [[NSLock alloc] init];
         
@@ -50,7 +51,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             NSLog(@"ERR");
         }
         
-        for(int i = 0; i < kNumBuffers; i++)
+        for(int i = 0; i < kSonifierNumBuffers; i++)
         {
             OSStatus err = AudioQueueAllocateBuffer(audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
             if(err != noErr) {
@@ -68,7 +69,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
     doneCnt = 0;
     isDone = FALSE;
 
-    for(int i = 0; i < kNumBuffers; i++)
+    for(int i = 0; i < kSonifierNumBuffers; i++)
     {
         aqCallBack((__bridge void *)(self), audioQueue, buffer[i]); //prime buffer
     }
@@ -107,7 +108,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
             memset(bufferData+copyLen, 0, sizeof(SInt16) * (frameLength - dataLength));
             isDone = TRUE;
         }
-        TapirDSP::vsmul(audioData, &kShortMax, audioData, copyLen); //maximize volume
+        TapirDSP::vsmul(audioData, &outputScalingFactor, audioData, copyLen); //maximize volume
         TapirDSP::vfix16(audioData, bufferData, copyLen); //float to SInt16
 
         audioData += copyLen;
@@ -123,7 +124,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
         if(isDone)
         {
             [outputLock unlock];
-            if(++doneCnt >= kNumBuffers)
+            if(++doneCnt >= kSonifierNumBuffers)
             {
                 OSStatus err = AudioQueueStop(q, true);
                 if(err!=noErr)
@@ -144,7 +145,7 @@ static void aqCallBack(void *in, AudioQueueRef q, AudioQueueBufferRef qb)
 }
 
 -(void)dealloc {
-    for(int i=0; i<kNumBuffers; ++i)
+    for(int i=0; i<kSonifierNumBuffers; ++i)
     { AudioQueueFreeBuffer(audioQueue, buffer[i]); }
     AudioQueueDispose(audioQueue, true);
 }

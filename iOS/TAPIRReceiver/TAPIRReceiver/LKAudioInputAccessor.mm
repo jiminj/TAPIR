@@ -53,8 +53,7 @@ static void HandleInputBuffer (void                                *audioInput,
         frameLength = length;
 //        filter = Tapir::TapirFilters::getTxRxHpf(frameLength);
         floatBuf = new float[frameLength];
-        
-        
+        inputScalingFactor = (float)(SHRT_MAX);
         detector = _detector;
         
         // create audio input
@@ -74,7 +73,7 @@ static void HandleInputBuffer (void                                *audioInput,
 -(void)startAudioInput{
     NSLog(@"Start Recording");
     // prepare audio buffer
-    for (int i = 0; i < kNumBuffers; ++i) {
+    for (int i = 0; i < kNumAIABuffers; ++i) {
         AudioQueueAllocateBuffer (audioQueue, frameLength * audioDesc.mBytesPerFrame, &buffer[i]);
         AudioQueueEnqueueBuffer (audioQueue, buffer[i], 0, NULL);
     }
@@ -88,16 +87,16 @@ static void HandleInputBuffer (void                                *audioInput,
 
 -(void)newInputBuffer:(SInt16 *)inputBuffer length:(int)length
 {
+    //convert SInt16 array to float array with max value of 1.0
     TapirDSP::vflt16(inputBuffer, floatBuf, length);
-    TapirDSP::vsdiv(floatBuf, &kShortMax, floatBuf, length);
-    //convert SInt16 array to float, and scale them (set max value to 1.0)
+    TapirDSP::vsdiv(floatBuf, &inputScalingFactor, floatBuf, length);
 
     detector->detect(floatBuf);
 }
 
 - (void)dealloc
 {
-    for(int i=0; i<kNumBuffers; ++i)
+    for(int i=0; i<kNumAIABuffers; ++i)
     { AudioQueueFreeBuffer(audioQueue, buffer[i]); }
     AudioQueueDispose(audioQueue, true);
     delete [] floatBuf;

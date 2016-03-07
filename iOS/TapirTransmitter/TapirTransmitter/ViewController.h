@@ -8,11 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
-#import <TapirLib/TapirLib.h>
+#import <Tapir/Tapir.h>
 #import <LKBitlyUrlShortener.h>
-
-
-//#import "LKBitlyUrlShortener.h"
 
 typedef enum
 {

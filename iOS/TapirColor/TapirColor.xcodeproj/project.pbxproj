@@ -21,13 +21,13 @@
 		EC3B6EE719636CF400BCFBAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EC919636CF400BCFBAE /* UIKit.framework */; };
 		EC3B6EEF19636CF500BCFBAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC3B6EED19636CF500BCFBAE /* InfoPlist.strings */; };
 		EC3B6EF119636CF500BCFBAE /* TapirColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6EF019636CF500BCFBAE /* TapirColorTests.m */; };
-		EC3B6EFF19636D0A00BCFBAE /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFA19636D0A00BCFBAE /* libBitlyUrlShortener.a */; };
 		EC3B6F0019636D0A00BCFBAE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFB19636D0A00BCFBAE /* Accelerate.framework */; };
-		EC3B6F0119636D0A00BCFBAE /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFC19636D0A00BCFBAE /* TapirLib.framework */; };
 		EC3B6F0219636D0A00BCFBAE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFD19636D0A00BCFBAE /* AVFoundation.framework */; };
 		EC3B6F0319636D0A00BCFBAE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFE19636D0A00BCFBAE /* AudioToolbox.framework */; };
 		EC3B6F0619636D1900BCFBAE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6F0519636D1900BCFBAE /* LKAudioInputAccessor.mm */; };
 		EC3B6F0919636D2200BCFBAE /* Sonifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6F0819636D2200BCFBAE /* Sonifier.mm */; };
+		ECE963AB1C8D98F30013AE2D /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A91C8D98F30013AE2D /* libBitlyUrlShortener.a */; };
+		ECE963AC1C8D98F30013AE2D /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963AA1C8D98F30013AE2D /* Tapir.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +69,8 @@
 		EC3B6F0519636D1900BCFBAE /* LKAudioInputAccessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LKAudioInputAccessor.mm; path = ../../TAPIRReceiver/TAPIRReceiver/LKAudioInputAccessor.mm; sourceTree = "<group>"; };
 		EC3B6F0719636D2200BCFBAE /* Sonifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sonifier.h; path = ../../TapirTransmitter/TapirTransmitter/Sonifier.h; sourceTree = "<group>"; };
 		EC3B6F0819636D2200BCFBAE /* Sonifier.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Sonifier.mm; path = ../../TapirTransmitter/TapirTransmitter/Sonifier.mm; sourceTree = "<group>"; };
+		ECE963A91C8D98F30013AE2D /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
+		ECE963AA1C8D98F30013AE2D /* Tapir.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapir.framework; path = "../../Tapir-iOS/build/Debug-iphoneos/Tapir.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +78,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECE963AB1C8D98F30013AE2D /* libBitlyUrlShortener.a in Frameworks */,
+				ECE963AC1C8D98F30013AE2D /* Tapir.framework in Frameworks */,
 				EC3B6EC819636CF400BCFBAE /* CoreGraphics.framework in Frameworks */,
-				EC3B6F0119636D0A00BCFBAE /* TapirLib.framework in Frameworks */,
-				EC3B6EFF19636D0A00BCFBAE /* libBitlyUrlShortener.a in Frameworks */,
 				EC3B6F0319636D0A00BCFBAE /* AudioToolbox.framework in Frameworks */,
 				EC3B6F0019636D0A00BCFBAE /* Accelerate.framework in Frameworks */,
 				EC3B6ECA19636CF400BCFBAE /* UIKit.framework in Frameworks */,
@@ -122,6 +124,8 @@
 		EC3B6EC419636CF400BCFBAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECE963A91C8D98F30013AE2D /* libBitlyUrlShortener.a */,
+				ECE963AA1C8D98F30013AE2D /* Tapir.framework */,
 				EC3B6EFA19636D0A00BCFBAE /* libBitlyUrlShortener.a */,
 				EC3B6EFB19636D0A00BCFBAE /* Accelerate.framework */,
 				EC3B6EFC19636D0A00BCFBAE /* TapirLib.framework */,
@@ -226,11 +230,11 @@
 		EC3B6EBA19636CF400BCFBAE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = AIMIA;
 				TargetAttributes = {
 					EC3B6EC119636CF400BCFBAE = {
-						DevelopmentTeam = MHSF8TTK2K;
+						DevelopmentTeam = Y5TEM6A7TL;
 					};
 					EC3B6EE219636CF400BCFBAE = {
 						TestTargetID = EC3B6EC119636CF400BCFBAE;
@@ -354,6 +358,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -373,7 +378,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -410,7 +415,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -425,7 +430,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+					"../../Tapir-iOS/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
@@ -434,6 +439,7 @@
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -449,7 +455,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+					"../../Tapir-iOS/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
@@ -458,6 +464,7 @@
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -480,6 +487,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "TapirColorTests/TapirColorTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "aimia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -498,6 +506,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
 				INFOPLIST_FILE = "TapirColorTests/TapirColorTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "aimia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
