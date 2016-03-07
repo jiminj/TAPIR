@@ -77,7 +77,6 @@
 
 -(IBAction)chgColor:(id)sender
 {
-    int randVal[3];
     srand(time(NULL));
     
     bgColor = [UIColor colorWithRed:(CGFloat)((rand() % 11)) / 10

@@ -9,7 +9,7 @@
 #import "TapirTest.h"
 #include <mach/mach_time.h>
 #include <assert.h>
-#import <TapirLib/TapirLib.h>
+#import <Tapir/Tapir.h>
 #import <Accelerate/Accelerate.h>
 #include <mach/mach.h>
 #include <unistd.h>

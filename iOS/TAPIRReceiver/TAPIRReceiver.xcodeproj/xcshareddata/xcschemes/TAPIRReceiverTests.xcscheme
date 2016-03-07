@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC0EEF6D183A4A51001BC8DE"
-               BuildableName = "TapirLib.framework"
-               BlueprintName = "TapirLib"
-               ReferencedContainer = "container:../TapirLib/TapirLib.xcodeproj">
+               BlueprintIdentifier = "ECE963491C8D95DF0013AE2D"
+               BuildableName = "Tapir.framework"
+               BlueprintName = "Tapir"
+               ReferencedContainer = "container:../../Tapir-iOS/Tapir.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,6 +39,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "ECE963491C8D95DF0013AE2D"
+            BuildableName = "Tapir.framework"
+            BlueprintName = "Tapir"
+            ReferencedContainer = "container:../../Tapir-iOS/Tapir.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -55,10 +64,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC0EEF6D183A4A51001BC8DE"
-            BuildableName = "TapirLib.framework"
-            BlueprintName = "TapirLib"
-            ReferencedContainer = "container:../TapirLib/TapirLib.xcodeproj">
+            BlueprintIdentifier = "ECE963491C8D95DF0013AE2D"
+            BuildableName = "Tapir.framework"
+            BlueprintName = "Tapir"
+            ReferencedContainer = "container:../../Tapir-iOS/Tapir.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -70,6 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "ECE963491C8D95DF0013AE2D"
+            BuildableName = "Tapir.framework"
+            BlueprintName = "Tapir"
+            ReferencedContainer = "container:../../Tapir-iOS/Tapir.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

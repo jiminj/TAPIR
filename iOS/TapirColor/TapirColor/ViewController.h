@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Sonifier.h"
 #import "LKAudioInputAccessor.h"
-#import <TapirLib/TapirLib.h>
+#import <Tapir/Tapir.h>
 
 @interface ViewController : UIViewController<SonifierDelegate> {
     
@@ -42,7 +42,7 @@
 
 -(IBAction)transmit:(id)sender;
 -(IBAction)chgColor:(id)sender;
--(IBAction)statusChanged:(id)sender;
+//-(IBAction)statusChanged:(id)sender;
 -(void)signalDetected:(float *)result;
 
 

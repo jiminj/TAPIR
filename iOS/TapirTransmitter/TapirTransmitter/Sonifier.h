@@ -8,10 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import <TapirLib/TapirLib.h>
+#import <Tapir/Tapir.h>
 
-static const int kNumBuffers = 3;
-static const float kShortMax = (float)(SHRT_MAX);
+static const int kSonifierNumBuffers = 3;
 
 @protocol SonifierDelegate <NSObject>
 -(void) sonifierFinished;
@@ -24,7 +23,7 @@ static const float kShortMax = (float)(SHRT_MAX);
     AudioStreamBasicDescription audioDesc;
     AudioQueueRef audioQueue;
 //    AudioQueueBufferRef buffer[NUM_BUFFERS];
-    AudioQueueBufferRef buffer[kNumBuffers];
+    AudioQueueBufferRef buffer[kSonifierNumBuffers];
     UInt32 frameLength;
     
     float * audioData;
@@ -37,6 +36,7 @@ static const float kShortMax = (float)(SHRT_MAX);
     int doneCnt;
     NSLock * outputLock;
 
+    float outputScalingFactor;
 
 }
 

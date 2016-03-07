@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC4F221D18912A6A0059644E"
-               BuildableName = "libBitlyUrlShortener.a"
-               BlueprintName = "BitlyUrlShortener"
-               ReferencedContainer = "container:../BitlyUrlShortener/BitlyUrlShortener.xcodeproj">
+               BlueprintIdentifier = "ECE963491C8D95DF0013AE2D"
+               BuildableName = "Tapir.framework"
+               BlueprintName = "Tapir"
+               ReferencedContainer = "container:../../Tapir-iOS/Tapir.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC0EEF6D183A4A51001BC8DE"
-               BuildableName = "TapirLib.framework"
-               BlueprintName = "TapirLib"
-               ReferencedContainer = "container:../TapirLib/TapirLib.xcodeproj">
+               BlueprintIdentifier = "EC4F221D18912A6A0059644E"
+               BuildableName = "libBitlyUrlShortener.a"
+               BlueprintName = "BitlyUrlShortener"
+               ReferencedContainer = "container:../BitlyUrlShortener/BitlyUrlShortener.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -64,16 +64,6 @@
                BuildableName = "TAPIRReceiverTests.xctest"
                BlueprintName = "TAPIRReceiverTests"
                ReferencedContainer = "container:TAPIRReceiver.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC0EEF7D183A4A51001BC8DE"
-               BuildableName = "TapirLibTests.xctest"
-               BlueprintName = "TapirLibTests"
-               ReferencedContainer = "container:../TapirLib/TapirLib.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

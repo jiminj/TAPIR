@@ -27,10 +27,10 @@
 		248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB4F31854BF850063627C /* SystemConfiguration.framework */; };
 		EC31E9781892E2B700E8912B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
 		EC4F2277189130260059644E /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F2276189130260059644E /* libBitlyUrlShortener.a */; };
-		EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		ECD96E9F18817A0300275F46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DA5E818486C430043EC2A /* AudioToolbox.framework */; };
 		ECD96EA018817A5B00275F46 /* TapirLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */; };
 		ECD96EA2188180DE00275F46 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD96EA1188180DE00275F46 /* Accelerate.framework */; };
+		ECE963A61C8D98CD0013AE2D /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A51C8D98CD0013AE2D /* Tapir.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +71,7 @@
 		EC4F2276189130260059644E /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
 		EC7DDFC4184E2ADA00909C92 /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<group>"; };
 		ECD96EA1188180DE00275F46 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		ECE963A51C8D98CD0013AE2D /* Tapir.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapir.framework; path = "../../Tapir-iOS/build/Debug-iphoneos/Tapir.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +79,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECE963A61C8D98CD0013AE2D /* Tapir.framework in Frameworks */,
 				EC31E9781892E2B700E8912B /* Accelerate.framework in Frameworks */,
 				248AB4F41854BF850063627C /* SystemConfiguration.framework in Frameworks */,
-				EC7DDFC5184E2ADA00909C92 /* TapirLib.framework in Frameworks */,
 				EC4F2277189130260059644E /* libBitlyUrlShortener.a in Frameworks */,
 				242DA5EB18486D9A0043EC2A /* AVFoundation.framework in Frameworks */,
 				242DA5E918486C430043EC2A /* AudioToolbox.framework in Frameworks */,
@@ -128,6 +129,7 @@
 		245AC68518364DBE00AF31AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECE963A51C8D98CD0013AE2D /* Tapir.framework */,
 				EC4F2276189130260059644E /* libBitlyUrlShortener.a */,
 				ECD96EA1188180DE00275F46 /* Accelerate.framework */,
 				248AB4F31854BF850063627C /* SystemConfiguration.framework */,
@@ -231,7 +233,7 @@
 		245AC67B18364DBE00AF31AE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = dilu;
 				TargetAttributes = {
 					245AC68218364DBE00AF31AE = {
@@ -358,6 +360,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -378,13 +381,13 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				New_Setting = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
-					TapirLib,
+					Tapir,
 				);
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -423,13 +426,13 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				New_Setting = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
-					TapirLib,
+					Tapir,
 				);
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -444,16 +447,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
+				FRAMEWORK_SEARCH_PATHS = "../../Tapir-iOS/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					/Users/Jimin/Development/Projects/TAPIR/iOS/Ne10/lib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "aimia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -468,16 +470,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "../TapirLib/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
+				FRAMEWORK_SEARCH_PATHS = "../../Tapir-iOS/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TAPIRReceiver/TAPIRReceiver-Prefix.pch";
 				INFOPLIST_FILE = "TAPIRReceiver/TAPIRReceiver-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
-					/Users/Jimin/Development/Projects/TAPIR/iOS/Ne10/lib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "aimia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -507,6 +508,7 @@
 					"-framework",
 					TapirLib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "s3dGv54.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -531,6 +533,7 @@
 					"-framework",
 					TapirLib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "s3dGv54.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
