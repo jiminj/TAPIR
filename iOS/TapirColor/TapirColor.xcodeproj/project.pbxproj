@@ -1,0 +1,549 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC3B6EC619636CF400BCFBAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EC519636CF400BCFBAE /* Foundation.framework */; };
+		EC3B6EC819636CF400BCFBAE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EC719636CF400BCFBAE /* CoreGraphics.framework */; };
+		EC3B6ECA19636CF400BCFBAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EC919636CF400BCFBAE /* UIKit.framework */; };
+		EC3B6ED019636CF400BCFBAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC3B6ECE19636CF400BCFBAE /* InfoPlist.strings */; };
+		EC3B6ED219636CF400BCFBAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6ED119636CF400BCFBAE /* main.m */; };
+		EC3B6ED619636CF400BCFBAE /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6ED519636CF400BCFBAE /* AppDelegate.mm */; };
+		EC3B6ED919636CF400BCFBAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC3B6ED719636CF400BCFBAE /* Main.storyboard */; };
+		EC3B6EDC19636CF400BCFBAE /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6EDB19636CF400BCFBAE /* ViewController.mm */; };
+		EC3B6EDE19636CF400BCFBAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC3B6EDD19636CF400BCFBAE /* Images.xcassets */; };
+		EC3B6EE519636CF400BCFBAE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EE419636CF400BCFBAE /* XCTest.framework */; };
+		EC3B6EE619636CF400BCFBAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EC519636CF400BCFBAE /* Foundation.framework */; };
+		EC3B6EE719636CF400BCFBAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EC919636CF400BCFBAE /* UIKit.framework */; };
+		EC3B6EEF19636CF500BCFBAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC3B6EED19636CF500BCFBAE /* InfoPlist.strings */; };
+		EC3B6EF119636CF500BCFBAE /* TapirColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6EF019636CF500BCFBAE /* TapirColorTests.m */; };
+		EC3B6F0019636D0A00BCFBAE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFB19636D0A00BCFBAE /* Accelerate.framework */; };
+		EC3B6F0219636D0A00BCFBAE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFD19636D0A00BCFBAE /* AVFoundation.framework */; };
+		EC3B6F0319636D0A00BCFBAE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B6EFE19636D0A00BCFBAE /* AudioToolbox.framework */; };
+		EC3B6F0619636D1900BCFBAE /* LKAudioInputAccessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6F0519636D1900BCFBAE /* LKAudioInputAccessor.mm */; };
+		EC3B6F0919636D2200BCFBAE /* Sonifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC3B6F0819636D2200BCFBAE /* Sonifier.mm */; };
+		ECE963AB1C8D98F30013AE2D /* libBitlyUrlShortener.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A91C8D98F30013AE2D /* libBitlyUrlShortener.a */; };
+		ECE963AC1C8D98F30013AE2D /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963AA1C8D98F30013AE2D /* Tapir.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EC3B6EE819636CF500BCFBAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3B6EBA19636CF400BCFBAE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3B6EC119636CF400BCFBAE;
+			remoteInfo = TapirColor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EC3B6EC219636CF400BCFBAE /* TapirColor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapirColor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC3B6EC519636CF400BCFBAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EC3B6EC719636CF400BCFBAE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EC3B6EC919636CF400BCFBAE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EC3B6ECD19636CF400BCFBAE /* TapirColor-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirColor-Info.plist"; sourceTree = "<group>"; };
+		EC3B6ECF19636CF400BCFBAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC3B6ED119636CF400BCFBAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EC3B6ED319636CF400BCFBAE /* TapirColor-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TapirColor-Prefix.pch"; sourceTree = "<group>"; };
+		EC3B6ED419636CF400BCFBAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EC3B6ED519636CF400BCFBAE /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		EC3B6ED819636CF400BCFBAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC3B6EDA19636CF400BCFBAE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EC3B6EDB19636CF400BCFBAE /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		EC3B6EDD19636CF400BCFBAE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EC3B6EE319636CF400BCFBAE /* TapirColorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TapirColorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC3B6EE419636CF400BCFBAE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		EC3B6EEC19636CF500BCFBAE /* TapirColorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirColorTests-Info.plist"; sourceTree = "<group>"; };
+		EC3B6EEE19636CF500BCFBAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC3B6EF019636CF500BCFBAE /* TapirColorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirColorTests.m; sourceTree = "<group>"; };
+		EC3B6EFA19636D0A00BCFBAE /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "/Users/Jimin/Development/Projects/TAPIR/iOS/TAPIRReceiver/../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<absolute>"; };
+		EC3B6EFB19636D0A00BCFBAE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
+		EC3B6EFC19636D0A00BCFBAE /* TapirLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TapirLib.framework; path = "/Users/Jimin/Development/Projects/TAPIR/iOS/TAPIRReceiver/../TapirLib/build/Debug-iphoneos/TapirLib.framework"; sourceTree = "<absolute>"; };
+		EC3B6EFD19636D0A00BCFBAE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
+		EC3B6EFE19636D0A00BCFBAE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		EC3B6F0419636D1900BCFBAE /* LKAudioInputAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LKAudioInputAccessor.h; path = ../../TAPIRReceiver/TAPIRReceiver/LKAudioInputAccessor.h; sourceTree = "<group>"; };
+		EC3B6F0519636D1900BCFBAE /* LKAudioInputAccessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LKAudioInputAccessor.mm; path = ../../TAPIRReceiver/TAPIRReceiver/LKAudioInputAccessor.mm; sourceTree = "<group>"; };
+		EC3B6F0719636D2200BCFBAE /* Sonifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sonifier.h; path = ../../TapirTransmitter/TapirTransmitter/Sonifier.h; sourceTree = "<group>"; };
+		EC3B6F0819636D2200BCFBAE /* Sonifier.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Sonifier.mm; path = ../../TapirTransmitter/TapirTransmitter/Sonifier.mm; sourceTree = "<group>"; };
+		ECE963A91C8D98F30013AE2D /* libBitlyUrlShortener.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBitlyUrlShortener.a; path = "../BitlyUrlShortener/build/Debug-iphoneos/libBitlyUrlShortener.a"; sourceTree = "<group>"; };
+		ECE963AA1C8D98F30013AE2D /* Tapir.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapir.framework; path = "../../Tapir-iOS/build/Debug-iphoneos/Tapir.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC3B6EBF19636CF400BCFBAE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECE963AB1C8D98F30013AE2D /* libBitlyUrlShortener.a in Frameworks */,
+				ECE963AC1C8D98F30013AE2D /* Tapir.framework in Frameworks */,
+				EC3B6EC819636CF400BCFBAE /* CoreGraphics.framework in Frameworks */,
+				EC3B6F0319636D0A00BCFBAE /* AudioToolbox.framework in Frameworks */,
+				EC3B6F0019636D0A00BCFBAE /* Accelerate.framework in Frameworks */,
+				EC3B6ECA19636CF400BCFBAE /* UIKit.framework in Frameworks */,
+				EC3B6F0219636D0A00BCFBAE /* AVFoundation.framework in Frameworks */,
+				EC3B6EC619636CF400BCFBAE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC3B6EE019636CF400BCFBAE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B6EE519636CF400BCFBAE /* XCTest.framework in Frameworks */,
+				EC3B6EE719636CF400BCFBAE /* UIKit.framework in Frameworks */,
+				EC3B6EE619636CF400BCFBAE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC3B6EB919636CF400BCFBAE = {
+			isa = PBXGroup;
+			children = (
+				EC3B6ECB19636CF400BCFBAE /* TapirColor */,
+				EC3B6EEA19636CF500BCFBAE /* TapirColorTests */,
+				EC3B6EC419636CF400BCFBAE /* Frameworks */,
+				EC3B6EC319636CF400BCFBAE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EC3B6EC319636CF400BCFBAE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B6EC219636CF400BCFBAE /* TapirColor.app */,
+				EC3B6EE319636CF400BCFBAE /* TapirColorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC3B6EC419636CF400BCFBAE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ECE963A91C8D98F30013AE2D /* libBitlyUrlShortener.a */,
+				ECE963AA1C8D98F30013AE2D /* Tapir.framework */,
+				EC3B6EFA19636D0A00BCFBAE /* libBitlyUrlShortener.a */,
+				EC3B6EFB19636D0A00BCFBAE /* Accelerate.framework */,
+				EC3B6EFC19636D0A00BCFBAE /* TapirLib.framework */,
+				EC3B6EFD19636D0A00BCFBAE /* AVFoundation.framework */,
+				EC3B6EFE19636D0A00BCFBAE /* AudioToolbox.framework */,
+				EC3B6EC519636CF400BCFBAE /* Foundation.framework */,
+				EC3B6EC719636CF400BCFBAE /* CoreGraphics.framework */,
+				EC3B6EC919636CF400BCFBAE /* UIKit.framework */,
+				EC3B6EE419636CF400BCFBAE /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC3B6ECB19636CF400BCFBAE /* TapirColor */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B6F0719636D2200BCFBAE /* Sonifier.h */,
+				EC3B6F0819636D2200BCFBAE /* Sonifier.mm */,
+				EC3B6F0419636D1900BCFBAE /* LKAudioInputAccessor.h */,
+				EC3B6F0519636D1900BCFBAE /* LKAudioInputAccessor.mm */,
+				EC3B6ED419636CF400BCFBAE /* AppDelegate.h */,
+				EC3B6ED519636CF400BCFBAE /* AppDelegate.mm */,
+				EC3B6ED719636CF400BCFBAE /* Main.storyboard */,
+				EC3B6EDA19636CF400BCFBAE /* ViewController.h */,
+				EC3B6EDB19636CF400BCFBAE /* ViewController.mm */,
+				EC3B6EDD19636CF400BCFBAE /* Images.xcassets */,
+				EC3B6ECC19636CF400BCFBAE /* Supporting Files */,
+			);
+			path = TapirColor;
+			sourceTree = "<group>";
+		};
+		EC3B6ECC19636CF400BCFBAE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B6ECD19636CF400BCFBAE /* TapirColor-Info.plist */,
+				EC3B6ECE19636CF400BCFBAE /* InfoPlist.strings */,
+				EC3B6ED119636CF400BCFBAE /* main.m */,
+				EC3B6ED319636CF400BCFBAE /* TapirColor-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EC3B6EEA19636CF500BCFBAE /* TapirColorTests */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B6EF019636CF500BCFBAE /* TapirColorTests.m */,
+				EC3B6EEB19636CF500BCFBAE /* Supporting Files */,
+			);
+			path = TapirColorTests;
+			sourceTree = "<group>";
+		};
+		EC3B6EEB19636CF500BCFBAE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B6EEC19636CF500BCFBAE /* TapirColorTests-Info.plist */,
+				EC3B6EED19636CF500BCFBAE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC3B6EC119636CF400BCFBAE /* TapirColor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC3B6EF419636CF500BCFBAE /* Build configuration list for PBXNativeTarget "TapirColor" */;
+			buildPhases = (
+				EC3B6EBE19636CF400BCFBAE /* Sources */,
+				EC3B6EBF19636CF400BCFBAE /* Frameworks */,
+				EC3B6EC019636CF400BCFBAE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TapirColor;
+			productName = TapirColor;
+			productReference = EC3B6EC219636CF400BCFBAE /* TapirColor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EC3B6EE219636CF400BCFBAE /* TapirColorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC3B6EF719636CF500BCFBAE /* Build configuration list for PBXNativeTarget "TapirColorTests" */;
+			buildPhases = (
+				EC3B6EDF19636CF400BCFBAE /* Sources */,
+				EC3B6EE019636CF400BCFBAE /* Frameworks */,
+				EC3B6EE119636CF400BCFBAE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC3B6EE919636CF500BCFBAE /* PBXTargetDependency */,
+			);
+			name = TapirColorTests;
+			productName = TapirColorTests;
+			productReference = EC3B6EE319636CF400BCFBAE /* TapirColorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC3B6EBA19636CF400BCFBAE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = AIMIA;
+				TargetAttributes = {
+					EC3B6EC119636CF400BCFBAE = {
+						DevelopmentTeam = Y5TEM6A7TL;
+					};
+					EC3B6EE219636CF400BCFBAE = {
+						TestTargetID = EC3B6EC119636CF400BCFBAE;
+					};
+				};
+			};
+			buildConfigurationList = EC3B6EBD19636CF400BCFBAE /* Build configuration list for PBXProject "TapirColor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EC3B6EB919636CF400BCFBAE;
+			productRefGroup = EC3B6EC319636CF400BCFBAE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC3B6EC119636CF400BCFBAE /* TapirColor */,
+				EC3B6EE219636CF400BCFBAE /* TapirColorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC3B6EC019636CF400BCFBAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B6EDE19636CF400BCFBAE /* Images.xcassets in Resources */,
+				EC3B6ED019636CF400BCFBAE /* InfoPlist.strings in Resources */,
+				EC3B6ED919636CF400BCFBAE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC3B6EE119636CF400BCFBAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B6EEF19636CF500BCFBAE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC3B6EBE19636CF400BCFBAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B6EDC19636CF400BCFBAE /* ViewController.mm in Sources */,
+				EC3B6ED619636CF400BCFBAE /* AppDelegate.mm in Sources */,
+				EC3B6F0919636D2200BCFBAE /* Sonifier.mm in Sources */,
+				EC3B6ED219636CF400BCFBAE /* main.m in Sources */,
+				EC3B6F0619636D1900BCFBAE /* LKAudioInputAccessor.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC3B6EDF19636CF400BCFBAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B6EF119636CF500BCFBAE /* TapirColorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC3B6EE919636CF500BCFBAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3B6EC119636CF400BCFBAE /* TapirColor */;
+			targetProxy = EC3B6EE819636CF500BCFBAE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EC3B6ECE19636CF400BCFBAE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC3B6ECF19636CF400BCFBAE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EC3B6ED719636CF400BCFBAE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC3B6ED819636CF400BCFBAE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EC3B6EED19636CF500BCFBAE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC3B6EEE19636CF500BCFBAE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC3B6EF219636CF500BCFBAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EC3B6EF319636CF500BCFBAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC3B6EF519636CF500BCFBAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"../../Tapir-iOS/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
+				INFOPLIST_FILE = "TapirColor/TapirColor-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EC3B6EF619636CF500BCFBAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"../../Tapir-iOS/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
+				INFOPLIST_FILE = "TapirColor/TapirColor-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EC3B6EF819636CF500BCFBAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TapirColor.app/TapirColor";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TapirColorTests/TapirColorTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "aimia.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		EC3B6EF919636CF500BCFBAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TapirColor.app/TapirColor";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TapirColor/TapirColor-Prefix.pch";
+				INFOPLIST_FILE = "TapirColorTests/TapirColorTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "aimia.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC3B6EBD19636CF400BCFBAE /* Build configuration list for PBXProject "TapirColor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC3B6EF219636CF500BCFBAE /* Debug */,
+				EC3B6EF319636CF500BCFBAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC3B6EF419636CF500BCFBAE /* Build configuration list for PBXNativeTarget "TapirColor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC3B6EF519636CF500BCFBAE /* Debug */,
+				EC3B6EF619636CF500BCFBAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC3B6EF719636CF500BCFBAE /* Build configuration list for PBXNativeTarget "TapirColorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC3B6EF819636CF500BCFBAE /* Debug */,
+				EC3B6EF919636CF500BCFBAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC3B6EBA19636CF400BCFBAE /* Project object */;
+}

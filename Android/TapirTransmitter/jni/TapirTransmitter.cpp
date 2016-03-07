@@ -41,6 +41,8 @@ static const char hello[] =
 #define LOGW(...) __android_log_print(ANDROID_LOG_WARN,    "JNI_DEBUGGING", __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,   "JNI_DEBUGGING", __VA_ARGS__)
 
+extern "C"
+{
 // engine interfaces
 static SLObjectItf engineObject = NULL;
 static SLEngineItf engineEngine;
@@ -96,17 +98,18 @@ void callParentCallback(char* ch){
 	//parentCallback = (*environment)->GetStaticMethodID(environment,parentClass,"tc", "(Ljava/lang/String;)Ljava/lang/String;");
 	//(*environment)->CallStaticVoidMethod(environment, parentClass, parentCallback, (*environment)->NewStringUTF(environment, "decoded string"));
 
-
-	jstring jstr = (*environment)->NewStringUTF(environment, ch);
-	    jclass clazz = (*environment)->FindClass(environment, "com/example/tapir/MainActivity");
-	    jmethodID messageMe = (*environment)->GetMethodID(environment, clazz, "tc", "(Ljava/lang/String;)Ljava/lang/String;");
-	    jobject rrr	 = (*environment)->CallObjectMethod(environment, theObject, messageMe, jstr);
+//		jstring jstr = (*environment)->NewStringUTF(environment, ch);
+//	    jclass clazz = (*environment)->FindClass(environment, "com/example/tapir/MainActivity");
+//	    jmethodID messageMe = (*environment)->GetMethodID(environment, clazz, "tc", "(Ljava/lang/String;)Ljava/lang/String;");
+//	    jobject rrr	 = (*environment)->CallObjectMethod(environment, theObject, messageMe, jstr);
+	jstring jstr = environment->NewStringUTF(ch);
+	jclass clazz = environment->FindClass("com/example/tapir/MainActivity");
+	jmethodID messageMe = environment->GetMethodID(clazz, "tc", "(Ljava/lang/String;)Ljava/lang/String;");
+	jobject rrr	 = environment->CallObjectMethod(theObject, messageMe, jstr);
 }
 
 
-
-void Java_com_example_tapir_MainActivity_startTapir( JNIEnv* env,
-                                                  jobject thiz )
+void Java_com_example_tapirtransmitter_MainActivity_startTapir(JNIEnv* env, jobject thiz)
 {
 	environment = env;
 	theObject = thiz;
@@ -215,8 +218,7 @@ void Java_com_example_tapir_MainActivity_startTapir( JNIEnv* env,
     (void)result;
 }
 
-void Java_com_example_tapir_MainActivity_stopTapir( JNIEnv* env,
-                                                  jobject thiz )
+void Java_com_example_tapirtransmitter_MainActivity_stopTapir( JNIEnv* env, jobject thiz )
 {
 	SLresult result;
 	   // destroy buffer queue audio player object, and invalidate all associated interfaces
@@ -254,10 +256,9 @@ void playDecoded(short* samples, int length){
 	result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, nextBuffer, nextSize);
 
 }
-void Java_com_example_tapir_MainActivity_playSample( JNIEnv* env,
-                                                  jobject thiz, jstring message )
+void Java_com_example_tapirtransmitter_MainActivity_playSample( JNIEnv* env, jobject thiz, jstring message )
 {
-	const char *cMessage = (*env)->GetStringUTFChars(env, message, 0);
+	const char *cMessage = env->GetStringUTFChars(message, 0);
 	LOGE("call");
 
 	playDecoded((short *) hello, sizeof(hello));
@@ -269,4 +270,4 @@ void Java_com_example_tapir_MainActivity_playSample( JNIEnv* env,
 	result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, nextBuffer, nextSize);*/
 }
 
-
+}

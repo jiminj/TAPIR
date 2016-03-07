@@ -6,7 +6,7 @@ ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
 	LIB_PATH := $(JNI_PATH)/../../../libTapir
 	SRC_PATH := $(LIB_PATH)/src
 	INCLUDE_PATH := $(LIB_PATH)/include
-	NDK_PATH := ~/Development/android/android-ndk-r9c
+	NDK_PATH := ~/Development/android/android-ndk-r10d
 	BUILD_PRODUCTS_DIR := $(JNI_PATH)/../obj/local/$(TARGET_ARCH_ABI)
  
 #load ne10

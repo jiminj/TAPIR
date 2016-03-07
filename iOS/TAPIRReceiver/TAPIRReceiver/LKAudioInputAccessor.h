@@ -11,27 +11,24 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import <TapirLib/TapirLib.h>
-#import "LKBitlyUrlShortener.h"
+#import <Tapir/Tapir.h>
 
+static const int kNumAIABuffers = 3;
 
-static const float kShortMax = (float)(SHRT_MAX);
-
-static const int kNumBuffers = 3;
 @interface LKAudioInputAccessor : NSObject{
-
+    
     AudioStreamBasicDescription  audioDesc;
     AudioQueueRef                audioQueue;
-    AudioQueueBufferRef          buffer[kNumBuffers];
+    AudioQueueBufferRef          buffer[kNumAIABuffers];
     AudioFileID                  mAudioFile;
     UInt32                       frameLength;
 
     AVAudioSession *             audioSession;
-    
 
     float *floatBuf;
     Tapir::SignalDetector * detector;
 
+    float inputScalingFactor;
     
 }
 

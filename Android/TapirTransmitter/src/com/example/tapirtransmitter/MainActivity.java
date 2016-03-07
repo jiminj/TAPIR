@@ -36,9 +36,9 @@ public class MainActivity extends Activity {
     }
     
 
-    public  native void startTapir();
-    public  native void stopTapir();
-    public  native void playSample(String message);
+    public native void startTapir();
+    public native void stopTapir();
+    public native void playSample(String message);
     
     
     public String tc(String message){
