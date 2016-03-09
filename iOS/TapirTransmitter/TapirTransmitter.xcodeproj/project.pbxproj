@@ -25,9 +25,9 @@
 		EC7DDFAC184E187D00909C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8E184E187D00909C92 /* UIKit.framework */; };
 		EC7DDFB4184E187D00909C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFB2184E187D00909C92 /* InfoPlist.strings */; };
 		EC7DDFB6184E187D00909C92 /* TapirTransmitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */; };
+		ECC88DA81C908E1D00400694 /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A31C8D98A90013AE2D /* Tapir.framework */; };
+		ECC88DAA1C908E4A00400694 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC88DA91C908E4A00400694 /* AFNetworking.framework */; };
 		ECD976B218AD1478001A0D79 /* Sonifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = ECD976B118AD1478001A0D79 /* Sonifier.mm */; };
-		ECE785EE1C8C5602008F8A2E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE785ED1C8C5602008F8A2E /* AFNetworking.framework */; };
-		ECE963A41C8D98A90013AE2D /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A31C8D98A90013AE2D /* Tapir.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +65,8 @@
 		EC7DDFB1184E187D00909C92 /* TapirTransmitterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirTransmitterTests-Info.plist"; sourceTree = "<group>"; };
 		EC7DDFB3184E187D00909C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirTransmitterTests.m; sourceTree = "<group>"; };
+		ECC88DA91C908E4A00400694 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "../../extern/AFNetworking/build/Debug-iphoneos/AFNetworking.framework"; sourceTree = "<group>"; };
 		ECD976B118AD1478001A0D79 /* Sonifier.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sonifier.mm; sourceTree = "<group>"; };
-		ECE785ED1C8C5602008F8A2E /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "../../extern/AFNetworking/build/Debug-iphoneos/AFNetworking.framework"; sourceTree = "<group>"; };
 		ECE963A31C8D98A90013AE2D /* Tapir.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapir.framework; path = "../../Tapir-iOS/build/Debug-iphoneos/Tapir.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,8 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECE963A41C8D98A90013AE2D /* Tapir.framework in Frameworks */,
-				ECE785EE1C8C5602008F8A2E /* AFNetworking.framework in Frameworks */,
+				ECC88DAA1C908E4A00400694 /* AFNetworking.framework in Frameworks */,
+				ECC88DA81C908E1D00400694 /* Tapir.framework in Frameworks */,
 				EC5B9FAE1893D357005A79E1 /* AudioToolbox.framework in Frameworks */,
 				EC5B9FAC1893D354005A79E1 /* Accelerate.framework in Frameworks */,
 				248AB4F61854BF950063627C /* SystemConfiguration.framework in Frameworks */,
@@ -122,8 +122,8 @@
 		EC7DDF89184E187D00909C92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECC88DA91C908E4A00400694 /* AFNetworking.framework */,
 				ECE963A31C8D98A90013AE2D /* Tapir.framework */,
-				ECE785ED1C8C5602008F8A2E /* AFNetworking.framework */,
 				EC5B9FAD1893D357005A79E1 /* AudioToolbox.framework */,
 				EC5B9FAB1893D353005A79E1 /* Accelerate.framework */,
 				EC4F227118912B270059644E /* libBitlyUrlShortener.a */,
@@ -372,6 +372,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Tapir,
+					"-framework",
+					AFNetworking,
 				);
 				SDKROOT = iphoneos;
 			};
@@ -408,6 +410,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Tapir,
+					"-framework",
+					AFNetworking,
 				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -433,6 +437,7 @@
 					../BitlyUrlShortener/BitlyUrlShortener,
 				);
 				INFOPLIST_FILE = "TapirTransmitter/TapirTransmitter-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
@@ -463,6 +468,7 @@
 					../BitlyUrlShortener/BitlyUrlShortener,
 				);
 				INFOPLIST_FILE = "TapirTransmitter/TapirTransmitter-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",

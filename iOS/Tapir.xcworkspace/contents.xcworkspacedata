@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../extern/AFNetworking/AFNetworking.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TapirColor/TapirColor.xcodeproj">
    </FileRef>
    <FileRef
