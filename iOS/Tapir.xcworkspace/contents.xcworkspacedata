@@ -8,15 +8,15 @@
       location = "group:BitlyUrlShortener/BitlyUrlShortener.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:TapirTransmitter/TapirTransmitter.xcodeproj">
+      location = "container:TapirTransmitter/TapirTransmitter.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:TAPIRReceiver/TAPIRReceiver.xcodeproj">
+      location = "container:TAPIRReceiver/TAPIRReceiver.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:TapirTest/TapirTest.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../Tapir-iOS/Tapir.xcodeproj">
+      location = "container:../Tapir-iOS/Tapir.xcodeproj">
    </FileRef>
 </Workspace>

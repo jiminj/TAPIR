@@ -19,6 +19,7 @@
 
 @property id<LKBitlyUrlConverterDelegate> delegate;
 
+
 -(void)shortenUrl:(NSString*)original;
 -(void)getOriginalUrl:(NSString*)original;
 

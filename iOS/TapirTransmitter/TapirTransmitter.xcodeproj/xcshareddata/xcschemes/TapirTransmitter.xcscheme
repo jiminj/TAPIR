@@ -28,6 +28,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "299522381BBF104D00859F49"
+               BuildableName = "AFNetworking.framework"
+               BlueprintName = "AFNetworking iOS"
+               ReferencedContainer = "container:../../extern/AFNetworking/AFNetworking.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "EC4F221D18912A6A0059644E"
                BuildableName = "libBitlyUrlShortener.a"
                BlueprintName = "BitlyUrlShortener"

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,9 +25,12 @@
 		EC7DDFAC184E187D00909C92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DDF8E184E187D00909C92 /* UIKit.framework */; };
 		EC7DDFB4184E187D00909C92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC7DDFB2184E187D00909C92 /* InfoPlist.strings */; };
 		EC7DDFB6184E187D00909C92 /* TapirTransmitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */; };
+		ECCB56071C90911A003856BC /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A31C8D98A90013AE2D /* Tapir.framework */; };
 		ECD976B218AD1478001A0D79 /* Sonifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = ECD976B118AD1478001A0D79 /* Sonifier.mm */; };
-		ECE785EE1C8C5602008F8A2E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE785ED1C8C5602008F8A2E /* AFNetworking.framework */; };
-		ECE963A41C8D98A90013AE2D /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A31C8D98A90013AE2D /* Tapir.framework */; };
+		ECE8B1C61C95606B003EAA26 /* Tapir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE963A31C8D98A90013AE2D /* Tapir.framework */; };
+		ECE8B1D01C9567F6003EAA26 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECE8B1B71C91BE81003EAA26 /* AFNetworking.framework */; };
+		ECE8B1D11C9567F6003EAA26 /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECE8B1B71C91BE81003EAA26 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECE8B1D51C959922003EAA26 /* Key.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECE8B1D41C959922003EAA26 /* Key.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,84 @@
 			remoteGlobalIDString = EC7DDF86184E187D00909C92;
 			remoteInfo = TapirTransmitter;
 		};
+		ECE8B1B61C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 299522391BBF104D00859F49;
+			remoteInfo = "AFNetworking iOS";
+		};
+		ECE8B1B81C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 299522651BBF129200859F49;
+			remoteInfo = "AFNetworking watchOS";
+		};
+		ECE8B1BA1C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 299522771BBF136400859F49;
+			remoteInfo = "AFNetworking OS X";
+		};
+		ECE8B1BC1C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2987B0A51BC408A200179A4C;
+			remoteInfo = "AFNetworking tvOS";
+		};
+		ECE8B1BE1C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 298D7C3B1BC2C79500FD3B3E;
+			remoteInfo = "AFNetworking iOS Tests";
+		};
+		ECE8B1C01C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 298D7C4A1BC2C7B200FD3B3E;
+			remoteInfo = "AFNetworking Mac OS X Tests";
+		};
+		ECE8B1C21C91BE81003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2987B0AE1BC408A200179A4C;
+			remoteInfo = "AFNetworking tvOS Tests";
+		};
+		ECE8B1CE1C95616F003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 299522381BBF104D00859F49;
+			remoteInfo = "AFNetworking iOS";
+		};
+		ECE8B1D21C9567F6003EAA26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 299522381BBF104D00859F49;
+			remoteInfo = "AFNetworking iOS";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECE8B1C81C95606B003EAA26 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ECE8B1D11C9567F6003EAA26 /* AFNetworking.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		248AB4F51854BF950063627C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -65,8 +145,10 @@
 		EC7DDFB1184E187D00909C92 /* TapirTransmitterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TapirTransmitterTests-Info.plist"; sourceTree = "<group>"; };
 		EC7DDFB3184E187D00909C92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC7DDFB5184E187D00909C92 /* TapirTransmitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapirTransmitterTests.m; sourceTree = "<group>"; };
+		ECC88DA91C908E4A00400694 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "../../extern/AFNetworking/build/Debug-iphoneos/AFNetworking.framework"; sourceTree = "<group>"; };
 		ECD976B118AD1478001A0D79 /* Sonifier.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sonifier.mm; sourceTree = "<group>"; };
-		ECE785ED1C8C5602008F8A2E /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "../../extern/AFNetworking/build/Debug-iphoneos/AFNetworking.framework"; sourceTree = "<group>"; };
+		ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = ../../extern/AFNetworking/AFNetworking.xcodeproj; sourceTree = "<group>"; };
+		ECE8B1D41C959922003EAA26 /* Key.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Key.plist; path = ../BitlyUrlShortener/BitlyUrlShortener/Key.plist; sourceTree = "<group>"; };
 		ECE963A31C8D98A90013AE2D /* Tapir.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tapir.framework; path = "../../Tapir-iOS/build/Debug-iphoneos/Tapir.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,15 +157,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECE963A41C8D98A90013AE2D /* Tapir.framework in Frameworks */,
-				ECE785EE1C8C5602008F8A2E /* AFNetworking.framework in Frameworks */,
+				ECCB56071C90911A003856BC /* Tapir.framework in Frameworks */,
 				EC5B9FAE1893D357005A79E1 /* AudioToolbox.framework in Frameworks */,
 				EC5B9FAC1893D354005A79E1 /* Accelerate.framework in Frameworks */,
 				248AB4F61854BF950063627C /* SystemConfiguration.framework in Frameworks */,
+				ECE8B1C61C95606B003EAA26 /* Tapir.framework in Frameworks */,
 				EC4F227218912B270059644E /* libBitlyUrlShortener.a in Frameworks */,
 				EC7DDF8D184E187D00909C92 /* CoreGraphics.framework in Frameworks */,
 				EC7DDF8F184E187D00909C92 /* UIKit.framework in Frameworks */,
 				EC7DDF8B184E187D00909C92 /* Foundation.framework in Frameworks */,
+				ECE8B1D01C9567F6003EAA26 /* AFNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,10 +186,12 @@
 		EC7DDF7E184E187D00909C92 = {
 			isa = PBXGroup;
 			children = (
+				ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */,
 				EC7DDF90184E187D00909C92 /* TapirTransmitter */,
 				EC7DDFAF184E187D00909C92 /* TapirTransmitterTests */,
 				EC7DDF89184E187D00909C92 /* Frameworks */,
 				EC7DDF88184E187D00909C92 /* Products */,
+				ECE8B1D41C959922003EAA26 /* Key.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,8 +207,8 @@
 		EC7DDF89184E187D00909C92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECC88DA91C908E4A00400694 /* AFNetworking.framework */,
 				ECE963A31C8D98A90013AE2D /* Tapir.framework */,
-				ECE785ED1C8C5602008F8A2E /* AFNetworking.framework */,
 				EC5B9FAD1893D357005A79E1 /* AudioToolbox.framework */,
 				EC5B9FAB1893D353005A79E1 /* Accelerate.framework */,
 				EC4F227118912B270059644E /* libBitlyUrlShortener.a */,
@@ -181,6 +266,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		ECE8B1AD1C91BE80003EAA26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECE8B1B71C91BE81003EAA26 /* AFNetworking.framework */,
+				ECE8B1B91C91BE81003EAA26 /* AFNetworking.framework */,
+				ECE8B1BB1C91BE81003EAA26 /* AFNetworking.framework */,
+				ECE8B1BD1C91BE81003EAA26 /* AFNetworking.framework */,
+				ECE8B1BF1C91BE81003EAA26 /* AFNetworking iOS Tests.xctest */,
+				ECE8B1C11C91BE81003EAA26 /* AFNetworking Mac OS X Tests.xctest */,
+				ECE8B1C31C91BE81003EAA26 /* AFNetworking tvOS Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -191,10 +290,13 @@
 				EC7DDF83184E187D00909C92 /* Sources */,
 				EC7DDF84184E187D00909C92 /* Frameworks */,
 				EC7DDF85184E187D00909C92 /* Resources */,
+				ECE8B1C81C95606B003EAA26 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				ECE8B1CF1C95616F003EAA26 /* PBXTargetDependency */,
+				ECE8B1D31C9567F6003EAA26 /* PBXTargetDependency */,
 			);
 			name = TapirTransmitter;
 			productName = TapirTransmitter;
@@ -237,7 +339,7 @@
 				};
 			};
 			buildConfigurationList = EC7DDF82184E187D00909C92 /* Build configuration list for PBXProject "TapirTransmitter" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -247,6 +349,12 @@
 			mainGroup = EC7DDF7E184E187D00909C92;
 			productRefGroup = EC7DDF88184E187D00909C92 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = ECE8B1AD1C91BE80003EAA26 /* Products */;
+					ProjectRef = ECE8B1AC1C91BE80003EAA26 /* AFNetworking.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EC7DDF86184E187D00909C92 /* TapirTransmitter */,
@@ -255,11 +363,64 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		ECE8B1B71C91BE81003EAA26 /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = ECE8B1B61C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECE8B1B91C91BE81003EAA26 /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = ECE8B1B81C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECE8B1BB1C91BE81003EAA26 /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = ECE8B1BA1C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECE8B1BD1C91BE81003EAA26 /* AFNetworking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AFNetworking.framework;
+			remoteRef = ECE8B1BC1C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECE8B1BF1C91BE81003EAA26 /* AFNetworking iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AFNetworking iOS Tests.xctest";
+			remoteRef = ECE8B1BE1C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECE8B1C11C91BE81003EAA26 /* AFNetworking Mac OS X Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AFNetworking Mac OS X Tests.xctest";
+			remoteRef = ECE8B1C01C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECE8B1C31C91BE81003EAA26 /* AFNetworking tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AFNetworking tvOS Tests.xctest";
+			remoteRef = ECE8B1C21C91BE81003EAA26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		EC7DDF85184E187D00909C92 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECE8B1D51C959922003EAA26 /* Key.plist in Resources */,
 				EC7DDFA3184E187D00909C92 /* Images.xcassets in Resources */,
 				EC7DDF95184E187D00909C92 /* InfoPlist.strings in Resources */,
 				EC7DDF9E184E187D00909C92 /* Main.storyboard in Resources */,
@@ -303,6 +464,16 @@
 			isa = PBXTargetDependency;
 			target = EC7DDF86184E187D00909C92 /* TapirTransmitter */;
 			targetProxy = EC7DDFAD184E187D00909C92 /* PBXContainerItemProxy */;
+		};
+		ECE8B1CF1C95616F003EAA26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "AFNetworking iOS";
+			targetProxy = ECE8B1CE1C95616F003EAA26 /* PBXContainerItemProxy */;
+		};
+		ECE8B1D31C9567F6003EAA26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "AFNetworking iOS";
+			targetProxy = ECE8B1D21C9567F6003EAA26 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -372,6 +543,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Tapir,
+					"-framework",
+					AFNetworking,
 				);
 				SDKROOT = iphoneos;
 			};
@@ -408,6 +581,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Tapir,
+					"-framework",
+					AFNetworking,
 				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -433,6 +608,7 @@
 					../BitlyUrlShortener/BitlyUrlShortener,
 				);
 				INFOPLIST_FILE = "TapirTransmitter/TapirTransmitter-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",
@@ -463,6 +639,7 @@
 					../BitlyUrlShortener/BitlyUrlShortener,
 				);
 				INFOPLIST_FILE = "TapirTransmitter/TapirTransmitter-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"../BitlyUrlShortener/build/${CONFIGURATION}$(EFFECTIVE_PLATFORM_NAME)",

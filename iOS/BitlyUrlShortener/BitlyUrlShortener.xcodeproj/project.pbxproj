@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC4F222218912A6A0059644E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F222118912A6A0059644E /* Foundation.framework */; };
 		EC4F226F18912A930059644E /* LKBitlyUrlShortener.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4F226E18912A930059644E /* LKBitlyUrlShortener.m */; };
+		EC6625BD1C9032D7002169DF /* Key.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC6625BC1C903116002169DF /* Key.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,6 +19,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				EC6625BD1C9032D7002169DF /* Key.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -29,6 +31,7 @@
 		EC4F222518912A6A0059644E /* BitlyUrlShortener-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BitlyUrlShortener-Prefix.pch"; sourceTree = "<group>"; };
 		EC4F226D18912A930059644E /* LKBitlyUrlShortener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKBitlyUrlShortener.h; sourceTree = "<group>"; };
 		EC4F226E18912A930059644E /* LKBitlyUrlShortener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKBitlyUrlShortener.m; sourceTree = "<group>"; };
+		EC6625BC1C903116002169DF /* Key.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Key.plist; path = BitlyUrlShortener/Key.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +49,7 @@
 		EC4F221518912A6A0059644E = {
 			isa = PBXGroup;
 			children = (
+				EC6625BC1C903116002169DF /* Key.plist */,
 				EC4F222318912A6A0059644E /* BitlyUrlShortener */,
 				EC4F222018912A6A0059644E /* Frameworks */,
 				EC4F221F18912A6A0059644E /* Products */,
