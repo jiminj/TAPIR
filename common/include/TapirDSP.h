@@ -501,7 +501,7 @@ namespace TapirDSP {
         #ifdef __ARM_NEON__
             vvatan2f_neon(z,y,x, length);
         #else
-            vvatan2f_cpp(z,y,x,n, length);
+            vvatan2f_cpp(z,y,x, length);
         #endif
     #else
         int n = static_cast<int>(length);

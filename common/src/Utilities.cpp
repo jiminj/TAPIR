@@ -142,7 +142,7 @@ FFT::~FFT()
 #endif
 };
     
-void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FftDirection direction)
+void FFT::transform(TapirDSP::SplitComplex *src, TapirDSP::SplitComplex *dest, Tapir::FFT::FFTDirection direction)
 {
 #ifdef __APPLE__
     int fftDirection = (direction == FORWARD) ? FFT_FORWARD : FFT_INVERSE;

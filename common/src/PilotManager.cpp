@@ -21,7 +21,7 @@ namespace Tapir {
 
     PilotManager::~PilotManager()
     {
-        delete m_pilotIndex;
+        delete [] m_pilotIndex;
         delete [] m_pilotData.realp;
         delete [] m_pilotData.imagp;
     };

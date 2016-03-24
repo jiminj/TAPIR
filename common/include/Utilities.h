@@ -43,7 +43,7 @@ void divdeIntIntoBits(const int src, int * arr, int arrLength);
 class FFT
 {
 public:
-    enum FftDirection
+    enum FFTDirection
     {
         FORWARD = 0,
         INVERSE
@@ -51,7 +51,7 @@ public:
 
     FFT(const int fftLength);
     virtual ~FFT();
-    void transform(TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, FftDirection direction);
+    void transform(TapirDSP::SplitComplex * src, TapirDSP::SplitComplex * dest, FFTDirection direction);
     
 protected:
     int calculateLogLength(int length);
