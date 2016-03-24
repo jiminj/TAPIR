@@ -1,6 +1,3 @@
 [submodule "extern/AFNetworking"]
 	path = extern/AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking
-[submodule "extern/Ne10"]
-	path = extern/Ne10
-	url = http://github.com/projectNe10/Ne10

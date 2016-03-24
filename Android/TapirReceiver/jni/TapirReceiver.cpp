@@ -27,7 +27,7 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <functional>
-#include <TapirLib.h>
+#include <Tapir.h>
 
 #include "AudioInputAccessor.h"
 

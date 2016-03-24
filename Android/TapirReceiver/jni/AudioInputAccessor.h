@@ -1,6 +1,6 @@
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
-#include <TapirLib.h>
+#include <Tapir.h>
 
 void recorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context);
 

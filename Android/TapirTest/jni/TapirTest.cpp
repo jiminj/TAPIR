@@ -18,7 +18,7 @@
 #endif
 
 #include <string.h>
-#include <TapirLib.h>
+#include <Tapir.h>
 #include <Ne10.h>
 #include <cmath>
 #include <time.h>
@@ -103,7 +103,7 @@ void testMaxv()
     edTime = clock();
 
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -112,7 +112,7 @@ void testMaxv()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     stTime = clock();
     for(int i=0; i<loop; ++i)
@@ -121,7 +121,7 @@ void testMaxv()
     }
     edTime = clock();
     LOGD("RESULT : %f", *dest);
-    LOGD("elapsed : %llu", edTime - stTime);
+    LOGD("elapsed : %lu", edTime - stTime);
     
     delete [] src;
     delete dest;
@@ -302,7 +302,7 @@ void testMaxvi()
     }
     edTime = clock();
     
-    LOGD("RESULT : %f // %llu", *dest, maxIdx);
+    LOGD("RESULT : %f // %lu", *dest, maxIdx);
     LOGD("elapsed : %llu", edTime - stTime);
     
     
@@ -314,7 +314,7 @@ void testMaxvi()
     }
     edTime = clock();
     
-    LOGD("RESULT : %f // %llu", *dest, maxIdx);
+    LOGD("RESULT : %f // %lu", *dest, maxIdx);
     LOGD("elapsed : %llu", edTime - stTime);
     
     stTime = clock();
@@ -325,7 +325,7 @@ void testMaxvi()
     }
     edTime = clock();
     
-    LOGD("RESULT : %f // %llu", *dest, maxIdx);
+    LOGD("RESULT : %f // %lu", *dest, maxIdx);
     LOGD("elapsed : %llu", edTime - stTime);
     
     delete [] src;
