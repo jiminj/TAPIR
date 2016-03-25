@@ -1,4 +1,3 @@
-j
 #TAPIR Sound Tag
 **TAPIR Sound Tag** is a MIT-licensed open source software framework that allows users to communicate data signals through “Theoretically Audible, but Practically Inaudible Range” (TAPIR) of sound with mobile devices. You can find more detailed information at http://jiminis.me/tapir/
 
